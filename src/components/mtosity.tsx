@@ -71,7 +71,7 @@ export const MTosity = () => {
         },
         animate: {
           y: stage === Stage.EXPAND ? -(fontSize * 2) : 0,
-          x: stage === Stage.EXPAND ? fontSize * 3 : fontSize * 3.7,
+          x: stage === Stage.EXPAND ? fontSize * 2 : fontSize * 3.7,
           opacity: 1,
         },
         transition: {
@@ -96,7 +96,7 @@ export const MTosity = () => {
         },
         animate: {
           y: stage === Stage.EXPAND ? -(fontSize * 1) : 0,
-          x: stage === Stage.EXPAND ? fontSize * 1 : fontSize * 1.8,
+          x: stage === Stage.EXPAND ? fontSize * 0.5 : fontSize * 1.8,
           opacity: 1,
           scale: 1,
         },
@@ -204,7 +204,7 @@ export const MTosity = () => {
         },
         animate: {
           y: stage === Stage.EXPAND ? -fontSize * 1.2 : 0,
-          x: stage === Stage.EXPAND ? -(fontSize * 2.2) : -(fontSize * 2.8),
+          x: stage === Stage.EXPAND ? -(fontSize * 2.6) : -(fontSize * 2.8),
           opacity: 1,
           scale: stage === Stage.EXPAND ? 0.8 : 1,
         },
@@ -295,7 +295,7 @@ export const MTosity = () => {
               loop
               src={WaveJson}
               style={{ height: "300px", width: "300px" }}
-              className="absolute top-0 left-80"
+              className="absolute top-0 -right-40"
             />
           </motion.div>
         </div>
