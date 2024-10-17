@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: rgb(17, 17, 17);
+  --bg-opaque: rgb(17, 17, 17, 0.25);
+  --background-light: rgb(35, 35, 35);
+  --background-dark: rgb(8, 8, 8);
+
+  --text: rgb(235, 236, 243);
+  --brand: #bef264;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +28,11 @@ body {
 }
 
 .cursor-pointer-s {
+  cursor: url("https://cdn.custom-cursor.com/db/18388/32/disney-big-hero-6-baymax-cursor.png"),
+    default !important;
+}
+
+a {
   cursor: url("https://cdn.custom-cursor.com/db/18388/32/disney-big-hero-6-baymax-cursor.png"),
     default !important;
 }

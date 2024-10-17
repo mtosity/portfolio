@@ -229,7 +229,7 @@ export const MTosity = () => {
         height: "500vh",
       }}
     >
-      <div className="sticky top-1/4 tracking-widest text-center text-nowrap overflow-x-clip h-screen">
+      <div className="sticky top-1/4 tracking-widest text-center text-nowrap overflow-x-clip h-screen pt-0 lg:p-16">
         <motion.p className="z-0">
           {config.map((item, idx) => (
             <motion.span
@@ -328,7 +328,7 @@ export const MTosity = () => {
           style={{
             backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='%2318181b'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e")`,
           }}
-          className="fixed inset-0 opacity-20"
+          className="fixed inset-0 opacity-10"
         />
       </div>
     </section>
