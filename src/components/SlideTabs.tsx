@@ -9,14 +9,16 @@ declare global {
   }
 }
 
-window.confetti = window.confetti || {};
-
 export const SlideTabs = () => {
   const [position, setPosition] = useState<Position>({
     left: 0,
     width: 0,
     opacity: 0,
   });
+
+  const openNewTab = (url: string) => {
+    window.open(url, "_blank");
+  };
 
   return (
     <ul
@@ -28,8 +30,18 @@ export const SlideTabs = () => {
       }}
       className="relative mx-auto flex w-fit rounded-lg border-2 border-white bg-zinc-800 p-1"
     >
-      <Tab setPosition={setPosition}>Hire Me!</Tab>
-      <Tab setPosition={setPosition}>My Blog</Tab>
+      <Tab
+        setPosition={setPosition}
+        onClick={() => openNewTab("https://www.linkedin.com/in/mtosity/")}
+      >
+        Hire Me!
+      </Tab>
+      <Tab
+        setPosition={setPosition}
+        onClick={() => openNewTab("https://blog.mtosity.com/")}
+      >
+        My Blog
+      </Tab>
       <Tab setPosition={setPosition}>Confetti! ٩(◕‿◕)۶</Tab>
 
       <Cursor position={position} />
@@ -40,9 +52,11 @@ export const SlideTabs = () => {
 const Tab = ({
   children,
   setPosition,
+  onClick,
 }: {
   children: string;
   setPosition: Dispatch<SetStateAction<Position>>;
+  onClick?: () => void;
 }) => {
   const ref = useRef<null | HTMLLIElement>(null);
 
@@ -62,6 +76,7 @@ const Tab = ({
       }}
       className="relative z-10 block cursor-pointer-s px-3 py-1.5 text-xs text-white mix-blend-difference md:px-5 md:py-3 md:text-base"
       onClick={() => {
+        onClick?.();
         if (window.confetti) {
           window.confetti({
             particleCount: 100,
