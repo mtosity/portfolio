@@ -3,7 +3,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import mtImg from "./mt.png";
-import WaveJson from "./wave.json";
+import ComputerJson from "./computer.json";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Image from "next/image";
 import { Tektur } from "next/font/google";
@@ -23,6 +23,7 @@ export const MTosity = () => {
   const targetRef = useRef(null);
   const letterRef = useRef<HTMLParagraphElement>(null);
   const [fontSize, setFontSize] = useState(0);
+  const [latest, setLatest] = useState(0);
 
   const [stage, setStage] = useState<Stage>();
   useLayoutEffect(() => {
@@ -44,6 +45,7 @@ export const MTosity = () => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setLatest(latest);
     if (latest > 0.05) {
       setStage(Stage.EXPAND);
     } else {
@@ -70,7 +72,7 @@ export const MTosity = () => {
           opacity: 0,
         },
         animate: {
-          y: stage === Stage.EXPAND ? -(fontSize * 2) : 0,
+          y: stage === Stage.EXPAND ? -(fontSize * 1.8) : 0,
           x: stage === Stage.EXPAND ? fontSize * 2 : fontSize * 3.7,
           opacity: 1,
         },
@@ -219,15 +221,15 @@ export const MTosity = () => {
   return (
     <section
       ref={targetRef}
-      className={`block gap-2 bg-zinc-950 text-white
+      className={`block gap-2  text-white
     text-4xl font-bold sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl
       ${tektur.className}
     `}
       style={{
-        height: "300vh",
+        height: "500vh",
       }}
     >
-      <div className="sticky top-1/3 tracking-widest text-center text-nowrap overflow-x-clip h-screen">
+      <div className="sticky top-1/4 tracking-widest text-center text-nowrap overflow-x-clip h-screen">
         <motion.p className="z-0">
           {config.map((item, idx) => (
             <motion.span
@@ -267,36 +269,59 @@ export const MTosity = () => {
             </motion.span>
           ))}
         </motion.p>
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center p-2">
           <motion.div
-            className="-z-10"
+            className="-z-10 mt-4 flex items-center p-4 flex-col lg:flex-row"
             initial={{
               scale: 0,
               opacity: 0,
-              // x: fontSize * 6,
             }}
             animate={
               stage === Stage.EXPAND
                 ? {
-                    // x: -fontSize * 1,
-                    // y: -128 * 5 + fontSize * 1,
-                    scale: 0.6,
-                    opacity: 0.8,
+                    scale: 1,
+                    opacity: 1,
+                    borderRadius: "40px",
+                    overflow: "hidden",
                   }
                 : undefined
             }
             transition={{
-              delay: stage === Stage.EXPAND ? DELAY_DEFAULT : undefined,
+              delay: DELAY_DEFAULT / 4,
             }}
           >
-            <Image src={mtImg} alt="mt" />
-            <Player
-              autoplay
-              loop
-              src={WaveJson}
-              style={{ height: "300px", width: "300px" }}
-              className="absolute top-0 -right-40"
+            <Player autoplay loop src={ComputerJson} />
+            <Image
+              src={mtImg}
+              alt="mt"
+              style={{ height: "35vh", width: "35vh" }}
             />
+          </motion.div>
+          <motion.div
+            className="-z-10 mt-2 p-4 text-xl lg:text-4xl tracking-normal text-wrap max-w-[1200px]"
+            initial={{
+              scale: 0,
+              opacity: 0,
+              translateX: 50,
+            }}
+            animate={
+              latest > 0.3
+                ? {
+                    scale: 1,
+                    opacity: 1,
+                    translateX: 0,
+                  }
+                : undefined
+            }
+            transition={{
+              delay: DELAY_DEFAULT / 3,
+            }}
+          >
+            <p>Baymax Engineer specialize in Web Technologies</p>
+            <p className="text-lime-300 mt-1">
+              Web Performance at Scale - User Experience - Design System -
+              Accessibility - Frameworks Architecture
+            </p>
           </motion.div>
         </div>
         <div
