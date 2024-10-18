@@ -16,7 +16,7 @@ export default function Home() {
       </div>
       <MTosity />
 
-      <div className="flex flex-col items-center px-4 lg:px-32 xl:px-40 ">
+      <div className="flex flex-col items-center px-4 ">
         <div className={styles.home}>
           {/* <Heading />
       <Hero /> */}

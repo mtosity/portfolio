@@ -19,12 +19,12 @@ export const Projects = () => {
 
 const projects = [
   {
-    title: "Classified",
-    imgSrc: "/project-imgs/agency-listing.png",
-    code: "#",
-    projectLink: "#",
-    tech: ["React", "Nextjs", "Tailwind", "Prisma"],
-    description: "An Insurance Agency Listing Web Application.",
+    title: "2048 game",
+    imgSrc: "/project-imgs/2048.png",
+    code: "https://mtosity.github.io/2048-react-wpf-zalo/",
+    projectLink: "https://github.com/mtosity/2048-react-wpf-zalo",
+    tech: ["React", "Tailwind", "WPF", "C#"],
+    description: "2048 game made with React and WPF for both web and desktop.",
     modalContent: (
       <>
         <p>

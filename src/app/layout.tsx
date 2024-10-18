@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased bg-zinc-800`}>{children}</body>
+      <body className={`antialiased bg-zinc-800`} id="root">
+        {children}
+      </body>
 
       <script
         src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"
