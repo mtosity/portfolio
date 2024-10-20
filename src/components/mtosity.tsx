@@ -2,7 +2,6 @@
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import mtImg from "./mt.png";
 import ComputerJson from "./computer.json";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Image from "next/image";
@@ -292,8 +291,10 @@ export const MTosity = () => {
           >
             <Player autoplay loop src={ComputerJson} />
             <Image
-              src={mtImg}
+              src="/mt.png"
               alt="mt"
+              width={100}
+              height={100}
               style={{ height: "35vh", width: "35vh" }}
             />
           </motion.div>
