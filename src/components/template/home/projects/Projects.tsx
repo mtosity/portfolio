@@ -94,30 +94,6 @@ const projects = [
     modalContent: (
       <>
         <p>
-          Swell Energy is a leading provider of residential energy storage and
-          grid services.
-        </p>
-        <p>
-          I contributed to the project by developing the Switchboard feature
-          that allows users to monitor their energy consumption and production
-          in real-time.
-        </p>
-        <p>
-          * Designed and developed dynamic web applications with React and
-          Node.js, focusing on delivering high-performance UIs for enterprise
-          clients.
-        </p>
-        <p>
-          * Upgraded React versions across multiple projects, refactoring
-          codebases to use newer patterns such as hooks, context API, and Redux
-          for state management.
-        </p>
-        <p>
-          * Built and maintained front-end testing frameworks using Jest and
-          Cypress, improving product stability and reducing production bugs by
-          13%.
-        </p>
-        <p>
           * Collaborated with backend engineers to build scalable REST APIs,
           ensuring optimal front-end integration and performance. To guarantee
           the accuracy of every single detail and deal with the database growing
