@@ -1,11 +1,6 @@
 "use client";
 import styles from "./headinglinks.module.scss";
-import {
-  AiFillLinkedin,
-  AiFillGithub,
-  AiFillInstagram,
-  AiFillSkype,
-} from "react-icons/ai";
+import { AiFillLinkedin, AiFillGithub, AiFillInstagram } from "react-icons/ai";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -18,7 +13,7 @@ export const MyLinks = () => {
         transition={{ duration: 0.5, delay: 0.0 }}
       >
         <Link
-          href="https://www.linkedin.com/in/john-carlo-devera-5240761b6/"
+          href="https://www.linkedin.com/in/mtosity/"
           target="_blank"
           rel="nofollow"
         >
@@ -29,27 +24,9 @@ export const MyLinks = () => {
       <motion.span
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <Link
-          href="https://join.skype.com/invite/vKVMgi5SGjvM"
-          target="_blank"
-          rel="nofollow"
-        >
-          <AiFillSkype size="2.4rem" />
-        </Link>
-      </motion.span>
-
-      <motion.span
-        initial={{ y: -30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Link
-          href="https://github.com/jcdevz-dev"
-          target="_blank"
-          rel="nofollow"
-        >
+        <Link href="https://github.com/mtosity" target="_blank" rel="nofollow">
           <AiFillGithub size="2.4rem" />
         </Link>
       </motion.span>
@@ -60,7 +37,7 @@ export const MyLinks = () => {
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         <Link
-          href="https://www.instagram.com/aluckyfin/"
+          href="https://www.instagram.com/mtosity/"
           target="_blank"
           rel="nofollow"
         >

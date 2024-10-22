@@ -29,19 +29,19 @@ const projects = [
     modalContent: (
       <>
         <p>Broker Platform / Internal tools / Email templates</p>
+        <p>
+          Quoting forms, underwriting pricing flow, internal tools for managing
+          policies.
+        </p>
         <img src="/project-imgs/coalition2.avif" alt="" />
         <p>Implemented and actively monitoring platform health</p>
         <img src="/project-imgs/coalition3.png" alt="" />
-        <strong>
-          Well what did I do exactly? Quoting forms, underwriting pricing flow,
-          broker dashboard front-end.
-        </strong>
       </>
     ),
   },
   {
     title: "[Lead Frontend Engineer] Pixie",
-    imgSrc: "/project-imgs/gotpxie.png",
+    imgSrc: "/project-imgs/gotpixie.png",
     code: "https://github.com/pixiespirit/web-uikit",
     projectLink: "https://gotpixie.com/en/about",
     tech: ["Go", "React JS", "Next JS"],
@@ -49,12 +49,16 @@ const projects = [
       "Pixie strive to help people reach their fullest potential through meaningful connections & easy to learn from each other in real time.",
     modalContent: (
       <>
-        <p>Landing page / Login / Scheduling / Video Calls</p>
+        <p>
+          Pixie strive to help people reach their fullest potential through
+          meaningful connections & easy to learn from each other in real time.
+        </p>
+        <img src="/project-imgs/live.png" />
+        <p>I built: Landing page / Login / Scheduling / Video Calls</p>
         <p>Mentor admin panel</p>
         <p>Blog CMS, AI GPT matching guide</p>
-        <p>Code reviews, mentoring</p>
         <img src="/project-imgs/gotpixie2.png" />
-        <strong>Yes I did EVERYTHING in the front-end! :D</strong>
+        <strong>{`Yes I did EVERYTHING in the front-end! :))`}</strong>
       </>
     ),
   },
@@ -76,10 +80,10 @@ const projects = [
           that allows doctors to manage the patient&apos;s visit history,
           diagnosis.
         </p>
-        <p>Video Call between doctor and patient using Twilio</p>
-        <strong>
-          Well what did I do exactly? Patient&apos;s records, video calls.
-        </strong>
+        <p>
+          Video Call between doctor and patient using Twilio, save
+          patient&apos;s records, video calls.
+        </p>
       </>
     ),
   },
@@ -150,7 +154,7 @@ const projects = [
           YoloV5, FasterCNN.
         </p>
         <img src="/project-imgs/cam_result.png" />
-        <strong>4.0 BS thesis btw</strong>
+        <strong>3.9 BS thesis btw</strong>
       </>
     ),
   },
@@ -185,7 +189,7 @@ const projects = [
         <p>A bunch of React Native apps for in devc challenge.</p>
         <p>Includes: Weather app, Chat app, Food app, etc.</p>
         <p>Final project is a app to search and explore local restaurants.</p>
-        <strong>Yub, I still can make a mobile app if you ask me to.</strong>
+        <strong>Yub, I still can make mobile apps.</strong>
       </>
     ),
   },

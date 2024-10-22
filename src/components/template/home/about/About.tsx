@@ -13,37 +13,42 @@ export const About = () => {
         <div>
           <Reveal>
             <p className={`${styles.aboutText} ${styles.highlightFirstLetter}`}>
-              Howdy! I&apos;m John Carlo Devera, and I&apos;m a Bachelor of
-              Science in Information Technology graduate.
+              Howdy! I&apos;m Minh Tam Nguyen, a software engineer live in the
+              United States.
               <br />
-              <br />I have experience working in both the mobile and web
-              development worlds, with a focus on frontend development. I&apos;m
-              passionate about creating beautiful, responsive websites that
-              provide a great user experience.
+              <br />
+              Fullstack developer, proficient in build responsive web app using
+              HTML, CSS, JavaScript (ES6), Typescript, Vue.js, React.js and
+              utilize Java Spring Boot, Node.js Express.js to create RESTful API
+              or GraphQL backend.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              My skills include HTML, CSS, JavaScript, and various frontend
-              frameworks like React and Vue.js. I&apos;ve also worked with
-              backend technologies like Node.js, Firebase, MongoDB and
-              PHP/Laravel , allowing me to build full-stack applications.
+              Data visualization using JavaScript (AntV G2, ECharts) and Python
+              (Matplotlib), multithreading concurrent web spider using Python,
+              website deploy using Apache server on Linux, cloud service
+              experience (AWS, Azure), SQL and NoSQL database operation (MySQL,
+              MongoDB).
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              When I&apos;m not coding, I enjoy digital painting. I believe that
-              maintaining a healthy work-life balance is crucial for staying
-              productive and motivated.
+              Data analytics with Machine Learning algorithms (SVM, CNN etc.)
+              using Scikit-learn, TensorFlow, Keras, PyTorch and more.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              I&apos;m always looking for new challenges and opportunities to
-              learn and grow as a developer. If you&apos;re interested in
-              working together or have any questions, please don&apos;t hesitate
-              to get in touch! 🔗
+              Testing and monitoring web app using Jest, React Testing Library,
+              Cypress, Datadog, Sentry.
             </p>
+          </Reveal>
+          <Reveal>
+            <strong className={styles.aboutText}>
+              I can wear many hats in a startup environment, or work
+              collaboratively with stakeholders in a corporate setting.
+            </strong>
           </Reveal>
           <Reveal>
             <div className={styles.links}>

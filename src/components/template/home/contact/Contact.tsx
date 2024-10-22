@@ -17,28 +17,19 @@ export const Contact = () => {
             Have an idea to discuss? Shoot me an email if you want to connect!
             You can also find me on{" "}
             <Link
-              href="https://www.linkedin.com/in/john-carlo-devera-5240761b6/"
+              href="https://www.linkedin.com/in/mtosity/"
               target="_blank"
               rel="nofollow"
             >
               Linkedin
             </Link>{" "}
-            or{" "}
-            <Link
-              href="https://join.skype.com/invite/vKVMgi5SGjvM"
-              target="_blank"
-              rel="nofollow"
-            >
-              Skype
-            </Link>{" "}
-            if that&apos;s more your speed.
           </p>
         </Reveal>
         <Reveal width="100%">
-          <Link href="mailto:dev.johncarlo.devera@gmail.com">
+          <Link href="mailto:mtosity@gmail.com">
             <div className={styles.contactEmail}>
               <AiFillMail size="2.4rem" />
-              <span>Send Email</span>
+              <span>Send An Email</span>
             </div>
           </Link>
         </Reveal>

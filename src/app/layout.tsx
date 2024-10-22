@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <title>{metadata.title?.toString()}</title>
-      <link rel="shortcut icon" href="/mt.png" />
+      <link rel="shortcut icon" href="/favicon.png" />
       <meta name="description" content={metadata.description?.toString()} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta property="og:title" content={metadata.title?.toString()} />

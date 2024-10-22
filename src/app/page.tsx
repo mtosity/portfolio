@@ -7,6 +7,7 @@ import { Experience } from "@/components/template/home/experience/Experience";
 import { Projects } from "@/components/template/home/projects/Projects";
 // import { Heading } from "@/components/template/nav/Heading";
 import styles from "../components/template/home/home.module.scss";
+import { Contact } from "@/components/template/home/contact/Contact";
 
 export default function Home() {
   return (
@@ -16,21 +17,14 @@ export default function Home() {
       </div>
       <MTosity />
 
-      <div className="flex flex-col items-center px-4 ">
+      <div className="flex flex-col items-center px-4 py-40 ">
         <div className={styles.home}>
           {/* <Heading />
       <Hero /> */}
           <About />
           <Projects />
           <Experience />
-          {/* <Contact /> */}
-          {/* <div
-            style={{
-              height: "200px",
-              background:
-                "linear-gradient(180deg, var(--background), var(--background-dark))",
-            }}
-          /> */}
+          <Contact />
         </div>
       </div>
     </div>
