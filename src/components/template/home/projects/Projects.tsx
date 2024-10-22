@@ -19,6 +19,21 @@ export const Projects = () => {
 
 const projects = [
   {
+    title: "[Solo] This portfolio",
+    imgSrc: "/screenshot.png",
+    code: "https://github.com/mtosity/portfolio",
+    projectLink: "https://www.mtosity.com",
+    tech: ["Next JS", "Tailwind CSS", "Framer Motion"],
+    description:
+      "My personal portfolio to showcase my projects and experiences.",
+    modalContent: (
+      <>
+        <p>My personal portfolio to showcase my projects and experiences.</p>
+        <p>A lot of Framer motion sauces</p>
+      </>
+    ),
+  },
+  {
     title: "[Frontend Engineer] Coalition Cyber Experience",
     imgSrc: "/project-imgs/coalition.jpeg",
     code: "https://github.com/crucible-risk",

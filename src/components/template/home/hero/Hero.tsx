@@ -2,7 +2,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { DotGrid } from "./DotGrid";
 import styles from "./hero.module.scss";
-import Profile from "@/public/jc.jpg";
 import { StandardButton } from "../../buttons/StandardButton";
 import { Reveal } from "../../utils/Reveal";
 
@@ -45,7 +44,7 @@ export const Hero = () => {
         >
           <Image
             className={styles.profile}
-            src={Profile}
+            src={"/mt.png"}
             priority
             alt="John Carlo Devera | Frontend Developer"
             width={250}
