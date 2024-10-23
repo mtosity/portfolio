@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { SideBar } from "../nav/SideBar";
 import { Hero } from "./hero/Hero";
 import styles from "./home.module.scss";
@@ -9,14 +9,6 @@ import { Experience } from "./experience/Experience";
 import { Contact } from "./contact/Contact";
 
 export const Home = () => {
-  useLayoutEffect(() => {
-    if (window) {
-      const isOldBlog = document.getElementById("___gatsby");
-      if (isOldBlog) {
-        window.location.reload();
-      }
-    }
-  }, []);
   return (
     <>
       <div className={styles.home}>
