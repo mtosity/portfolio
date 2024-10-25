@@ -34,7 +34,7 @@ export const SlideTabs = () => {
         setPosition={setPosition}
         onClick={() => openNewTab("https://www.linkedin.com/in/mtosity/")}
       >
-        Hire Me!
+        Say Hi ~!
       </Tab>
       <Tab
         setPosition={setPosition}
