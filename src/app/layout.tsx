@@ -66,6 +66,7 @@ export default function RootLayout({
           content="https://deverajc.com/screenshot.png"
         />
         <script src="./gatsby.js" async={false}></script>
+        <script src="./sw.js" async={false}></script>
       </head>
 
       {/* <meta itemprop="name" content="John Carlo Devera | Frontend Developer"/>
