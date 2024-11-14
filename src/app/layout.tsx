@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "MTosity",
@@ -76,6 +77,8 @@ export default function RootLayout({
       <body className={`antialiased bg-zinc-800`} id="root">
         {children}
       </body>
+
+      <Analytics />
 
       <script
         src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"
