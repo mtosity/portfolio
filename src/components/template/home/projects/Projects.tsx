@@ -19,6 +19,29 @@ export const Projects = () => {
 
 const projects = [
   {
+    title: "[Solo] thestockie.com",
+    imgSrc: "/project-imgs/thestockie-1.png",
+    code: "https://github.com/mtosity/thestockie",
+    projectLink: "https://www.thestockie.com",
+    tech: ["Next JS", "Tailwind CSS", "Framer Motion", "Recharts"],
+    description:
+      "All in one for analyzing stocks fundamentals, with LLM recommendations.",
+    modalContent: (
+      <>
+        <p>
+          Need a place for analize stock, so I build one. Using data from
+          openbb, fmp, and openai LLM
+        </p>
+        <p>Stock main chart, news, and LLM recommendations</p>
+        <img src="/project-imgs/thestockie-1.png" />
+        <p>EPS, balance sheet, cash growth charts</p>
+        <img src="/project-imgs/thestockie-2.png" />
+        <p>Historical fundamentals metrics</p>
+        <img src="/project-imgs/thestockie-3.png" />
+      </>
+    ),
+  },
+  {
     title: "[Solo] This portfolio",
     imgSrc: "/screenshot.png",
     code: "https://github.com/mtosity/portfolio",
