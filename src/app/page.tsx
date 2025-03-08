@@ -9,7 +9,6 @@ import { Projects } from "@/components/template/home/projects/Projects";
 import styles from "../components/template/home/home.module.scss";
 import { Contact } from "@/components/template/home/contact/Contact";
 import { headers } from "next/headers";
-import { notFound } from "next/navigation";
 
 export default function Home() {
   // Get country from headers
@@ -18,7 +17,15 @@ export default function Home() {
 
   // Return 404 for Vietnam visitors
   if (country.toLowerCase() === "vn") {
-    notFound();
+    return (
+      <div className="flex flex-col items-center px-4 py-40 ">
+        <div className={styles.home}>
+          <h1 className="text-4xl font-bold text-center">
+            404 - Heart Not Found
+          </h1>
+        </div>
+      </div>
+    );
   }
 
   return (
