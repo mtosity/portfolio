@@ -212,7 +212,7 @@ const projects = [
           YoloV5, FasterCNN.
         </p>
         <img src="/project-imgs/cam_result.png" />
-        <strong>3.9 BS thesis btw</strong>
+        <strong>3.9/4 thesis btw</strong>
       </>
     ),
   },
