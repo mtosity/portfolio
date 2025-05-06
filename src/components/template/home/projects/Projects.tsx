@@ -19,6 +19,26 @@ export const Projects = () => {
 
 const projects = [
   {
+    title: "[Solo] Real-time Wildfires Tracker",
+    imgSrc:
+      "https://github.com/user-attachments/assets/c61d82c8-3aa3-4ef6-b8ef-06120dc08635",
+    code: "https://github.com/mtosity/wildfires-tracker",
+    projectLink: "https://wildfires.mtosity.com/",
+    tech: ["Next JS", "Tailwind CSS", "NASA FIRMS", "OpenstreetMap"],
+    description: "Tracking current active wildfires across the world",
+    modalContent: (
+      <>
+        <p>Used to check the wildfires in my state communities</p>
+
+        <img src="https://github.com/user-attachments/assets/5f58270d-2c69-46e4-9979-58814479e37b" />
+
+        <img src="https://github.com/user-attachments/assets/c61d82c8-3aa3-4ef6-b8ef-06120dc08635" />
+
+        <img src="https://github.com/user-attachments/assets/4645dc22-c6bf-4f4f-9be4-5258bb4a63a3" />
+      </>
+    ),
+  },
+  {
     title: "[Solo] thestockie.com",
     imgSrc: "/project-imgs/thestockie-1.png",
     code: "https://github.com/mtosity/thestockie",
