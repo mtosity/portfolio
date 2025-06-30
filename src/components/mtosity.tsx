@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import ComputerJson from "./computer.json";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Image from "next/image";
-import { Tektur } from "next/font/google";
 
-const tektur = Tektur({ subsets: ["latin"] });
+// Using system fonts instead of Google Fonts to avoid network dependency
+const tektur = { className: "font-mono" };
 
 const DURATION = 0.6;
 const STAGGER = 0.05;
