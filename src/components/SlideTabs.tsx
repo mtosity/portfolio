@@ -13,7 +13,9 @@ declare global {
 export const SlideTabs = () => {
   const [position, setPosition] = useState<Position>({
     left: 0,
+    top: 0,
     width: 0,
+    height: 0,
     opacity: 0,
   });
   const router = useRouter();
@@ -34,7 +36,7 @@ export const SlideTabs = () => {
           opacity: 0,
         }));
       }}
-      className="relative mx-auto flex w-fit rounded-lg border-2 border-white bg-zinc-800 p-1"
+      className="relative mx-auto flex flex-wrap justify-center gap-1 w-full max-w-3xl rounded-lg border-2 border-white bg-zinc-800 p-1 sm:gap-0"
     >
       <Tab setPosition={setPosition} onClick={() => navigateToPage("/")}>
         Who am I?
@@ -78,15 +80,23 @@ const Tab = ({
       onMouseEnter={() => {
         if (!ref?.current) return;
 
-        const { width } = ref.current.getBoundingClientRect();
+        const { width, height } = ref.current.getBoundingClientRect();
+        const parent = ref.current.offsetParent;
 
-        setPosition({
-          left: ref.current.offsetLeft,
-          width,
-          opacity: 1,
-        });
+        if (parent) {
+          const parentRect = parent.getBoundingClientRect();
+          const elementRect = ref.current.getBoundingClientRect();
+
+          setPosition({
+            left: elementRect.left - parentRect.left,
+            top: elementRect.top - parentRect.top,
+            width,
+            height,
+            opacity: 1,
+          });
+        }
       }}
-      className="relative z-10 block cursor-pointer-s px-3 py-1.5 text-xs text-white mix-blend-difference md:px-5 md:py-3 md:text-base"
+      className="relative z-10 block cursor-pointer px-2 py-1.5 text-xs text-white mix-blend-difference sm:px-3 md:px-5 md:py-3 md:text-base"
       onClick={() => {
         onClick?.();
         if (window.confetti) {
@@ -109,13 +119,18 @@ const Cursor = ({ position }: { position: Position }) => {
       animate={{
         ...position,
       }}
-      className="absolute z-0 h-7 rounded-lg bg-black md:h-12"
+      style={{
+        height: position.height,
+      }}
+      className="absolute z-0 rounded-lg bg-black"
     />
   );
 };
 
 type Position = {
   left: number;
+  top: number;
   width: number;
+  height: number;
   opacity: number;
 };

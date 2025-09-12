@@ -10,7 +10,7 @@ export default function BlogHome() {
         <SlideTabs />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-8 pt-12 h-[calc(100vh-5rem)] overflow-hidden flex flex-col items-center">
+      <div className="max-w-7xl mx-auto pb-8 pt-12 h-[calc(100vh-5rem)] overflow-hidden flex flex-col items-center">
         <Link href="/blog" className="text-blue-500 hover:underline mb-4">
           &larr; Back to technical stuff
         </Link>
