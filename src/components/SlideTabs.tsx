@@ -49,7 +49,7 @@ export const SlideTabs = () => {
         setPosition={setPosition}
         onClick={() => openNewTab("https://www.linkedin.com/in/mtosity/")}
       >
-        Say Hi ~!
+        Say Hi ~! ↗
       </Tab>
       <Tab setPosition={setPosition} onClick={() => navigateToPage("/blog")}>
         See My Writings

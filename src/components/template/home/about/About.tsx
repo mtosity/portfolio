@@ -20,13 +20,13 @@ export const About = () => {
               <br />
               Fullstack developer, proficient in build responsive web app using
               HTML, CSS, JavaScript (ES6), Typescript, Vue.js, React.js and
-              utilize Java Spring Boot, Node.js Express.js to create RESTful API
-              or GraphQL backend.
+              utilize Node.js, Golang, Python to create RESTful API or GraphQL
+              backend.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              Data visualization using JavaScript (AntV G2, ECharts) and Python
+              Data visualization using JavaScript (D3 js, ECharts) and Python
               (Matplotlib), multithreading concurrent web spider using Python,
               website deploy using Apache server on Linux, cloud service
               experience (AWS, Azure), SQL and NoSQL database operation (MySQL,

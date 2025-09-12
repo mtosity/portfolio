@@ -101,7 +101,7 @@ const projects = [
     title: "[Lead Frontend Engineer] Pixie",
     imgSrc: "/project-imgs/gotpixie.png",
     code: "https://github.com/pixiespirit/web-uikit",
-    projectLink: "https://gotpixie.com/en/about",
+    projectLink: "https://www.linkedin.com/company/pixiegroup/about/",
     tech: ["Go", "React JS", "Next JS"],
     description:
       "Pixie strive to help people reach their fullest potential through meaningful connections & easy to learn from each other in real time.",
