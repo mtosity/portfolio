@@ -36,17 +36,14 @@ export const SlideTabs = () => {
       }}
       className="relative mx-auto flex w-fit rounded-lg border-2 border-white bg-zinc-800 p-1"
     >
-      <Tab
-        setPosition={setPosition}
-        onClick={() => navigateToPage("/")}
-      >
-        Home
+      <Tab setPosition={setPosition} onClick={() => navigateToPage("/")}>
+        Who am I?
       </Tab>
       <Tab
         setPosition={setPosition}
         onClick={() => navigateToPage("/photography")}
       >
-        Photography
+        See My Photos
       </Tab>
       <Tab
         setPosition={setPosition}
@@ -54,11 +51,8 @@ export const SlideTabs = () => {
       >
         Say Hi ~!
       </Tab>
-      <Tab
-        setPosition={setPosition}
-        onClick={() => openNewTab("https://blog.mtosity.com/")}
-      >
-        My Blog
+      <Tab setPosition={setPosition} onClick={() => navigateToPage("/blog")}>
+        See My Articles
       </Tab>
       <Tab setPosition={setPosition}>Confetti! ٩(◕‿◕)۶</Tab>
 
