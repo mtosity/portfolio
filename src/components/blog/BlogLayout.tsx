@@ -51,7 +51,7 @@ function Sidebar({
 
   return (
     <div className="lg:col-span-1">
-      <div className="sticky top-8 h-[calc(100vh-6rem)]">
+      <div className="sticky top-8 h-[calc(100vh-6rem)] overflow-y-hidden">
         <Link
           href="/blog"
           className="text-blue-500 hover:underline mb-4 inline-block"
@@ -304,33 +304,33 @@ export default function BlogLayout({
         <div className="sticky top-4 bg-transparent z-10">
           <SlideTabs />
         </div>
-        
-        <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Sidebar - Navigation */}
-          <Sidebar
-            headings={headings}
-            sidebarMode={sidebarMode}
-            currentDefinition={currentDefinition}
-            currentCodeExample={currentCodeExample}
-            onScrollToHeading={scrollToHeading}
-            isTransitioning={isTransitioning}
-            isClosing={isClosing}
-            activeHeadingId={activeHeadingId}
-          />
 
-          {/* Right Content Area */}
-          <div className="lg:col-span-1">
-            <article className="prose prose-xl max-w-none dark:prose-invert tracking-wide prose-lg">
-              <header className="mb-8">
-                <h1 className="text-4xl font-bold mb-4">{title}</h1>
-                <p className="text-gray-500 dark:text-gray-400">{date}</p>
-              </header>
+        <div className="max-w-7xl mx-auto px-4 mt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Sidebar - Navigation */}
+            <Sidebar
+              headings={headings}
+              sidebarMode={sidebarMode}
+              currentDefinition={currentDefinition}
+              currentCodeExample={currentCodeExample}
+              onScrollToHeading={scrollToHeading}
+              isTransitioning={isTransitioning}
+              isClosing={isClosing}
+              activeHeadingId={activeHeadingId}
+            />
 
-              <div className="space-y-6">{children}</div>
-            </article>
+            {/* Right Content Area */}
+            <div className="lg:col-span-1 h-[calc(100vh-6rem)] overflow-y-auto">
+              <article className="prose prose-xl max-w-none dark:prose-invert tracking-wide prose-lg">
+                <header className="mb-8">
+                  <h1 className="text-4xl font-bold mb-4">{title}</h1>
+                  <p className="text-gray-500 dark:text-gray-400">{date}</p>
+                </header>
+
+                <div className="space-y-6">{children}</div>
+              </article>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </BlogProvider>
