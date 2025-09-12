@@ -52,7 +52,7 @@ export const SlideTabs = () => {
         Say Hi ~!
       </Tab>
       <Tab setPosition={setPosition} onClick={() => navigateToPage("/blog")}>
-        See My Articles
+        See My Writings
       </Tab>
       <Tab setPosition={setPosition}>Confetti! ٩(◕‿◕)۶</Tab>
 

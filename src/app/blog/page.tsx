@@ -40,13 +40,20 @@ export default function BlogHome() {
                 MTosity&apos;s Blog
               </h1>
               <p className="text-gray-400 text-lg font-serif font-light">
-                Carpe diem
+                Leave some notes for the world
               </p>
             </header>
 
             <div className="min-h-0 flex items-start justify-center">
               <LottieAnimation />
             </div>
+
+            <Link
+              href="/notes"
+              className="text-blue-500 hover:underline mb-4 inline-block"
+            >
+              Oh captain, my captain! &rarr;
+            </Link>
           </div>
 
           {/* Right Column - Blog List */}
