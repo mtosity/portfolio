@@ -11,6 +11,9 @@ importers:
       '@lottiefiles/react-lottie-player':
         specifier: ^3.5.4
         version: 3.5.4(react@18.3.1)
+      '@types/prismjs':
+        specifier: ^1.26.5
+        version: 1.26.5
       '@vercel/analytics':
         specifier: ^1.4.0
         version: 1.4.0(next@14.2.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.1))(react@18.3.1)
@@ -29,9 +32,15 @@ importers:
       framer-motion:
         specifier: ^11.9.0
         version: 11.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lottie-react:
+        specifier: ^2.4.1
+        version: 2.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next:
         specifier: 14.2.13
         version: 14.2.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.1)
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
       react:
         specifier: ^18
         version: 18.3.1
@@ -428,6 +437,9 @@ packages:
 
   '@types/node@20.19.0':
     resolution: {integrity: sha512-hfrc+1tud1xcdVTABC2JiomZJEklMcXYNTVtZLAeqTVWD+qL5jkHKT+1lOtqDdGxt+mB53DTtiz673vfjU8D1Q==}
+
+  '@types/prismjs@1.26.5':
+    resolution: {integrity: sha512-AUZTa7hQ2KY5L7AmtSiqxlhWxb4ina0yd8hNbl4TWuqnv/pFP0nDMb3YrfSBf4hJVGLh2YEIBfKaBW/9UEl6IQ==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -1332,6 +1344,12 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
+  lottie-react@2.4.1:
+    resolution: {integrity: sha512-LQrH7jlkigIIv++wIyrOYFLHSKQpEY4zehPicL9bQsrt1rnoKRYCYgpCUe5maqylNtacy58/sQDZTkwMcTRxZw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   lottie-web@5.12.2:
     resolution: {integrity: sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==}
 
@@ -1547,6 +1565,10 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prismjs@1.30.0:
+    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
+    engines: {node: '>=6'}
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2171,6 +2193,8 @@ snapshots:
   '@types/node@20.19.0':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/prismjs@1.26.5': {}
 
   '@types/prop-types@15.7.13': {}
 
@@ -3263,6 +3287,12 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
+  lottie-react@2.4.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      lottie-web: 5.12.2
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   lottie-web@5.12.2: {}
 
   lru-cache@10.4.3: {}
@@ -3467,6 +3497,8 @@ snapshots:
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
+
+  prismjs@1.30.0: {}
 
   prop-types@15.8.1:
     dependencies:

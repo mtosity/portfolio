@@ -1,6 +1,27 @@
 import type { Metadata } from "next";
+import { Inter, Crimson_Text, Lora } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const crimsonText = Crimson_Text({
+  variable: "--font-crimson-text",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "MTosity",
@@ -74,7 +95,7 @@ export default function RootLayout({
         <meta itemprop="description" content="Hey! I'm John Carlo Devera, and I'm a Bachelor of Science in Information Technology graduate."/>
         <meta itemprop="image" content="https://deverajc.com/screenshot.png"/> */}
 
-      <body className={`antialiased bg-zinc-800`} id="root">
+      <body className={`${inter.variable} ${crimsonText.variable} ${lora.variable} antialiased bg-zinc-800`} id="root">
         {children}
         <Analytics />
       </body>
