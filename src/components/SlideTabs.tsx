@@ -2,6 +2,7 @@
 "use client";
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 declare global {
   interface Window {
@@ -15,9 +16,14 @@ export const SlideTabs = () => {
     width: 0,
     opacity: 0,
   });
+  const router = useRouter();
 
   const openNewTab = (url: string) => {
     window.open(url, "_blank");
+  };
+
+  const navigateToPage = (path: string) => {
+    router.push(path);
   };
 
   return (
@@ -30,6 +36,18 @@ export const SlideTabs = () => {
       }}
       className="relative mx-auto flex w-fit rounded-lg border-2 border-white bg-zinc-800 p-1"
     >
+      <Tab
+        setPosition={setPosition}
+        onClick={() => navigateToPage("/")}
+      >
+        Home
+      </Tab>
+      <Tab
+        setPosition={setPosition}
+        onClick={() => navigateToPage("/photography")}
+      >
+        Photography
+      </Tab>
       <Tab
         setPosition={setPosition}
         onClick={() => openNewTab("https://www.linkedin.com/in/mtosity/")}
