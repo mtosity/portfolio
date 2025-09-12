@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SlideTabs } from "@/components/SlideTabs";
 
 interface Photo {
@@ -13,10 +13,46 @@ interface Photo {
   takenTime: number;
 }
 
+// Lazy loading hook
+const useLazyLoading = (threshold = 0.1) => {
+  const [visibleImages, setVisibleImages] = useState<Set<string>>(new Set());
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const imageId = entry.target.getAttribute('data-image-id');
+            if (imageId) {
+              setVisibleImages((prev) => new Set([...Array.from(prev), imageId]));
+              observerRef.current?.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      { threshold, rootMargin: '500px' } // Increased from 100px to 500px
+    );
+
+    return () => observerRef.current?.disconnect();
+  }, [threshold]);
+
+  const observeImage = (element: HTMLElement | null, imageId: string) => {
+    if (element && observerRef.current) {
+      element.setAttribute('data-image-id', imageId);
+      observerRef.current.observe(element);
+    }
+  };
+
+  return { visibleImages, observeImage };
+};
+
 export default function Photography() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [preloadedImages, setPreloadedImages] = useState<Set<string>>(new Set());
+  const { visibleImages, observeImage } = useLazyLoading();
 
   useEffect(() => {
     const fetchGalleryImages = async () => {
@@ -25,6 +61,11 @@ export default function Photography() {
         const data = await response.json();
         if (data.images) {
           setPhotos(data.images);
+          
+          // Preload the first 12 images that are likely to be visible above the fold and first scroll
+          const initialImages = data.images.slice(0, 12);
+          const initialIds = new Set<string>(initialImages.map((img: Photo) => img.id));
+          setPreloadedImages(initialIds);
         }
       } catch (error) {
         console.error('Failed to fetch gallery images:', error);
@@ -36,6 +77,9 @@ export default function Photography() {
     fetchGalleryImages();
   }, []);
 
+  // Combine preloaded and lazy-loaded images
+  const allVisibleImages = new Set([...Array.from(preloadedImages), ...Array.from(visibleImages)]);
+
   // Function to create balanced rows with consistent width
   const createRows = (photos: Photo[]) => {
     const rows: Photo[][] = [];
@@ -43,7 +87,7 @@ export default function Photography() {
     let currentRowAspectSum = 0;
     const targetRowWidth = 1200; // Container width
     const targetRowHeight = 300; // Target height for better aspect ratio matching
-    const gap = 8; // Gap between images (2 * 4px)
+    const gap = 4; // Gap between images (1 * 4px)
     const maxImagesPerRow = 5; // Limit images per row for better proportions
 
     photos.forEach((photo, index) => {
@@ -130,14 +174,14 @@ export default function Photography() {
 
             // Calculate the row height to fit the container width
             const containerWidth = 1200; // Max container width
-            const gapTotal = (row.length - 1) * 8; // 8px gap between images
+            const gapTotal = (row.length - 1) * 4; // 4px gap between images
             const availableWidth = containerWidth - gapTotal;
             const rowHeight = availableWidth / totalAspectRatio;
 
             return (
               <motion.div
                 key={rowIndex}
-                className="flex gap-2 mb-2"
+                className="flex gap-1 mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: rowIndex * 0.1 }}
@@ -150,28 +194,45 @@ export default function Photography() {
                   // Calculate this image's width to fit the row height
                   const imageHeight = rowHeight;
                   const imageWidth = imageHeight * aspectRatio;
+                  
+                  const isVisible = allVisibleImages.has(photo.id);
 
                   return (
                     <motion.div
                       key={photo.id}
-                      className="cursor-pointer group relative overflow-hidden rounded-lg bg-zinc-800"
+                      ref={(el) => {
+                        if (!isVisible) {
+                          observeImage(el, photo.id);
+                        }
+                      }}
+                      className="cursor-pointer group relative overflow-hidden bg-zinc-800"
                       onClick={() => setSelectedPhoto(photo)}
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
                       style={{
                         width: imageWidth,
                         height: imageHeight,
                         flexShrink: 0,
                       }}
                     >
-                      <Image
-                        src={photo.src}
-                        alt={photo.alt}
-                        width={photo.width}
-                        height={photo.height}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        style={{ objectPosition: 'center' }}
-                      />
+                      {isVisible ? (
+                        <motion.div
+                          className="w-full h-full"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <Image
+                            src={photo.src}
+                            alt={photo.alt}
+                            width={photo.width}
+                            height={photo.height}
+                            className="w-full h-full object-cover"
+                            style={{ objectPosition: 'center' }}
+                          />
+                        </motion.div>
+                      ) : (
+                        <div className="w-full h-full bg-zinc-700 flex items-center justify-center">
+                          <div className="w-8 h-8 border-2 border-zinc-500 border-t-transparent rounded-full animate-spin opacity-30" />
+                        </div>
+                      )}
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
                     </motion.div>
                   );
@@ -203,7 +264,7 @@ export default function Photography() {
               alt={selectedPhoto.alt}
               width={selectedPhoto.width}
               height={selectedPhoto.height}
-              className="max-w-full max-h-[80vh] object-contain rounded-lg"
+              className="max-w-full max-h-[80vh] object-contain"
             />
             <button
               onClick={() => setSelectedPhoto(null)}

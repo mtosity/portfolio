@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
@@ -13,7 +13,7 @@ interface GalleryImage {
   takenTime: number;
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const galleryPath = path.join(process.cwd(), 'public', 'gallery');
     
@@ -50,9 +50,9 @@ export async function GET(request: NextRequest) {
             const exifData = exifReader(metadata.exif);
             
             // Try different EXIF date fields
-            const dateTime = exifData?.exif?.DateTimeOriginal || 
-                           exifData?.exif?.DateTime || 
-                           exifData?.exif?.DateTimeDigitized;
+            const dateTime = (exifData as any)?.DateTimeOriginal || 
+                           (exifData as any)?.DateTime || 
+                           (exifData as any)?.DateTimeDigitized;
             
             if (dateTime) {
               // EXIF dates are in format "YYYY:MM:DD HH:MM:SS"
