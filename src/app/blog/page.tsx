@@ -31,8 +31,8 @@ export default function BlogHome() {
         <SlideTabs />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 pb-8 pt-12 h-[calc(100vh-5rem)] overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 h-full">
+      <div className="max-w-6xl mx-auto px-4 pb-8 pt-12 min-h-[calc(100vh-5rem)]">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:h-[calc(100vh-10rem)]">
           {/* Left Column - Header, Subheader, and Image */}
           <div className="flex flex-col h-full lg:col-span-2">
             <header className="mb-8 flex-shrink-0 pb-6">
@@ -57,13 +57,13 @@ export default function BlogHome() {
           </div>
 
           {/* Right Column - Blog List */}
-          <div className="flex flex-col h-full overflow-hidden lg:col-span-3">
+          <div className="flex flex-col lg:h-full lg:overflow-hidden lg:col-span-3">
             <CategoryFilter
               selectedCategory={selectedCategory}
               onCategoryChange={setSelectedCategory}
             />
 
-            <div className="space-y-8 overflow-y-auto flex-1 pr-4 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+            <div className="space-y-8 lg:overflow-y-auto lg:flex-1 pr-4 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
               {filteredPosts.map((post, index) => (
                 <article
                   key={post.slug}
