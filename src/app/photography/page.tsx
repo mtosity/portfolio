@@ -8,8 +8,8 @@ interface Photo {
   id: string;
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   takenTime: number;
 }
 
@@ -52,6 +52,7 @@ export default function Photography() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [preloadedImages, setPreloadedImages] = useState<Set<string>>(new Set());
+  const [imageDimensions, setImageDimensions] = useState<Map<string, {width: number, height: number}>>(new Map());
   const { visibleImages, observeImage } = useLazyLoading();
 
   useEffect(() => {
@@ -80,6 +81,14 @@ export default function Photography() {
   // Combine preloaded and lazy-loaded images
   const allVisibleImages = new Set([...Array.from(preloadedImages), ...Array.from(visibleImages)]);
 
+  // Function to handle image load and get dimensions
+  const handleImageLoad = (photoId: string, img: HTMLImageElement) => {
+    setImageDimensions(prev => new Map(prev.set(photoId, {
+      width: img.naturalWidth,
+      height: img.naturalHeight
+    })));
+  };
+
   // Function to create balanced rows with consistent width
   const createRows = (photos: Photo[]) => {
     const rows: Photo[][] = [];
@@ -91,8 +100,11 @@ export default function Photography() {
     const maxImagesPerRow = 5; // Limit images per row for better proportions
 
     photos.forEach((photo, index) => {
-      // Use actual image dimensions from metadata
-      const aspectRatio = photo.width / photo.height;
+      // Get dimensions from loaded images or use defaults
+      const dimensions = imageDimensions.get(photo.id);
+      const width = dimensions?.width || photo.width || 800;
+      const height = dimensions?.height || photo.height || 600;
+      const aspectRatio = width / height;
 
       // Check if adding this photo would make the row too wide or too crowded
       const tentativeAspectSum = currentRowAspectSum + aspectRatio;
@@ -118,6 +130,7 @@ export default function Photography() {
   };
 
   const photoRows = createRows(photos);
+
 
   return (
     <div className="min-h-screen bg-zinc-900 text-white">
@@ -169,7 +182,10 @@ export default function Photography() {
           {photoRows.map((row, rowIndex) => {
             // Calculate the total aspect ratio sum for this row
             const totalAspectRatio = row.reduce((sum, photo) => {
-              return sum + (photo.width / photo.height);
+              const dimensions = imageDimensions.get(photo.id);
+              const width = dimensions?.width || photo.width || 800;
+              const height = dimensions?.height || photo.height || 600;
+              return sum + (width / height);
             }, 0);
 
             // Calculate the row height to fit the container width
@@ -188,8 +204,11 @@ export default function Photography() {
                 style={{ width: containerWidth, margin: "0 auto" }}
               >
                 {row.map((photo) => {
-                  // Use actual image dimensions
-                  const aspectRatio = photo.width / photo.height;
+                  // Get dimensions from loaded images or use defaults
+                  const dimensions = imageDimensions.get(photo.id);
+                  const width = dimensions?.width || photo.width || 800;
+                  const height = dimensions?.height || photo.height || 600;
+                  const aspectRatio = width / height;
 
                   // Calculate this image's width to fit the row height
                   const imageHeight = rowHeight;
@@ -222,10 +241,14 @@ export default function Photography() {
                           <Image
                             src={photo.src}
                             alt={photo.alt}
-                            width={photo.width}
-                            height={photo.height}
+                            width={width}
+                            height={height}
                             className="w-full h-full object-cover"
                             style={{ objectPosition: 'center' }}
+                            onLoad={(e) => {
+                              const img = e.target as HTMLImageElement;
+                              handleImageLoad(photo.id, img);
+                            }}
                           />
                         </motion.div>
                       ) : (
@@ -262,9 +285,10 @@ export default function Photography() {
             <Image
               src={selectedPhoto.src}
               alt={selectedPhoto.alt}
-              width={selectedPhoto.width}
-              height={selectedPhoto.height}
+              width={800}
+              height={600}
               className="max-w-full max-h-[80vh] object-contain"
+              sizes="80vw"
             />
             <button
               onClick={() => setSelectedPhoto(null)}

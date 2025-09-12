@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import sharp from 'sharp';
-import exifReader from 'exif-reader';
 
 interface GalleryImage {
   id: string;
   src: string;
   alt: string;
-  width: number;
-  height: number;
   takenTime: number;
 }
 
@@ -36,44 +32,13 @@ export async function GET() {
         const filePath = path.join(galleryPath, file);
         const stats = fs.statSync(filePath);
         
-        // Get image dimensions using sharp
-        const metadata = await sharp(filePath).metadata();
-        const width = metadata.width || 800;
-        const height = metadata.height || 600;
-        
-        // Use file modification time as fallback
-        let takenTime = stats.mtime.getTime();
-        
-        // Try to get EXIF date taken if available
-        try {
-          if (metadata.exif) {
-            const exifData = exifReader(metadata.exif);
-            
-            // Try different EXIF date fields
-            const dateTime = (exifData as any)?.DateTimeOriginal || 
-                           (exifData as any)?.DateTime || 
-                           (exifData as any)?.DateTimeDigitized;
-            
-            if (dateTime) {
-              // EXIF dates are in format "YYYY:MM:DD HH:MM:SS"
-              const dateStr = dateTime.toString().replace(/:/g, '-', 2);
-              const parsedDate = new Date(dateStr);
-              if (!isNaN(parsedDate.getTime())) {
-                takenTime = parsedDate.getTime();
-              }
-            }
-          }
-        } catch (exifError) {
-          // Use file mtime as fallback
-          console.warn(`EXIF read error for ${file}:`, exifError);
-        }
+        // Use file modification time - no Sharp processing to avoid large bundle size
+        const takenTime = stats.mtime.getTime();
 
         images.push({
           id: file,
           src: `/gallery/${file}`,
           alt: `Photo ${file}`,
-          width,
-          height,
           takenTime
         });
       } catch (error) {

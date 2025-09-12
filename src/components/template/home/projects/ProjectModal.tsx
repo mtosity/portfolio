@@ -1,3 +1,4 @@
+"use client";
 import styles from "./projectmodal.module.scss";
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
@@ -28,6 +29,8 @@ export const ProjectModal = ({
   tech,
 }: Props) => {
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const body = document.querySelector("body");
 
     if (isOpen) {
@@ -88,6 +91,9 @@ export const ProjectModal = ({
 
   if (!isOpen) return <></>;
 
-  // @ts-expect-error I'm a bad dev
-  return ReactDOM.createPortal(content, document.getElementById("root"));
+  // Only render portal on client side
+  if (typeof window === "undefined") return <></>;
+  
+  const rootElement = document.getElementById("root") || document.body;
+  return ReactDOM.createPortal(content, rootElement);
 };

@@ -1,3 +1,4 @@
+"use client";
 import { Reveal } from "../../utils/Reveal";
 import styles from "./stats.module.scss";
 import { AiFillCode, AiFillSmile } from "react-icons/ai";

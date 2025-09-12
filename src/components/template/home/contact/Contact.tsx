@@ -1,3 +1,4 @@
+"use client";
 import styles from "./contact.module.scss";
 import { AiFillMail } from "react-icons/ai";
 import Link from "next/link";

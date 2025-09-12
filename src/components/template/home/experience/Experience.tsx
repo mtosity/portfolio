@@ -1,3 +1,4 @@
+"use client";
 import { SectionHeader } from "../../utils/SectionHeader";
 import { ExperienceItem } from "./ExperienceItem";
 

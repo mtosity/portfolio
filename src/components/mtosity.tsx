@@ -27,16 +27,22 @@ export const MTosity = () => {
   const [stage, setStage] = useState<Stage>();
   useLayoutEffect(() => {
     const updateSize = () => {
-      if (!letterRef.current) return;
+      if (typeof window === 'undefined' || !letterRef.current) return;
       const size = window
         .getComputedStyle(letterRef.current, null)
         .getPropertyValue("font-size");
       setFontSize(parseFloat(size));
     };
 
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
+    if (typeof window !== 'undefined') {
+      window.addEventListener("resize", updateSize);
+      updateSize();
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener("resize", updateSize);
+      }
+    };
   }, [letterRef]);
 
   const { scrollYProgress } = useScroll({

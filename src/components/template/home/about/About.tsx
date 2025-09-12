@@ -1,3 +1,4 @@
+"use client";
 import { MyLinks } from "../../nav/components/MyLinks";
 import { Reveal } from "../../utils/Reveal";
 import { SectionHeader } from "../../utils/SectionHeader";
