@@ -160,6 +160,7 @@ export default function BlogLayout({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [activeHeadingId, setActiveHeadingId] = useState<string>("");
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const extractHeadings = () => {
@@ -247,6 +248,11 @@ export default function BlogLayout({
     void anchorId; // Suppress unused parameter warning
     const definition = definitions[definitionKey];
     if (definition) {
+      // Expand sidebar if collapsed on mobile
+      if (isSidebarCollapsed) {
+        setIsSidebarCollapsed(false);
+      }
+      
       if (sidebarMode === "definition" && currentDefinition) {
         // If already showing a definition, animate out first
         setIsTransitioning(true);
@@ -267,6 +273,11 @@ export default function BlogLayout({
     void anchorId; // Suppress unused parameter warning
     const codeExample = codeExamples[codeKey];
     if (codeExample) {
+      // Expand sidebar if collapsed on mobile
+      if (isSidebarCollapsed) {
+        setIsSidebarCollapsed(false);
+      }
+      
       if (sidebarMode === "code" && currentCodeExample) {
         // If already showing a code example, animate out first
         setIsTransitioning(true);
@@ -305,22 +316,41 @@ export default function BlogLayout({
           <SlideTabs />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 mt-8">
+        <div className="max-w-7xl mx-auto px-4 mt-8 relative">
+          {/* Mobile Toggle Button */}
+          <button
+            className="md:hidden fixed top-24 right-4 z-50 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition-all duration-200"
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
+          >
+            {isSidebarCollapsed ? (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            )}
+          </button>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Left Sidebar - Navigation */}
-            <Sidebar
-              headings={headings}
-              sidebarMode={sidebarMode}
-              currentDefinition={currentDefinition}
-              currentCodeExample={currentCodeExample}
-              onScrollToHeading={scrollToHeading}
-              isTransitioning={isTransitioning}
-              isClosing={isClosing}
-              activeHeadingId={activeHeadingId}
-            />
+            <div className={`${isSidebarCollapsed ? 'hidden md:block' : 'block'} lg:block`}>
+              <Sidebar
+                headings={headings}
+                sidebarMode={sidebarMode}
+                currentDefinition={currentDefinition}
+                currentCodeExample={currentCodeExample}
+                onScrollToHeading={scrollToHeading}
+                isTransitioning={isTransitioning}
+                isClosing={isClosing}
+                activeHeadingId={activeHeadingId}
+              />
+            </div>
 
             {/* Right Content Area */}
-            <div className="lg:col-span-1 h-[calc(100vh-6rem)] overflow-y-auto">
+            <div className={`h-[calc(100vh-6rem)] overflow-y-auto ${isSidebarCollapsed ? 'col-span-full' : 'lg:col-span-1'}`}>
               <article className="prose prose-xl max-w-none dark:prose-invert tracking-wide prose-lg">
                 <header className="mb-8">
                   <h1 className="text-4xl font-bold mb-4">{title}</h1>
