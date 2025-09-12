@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { SlideTabs } from "@/components/SlideTabs";
 
 interface Photo {
@@ -53,6 +53,7 @@ export default function Photography() {
   const [loading, setLoading] = useState(true);
   const [preloadedImages, setPreloadedImages] = useState<Set<string>>(new Set());
   const [imageDimensions, setImageDimensions] = useState<Map<string, {width: number, height: number}>>(new Map());
+  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const { visibleImages, observeImage } = useLazyLoading();
 
   useEffect(() => {
@@ -78,6 +79,16 @@ export default function Photography() {
     fetchGalleryImages();
   }, []);
 
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Combine preloaded and lazy-loaded images
   const allVisibleImages = new Set([...Array.from(preloadedImages), ...Array.from(visibleImages)]);
 
@@ -89,15 +100,29 @@ export default function Photography() {
     })));
   };
 
-  // Function to create balanced rows with consistent width
-  const createRows = (photos: Photo[]) => {
+  // Function to create balanced rows with responsive width
+  const createRows = useCallback((photos: Photo[]) => {
     const rows: Photo[][] = [];
     let currentRow: Photo[] = [];
     let currentRowAspectSum = 0;
-    const targetRowWidth = 1200; // Container width
-    const targetRowHeight = 300; // Target height for better aspect ratio matching
+    
+    // Responsive container widths and settings
+    const getResponsiveSettings = () => {
+      if (windowWidth < 640) { // Mobile
+        return { targetRowWidth: windowWidth - 32, maxImagesPerRow: 1, targetRowHeight: 400 }; // 1 image per row
+      } else if (windowWidth < 768) { // Tablet portrait
+        return { targetRowWidth: windowWidth - 48, maxImagesPerRow: 2, targetRowHeight: 300 };
+      } else if (windowWidth < 1024) { // Tablet landscape
+        return { targetRowWidth: windowWidth - 64, maxImagesPerRow: 3, targetRowHeight: 280 };
+      } else if (windowWidth < 1280) { // Desktop small
+        return { targetRowWidth: windowWidth - 80, maxImagesPerRow: 4, targetRowHeight: 300 };
+      } else { // Desktop large
+        return { targetRowWidth: 1200, maxImagesPerRow: 5, targetRowHeight: 300 };
+      }
+    };
+
+    const { targetRowWidth, maxImagesPerRow, targetRowHeight } = getResponsiveSettings();
     const gap = 4; // Gap between images (1 * 4px)
-    const maxImagesPerRow = 5; // Limit images per row for better proportions
 
     photos.forEach((photo, index) => {
       // Get dimensions from loaded images or use defaults
@@ -127,9 +152,9 @@ export default function Photography() {
     });
 
     return rows;
-  };
+  }, [windowWidth, imageDimensions]);
 
-  const photoRows = createRows(photos);
+  const photoRows = React.useMemo(() => createRows(photos), [photos, createRows]);
 
 
   return (
@@ -188,8 +213,16 @@ export default function Photography() {
               return sum + (width / height);
             }, 0);
 
-            // Calculate the row height to fit the container width
-            const containerWidth = 1200; // Max container width
+            // Get responsive container width
+            const getContainerWidth = () => {
+              if (windowWidth < 640) return windowWidth - 32; // Mobile: full width with padding
+              if (windowWidth < 768) return windowWidth - 48; // Tablet portrait
+              if (windowWidth < 1024) return windowWidth - 64; // Tablet landscape
+              if (windowWidth < 1280) return windowWidth - 80; // Desktop small
+              return 1200; // Desktop large
+            };
+
+            const containerWidth = getContainerWidth();
             const gapTotal = (row.length - 1) * 4; // 4px gap between images
             const availableWidth = containerWidth - gapTotal;
             const rowHeight = availableWidth / totalAspectRatio;
@@ -197,11 +230,10 @@ export default function Photography() {
             return (
               <motion.div
                 key={rowIndex}
-                className="flex gap-1 mb-4"
+                className="flex gap-1 mb-4 w-full justify-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: rowIndex * 0.1 }}
-                style={{ width: containerWidth, margin: "0 auto" }}
               >
                 {row.map((photo) => {
                   // Get dimensions from loaded images or use defaults
@@ -210,9 +242,17 @@ export default function Photography() {
                   const height = dimensions?.height || photo.height || 600;
                   const aspectRatio = width / height;
 
-                  // Calculate this image's width to fit the row height
-                  const imageHeight = rowHeight;
-                  const imageWidth = imageHeight * aspectRatio;
+                  // For single image rows (mobile), use full width while maintaining aspect ratio
+                  const isSingleImage = row.length === 1;
+                  let imageWidth, imageHeight;
+                  
+                  if (isSingleImage) {
+                    imageWidth = availableWidth;
+                    imageHeight = imageWidth / aspectRatio;
+                  } else {
+                    imageHeight = rowHeight;
+                    imageWidth = imageHeight * aspectRatio;
+                  }
                   
                   const isVisible = allVisibleImages.has(photo.id);
 
@@ -235,7 +275,7 @@ export default function Photography() {
                       {isVisible ? (
                         <motion.div
                           className="w-full h-full"
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={{ scale: 1.02 }}
                           transition={{ duration: 0.3 }}
                         >
                           <Image
@@ -270,13 +310,13 @@ export default function Photography() {
       {/* Modal */}
       {selectedPhoto && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-2 sm:p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           onClick={() => setSelectedPhoto(null)}
         >
           <motion.div
-            className="relative max-w-4xl max-h-full"
+            className="relative w-full max-w-4xl max-h-full flex items-center justify-center"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -287,15 +327,15 @@ export default function Photography() {
               alt={selectedPhoto.alt}
               width={800}
               height={600}
-              className="max-w-full max-h-[80vh] object-contain"
-              sizes="80vw"
+              className="w-full h-auto max-h-[90vh] sm:max-h-[80vh] object-contain"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 80vw"
             />
             <button
               onClick={() => setSelectedPhoto(null)}
-              className="absolute top-4 right-4 text-white hover:text-lime-300 transition-colors duration-200"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white hover:text-lime-300 transition-colors duration-200 bg-black bg-opacity-50 rounded-full p-1 sm:p-2"
             >
               <svg
-                className="w-8 h-8"
+                className="w-6 h-6 sm:w-8 sm:h-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
