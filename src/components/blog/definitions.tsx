@@ -1143,4 +1143,520 @@ const UserAgeCalculator = ({ userInfo }) => {
         "Alternatively, properly memoize the function with useCallback to make the dependency stable.",
     },
   },
+
+  // Video Call App Code Examples
+  mainGo: {
+    title: "Go Main Server Setup",
+    description: "Main server file that sets up HTTP endpoints, WebSocket handling, and CORS for the signaling server.",
+    correctCode: {
+      code: `package main
+
+import (
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/gorilla/mux"
+	"github.com/rs/cors"
+)
+
+func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	r := mux.NewRouter()
+
+	// WebSocket endpoint for signaling
+	r.HandleFunc("/ws", handleWebSocket)
+
+	// REST API endpoints
+	r.HandleFunc("/api/rooms", createRoom).Methods("POST")
+	r.HandleFunc("/api/rooms/{roomId}", getRoomInfo).Methods("GET")
+
+	// Enable CORS for React development
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(r)
+
+	log.Printf("Server starting on port %s", port)
+	log.Fatal(http.ListenAndServe(":"+port, handler))
+}`,
+      language: "go",
+      explanation: "Sets up the main HTTP server with WebSocket support, REST endpoints for room management, and CORS configuration for frontend development."
+    }
+  },
+
+  webSocketHandlers: {
+    title: "WebSocket Message Handlers",
+    description: "Core WebSocket logic for handling signaling messages, room management, and peer connection coordination.",
+    correctCode: {
+      code: `package main
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+	"time"
+
+	"github.com/gorilla/websocket"
+)
+
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true // Allow connections from any origin in development
+	},
+}
+
+type Room struct {
+	ID          string                           \`json:"id"\`
+	Clients     map[*websocket.Conn]*ClientInfo  \`json:"-"\`
+	Broadcast   chan []byte                      \`json:"-"\`
+	Register    chan *websocket.Conn             \`json:"-"\`
+	Unregister  chan *websocket.Conn             \`json:"-"\`
+	CreatedAt   time.Time                        \`json:"createdAt"\`
+}
+
+type ClientInfo struct {
+	ID       string    \`json:"id"\`
+	Name     string    \`json:"name"\`
+	Conn     *websocket.Conn \`json:"-"\`
+	JoinedAt time.Time \`json:"joinedAt"\`
+}
+
+type Message struct {
+	Type     string      \`json:"type"\`
+	Data     interface{} \`json:"data"\`
+	RoomID   string      \`json:"roomId,omitempty"\`
+	ClientID string      \`json:"clientId,omitempty"\`
+	ClientName string    \`json:"clientName,omitempty"\`
+	TargetID string      \`json:"targetId,omitempty"\`
+}
+
+func handleWebSocket(w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println("WebSocket upgrade error:", err)
+		return
+	}
+	defer conn.Close()
+
+	for {
+		var msg Message
+		err := conn.ReadJSON(&msg)
+		if err != nil {
+			log.Println("WebSocket read error:", err)
+			break
+		}
+
+		handleMessage(conn, msg)
+	}
+}
+
+func handleMessage(conn *websocket.Conn, msg Message) {
+	switch msg.Type {
+	case "join-room":
+		joinRoom(conn, msg.RoomID, msg.ClientID, msg.ClientName)
+	case "offer", "answer", "ice-candidate":
+		relayMessage(msg)
+	case "leave-room":
+		leaveRoom(conn, msg.RoomID)
+	}
+}`,
+      language: "go",
+      explanation: "Handles WebSocket connections, message parsing, and routing for different signaling message types including room joining and WebRTC signaling."
+    }
+  },
+
+  redisIntegration: {
+    title: "Redis Integration for Scalability",
+    description: "Redis client setup for persistent storage and pub/sub messaging to support multiple server instances.",
+    correctCode: {
+      code: `package main
+
+import (
+	"context"
+	"encoding/json"
+	"log"
+	"time"
+
+	"github.com/go-redis/redis/v8"
+)
+
+type RedisManager struct {
+	client *redis.Client
+	ctx    context.Context
+}
+
+func NewRedisManager() *RedisManager {
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+
+	ctx := context.Background()
+
+	// Test connection
+	_, err := rdb.Ping(ctx).Result()
+	if err != nil {
+		log.Printf("Redis connection failed: %v", err)
+		return nil
+	}
+
+	log.Println("Redis connected successfully")
+	return &RedisManager{
+		client: rdb,
+		ctx:    ctx,
+	}
+}
+
+// Store room information in Redis
+func (r *RedisManager) StoreRoom(roomID string, roomData map[string]interface{}) error {
+	data, err := json.Marshal(roomData)
+	if err != nil {
+		return err
+	}
+
+	return r.client.Set(r.ctx, "room:"+roomID, data, 24*time.Hour).Err()
+}
+
+// Publish real-time updates to subscribers
+func (r *RedisManager) PublishUpdate(channel string, data interface{}) error {
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	return r.client.Publish(r.ctx, channel, jsonData).Err()
+}
+
+// Add user to room set
+func (r *RedisManager) AddUserToRoom(roomID, userID string) error {
+	return r.client.SAdd(r.ctx, "room:"+roomID+":users", userID).Err()
+}`,
+      language: "go",
+      explanation: "Provides Redis connectivity for storing room data, publishing real-time updates, and managing user sessions across multiple server instances."
+    }
+  },
+
+  webRTCService: {
+    title: "WebRTC Service Class",
+    description: "Complete TypeScript service for managing WebRTC peer connections, signaling, and media streams in the React frontend.",
+    correctCode: {
+      code: `export interface SignalingMessage {
+  type: 'offer' | 'answer' | 'ice-candidate' | 'join-room' | 'leave-room' | 'user-joined' | 'existing-user' | 'user-left';
+  data?: any;
+  roomId?: string;
+  clientId?: string;
+  clientName?: string;
+  targetId?: string;
+}
+
+export class WebRTCService {
+  private localStream: MediaStream | null = null;
+  private peerConnections: Map<string, PeerConnection> = new Map();
+  private websocket: WebSocket | null = null;
+  private roomId: string | null = null;
+  private clientId: string;
+
+  // Event callbacks
+  public onLocalStream?: (stream: MediaStream) => void;
+  public onRemoteStream?: (clientId: string, stream: MediaStream) => void;
+  public onUserJoined?: (clientId: string, clientName?: string) => void;
+
+  constructor() {
+    this.clientId = this.generateClientId();
+  }
+
+  async initializeLocalStream(video: boolean = true, audio: boolean = true): Promise<MediaStream> {
+    try {
+      this.localStream = await navigator.mediaDevices.getUserMedia({
+        video: video ? { width: 1280, height: 720 } : false,
+        audio: audio
+      });
+
+      if (this.onLocalStream) {
+        this.onLocalStream(this.localStream);
+      }
+
+      return this.localStream;
+    } catch (error) {
+      console.error('Error accessing media devices:', error);
+      throw error;
+    }
+  }
+
+  connectToSignalingServer(serverUrl: string = 'ws://localhost:8080/ws'): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.websocket = new WebSocket(serverUrl);
+
+      this.websocket.onopen = () => {
+        console.log('Connected to signaling server');
+        resolve();
+      };
+
+      this.websocket.onmessage = (event) => {
+        const message: SignalingMessage = JSON.parse(event.data);
+        this.handleSignalingMessage(message);
+      };
+    });
+  }
+
+  private createPeerConnection(clientId: string): RTCPeerConnection {
+    const peerConnection = new RTCPeerConnection({
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' }
+      ]
+    });
+
+    // Add local stream tracks
+    if (this.localStream) {
+      this.localStream.getTracks().forEach(track => {
+        if (this.localStream) {
+          peerConnection.addTrack(track, this.localStream);
+        }
+      });
+    }
+
+    return peerConnection;
+  }
+}`,
+      language: "typescript",
+      explanation: "Comprehensive WebRTC service that handles peer connections, media stream management, and signaling server communication for real-time video calling."
+    }
+  },
+
+  appComponent: {
+    title: "Main App Component",
+    description: "React component that manages application routing between home page and video call room, handling room state and user information.",
+    correctCode: {
+      code: `import React, { useState } from 'react';
+import HomePage from './components/HomePage';
+import VideoCallRoom from './components/VideoCallRoom';
+
+function App() {
+  const [currentRoom, setCurrentRoom] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>('');
+
+  const handleJoinRoom = (roomId: string, userName: string) => {
+    setCurrentRoom(roomId);
+    setUserName(userName);
+  };
+
+  const handleLeaveRoom = () => {
+    setCurrentRoom(null);
+    setUserName('');
+  };
+
+  return (
+    <div className="App">
+      {currentRoom ? (
+        <VideoCallRoom
+          roomId={currentRoom}
+          userName={userName}
+          onLeaveRoom={handleLeaveRoom}
+        />
+      ) : (
+        <HomePage onJoinRoom={handleJoinRoom} />
+      )}
+    </div>
+  );
+}
+
+export default App;`,
+      language: "jsx",
+      explanation: "Main application component that handles routing between the home page and video call room, managing room state and user session data."
+    }
+  },
+
+  homePageComponent: {
+    title: "Home Page Component",
+    description: "Landing page component with room creation and joining functionality, featuring a Google Meet-inspired interface design.",
+    correctCode: {
+      code: `import React, { useState } from 'react';
+import { Button } from './ui/button';
+
+interface HomePageProps {
+  onJoinRoom: (roomId: string, userName: string) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ onJoinRoom }) => {
+  const [roomId, setRoomId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
+
+  const createRoom = async () => {
+    if (!userName.trim()) {
+      alert('Please enter your name before creating a room');
+      return;
+    }
+
+    setIsCreating(true);
+    try {
+      const response = await fetch('http://localhost:8080/api/rooms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        onJoinRoom(data.roomId, userName.trim());
+      }
+    } catch (error) {
+      console.error('Error creating room:', error);
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const joinExistingRoom = () => {
+    if (!userName.trim() || !roomId.trim()) {
+      alert('Please enter your name and room code');
+      return;
+    }
+    onJoinRoom(roomId.trim(), userName.trim());
+  };
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col">
+      <header className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm">M</span>
+          </div>
+          <span className="text-xl font-medium text-gray-900">Meet</span>
+        </div>
+      </header>
+
+      <div className="flex-1 flex items-center justify-center p-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center space-y-4">
+            <h1 className="text-2xl font-normal text-gray-900">
+              Premium video meetings.<br />Now free for everyone.
+            </h1>
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="userName" className="block text-sm font-medium text-gray-700">
+              Your name
+            </label>
+            <input
+              id="userName"
+              type="text"
+              placeholder="Enter your name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              maxLength={50}
+            />
+          </div>
+
+          <div className="space-y-4">
+            <Button
+              onClick={createRoom}
+              disabled={isCreating || !userName.trim()}
+              className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              {isCreating ? 'Starting meeting...' : 'New meeting'}
+            </Button>
+
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                placeholder="Enter a code or link"
+                value={roomId}
+                onChange={(e) => setRoomId(e.target.value)}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+              />
+              <Button
+                onClick={joinExistingRoom}
+                disabled={!roomId.trim() || !userName.trim()}
+                className="px-6"
+              >
+                Join
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;`,
+      language: "jsx",
+      explanation: "Home page component that provides room creation and joining functionality with a clean, Google Meet-inspired interface including form validation and loading states."
+    }
+  },
+
+  dockerCompose: {
+    title: "Docker Compose Configuration",
+    description: "Complete Docker Compose setup for running the video call application with Redis, backend, and volume management.",
+    correctCode: {
+      code: `version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis:6379
+      - PORT=8080
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+
+volumes:
+  redis_data:`,
+      language: "yaml",
+      explanation: "Docker Compose configuration that sets up Redis for data persistence, the Go backend server, and proper networking between services for development and production deployment."
+    }
+  },
+
+  dockerfile: {
+    title: "Multi-stage Docker Build",
+    description: "Optimized Dockerfile for the Go backend using multi-stage builds to create a minimal production image.",
+    correctCode: {
+      code: `FROM golang:1.21-alpine AS builder
+
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+RUN go build -o main .
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+
+COPY --from=builder /app/main .
+
+EXPOSE 8080
+CMD ["./main"]`,
+      language: "dockerfile",
+      explanation: "Multi-stage Docker build that compiles the Go application in a full Go environment, then creates a minimal Alpine-based production image with just the compiled binary and certificates."
+    }
+  }
 };

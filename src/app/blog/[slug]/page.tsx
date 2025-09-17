@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blogPosts";
 
 // Import all the individual blog post components
+import BuildingVideoCallAppPage from "../building-video-call-app/page";
 import DecodingHappinessPage from "../decoding-happiness/page";
 import ReactCommonMistakesPage from "../react-common-mistakes/page";
 import HoaKyVayTienPage from "../hoa-ky-vay-tien/page";
@@ -40,6 +41,8 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
   // Route to the appropriate component based on slug
   switch (params.slug) {
+    case "building-video-call-app":
+      return <BuildingVideoCallAppPage />;
     case "decoding-happiness":
       return <DecodingHappinessPage />;
     case "react-common-mistakes":

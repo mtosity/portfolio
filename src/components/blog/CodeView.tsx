@@ -56,7 +56,7 @@ export default function CodeView({
         {codeExample.description}
       </p>
 
-      <div className="space-y-4 flex-1 overflow-y-auto min-h-0">
+      <div className="space-y-4 flex-1 overflow-y-auto min-h-0 pb-12">
         {codeExample.wrongCode && (
           <div>
             <h4 className="text-red-800 dark:text-red-200 font-semibold mb-2 text-sm">
