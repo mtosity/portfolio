@@ -28,8 +28,8 @@ export default function Home() {
       <div className="flex flex-col items-center px-4 py-40">
         <div className={styles.home}>
           <About />
-          <Projects />
           <Experience />
+          <Projects />
           <Contact />
         </div>
       </div>

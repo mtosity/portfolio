@@ -39,7 +39,7 @@ export const ExperienceItem = ({
         </Reveal>
       </div>
       <Reveal>
-        <p className={styles.description}>{description}</p>
+        <p className={styles.description} style={{ whiteSpace: 'pre-line' }}>{description}</p>
       </Reveal>
       <Reveal>
         <div className={styles.tech}>
