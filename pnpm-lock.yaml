@@ -59,7 +59,7 @@ importers:
     devDependencies:
       '@types/animejs':
         specifier: ^3.1.12
-        version: 3.1.12
+        version: 3.1.13
       '@types/node':
         specifier: ^20
         version: 20.19.26
@@ -656,8 +656,8 @@ packages:
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
-  '@types/animejs@3.1.12':
-    resolution: {integrity: sha512-fpdH+ZtlO0kqjTOqRaBdsEmvpRNOayI8k4EVkEtitL5l6wducDOXk0rgQgfZqWf/ZX9DzXrHf257S5i9xTcISQ==}
+  '@types/animejs@3.1.13':
+    resolution: {integrity: sha512-yWg9l1z7CAv/TKpty4/vupEh24jDGUZXv4r26StRkpUPQm04ztJaftgpto8vwdFs8SiTq6XfaPKCSI+wjzNMvQ==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -2783,7 +2783,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@types/animejs@3.1.12': {}
+  '@types/animejs@3.1.13': {}
 
   '@types/estree@1.0.8': {}
 
