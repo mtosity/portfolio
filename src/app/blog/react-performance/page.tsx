@@ -682,7 +682,7 @@ function BlogContent() {
 export default function ReactPerformancePost() {
   return (
     <BlogLayout
-      title="The Complete Guide to React Performance: From Audit to Optimization"
+      title="React Performance: From Audit to Optimization"
       date="January 3, 2026"
     >
       <BlogContent />
