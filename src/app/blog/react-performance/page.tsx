@@ -1,6 +1,7 @@
 import BlogLayout from "@/components/blog/BlogLayout";
 import InteractiveAnchor from "@/components/blog/InteractiveAnchor";
 import CodeAnchor from "@/components/blog/CodeAnchor";
+import Image from "next/image";
 
 function BlogContent() {
   return (
@@ -38,6 +39,16 @@ function BlogContent() {
         feels faster. But in professional development,{" "}
         <strong>performance is a system, not a task</strong>.
       </p>
+
+      <div className="my-8">
+        <Image
+          src="/blog-images/react-performance/audit-strategy.jpg"
+          alt="React Performance Audit Strategy Workflow"
+          width={1200}
+          height={675}
+          className="rounded-lg shadow-lg"
+        />
+      </div>
 
       <h3 className="text-xl font-semibold mt-6 mb-3">
         Understanding Web Vitals
@@ -135,6 +146,16 @@ function BlogContent() {
           the changes to the real DOM.
         </li>
       </ol>
+
+      <div className="my-8">
+        <Image
+          src="/blog-images/react-performance/react-rendering-cycle.jpg"
+          alt="React Rendering Cycle: Trigger, Render, and Commit Phases"
+          width={1200}
+          height={675}
+          className="rounded-lg shadow-lg"
+        />
+      </div>
 
       <p className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg text-yellow-800 dark:text-yellow-200 mt-4">
         <strong>The Trap:</strong> Developers often confuse the Render Phase
@@ -506,6 +527,55 @@ function BlogContent() {
       </p>
 
       <h3 className="text-xl font-semibold mt-6 mb-3">
+        Suspense & Transitions for Priority Updates
+      </h3>
+
+      <p>
+        React 18 introduced{" "}
+        <InteractiveAnchor
+          text="Suspense & Transitions"
+          definitionKey="suspenseTransitions"
+        />
+        , which let you mark state updates as &quot;urgent&quot; or
+        &quot;non-urgent.&quot; This is more powerful than useDeferredValue
+        because you control <em>which updates</em> get deferred, not just
+        values.
+      </p>
+
+      <ul className="list-disc pl-6 space-y-2">
+        <li>
+          <strong>startTransition:</strong> Wrap non-urgent state updates to
+          tell React they can be interrupted. Perfect for tab switches, route
+          navigation, or search results.
+        </li>
+        <li>
+          <strong>Suspense:</strong> Shows a fallback UI while async data loads.
+          Combine with transitions to keep the old UI interactive while the new
+          one prepares in the background.
+        </li>
+        <li>
+          <strong>isPending flag:</strong> Shows loading state without blocking
+          user interactions.
+        </li>
+      </ul>
+
+      <p>
+        <CodeAnchor
+          text="View Suspense & Transitions Example"
+          codeKey="suspenseTransitionsExample"
+        />{" "}
+        — See how to keep tabs responsive while loading heavy data.
+      </p>
+
+      <p className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-blue-800 dark:text-blue-200 mt-4">
+        <strong>The Difference:</strong> useDeferredValue defers a{" "}
+        <em>value</em> (like search input), while startTransition defers an
+        entire <em>state update</em> (like switching tabs). Use Transitions when
+        you need fine-grained control over which updates are urgent vs
+        non-urgent.
+      </p>
+
+      <h3 className="text-xl font-semibold mt-6 mb-3">
         Uncontrolled Components with useRef
       </h3>
 
@@ -514,6 +584,22 @@ function BlogContent() {
         games), letting React manage state is too expensive. Use{" "}
         <code>useRef</code> to hold the DOM node and manipulate it directly. You
         lose React&apos;s safety features, but you gain raw speed.
+      </p>
+
+      <p>
+        <CodeAnchor
+          text="View Uncontrolled Component Example"
+          codeKey="uncontrolledComponentExample"
+        />{" "}
+        — See how to achieve 60 FPS canvas drawing without re-renders.
+      </p>
+
+      <p className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg text-orange-800 dark:text-orange-200 mt-4">
+        <strong>Trade-off:</strong> Uncontrolled components bypass React&apos;s
+        declarative model. Use them only when performance profiling proves
+        React&apos;s rendering is the bottleneck. They&apos;re perfect for
+        canvas drawing, real-time audio visualizers, or contentEditable rich
+        text editors.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">
@@ -560,6 +646,78 @@ function BlogContent() {
       </p>
 
       <h3 className="text-xl font-semibold mt-6 mb-3">
+        Build Configuration: Browserslist & Source Maps
+      </h3>
+
+      <p>
+        Your build configuration has a massive impact on bundle size and parsing
+        speed. Two often-overlooked settings can reduce your bundle by 40-60%:
+      </p>
+
+      <h4 className="text-lg font-medium mt-4 mb-2">Browserslist</h4>
+
+      <p>
+        <InteractiveAnchor text="Browserslist" definitionKey="browserslist" />{" "}
+        tells your bundler which browsers to support. The default configuration
+        includes Internet Explorer 11, which means you&apos;re shipping massive
+        polyfills and transpiled code that 99% of your users don&apos;t need.
+      </p>
+
+      <ul className="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Check your analytics:</strong> If 95%+ of your users are on
+          modern browsers, why support IE 11?
+        </li>
+        <li>
+          <strong>Update your config:</strong> Use{" "}
+          <code>&gt;0.2%, not dead, not op_mini all</code> to target modern
+          browsers only.
+        </li>
+        <li>
+          <strong>The win:</strong> Smaller bundles (no polyfills), faster
+          parsing (native syntax), better performance.
+        </li>
+      </ul>
+
+      <h4 className="text-lg font-medium mt-4 mb-2">Source Maps</h4>
+
+      <p>
+        <InteractiveAnchor text="Source Maps" definitionKey="sourceMaps" /> are
+        essential for debugging, but they&apos;re often larger than your actual
+        code. Shipping them to production users wastes bandwidth and increases
+        load times.
+      </p>
+
+      <ul className="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Development:</strong> Use full source maps for debugging.
+        </li>
+        <li>
+          <strong>Production:</strong> Use <code>hidden-source-map</code> or
+          disable entirely. Upload maps to error tracking services (Sentry,
+          Datadog) separately.
+        </li>
+        <li>
+          <strong>The win:</strong> Users don&apos;t download massive .map
+          files, but you can still debug production issues.
+        </li>
+      </ul>
+
+      <p>
+        <CodeAnchor
+          text="View Build Configuration Example"
+          codeKey="buildOptimizationExample"
+        />{" "}
+        — See how to configure browserslist and source maps properly.
+      </p>
+
+      <p className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg text-green-800 dark:text-green-200 mt-4">
+        <strong>Real Impact:</strong> Updating browserslist alone can reduce
+        your bundle from 450KB to 180KB. That&apos;s a 60% reduction with a
+        5-line config change!
+      </p>
+
+      <h3 className="text-xl font-semibold mt-6 mb-3">
         Code Splitting with React.lazy
       </h3>
 
@@ -581,20 +739,145 @@ function BlogContent() {
       </p>
 
       <h3 className="text-xl font-semibold mt-6 mb-3">
-        Speculative Loading with Resource Hints
+        Speculative Loading: Predicting User Navigation
       </h3>
 
       <p>
-        Once you&apos;ve split your code, you face network latency. We solve
-        this by guessing where users will go and loading assets beforehand.
+        Code splitting improves initial page load by shipping only what&apos;s
+        needed. But here&apos;s the problem: when a user clicks a link to
+        navigate to a new route, the browser has to fetch, parse, and execute
+        that route&apos;s JavaScript <em>before</em> it can render the page.
+        That creates lag.
       </p>
+
+      <p>
+        <strong>Speculative loading</strong> solves this by loading resources{" "}
+        <em>before</em> the user needs them. When the user hovers over a link or
+        the browser predicts they&apos;ll navigate somewhere, we tell the
+        browser to preload that route&apos;s code.
+      </p>
+
+      <h4 className="text-lg font-medium mt-4 mb-2">
+        The Resource Hint API: prefetch vs preload
+      </h4>
+
+      <p>
+        Browsers provide <code>&lt;link rel&gt;</code> tags to hint at future
+        resource needs:
+      </p>
+
+      <ul className="list-disc pl-6 space-y-2">
+        <li>
+          <strong>prefetch:</strong> &quot;I&apos;m not sure the user will need
+          this, but load it when idle.&quot; (Low priority)
+        </li>
+        <li>
+          <strong>preload:</strong> &quot;I&apos;m 90% sure this is needed soon,
+          load it now!&quot; (High priority)
+        </li>
+        <li>
+          <strong>dns-prefetch:</strong> &quot;We&apos;ll connect to this
+          domain, so resolve the DNS now.&quot;
+        </li>
+      </ul>
 
       <p>
         <CodeAnchor
           text="View Resource Hints Example"
           codeKey="resourceHints"
         />{" "}
-        — Learn about preload and prefetch.
+        — See how to implement prefetch and preload.
+      </p>
+
+      <h4 className="text-lg font-medium mt-4 mb-2">
+        Framework vs Build Tool: Who Handles This?
+      </h4>
+
+      <p>
+        <strong>React frameworks</strong> like Next.js and Remix understand your
+        app&apos;s routing structure at the code level. They automatically
+        inject resource hints when you use their <code>&lt;Link&gt;</code>{" "}
+        components. Hover over a Next.js link? The route&apos;s JavaScript is
+        prefetched instantly.
+      </p>
+
+      <p>
+        <strong>Build tools</strong> like Vite, Webpack, or Create React App
+        don&apos;t have this insight. They bundle your code but don&apos;t know
+        about your routes. Solutions:
+      </p>
+
+      <ul className="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Manual route splitting:</strong> Configure entry points and
+          inject hints yourself (tedious).
+        </li>
+        <li>
+          <strong>Use TanStack Router:</strong> Provides route-based code
+          splitting for Vite/Webpack apps.
+        </li>
+        <li>
+          <strong>Prefetch all chunks:</strong> Vite&apos;s default—inject
+          module preload hints for all imports (can over-fetch).
+        </li>
+      </ul>
+
+      <h4 className="text-lg font-medium mt-4 mb-2">The Fetch Priority API</h4>
+
+      <p>
+        Beyond hints, you can explicitly tell the browser which resources are
+        most critical using the{" "}
+        <InteractiveAnchor
+          text="Fetch Priority API"
+          definitionKey="fetchPriority"
+        />
+        . This is especially powerful for images.
+      </p>
+
+      <p>
+        For example, setting <code>fetchpriority=&quot;high&quot;</code> on your
+        hero image tells the browser to prioritize it over other images. This
+        directly improves your <strong>LCP (Largest Contentful Paint)</strong>{" "}
+        Web Vital.
+      </p>
+
+      <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+        In Next.js: Use <code>&lt;Image priority /&gt;</code> for above-fold
+        images and <code>&lt;Script strategy=&quot;lazyOnload&quot; /&gt;</code>{" "}
+        for non-critical third-party scripts.
+      </p>
+
+      <h4 className="text-lg font-medium mt-4 mb-2">The Trade-offs</h4>
+
+      <p>
+        Speculative loading isn&apos;t free. Here&apos;s what you&apos;re
+        trading:
+      </p>
+
+      <ul className="list-disc pl-6 space-y-2">
+        <li>
+          <strong>More server load:</strong> The browser makes prefetch requests
+          even if the user never clicks. Solution: Use CDN caching and HTTP
+          headers to serve from edge without hitting your origin.
+        </li>
+        <li>
+          <strong>More device work:</strong> The user&apos;s device downloads
+          and parses JavaScript they might not need. Fortunately, browsers are
+          smart—they won&apos;t prefetch if the device is busy or on a slow
+          connection.
+        </li>
+        <li>
+          <strong>Cognitive overhead:</strong> You need to track which routes
+          are prefetched, monitor extra network requests, and understand caching
+          behavior.
+        </li>
+      </ul>
+
+      <p className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg text-yellow-800 dark:text-yellow-200 mt-4">
+        <strong>Best Practice:</strong> Start with framework defaults (Next.js
+        auto-prefetches). If using Vite/Webpack, implement route-based splitting
+        with TanStack Router. Only manually optimize if profiling shows slow
+        navigations.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Summary Checklist</h2>
