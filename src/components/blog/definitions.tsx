@@ -715,6 +715,446 @@ export const definitions: Record<string, Definition> = {
       </div>
     ),
   },
+
+  // React Performance Terms
+  wastedRender: {
+    title: "Wasted Render",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          A <strong>Wasted Render</strong> happens when React runs a component&apos;s logic and generates a Virtual DOM tree, but the result is exactly the same as before.
+        </p>
+
+        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+            Why it&apos;s bad:
+          </h4>
+          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+            <li>• Burns CPU cycles for no visible change</li>
+            <li>• Slows down your app unnecessarily</li>
+            <li>• Drains battery on mobile devices</li>
+          </ul>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+            ✅ How to detect:
+          </h4>
+          <p className="text-base text-green-700 dark:text-green-300">
+            Use React DevTools Profiler. Yellow/red bars indicate components that took time to render.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  webVitals: {
+    title: "Web Vitals",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>Web Vitals</strong> are Google&apos;s industry-standard metrics for measuring real user experience on websites.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+            Core Metrics:
+          </h4>
+          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+            <li>• <strong>LCP:</strong> Largest Contentful Paint (loading speed)</li>
+            <li>• <strong>CLS:</strong> Cumulative Layout Shift (visual stability)</li>
+            <li>• <strong>INP:</strong> Interaction to Next Paint (responsiveness)</li>
+          </ul>
+        </div>
+
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+            💡 Good to know:
+          </h4>
+          <p className="text-base text-yellow-700 dark:text-yellow-300">
+            These metrics affect your Google Search ranking!
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  shallowEquality: {
+    title: "Shallow Equality (===)",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>Shallow Equality</strong> is how React compares props using the strict equality operator (===). This is the root cause of many performance issues.
+        </p>
+
+        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2">Examples:</h4>
+          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+            <li>✅ <code>true === true</code> (Pass)</li>
+            <li>✅ <code>1 === 1</code> (Pass)</li>
+            <li>❌ <code>{`{ id: 1 } === { id: 1 }`}</code> (FAIL!)</li>
+          </ul>
+        </div>
+
+        <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-orange-800 dark:text-orange-200">
+            ⚠️ The trap:
+          </h4>
+          <p className="text-base text-orange-700 dark:text-orange-300">
+            Objects, Arrays, and Functions are reference types. Creating new ones makes React think data changed!
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  reconciliation: {
+    title: "Reconciliation",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>Reconciliation</strong> is React&apos;s process of comparing the new Virtual DOM tree with the old one to figure out what actually changed.
+        </p>
+
+        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+            The Process:
+          </h4>
+          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+            <li>1. Build new Virtual DOM tree</li>
+            <li>2. Compare with old tree (diffing)</li>
+            <li>3. Calculate minimal changes needed</li>
+            <li>4. Apply only those changes to real DOM</li>
+          </ul>
+        </div>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-blue-800 dark:text-blue-200">
+            💡 Performance tip:
+          </h4>
+          <p className="text-base text-blue-700 dark:text-blue-300">
+            Shallower component trees = faster reconciliation = better performance.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  treeShaking: {
+    title: "Tree Shaking",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>Tree Shaking</strong> is the process of removing unused code (dead code) from your JavaScript bundle during the build.
+        </p>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+            How it works:
+          </h4>
+          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+            <li>• Bundler analyzes your imports</li>
+            <li>• Removes functions you never call</li>
+            <li>• Smaller bundle = faster load times</li>
+          </ul>
+        </div>
+
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+            ⚠️ Gotcha:
+          </h4>
+          <p className="text-base text-yellow-700 dark:text-yellow-300">
+            Use named exports instead of default objects. Bundlers can&apos;t shake out unused keys from objects!
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  codeSplitting: {
+    title: "Code Splitting",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>Code Splitting</strong> breaks your app into smaller chunks that load on-demand instead of shipping everything at once.
+        </p>
+
+        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-indigo-800 dark:text-indigo-200">
+            Types:
+          </h4>
+          <ul className="text-base space-y-1 text-indigo-700 dark:text-indigo-300">
+            <li>• <strong>Static:</strong> Separate vendor vs app code</li>
+            <li>• <strong>Dynamic:</strong> Load on user interaction</li>
+            <li>• <strong>Route-based:</strong> Load per page/route</li>
+          </ul>
+        </div>
+
+        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-teal-800 dark:text-teal-200">
+            ✅ In React:
+          </h4>
+          <p className="text-base text-teal-700 dark:text-teal-300">
+            Use <code>React.lazy()</code> and <code>Suspense</code> to split heavy components.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  reactMemo: {
+    title: "React.memo()",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>React.memo()</strong> is a higher-order component that prevents re-renders when props haven&apos;t changed.
+        </p>
+
+        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2">How it works:</h4>
+          <p className="text-base text-gray-600 dark:text-gray-300">
+            Wraps your component in a &quot;shield&quot; that compares old vs new props before deciding to re-render.
+          </p>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+            ✅ When to use:
+          </h4>
+          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+            <li>• Expensive child components</li>
+            <li>• Parents that update frequently</li>
+            <li>• When Profiler shows wasted renders</li>
+          </ul>
+        </div>
+
+        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-red-800 dark:text-red-200">
+            ❌ Don&apos;t overuse:
+          </h4>
+          <p className="text-base text-red-700 dark:text-red-300">
+            Adds memory overhead. Only use when Profiler proves you have a problem!
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  rumVsSynthetic: {
+    title: "RUM vs Synthetic Monitoring",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          Two approaches to monitoring your app&apos;s performance in the real world.
+        </p>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+            RUM (Real User Monitoring):
+          </h4>
+          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+            <li>• Data from actual users&apos; browsers</li>
+            <li>• High variability (different devices/networks)</li>
+            <li>• Shows real pain points</li>
+          </ul>
+        </div>
+
+        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+            Synthetic Monitoring:
+          </h4>
+          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+            <li>• Automated tests in controlled lab</li>
+            <li>• Low variability (consistent)</li>
+            <li>• Catches regressions before deploy</li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+
+  profilerApi: {
+    title: "React Profiler API",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          The <strong>Profiler API</strong> lets you measure rendering performance programmatically in your code.
+        </p>
+
+        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2">Key metrics provided:</h4>
+          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+            <li>• <strong>actualDuration:</strong> Time spent rendering</li>
+            <li>• <strong>baseDuration:</strong> Time without memoization</li>
+            <li>• <strong>phase:</strong> &quot;mount&quot; or &quot;update&quot;</li>
+          </ul>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+            💡 Pro tip:
+          </h4>
+          <p className="text-base text-green-700 dark:text-green-300">
+            If actualDuration ≈ baseDuration on updates, your memoization is broken!
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  useDeferredValue: {
+    title: "useDeferredValue Hook",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>useDeferredValue</strong> tells React to prioritize urgent updates (like typing) over expensive ones (like filtering a list).
+        </p>
+
+        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-indigo-800 dark:text-indigo-200">
+            How it works:
+          </h4>
+          <ul className="text-base space-y-1 text-indigo-700 dark:text-indigo-300">
+            <li>• Returns a &quot;deferred&quot; version of a value</li>
+            <li>• React updates UI immediately for urgent updates</li>
+            <li>• Heavy updates happen in background</li>
+          </ul>
+        </div>
+
+        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-teal-800 dark:text-teal-200">
+            ✅ Perfect for:
+          </h4>
+          <p className="text-base text-teal-700 dark:text-teal-300">
+            Search inputs that filter large lists, autocomplete, or any input + heavy computation combo.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  stylingStrategy: {
+    title: "Styling Strategy & Performance",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          How you style your React app directly affects the{" "}
+          <strong>Reconciliation</strong> cost—the process where React compares
+          Virtual DOM trees.
+        </p>
+
+        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+            ⚠️ CSS-in-JS (Styled Components):
+          </h4>
+          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+            <li>• Creates deep component wrappers</li>
+            <li>• Runtime style computation</li>
+            <li>• Higher reconciliation cost</li>
+          </ul>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+            ✅ Atomic CSS (Tailwind):
+          </h4>
+          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+            <li>• Zero runtime cost</li>
+            <li>• Tiny footprint</li>
+            <li>• No component wrappers</li>
+          </ul>
+        </div>
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+            ✅ CSS Modules:
+          </h4>
+          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+            <li>• Scoped styles, no runtime cost</li>
+            <li>• Solid middle ground</li>
+            <li>• Works great with React</li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+
+  renderProps: {
+    title: "Render Props Pattern",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          <strong>Render Props</strong> is a pattern where a component takes a
+          function as a prop that returns React elements. It allows you to
+          isolate renders to specific parts of your UI.
+        </p>
+
+        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+            Why use it:
+          </h4>
+          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+            <li>• Hooks couple state to the whole component</li>
+            <li>• Render props isolate updates to sub-sections</li>
+            <li>• Only the specific part re-renders</li>
+          </ul>
+        </div>
+
+        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-teal-800 dark:text-teal-200">
+            ✅ Perfect for:
+          </h4>
+          <p className="text-base text-teal-700 dark:text-teal-300">
+            High-performance forms (like React Final Form), animation
+            libraries, and any scenario where you need fine-grained render
+            control.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  leanScorecard: {
+    title: "The Lean React Scorecard",
+    content: (
+      <div className="space-y-4">
+        <p className="text-base text-gray-600 dark:text-gray-300">
+          When evaluating a new library or pattern, score it against these five
+          metrics:
+        </p>
+
+        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+          <ul className="text-base space-y-2 text-gray-600 dark:text-gray-300">
+            <li>
+              <strong>1. Rendering:</strong> Does it cause unnecessary renders?
+            </li>
+            <li>
+              <strong>2. Reconciliation:</strong> Does it deepen the tree?
+            </li>
+            <li>
+              <strong>3. Footprint:</strong> Does it bloat the bundle?
+            </li>
+            <li>
+              <strong>4. Memory:</strong> Excessive closures or objects?
+            </li>
+            <li>
+              <strong>5. Cognitive Load:</strong> Hard to reason about?
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+            💡 Rule of thumb:
+          </h4>
+          <p className="text-base text-green-700 dark:text-green-300">
+            If a library scores poorly on 3+ metrics, look for alternatives or
+            isolate its usage.
+          </p>
+        </div>
+      </div>
+    ),
+  },
 };
 
 export const codeExamples: Record<string, CodeExample> = {
@@ -1657,6 +2097,732 @@ EXPOSE 8080
 CMD ["./main"]`,
       language: "dockerfile",
       explanation: "Multi-stage Docker build that compiles the Go application in a full Go environment, then creates a minimal Alpine-based production image with just the compiled binary and certificates."
+    }
+  },
+
+  // React Performance Code Examples
+  profilerApiExample: {
+    title: "React Profiler API Usage",
+    description: "How to programmatically measure component rendering performance and send to analytics.",
+    correctCode: {
+      code: `import React, { Profiler } from "react";
+
+// Define the callback that receives performance data
+const onRenderCallback = (
+  id,           // the "id" prop of the Profiler tree
+  phase,        // "mount" (first render) or "update" (re-render)
+  actualDuration,   // time spent rendering this update
+  baseDuration,     // estimated time without memoization
+  startTime,        // when React began rendering
+  commitTime        // when React committed this update
+) => {
+  // Log to console during development
+  console.log(\`[\${id}] Phase: \${phase} | Duration: \${actualDuration}ms\`);
+
+  // Send slow renders to analytics in production
+  if (phase === "mount" && actualDuration > 50) {
+    navigator.sendBeacon("/analytics/perf", JSON.stringify({
+      id,
+      actualDuration,
+      baseDuration
+    }));
+  }
+};
+
+// Wrap your component tree to measure it
+export const ComplexSidebar = () => {
+  return (
+    <Profiler id="SidebarNavigation" onRender={onRenderCallback}>
+      <div className="sidebar">
+        <NavigationList />
+        <AdsWidget /> {/* Suspected slow component */}
+      </div>
+    </Profiler>
+  );
+};`,
+      language: "jsx",
+      explanation: "The Profiler API lets you capture render metrics programmatically. Compare actualDuration vs baseDuration - if they're similar on updates, your memoization isn't working!"
+    }
+  },
+
+  contextSplitting: {
+    title: "Context Splitting Pattern",
+    description: "How to split Context by update frequency to prevent unnecessary re-renders.",
+    wrongCode: {
+      code: `// ❌ BAD: Everything in one Context
+const AppContext = createContext({
+  user: { name: "Minh" },    // Updates rarely
+  theme: "dark",              // Updates sometimes
+  scrollY: 0,                 // Updates CONSTANTLY!
+});
+
+function App() {
+  const [scrollY, setScrollY] = useState(0);
+  const [user, setUser] = useState({ name: "Minh" });
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Every scroll event re-renders ALL consumers!
+  return (
+    <AppContext.Provider value={{ user, theme, scrollY }}>
+      <UserProfile />  {/* Re-renders on scroll! */}
+      <ThemeToggle />  {/* Re-renders on scroll! */}
+      <ScrollIndicator />
+    </AppContext.Provider>
+  );
+}`,
+      language: "jsx",
+      explanation: "When scrollY updates (60+ times per second!), every component consuming AppContext re-renders, even if they only care about user or theme."
+    },
+    correctCode: {
+      code: `// ✅ GOOD: Split by update frequency
+const UserContext = createContext({ name: "Minh" });  // Rarely updates
+const ThemeContext = createContext("dark");            // Sometimes updates
+const ScrollContext = createContext(0);                // Updates constantly
+
+function App() {
+  const [scrollY, setScrollY] = useState(0);
+  const [user, setUser] = useState({ name: "Minh" });
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <UserContext.Provider value={user}>
+      <ThemeContext.Provider value={theme}>
+        <ScrollContext.Provider value={scrollY}>
+          <UserProfile />     {/* Only re-renders when user changes */}
+          <ThemeToggle />     {/* Only re-renders when theme changes */}
+          <ScrollIndicator /> {/* Only this re-renders on scroll */}
+        </ScrollContext.Provider>
+      </ThemeContext.Provider>
+    </UserContext.Provider>
+  );
+}`,
+      language: "jsx",
+      explanation: "By splitting contexts based on update frequency, each consumer only re-renders when its specific data changes. Much better performance!"
+    }
+  },
+
+  useCallbackExample: {
+    title: "Stabilizing Function References",
+    description: "How to prevent child re-renders caused by new function references.",
+    wrongCode: {
+      code: `const Parent = () => {
+  const [count, setCount] = useState(0);
+
+  // ❌ This function is recreated on EVERY render
+  const handleLoad = () => {
+    sendAnalytics("promo_loaded");
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(c => c + 1)}>Increment</button>
+
+      {/* ExpensivePromo re-renders every time Parent renders */}
+      {/* because handleLoad is a new function each time! */}
+      <ExpensivePromo onLoad={handleLoad} />
+    </div>
+  );
+};
+
+// Even with React.memo, this re-renders because onLoad changes!
+const ExpensivePromo = React.memo(({ onLoad }) => {
+  useEffect(() => { onLoad(); }, [onLoad]);
+  return <div>Expensive promo component...</div>;
+});`,
+      language: "jsx",
+      explanation: "Every time Parent renders (e.g., when count changes), handleLoad is a brand new function. React.memo can't help because the prop technically changed!"
+    },
+    correctCode: {
+      code: `const Parent = () => {
+  const [count, setCount] = useState(0);
+
+  // ✅ useCallback keeps the same function reference
+  const handleLoad = useCallback(() => {
+    sendAnalytics("promo_loaded");
+  }, []); // Empty deps = never changes
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(c => c + 1)}>Increment</button>
+
+      {/* ExpensivePromo now skips re-render when count changes */}
+      {/* because handleLoad reference stays stable! */}
+      <ExpensivePromo onLoad={handleLoad} />
+    </div>
+  );
+};
+
+// React.memo now works correctly - props don't change!
+const ExpensivePromo = React.memo(({ onLoad }) => {
+  useEffect(() => { onLoad(); }, [onLoad]);
+  return <div>Expensive promo component...</div>;
+});`,
+      language: "jsx",
+      explanation: "useCallback memoizes the function so it keeps the same reference across renders. Combined with React.memo, the expensive child won't re-render unnecessarily."
+    }
+  },
+
+  useMemoObjectExample: {
+    title: "Stabilizing Object References",
+    description: "How to prevent re-renders caused by inline object creation.",
+    wrongCode: {
+      code: `const Parent = ({ rawData }) => {
+  // ❌ This object is recreated on EVERY render
+  const processedData = {
+    id: rawData.id,
+    title: rawData.title.toUpperCase(),
+    timestamp: Date.now() // Just for formatting
+  };
+
+  // Child always sees a "new" object, even if values are same
+  return <ExpensiveChart data={processedData} />;
+};
+
+// Even with React.memo, this re-renders every time!
+const ExpensiveChart = React.memo(({ data }) => {
+  // Expensive chart rendering...
+  return <canvas>{/* Chart visualization */}</canvas>;
+});`,
+      language: "jsx",
+      explanation: "Creating an object inline means a new reference every render. { id: 1 } === { id: 1 } is FALSE in JavaScript!"
+    },
+    correctCode: {
+      code: `const Parent = ({ rawData }) => {
+  // ✅ useMemo keeps the same object reference
+  const processedData = useMemo(() => ({
+    id: rawData.id,
+    title: rawData.title.toUpperCase(),
+    timestamp: Date.now()
+  }), [rawData.id, rawData.title]); // Only recreate if these change
+
+  // Child now skips re-render when object values haven't changed
+  return <ExpensiveChart data={processedData} />;
+};
+
+// React.memo now works correctly!
+const ExpensiveChart = React.memo(({ data }) => {
+  // Expensive chart rendering only happens when needed
+  return <canvas>{/* Chart visualization */}</canvas>;
+});`,
+      language: "jsx",
+      explanation: "useMemo caches the object and only creates a new one when dependencies change. The reference stays stable, so React.memo can skip renders."
+    }
+  },
+
+  slotPattern: {
+    title: "The Slot Pattern (Component Composition)",
+    description: "How to lift component ownership to prevent unnecessary re-renders.",
+    wrongCode: {
+      code: `// ❌ Header OWNS SearchBar - they're tightly coupled
+const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // When menuOpen changes, SearchBar MUST re-render
+  // even though it doesn't use menuOpen at all!
+  return (
+    <div className="header">
+      <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
+      {menuOpen && <MobileMenu />}
+      <SearchBar />  {/* Wasted render every time! */}
+    </div>
+  );
+};
+
+// SearchBar is defined inside Header's render
+const SearchBar = () => {
+  // Expensive search component
+  return <input placeholder="Search..." />;
+};`,
+      language: "jsx",
+      explanation: "Because Header creates SearchBar in its JSX, any Header re-render forces SearchBar to re-render too. They're coupled by ownership."
+    },
+    correctCode: {
+      code: `// ✅ Header receives SearchBar as a prop (slot)
+const Header = ({ children }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // When menuOpen changes, children keeps its identity!
+  // React knows it's the same element, so it skips re-rendering it
+  return (
+    <div className="header">
+      <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
+      {menuOpen && <MobileMenu />}
+      {children}  {/* This doesn't re-render! */}
+    </div>
+  );
+};
+
+// App owns SearchBar, not Header
+const App = () => {
+  return (
+    <Header>
+      <SearchBar />  {/* Created here, passed as children */}
+    </Header>
+  );
+};
+
+const SearchBar = () => {
+  return <input placeholder="Search..." />;
+};`,
+      language: "jsx",
+      explanation: "By passing SearchBar as children, App becomes the owner. When Header re-renders, the children prop hasn't changed, so SearchBar is skipped. This is the 'slot' pattern!"
+    }
+  },
+
+  normalizedState: {
+    title: "Normalized State (O(1) Lookups)",
+    description: "How to structure state for instant lookups instead of slow array searches.",
+    wrongCode: {
+      code: `// ❌ BAD: Storing as array = O(n) lookups
+const [todos, setTodos] = useState([
+  { id: "1", text: "Buy milk", done: false },
+  { id: "2", text: "Walk dog", done: true },
+  { id: "3", text: "Learn React", done: false },
+  // ... imagine 1000 more items
+]);
+
+// Finding an item requires looping through the entire array!
+const findTodo = (id) => todos.find(todo => todo.id === id);
+
+// Updating requires finding + creating new array
+const toggleTodo = (id) => {
+  setTodos(todos.map(todo =>
+    todo.id === id ? { ...todo, done: !todo.done } : todo
+  ));
+};
+
+// With 1000 items, this gets SLOW
+// O(n) find + O(n) map = performance problem`,
+      language: "jsx",
+      explanation: "Arrays require iteration to find items. With large datasets, these O(n) operations add up and slow down your app."
+    },
+    correctCode: {
+      code: `// ✅ GOOD: Storing as object = O(1) lookups
+const [todos, setTodos] = useState({
+  "1": { id: "1", text: "Buy milk", done: false },
+  "2": { id: "2", text: "Walk dog", done: true },
+  "3": { id: "3", text: "Learn React", done: false },
+  // ... even with 1000 items, lookup is instant!
+});
+
+// Finding is instant! O(1)
+const findTodo = (id) => todos[id];
+
+// Updating is also much cleaner
+const toggleTodo = (id) => {
+  setTodos({
+    ...todos,
+    [id]: { ...todos[id], done: !todos[id].done }
+  });
+};
+
+// For rendering as a list:
+const todoList = Object.values(todos);
+
+// Bonus: Store order separately if needed
+const [todoOrder, setTodoOrder] = useState(["1", "2", "3"]);`,
+      language: "jsx",
+      explanation: "Objects provide O(1) instant access by key. No matter how many items you have, lookup is always fast. This is called 'normalized' state."
+    }
+  },
+
+  lazyLoadingExample: {
+    title: "Code Splitting with React.lazy",
+    description: "How to split heavy components into separate bundles that load on-demand.",
+    correctCode: {
+      code: `import React, { Suspense, lazy } from "react";
+
+// ❌ Regular import - included in main bundle
+// import HeavyChart from "./HeavyChart";
+
+// ✅ Lazy import - separate chunk, loads when needed
+const HeavyChart = lazy(() => import("./HeavyChart"));
+const AdminPanel = lazy(() => import("./AdminPanel"));
+const PdfViewer = lazy(() => import("./PdfViewer"));
+
+function Dashboard({ showChart, isAdmin, pdfUrl }) {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      {/* HeavyChart chunk only downloads when showChart is true */}
+      {showChart && (
+        <Suspense fallback={<div>Loading chart...</div>}>
+          <HeavyChart />
+        </Suspense>
+      )}
+
+      {/* AdminPanel chunk only downloads for admin users */}
+      {isAdmin && (
+        <Suspense fallback={<div>Loading admin panel...</div>}>
+          <AdminPanel />
+        </Suspense>
+      )}
+
+      {/* PdfViewer chunk only downloads when there's a PDF */}
+      {pdfUrl && (
+        <Suspense fallback={<div>Loading PDF viewer...</div>}>
+          <PdfViewer url={pdfUrl} />
+        </Suspense>
+      )}
+    </div>
+  );
+}
+
+export default Dashboard;`,
+      language: "jsx",
+      explanation: "React.lazy() tells the bundler to create separate chunks. Users only download what they actually need. Suspense shows a loading state while the chunk loads."
+    }
+  },
+
+  deferredValueExample: {
+    title: "useDeferredValue for Responsive Inputs",
+    description: "How to keep inputs responsive while rendering expensive lists.",
+    correctCode: {
+      code: `import { useState, useDeferredValue, useMemo } from "react";
+
+function SearchableList({ items }) {
+  const [query, setQuery] = useState("");
+
+  // Create a "deferred" version of the query
+  // This value "lags behind" the real query during heavy renders
+  const deferredQuery = useDeferredValue(query);
+
+  // Heavy filtering only uses the deferred value
+  const filteredItems = useMemo(() => {
+    return items.filter(item =>
+      item.name.toLowerCase().includes(deferredQuery.toLowerCase())
+    );
+  }, [items, deferredQuery]);
+
+  // Check if we're showing stale results
+  const isStale = query !== deferredQuery;
+
+  return (
+    <div>
+      {/* Input uses real query - stays instantly responsive! */}
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search..."
+      />
+
+      {/* List uses deferred query - updates in background */}
+      <div style={{ opacity: isStale ? 0.7 : 1 }}>
+        {isStale && <span>Updating...</span>}
+        <ul>
+          {filteredItems.map(item => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}`,
+      language: "jsx",
+      explanation: "useDeferredValue tells React: 'Prioritize the input, update the list when you have time.' The input stays snappy while expensive filtering happens in the background."
+    }
+  },
+
+  resourceHints: {
+    title: "Resource Hints for Smart Loading",
+    description: "How to use preload and prefetch to optimize resource loading.",
+    correctCode: {
+      code: `// In your HTML <head> or Next.js _document.js
+
+// PRELOAD: "I need this NOW for the current page"
+// Use for critical resources like fonts and hero images
+<link
+  rel="preload"
+  href="/fonts/inter.woff2"
+  as="font"
+  type="font/woff2"
+  crossOrigin="anonymous"
+/>
+
+<link
+  rel="preload"
+  href="/hero-image.webp"
+  as="image"
+  fetchpriority="high"
+/>
+
+// PREFETCH: "User will probably need this next"
+// Use for resources on the NEXT page user will visit
+<link rel="prefetch" href="/dashboard.js" />
+<link rel="prefetch" href="/settings.js" />
+
+// In React component for dynamic prefetching:
+function NavLink({ href, children }) {
+  const prefetchOnHover = () => {
+    // Prefetch the route when user hovers
+    const link = document.createElement("link");
+    link.rel = "prefetch";
+    link.href = href;
+    document.head.appendChild(link);
+  };
+
+  return (
+    <a href={href} onMouseEnter={prefetchOnHover}>
+      {children}
+    </a>
+  );
+}
+
+// Next.js does this automatically for <Link> components!
+import Link from "next/link";
+<Link href="/about">About</Link> // Auto-prefetches on viewport`,
+      language: "jsx",
+      explanation: "preload = download NOW (blocks nothing else). prefetch = download when idle (for future navigation). Use preload sparingly for truly critical resources."
+    }
+  },
+
+  renderPropsExample: {
+    title: "Render Props for Isolated Updates",
+    description: "How to use Render Props to isolate re-renders to specific parts of your UI.",
+    wrongCode: {
+      code: `// ❌ Using hooks couples state to the entire component
+const ContactForm = () => {
+  // Every keystroke re-renders the ENTIRE form!
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+
+  console.log("Entire form re-rendered!");
+
+  return (
+    <form>
+      <input
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        placeholder="First Name"
+      />
+      <input
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+        placeholder="Last Name"
+      />
+      <input
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+      />
+      {/* ... more fields */}
+      <ExpensiveValidationSummary />
+      <SubmitButton />
+    </form>
+  );
+};`,
+      language: "jsx",
+      explanation: "With hooks, every keystroke in ANY field causes the entire form (including ExpensiveValidationSummary) to re-render. This is wasteful!"
+    },
+    correctCode: {
+      code: `// ✅ Using Render Props for isolated field updates
+// (Inspired by React Final Form's approach)
+
+const Field = ({ name, render }) => {
+  // Each Field manages its own state
+  const [value, setValue] = useState("");
+  const [touched, setTouched] = useState(false);
+
+  // Only THIS field re-renders when its value changes
+  return render({
+    value,
+    onChange: (e) => setValue(e.target.value),
+    onBlur: () => setTouched(true),
+    touched,
+  });
+};
+
+const ContactForm = () => {
+  console.log("Form wrapper rendered - but only once!");
+
+  return (
+    <form>
+      {/* Each field manages its own state and re-renders independently */}
+      <Field
+        name="firstName"
+        render={({ value, onChange }) => (
+          <input value={value} onChange={onChange} placeholder="First Name" />
+        )}
+      />
+
+      <Field
+        name="lastName"
+        render={({ value, onChange }) => (
+          <input value={value} onChange={onChange} placeholder="Last Name" />
+        )}
+      />
+
+      <Field
+        name="email"
+        render={({ value, onChange, touched }) => (
+          <div>
+            <input value={value} onChange={onChange} placeholder="Email" />
+            {touched && !value && <span>Required</span>}
+          </div>
+        )}
+      />
+
+      {/* These DON'T re-render when fields change! */}
+      <ExpensiveValidationSummary />
+      <SubmitButton />
+    </form>
+  );
+};`,
+      language: "jsx",
+      explanation: "Each Field component manages its own state. When you type in 'firstName', only that Field's render prop function runs. The form wrapper and other fields stay untouched!"
+    }
+  },
+
+  reactMemoExample: {
+    title: "React.memo to Prevent Wasted Renders",
+    description: "How to use React.memo to shield expensive components from unnecessary re-renders.",
+    wrongCode: {
+      code: `// ❌ Without React.memo - ExpensiveList re-renders every time!
+const Dashboard = () => {
+  const [count, setCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  return (
+    <div>
+      <h1>Dashboard (renders: {count})</h1>
+      <button onClick={() => setCount(c => c + 1)}>
+        Increment Counter: {count}
+      </button>
+
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search..."
+      />
+
+      {/* This expensive component re-renders when count changes
+          even though it only needs searchTerm! */}
+      <ExpensiveList searchTerm={searchTerm} />
+    </div>
+  );
+};
+
+// Imagine this renders 10,000 items
+const ExpensiveList = ({ searchTerm }) => {
+  console.log("ExpensiveList rendered!");
+  
+  // Heavy computation
+  const items = Array.from({ length: 10000 }, (_, i) => \`Item \${i}\`);
+  const filtered = items.filter(item => 
+    item.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <ul>
+      {filtered.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </ul>
+  );
+};`,
+      language: "jsx",
+      explanation: "Every time count increases, ExpensiveList re-renders and filters all 10,000 items again, even though searchTerm didn't change. This wastes CPU cycles!"
+    },
+    correctCode: {
+      code: `// ✅ With React.memo - ExpensiveList only re-renders when searchTerm changes!
+const Dashboard = () => {
+  const [count, setCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  return (
+    <div>
+      <h1>Dashboard (renders: {count})</h1>
+      <button onClick={() => setCount(c => c + 1)}>
+        Increment Counter: {count}
+      </button>
+
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search..."
+      />
+
+      {/* Now this only re-renders when searchTerm changes! */}
+      <ExpensiveList searchTerm={searchTerm} />
+    </div>
+  );
+};
+
+// React.memo wraps the component and compares props
+const ExpensiveList = React.memo(({ searchTerm }) => {
+  console.log("ExpensiveList rendered!");
+  
+  // Heavy computation only runs when searchTerm actually changes
+  const items = Array.from({ length: 10000 }, (_, i) => \`Item \${i}\`);
+  const filtered = items.filter(item => 
+    item.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <ul>
+      {filtered.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </ul>
+  );
+});
+
+// Optional: Add display name for debugging
+ExpensiveList.displayName = "ExpensiveList";`,
+      language: "jsx",
+      explanation: "React.memo creates a 'shield' around the component. Now when count changes, React compares the old searchTerm with the new one. Since they're the same, the re-render is skipped!"
+    },
+    alternativeCode: {
+      code: `// Advanced: Custom comparison function for complex props
+const ExpensiveList = React.memo(
+  ({ searchTerm, config }) => {
+    console.log("ExpensiveList rendered!");
+    
+    const items = Array.from({ length: 10000 }, (_, i) => \`Item \${i}\`);
+    const filtered = items.filter(item => 
+      item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+      <ul>
+        {filtered.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    );
+  },
+  // Custom comparison function (returns true if props are equal)
+  (prevProps, nextProps) => {
+    // Only re-render if searchTerm OR config.theme changed
+    return (
+      prevProps.searchTerm === nextProps.searchTerm &&
+      prevProps.config.theme === nextProps.config.theme
+    );
+  }
+);`,
+      language: "jsx",
+      explanation: "You can provide a custom comparison function as the second argument to React.memo for fine-grained control over when to re-render. Return true to skip render, false to allow it."
     }
   }
 };

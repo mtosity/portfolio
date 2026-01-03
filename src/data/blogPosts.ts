@@ -8,6 +8,15 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "react-performance",
+    title:
+      "The Complete Guide to React Performance: From Audit to Optimization",
+    date: "January 3, 2026",
+    excerpt:
+      "Master React performance with a systematic approach. Learn to identify wasted renders, use the React Profiler effectively, and apply optimization techniques like memoization, code splitting, and state normalization.",
+    category: "Building",
+  },
+  {
     slug: "building-video-call-app",
     title:
       "Building a Modern Video Call Application: React, Go, WebRTC, and Redis",
