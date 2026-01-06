@@ -7,8 +7,9 @@
 
 .title {
   font-size: var(--text-xl);
-  font-weight: 900;
+  font-weight: 300;
   text-align: end;
+  letter-spacing: -1px;
 
   span {
     color: var(--brand);
