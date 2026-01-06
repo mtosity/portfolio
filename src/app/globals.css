@@ -14,10 +14,7 @@
 /* Blog-specific typography */
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: -1px;
-  margin-top: 0;
-  margin-bottom: 0;
   font-family: Gascogne Serial, Times New Roman, sans-serif;
-  font-size: 4rem;
   font-weight: 300;
   line-height: 1.21;
   color: inherit;
@@ -25,6 +22,8 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 4rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 h2 {
