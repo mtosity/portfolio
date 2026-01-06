@@ -36,6 +36,7 @@ export const SlideTabs = () => {
           opacity: 0,
         }));
       }}
+      style={{ fontFamily: 'var(--font-heading)' }}
       className="relative mx-auto flex flex-wrap justify-center gap-1 w-full max-w-3xl rounded-lg border-2 border-white bg-zinc-800 p-1 sm:gap-0"
     >
       <Tab setPosition={setPosition} onClick={() => navigateToPage("/")}>
