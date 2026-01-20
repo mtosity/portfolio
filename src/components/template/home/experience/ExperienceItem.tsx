@@ -4,6 +4,7 @@ import styles from "./experience.module.scss";
 
 interface Props {
   title: string;
+  link?: string;
   position: string;
   time: string;
   location: string;
@@ -13,17 +14,26 @@ interface Props {
 
 export const ExperienceItem = ({
   title,
+  link,
   position,
   time,
   location,
   description,
   tech,
 }: Props) => {
+  const titleContent = link ? (
+    <a className={styles.title} href={link} rel="noreferrer" target="_blank">
+      {title}
+    </a>
+  ) : (
+    <span className={styles.title}>{title}</span>
+  );
+
   return (
     <div className={styles.experience}>
       <div className={styles.heading}>
         <Reveal>
-          <span className={styles.title}>{title}</span>
+          {titleContent}
         </Reveal>
         <Reveal>
           <span>{time}</span>
@@ -39,7 +49,9 @@ export const ExperienceItem = ({
         </Reveal>
       </div>
       <Reveal>
-        <p className={styles.description} style={{ whiteSpace: 'pre-line' }}>{description}</p>
+        <p className={styles.description} style={{ whiteSpace: "pre-line" }}>
+          {description}
+        </p>
       </Reveal>
       <Reveal>
         <div className={styles.tech}>

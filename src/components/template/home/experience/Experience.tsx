@@ -16,71 +16,73 @@ export const Experience = () => {
 const experience = [
   {
     title: "Coalition Inc",
+    link: "https://www.youtube.com/watch?v=c27e3yi2g9E&ab_channel=Coalition%2CInc",
     position: "Software Engineer II",
     time: "Jun 2022 - Present",
-    location: "Remote - US",
+    location: "",
     description:
-      "• Spearheaded reusable, internationalized insurance form with real-time data synchronization using React, react-hook-form, tanstack, and i18n libraries, enabled customers to generate quotes faster by 60%.\n\n" +
-      "• Engineered an LLM powered translation pipeline leveraging GitHub Actions, Python, and API integrations; automated approval checkpoints to streamline localization, cutting manual effort and improving content accuracy and turnaround speed.\n\n" +
-      "• Engineered a React and D3.js powered actuarial pricing calculator UI, integrating with backend APIs to deliver pricing calculations, data visualizations, and quote comparisons for improved decision-making for underwriters.\n\n" +
-      "• Built data intensive CRM underwriting workbench using D3.js, Material UI, Golang, help centralize data and drive efficiency gains by reducing underwriting cycle time by 20%.\n\n" +
-      "• Engineered a TypeScript type generator leveraging OpenAPI YAML schemas, streamlining API integration, standardizing data contracts, and accelerating front-end feature development.\n\n" +
-      "• Implemented Datadog RUM in the frontend codebase (React/TypeScript), providing engineers with real-time session insights and end-to-end request tracing, which reduced debugging time and improved incident resolution speed.",
+      "• Reduced insurance quote generation latency by 58% by architecting a new internationalized (i18n) intake form using React, React Hook Form, and TanStack Query for real-time data synchronization.\n\n" +
+      "• Accelerated underwriting cycle time by 20% through the development of a data-intensive CRM workbench, utilizing D3.js for complex risk visualizations and Golang for backend data aggregation.\n\n" +
+      "• Cut manual translation costs and approval times by 40% by engineering an automated LLM-powered localization pipeline using Python, GitHub Actions, OpenAI.\n\n" +
+      "• Eliminated technical debt associated with stale feature flags by building an autonomous AI coding agent leveraging OpenAI Codex, automatically identifying and removing legacy code paths.\n\n" +
+      "• Standardized data contracts across the organization by engineering a TypeScript types generator based on OpenAPI schemas, reducing type-related bugs and accelerating feature delivery.\n\n" +
+      "• Engineered full-stack solutions for multiple high-value projects, translating design system requirements into scalable code. Key deliverables included a renewals dashboard, infrastructure for new insurance coverages, and technical support for a new country launch.",
     tech: [
       "React",
+      "React Hook Form",
+      "TanStack Query",
+      "D3.js",
+      "Golang",
+      "Python",
+      "GitHub Actions",
+      "OpenAI",
       "TypeScript",
-      "JavaScript",
-      "Next.js",
-      "Redux",
-      "GraphQL",
-      "AWS",
-      "Cypress",
-      "Datadog",
-      "CI/CD",
-      "Material UI",
-      "BluePrintJS",
-      "React Testing Library",
-      "Recoil",
+      "OpenAPI",
     ],
   },
   {
     title: "Pixie",
-    position: "Lead Front end Engineer",
+    position: "Frontend Engineer",
     time: "Mar 2021 - Jun 2022",
     location: "",
     description:
-      "• Delivered a reusable React UI design system with TypeScript and Storybook, implementing WCAG accessibility standards to ensure consistent, maintainable, and inclusive user interfaces.\n\n" +
-      "• Built core product features including authentication, video calling, real-time chat, scheduling calendar, and ratings using React, Go, WebRTC, and WebSocket; ensured seamless integration and scalability, 0-50k users.\n\n" +
-      "• Developed company marketing websites using Next.js server-side rendering, and integrated Contentful CMS, enabling dynamic content management and reducing developer dependencies.\n\n" +
-      "• Integrated Google Analytics, Sentry, and FullStory into the React frontend, enabling comprehensive user behavior tracking, error monitoring, and session replay to streamline debugging and product analysis.",
-    tech: ["React", "Next.js", "Redux", "TypeScript", "JavaScript", "WebSocket", "Webpack", "GraphQL", "Tailwind CSS", "Google Cloud", "Ant Design", "Figma"],
+      "• Scaled frontend architecture to support user growth from 0 to 50k users for a core MVP product, delivering critical features including real-time video calling (WebRTC), chat (WebSocket), and scheduling.\n\n" +
+      "• Reduced new feature development time by 30% by architecting a reusable React UI design system with Storybook, ensuring compliance with WCAG 2.1 accessibility standards.\n\n" +
+      "• Improved marketing site performance and SEO rankings by migrating to Next.js for server-side rendering (SSR) and integrating Contentful CMS for dynamic content management.\n\n" +
+      "• Optimized user experience and debugging velocity by integrating Sentry and FullStory, creating a feedback loop that identified and resolved top user friction points.",
+    tech: [
+      "React",
+      "Next.js",
+      "Redux",
+      "TypeScript",
+      "JavaScript",
+      "WebSocket",
+      "Webpack",
+      "GraphQL",
+      "Tailwind CSS",
+      "Google Cloud",
+      "Ant Design",
+      "Figma",
+    ],
   },
   {
     title: "Vinbrain",
-    position: "Frontend Engineer",
+    link: "https://www.linkedin.com/company/vinbrain/",
+    position: "Software Engineer",
     time: "Nov 2020 - Feb 2021",
     location: "",
     description:
-      "Built video call functionality and patient record management features for Dr. Aid, a secure telehealth dashboard, leveraging React, WebRTC, and Node.js to support HIPAA-compliant video consultations.",
-    tech: ["React", "Redux", "TypeScript", "Node.js", "Git"],
+      "• Delivered a secure, HIPAA-compliant telehealth dashboard (\"Dr. Aid\"), implementing real-time video consultations using React, Redux, and WebRTC.\n\n" +
+      "• Engineered a patient records management system using Node.js and MongoDB, ensuring secure data handling and high availability for medical professionals.",
+    tech: ["React", "Redux", "TypeScript", "Node.js", "MongoDB", "Docker", "Git"],
   },
   {
-    title: "Designveloper",
-    position: "Full Stack Software Engineer",
-    time: "Jun 2020 - Nov 2020",
-    location: "",
-    description:
-      "• Developed a solar industry dashboard for project and order management using React, Redux for state management, Node.js and MongoDB.\n\n" +
-      "• Upgraded React versions across multiple projects, refactoring codebases to use newer patterns such as hooks, context API, and server side rendering.",
-    tech: ["React", "Node.js", "Redux", "TypeScript", "Jest", "Webpack", "Docker", "MongoDB"],
-  },
-  {
-    title: "Developer Circles from Facebook",
-    position: "Mobile Development Teaching Assistant",
+    title: "Facebook Developer Circle",
+    position: "Teaching Assistant",
     time: "May 2020 - Sep 2020",
     location: "",
     description:
-      "Teach React Native and Node.js to students, help them with their projects, and review their code.",
-    tech: ["React Native", "Nodejs", "MongoDB"],
+      "Teaching React Native for the mobile development course, reviewing code and guiding final capstone projects to completion.",
+    tech: ["React Native"],
   },
 ];
