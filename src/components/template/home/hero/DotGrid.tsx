@@ -16,7 +16,7 @@ export const DotGrid = () => {
       ],
       translateY: [
         { value: -15, ease: "outSine", duration: 250 },
-        { value: 1, ease: "inOutQuad", duration: 500 },
+        { value: 0, ease: "inOutQuad", duration: 500 },
       ],
       opacity: [
         { value: 0.7, ease: "outSine", duration: 250 },
