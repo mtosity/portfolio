@@ -58,7 +58,7 @@ function Sidebar({
         >
           ← Back to Blog
         </Link>
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 transition-all duration-300 h-full flex flex-col overflow-hidden">
+        <div className="rounded-none p-4 transition-all duration-300 h-full flex flex-col overflow-hidden" style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)" }}>
           {sidebarMode === "definition" && (
             <div
               className={`mb-6 overflow-hidden ${
@@ -70,7 +70,7 @@ function Sidebar({
               }`}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate pr-2">
+                <h3 className="font-semibold truncate pr-2" style={{ color: "var(--fg)" }}>
                   {currentDefinition?.title}
                 </h3>
                 <button
@@ -93,7 +93,7 @@ function Sidebar({
                   Back
                 </button>
               </div>
-              <div className="text-gray-600 dark:text-gray-300 overflow-y-auto break-words text-base">
+              <div className="overflow-y-auto break-words text-base" style={{ color: "var(--muted)" }}>
                 {currentDefinition?.content}
               </div>
             </div>
@@ -110,7 +110,7 @@ function Sidebar({
 
           {sidebarMode === "toc" && (
             <div className="mt-auto animate-fade-in-smooth overflow-hidden">
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
+              <h3 className="font-semibold mb-4" style={{ color: "var(--fg)" }}>
                 Table of Contents
               </h3>
               <nav className="space-y-2 overflow-y-auto max-h-[calc(100vh-16rem)]">
@@ -120,15 +120,16 @@ function Sidebar({
                     <button
                       key={heading.id}
                       onClick={() => onScrollToHeading(heading.id)}
-                      className={`block w-full text-left text-base hover:text-blue-500 dark:hover:text-blue-400 transition-colors break-words ${
+                      className={`block w-full text-left text-base transition-colors break-words ${
                         heading.level === 2
                           ? "font-medium"
-                          : "text-gray-600 dark:text-gray-400 ml-4"
-                      } ${
-                        isActive
-                          ? "text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded"
-                          : ""
+                          : "ml-4"
                       }`}
+                      style={{
+                        color: isActive ? "var(--fg)" : "var(--muted)",
+                        background: isActive ? "var(--bg-secondary)" : "transparent",
+                        padding: isActive ? "0.25rem 0.5rem" : undefined,
+                      }}
                     >
                       {heading.text}
                     </button>
@@ -312,14 +313,13 @@ export default function BlogLayout({
       onClose={handleBackToToc}
     >
       <div className="relative">
-        <div className="sticky top-4 bg-transparent z-10">
-          <SlideTabs />
-        </div>
+        <SlideTabs />
 
-        <div className="max-w-7xl mx-auto px-4 mt-8 relative">
+        <div className="max-w-7xl mx-auto px-4 relative" style={{ marginTop: "56px", paddingTop: "2rem" }}>
           {/* Mobile Toggle Button */}
           <button
-            className="md:hidden fixed top-24 right-4 z-50 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition-all duration-200"
+            className="md:hidden fixed top-24 right-4 z-50 p-2 shadow-lg transition-all duration-200"
+            style={{ background: "var(--fg)", color: "var(--bg)" }}
             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
             aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
           >
@@ -351,10 +351,10 @@ export default function BlogLayout({
 
             {/* Right Content Area */}
             <div className={`h-[calc(100vh-6rem)] overflow-y-auto ${isSidebarCollapsed ? 'col-span-full' : 'lg:col-span-1'}`}>
-              <article className="prose prose-xl max-w-none dark:prose-invert tracking-wide prose-lg">
+              <article className="prose prose-xl max-w-none tracking-wide prose-lg" style={{ color: "var(--fg)" }}>
                 <header className="mb-8">
-                  <h1 className="text-4xl font-bold mb-4">{title}</h1>
-                  <p className="text-gray-500 dark:text-gray-400">{date}</p>
+                  <h1 className="text-4xl font-bold mb-4" style={{ color: "var(--fg)" }}>{title}</h1>
+                  <p style={{ color: "var(--muted)" }}>{date}</p>
                 </header>
 
                 <div className="space-y-6">{children}</div>

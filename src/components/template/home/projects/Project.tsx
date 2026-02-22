@@ -1,12 +1,9 @@
 "use client";
-import Image from "next/image";
-import { useAnimation, useInView, motion } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { AiFillGithub, AiOutlineExport } from "react-icons/ai";
 import { ProjectModal } from "./ProjectModal";
 import styles from "./projects.module.scss";
-import { Reveal } from "../../utils/Reveal";
+
 interface Props {
   modalContent: JSX.Element;
   description: string;
@@ -15,6 +12,8 @@ interface Props {
   tech: string[];
   title: string;
   code: string;
+  index: number;
+  year?: string;
 }
 
 export const Project = ({
@@ -25,88 +24,56 @@ export const Project = ({
   title,
   code,
   tech,
+  index,
+  year,
 }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const controls = useAnimation();
-
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
-  }, [isInView, controls]);
+  const numStr = String(index).padStart(3, "0");
 
   return (
     <>
-      <motion.div
-        ref={ref}
-        variants={{
-          hidden: { opacity: 0, y: 100 },
-          visible: { opacity: 1, y: 0 },
+      <div
+        className={styles.projectRow}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={() => setIsOpen(true)}
+        style={{
+          background: hovered ? "var(--accent)" : "transparent",
+          cursor: "pointer",
         }}
-        initial="hidden"
-        animate={controls}
-        transition={{ duration: 0.75 }}
       >
-        <div
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          onClick={() => setIsOpen(true)}
-          className={styles.projectImage}
-        >
-          <Image
-            priority
-            src={imgSrc}
-            alt={`An image of the ${title} project.`}
-            width={1000}
-            height={0}
-            style={{
-              width: hovered ? "90% !important" : "85% !important",
-              rotate: hovered ? "2deg" : "0deg",
-            }}
-          />
-          {/* <img
-            src={imgSrc}
-            alt={`An image of the ${title} project.`}
-            style={{
-              width: hovered ? "90%" : "85%",
-              rotate: hovered ? "2deg" : "0deg",
-            }}
-          /> */}
-        </div>
-        <div className={styles.projectCopy}>
-          <Reveal width="100%">
-            <div className={styles.projectTitle}>
-              <h4>{title}</h4>
-              <div className={styles.projectTitleLine} />
+        <span className={styles.projectNum}>{numStr}</span>
 
-              <Link href={code} target="_blank" rel="nofollow">
-                <AiFillGithub size="2.8rem" />
-              </Link>
-
-              <Link href={projectLink} target="_blank" rel="nofollow">
-                <AiOutlineExport size="2.8rem" />
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal>
-            <div className={styles.projectTech}>{tech.join(" - ")}</div>
-          </Reveal>
-          <Reveal>
-            <p className={styles.projectDescription}>
-              {description} <br />
-              <span onClick={() => setIsOpen(true)}>Learn more {">"}</span>
-            </p>
-          </Reveal>
+        <div className={styles.projectMain}>
+          <div className={styles.projectTop}>
+            <span className={styles.projectTitle}>{title.toUpperCase()}</span>
+            <span className={styles.projectTech}>{tech.join(" · ")}</span>
+            {year && <span className={styles.projectYear}>[{year}]</span>}
+          </div>
+          <p className={styles.projectDesc}>{description}</p>
+          <div className={styles.projectLinks} onClick={(e) => e.stopPropagation()}>
+            <Link
+              href={code}
+              target="_blank"
+              rel="nofollow"
+              className={styles.projectLink}
+            >
+              GitHub ↗
+            </Link>
+            <Link
+              href={projectLink}
+              target="_blank"
+              rel="nofollow"
+              className={styles.projectLink}
+            >
+              Live ↗
+            </Link>
+          </div>
         </div>
-      </motion.div>
+      </div>
+
       <ProjectModal
         modalContent={modalContent}
         projectLink={projectLink}

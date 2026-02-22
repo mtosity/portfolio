@@ -9,6 +9,23 @@
   --font-serif: var(--font-lora);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
   --font-heading: var(--font-crimson-text);
+
+  /* New design tokens — warm cream + black + lime */
+  --bg:            #f2efe8;
+  --bg-secondary:  #e8e5dd;
+  --fg:            #0d0d0d;
+  --accent:        #bef264;
+  --border:        #0d0d0d;
+  --border-light:  #ccc8bd;
+  --muted:         #666460;
+
+  /* Legacy aliases (kept for backward compat with existing components) */
+  --background:        #f2efe8;
+  --bg-opaque:         rgba(242, 239, 232, 0.25);
+  --background-light:  #e8e5dd;
+  --background-dark:   #d8d4cc;
+  --text:              #0d0d0d;
+  --brand:             #bef264;
 }
 
 /* Blog-specific typography */
@@ -145,68 +162,7 @@ code[class*="language-"] {
   line-height: 1.5;
 }
 
-/* Dark mode specific tokens */
-@media (prefers-color-scheme: dark) {
-  .token.comment,
-  .token.prolog,
-  .token.doctype,
-  .token.cdata {
-    color: #6b7280;
-  }
-
-  .token.punctuation {
-    color: #9ca3af;
-  }
-
-  .token.property,
-  .token.tag,
-  .token.constant,
-  .token.symbol,
-  .token.deleted {
-    color: #f87171;
-  }
-
-  .token.boolean,
-  .token.number {
-    color: #fbbf24;
-  }
-
-  .token.selector,
-  .token.attr-name,
-  .token.string,
-  .token.char,
-  .token.builtin,
-  .token.inserted {
-    color: #34d399;
-  }
-
-  .token.operator,
-  .token.entity,
-  .token.url,
-  .language-css .token.string,
-  .style .token.string,
-  .token.variable {
-    color: #60a5fa;
-  }
-
-  .token.atrule,
-  .token.attr-value,
-  .token.function,
-  .token.class-name {
-    color: #a78bfa;
-  }
-
-  .token.keyword {
-    color: #fb7185;
-  }
-
-  .token.regex,
-  .token.important {
-    color: #fbbf24;
-  }
-}
-
-/* Light mode specific tokens */
+/* Light mode syntax tokens */
 .token.comment,
 .token.prolog,
 .token.doctype,
@@ -265,7 +221,7 @@ code[class*="language-"] {
   color: #d97706;
 }
 
-/* Custom scrollbar styles for blog articles list */
+/* Custom scrollbar styles */
 .scrollbar-thin {
   scrollbar-width: thin;
 }
@@ -275,52 +231,62 @@ code[class*="language-"] {
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
-  background: #374151;
+  background: var(--bg-secondary);
   border-radius: 3px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #6b7280;
+  background: var(--border-light);
   border-radius: 3px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
-
-:root {
-  --background: rgb(17, 17, 17);
-  --bg-opaque: rgb(17, 17, 17, 0.25);
-  --background-light: rgb(35, 35, 35);
-  --background-dark: rgb(8, 8, 8);
-
-  --text: rgb(235, 236, 243);
-  --brand: #bef264;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  background: var(--muted);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: url("https://cdn.custom-cursor.com/db/18387/32/disney-big-hero-6-baymax-pointer.png"),
-    auto;
-}
-
-.cursor-pointer-s {
-  cursor: url("https://cdn.custom-cursor.com/db/18388/32/disney-big-hero-6-baymax-cursor.png"),
-    default !important;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 1.0625rem;
 }
 
 a {
-  cursor: url("https://cdn.custom-cursor.com/db/18388/32/disney-big-hero-6-baymax-cursor.png"),
-    default !important;
+  color: inherit;
+}
+
+/* Global chip / tag */
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border-light);
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+}
+
+/* Section wrapper — applied per home section */
+.section-wrapper {
+  padding: 6rem clamp(1.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+
+/* Brutalist utility classes */
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.border-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
 }
 
 @layer utilities {

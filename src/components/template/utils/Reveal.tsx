@@ -28,12 +28,12 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
     <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
       <motion.div
         variants={{
-          hidden: { opacity: 0, y: 75 },
+          hidden: { opacity: 0, y: 40 },
           visible: { opacity: 1, y: 0 },
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{ duration: 0.5, delay: 0.25 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
       >
         {children}
       </motion.div>
@@ -44,14 +44,14 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
         }}
         initial="hidden"
         animate={slideControls}
-        transition={{ duration: 0.5, ease: "easeIn" }}
+        transition={{ duration: 0.45, ease: "easeIn" }}
         style={{
           position: "absolute",
           top: 4,
           bottom: 4,
           left: 0,
           right: 0,
-          background: "var(--brand)",
+          background: "var(--fg)",
           zIndex: 20,
         }}
       />

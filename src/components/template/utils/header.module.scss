@@ -1,27 +1,33 @@
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 2.4rem;
-  margin-bottom: 2.4rem;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
 }
 
 .title {
-  font-size: var(--text-xl);
-  font-weight: 900;
-  text-align: end;
-
-  span {
-    color: var(--brand);
-  }
-
-  @media (max-width: 768px) {
-    font-size: var(--text-lg);
-  }
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+  flex-shrink: 0;
 }
 
 .line {
-  width: 100%;
+  flex: 1;
   height: 1px;
-  background: var(--text);
-  opacity: 0.3;
+  background: var(--border-light);
 }
