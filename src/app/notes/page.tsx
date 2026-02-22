@@ -136,7 +136,10 @@ function StickyNote({
 
 // ─── NoteModal ─────────────────────────────────────────────
 
-function NoteModal({ note, onClose }: { note: Note; onClose: () => void }) {
+function NoteModal({ note, index, onClose }: { note: Note; index: number; onClose: () => void }) {
+  const color = getColor(index);
+  const srcRotation = getRotation(index);
+
   // close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -165,29 +168,51 @@ function NoteModal({ note, onClose }: { note: Note; onClose: () => void }) {
     >
       <motion.div
         className="note-modal-card"
-        initial={{ opacity: 0, scale: 0.92, y: 30 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 30 }}
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          backgroundColor: color.bg,
+          borderLeftColor: color.border,
+        }}
+        initial={{ opacity: 0, scale: 0.25, y: -80, rotate: srcRotation * 3 }}
+        animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+        exit={{ opacity: 0, scale: 0.75, y: 24, transition: { duration: 0.15, ease: "easeIn" } }}
+        transition={{
+          type: "spring",
+          stiffness: 320,
+          damping: 26,
+          mass: 0.85,
+          opacity: { duration: 0.12 },
+        }}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="note-modal-close" onClick={onClose}>
+        {/* Adhesive strip at top */}
+        <div className="note-modal-strip" style={{ background: `color-mix(in srgb, ${color.bg} 60%, #0005 40%)` }}>
+          <span className="sticky-tape" style={{ top: "50%", transform: "translateX(-50%) translateY(-50%)" }} />
+        </div>
+
+        <button className="note-modal-close" onClick={onClose} aria-label="Close">
           ✕
         </button>
-        <span className="note-modal-date">{formatDate(note.date_modified)}</span>
-        <h2 className="note-modal-title">{note.title}</h2>
-        <div
-          className="note-content"
-          dangerouslySetInnerHTML={{ __html: cleanNoteHtml(note.content_html) }}
-        />
-        <Link
-          href={note.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="note-modal-link"
-        >
-          Read on Leaflet ↗
-        </Link>
+
+        {/* Scrollable inner body */}
+        <div className="note-modal-inner">
+          <span className="note-modal-date">{formatDate(note.date_modified)}</span>
+          <h2 className="note-modal-title">{note.title}</h2>
+          <div
+            className="note-content"
+            dangerouslySetInnerHTML={{ __html: cleanNoteHtml(note.content_html) }}
+          />
+          <Link
+            href={note.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="note-modal-link"
+          >
+            Read on Leaflet ↗
+          </Link>
+        </div>
+
+        {/* Folded corner */}
+        <div className="note-modal-fold" />
       </motion.div>
     </motion.div>
   );
@@ -247,15 +272,50 @@ export default function Notes() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selected, setSelected] = useState<Note | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-  const closeModal = useCallback(() => setSelected(null), []);
+  const getNoteSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "") // remove special chars
+      .replace(/\s+/g, "-") // spaces to dashes
+      .replace(/-+/g, "-"); // remove consecutive dashes
+  };
+
+  const closeModal = useCallback(() => {
+    setSelected(null);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("note");
+      window.history.replaceState({}, "", url.toString());
+    }
+  }, []);
+
+  const openModal = useCallback((note: Note, index: number) => {
+    setSelected(note);
+    setSelectedIndex(index);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("note", getNoteSlug(note.title));
+      window.history.replaceState({}, "", url.toString());
+    }
+  }, []);
 
   useEffect(() => {
     fetch("/api/notes")
       .then((r) => r.json())
-      .then((data) => {
+      .then((data: Feed) => {
         setFeed(data);
         setLoading(false);
+        if (typeof window !== "undefined") {
+          const params = new URLSearchParams(window.location.search);
+          const noteId = params.get("note");
+          if (noteId) {
+            const found = data.items.find(n => getNoteSlug(n.title) === noteId || getNoteSlug(n.id) === noteId || n.id === noteId);
+            if (found) setSelected(found);
+          }
+        }
       })
       .catch(() => {
         setError(true);
@@ -306,7 +366,7 @@ export default function Notes() {
                 key={note.id}
                 note={note}
                 index={idx}
-                onClick={() => setSelected(note)}
+                onClick={() => openModal(note, idx)}
               />
             ))}
           </div>
@@ -314,8 +374,8 @@ export default function Notes() {
       </div>
 
       {/* Modal */}
-      <AnimatePresence>
-        {selected && <NoteModal note={selected} onClose={closeModal} />}
+      <AnimatePresence mode="wait">
+        {selected && <NoteModal key={selected.id} note={selected} index={selectedIndex} onClose={closeModal} />}
       </AnimatePresence>
 
       {/* ─── Styles ────────────────────────────────────────── */}
@@ -463,8 +523,8 @@ export default function Notes() {
           position: fixed;
           inset: 0;
           z-index: 1000;
-          background: rgba(0,0,0,0.5);
-          backdrop-filter: blur(4px);
+          background: rgba(13,13,13,0.55);
+          backdrop-filter: blur(6px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -472,80 +532,135 @@ export default function Notes() {
         }
         .note-modal-card {
           position: relative;
-          background: var(--bg);
-          border: 1px solid var(--border-light);
-          border-radius: 4px;
-          padding: 2.5rem 2.5rem 2rem;
-          max-width: 640px;
+          border-left: 5px solid;
+          border-radius: 1px;
+          max-width: 620px;
           width: 100%;
-          max-height: 80vh;
-          overflow-y: auto;
-          box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+          max-height: 84vh;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          box-shadow:
+            8px 16px 48px rgba(0,0,0,0.32),
+            2px 4px 12px rgba(0,0,0,0.14),
+            inset 0 0 0 1px rgba(255,255,255,0.35);
+          transform-origin: top center;
         }
+
+        /* Adhesive / "sticky" strip at the top */
+        .note-modal-strip {
+          height: 32px;
+          flex-shrink: 0;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* Scrollable content area with ruled lines */
+        .note-modal-inner {
+          flex: 1;
+          overflow-y: auto;
+          padding: 1.4rem 2.2rem 2.2rem 2.2rem;
+          background-image: repeating-linear-gradient(
+            transparent 0px,
+            transparent 27px,
+            rgba(0,0,0,0.06) 27px,
+            rgba(0,0,0,0.06) 28px
+          );
+          background-size: 100% 28px;
+          background-position: 0 14px;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(0,0,0,0.2) transparent;
+        }
+
+        /* Folded corner */
+        .note-modal-fold {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 38px;
+          height: 38px;
+          background: linear-gradient(
+            225deg,
+            rgba(0,0,0,0.22) 0%,
+            rgba(0,0,0,0.22) 50%,
+            rgba(0,0,0,0.04) 50%
+          );
+          pointer-events: none;
+        }
+
         .note-modal-close {
           position: absolute;
-          top: 1rem;
-          right: 1.25rem;
+          top: 0.5rem;
+          right: 0.9rem;
           background: none;
           border: none;
-          font-size: 1.1rem;
+          font-size: 1rem;
           cursor: pointer;
-          color: var(--muted);
-          padding: 0.25rem;
+          color: rgba(0,0,0,0.45);
+          padding: 0.3rem;
           line-height: 1;
           transition: color 0.15s;
+          z-index: 2;
         }
-        .note-modal-close:hover { color: var(--fg); }
+        .note-modal-close:hover { color: rgba(0,0,0,0.8); }
+
         .note-modal-date {
+          display: block;
           font-family: var(--font-mono);
-          font-size: 0.65rem;
-          letter-spacing: 0.14em;
+          font-size: 0.62rem;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: var(--muted);
+          color: rgba(0,0,0,0.4);
+          margin-bottom: 0.5rem;
         }
         .note-modal-title {
           font-family: var(--font-crimson-text), Georgia, serif;
-          font-size: 1.6rem;
+          font-size: 1.75rem;
           font-weight: 600;
-          line-height: 1.3;
-          color: var(--fg);
-          margin: 0.4rem 0 1.25rem;
+          line-height: 1.25;
+          color: rgba(0,0,0,0.85);
+          margin: 0 0 1.1rem;
         }
         .note-modal-link {
           display: inline-block;
           font-family: var(--font-mono);
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: var(--fg);
+          color: rgba(0,0,0,0.6);
           text-decoration: none;
-          border-bottom: 1px solid var(--border-light);
+          border-bottom: 1px solid rgba(0,0,0,0.2);
           padding-bottom: 1px;
-          margin-top: 1.5rem;
+          margin-top: 1.75rem;
+          transition: color 0.15s, border-color 0.15s;
         }
         .note-modal-link:hover {
-          border-bottom-color: var(--fg);
+          color: rgba(0,0,0,0.9);
+          border-bottom-color: rgba(0,0,0,0.6);
         }
 
-        /* ── Note content (shared) ── */
+        /* ── Note content ── */
+        .note-content {
+          font-size: 0.975rem;
+          line-height: 1.78;
+          color: rgba(0,0,0,0.62);
+        }
         .note-content p { margin-bottom: 1em; }
         .note-content p:last-child { margin-bottom: 0; }
         .note-content s { opacity: 0.5; }
-        .note-content a { color: var(--fg); border-bottom: 1px solid var(--border-light); text-decoration: none; }
-        .note-content strong { color: var(--fg); font-weight: 600; }
+        .note-content a { color: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0,0,0,0.25); text-decoration: none; }
+        .note-content a:hover { border-bottom-color: rgba(0,0,0,0.65); }
+        .note-content strong { color: rgba(0,0,0,0.85); font-weight: 600; }
         .note-content em { font-style: italic; }
         .note-content h1, .note-content h2, .note-content h3 {
           font-family: var(--font-crimson-text), Georgia, serif;
-          color: var(--fg);
+          color: rgba(0,0,0,0.85);
           margin: 1.25em 0 0.5em;
         }
         .note-content blockquote.instagram-media { display: none; }
-        .note-content img { max-width: 100%; height: auto; display: block; margin: 1em 0; border: 1px solid var(--border-light); border-radius: 2px; }
-        .note-content {
-          font-size: 1rem;
-          line-height: 1.75;
-          color: var(--muted);
-        }
+        .note-content img { max-width: 100%; height: auto; display: block; margin: 1em 0; border: 1px solid rgba(0,0,0,0.12); border-radius: 2px; }
       `}</style>
     </div>
   );
