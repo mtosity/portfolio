@@ -63,7 +63,7 @@ const projects = [
     ),
   },
   {
-    title: "This Portfolio",
+    title: "mtosity.com",
     imgSrc: "/screenshot.png",
     code: "https://github.com/mtosity/portfolio",
     projectLink: "https://www.mtosity.com",

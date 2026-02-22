@@ -29,20 +29,20 @@ export const definitions: Record<string, Definition> = {
   useEffect: {
     title: "useEffect Hook",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>useEffect</strong> is a React Hook that lets you perform side
           effects in functional components.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">Syntax:</h4>
-          <code className="text-sm">useEffect(setup, dependencies?)</code>
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
+          <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>useEffect(setup, dependencies?)</code>
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Parameters:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Parameters:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               <strong>setup</strong>: Function with your Effect&apos;s logic
             </li>
@@ -54,8 +54,8 @@ export const definitions: Record<string, Definition> = {
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Common Use Cases:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Common Use Cases:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Fetching data from APIs</li>
             <li>• Setting up subscriptions</li>
             <li>• Manually changing the DOM</li>
@@ -63,11 +63,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
             ⚠️ Important:
           </h4>
-          <p className="text-base text-yellow-700 dark:text-yellow-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Always include all dependencies that are used inside the effect to
             avoid stale closures.
           </p>
@@ -79,22 +79,22 @@ export const definitions: Record<string, Definition> = {
   useState: {
     title: "useState Hook",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>useState</strong> is a React Hook that lets you add state to
           functional components.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">Syntax:</h4>
-          <code className="text-sm">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
+          <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>
             const [state, setState] = useState(initialState)
           </code>
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Returns:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Returns:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               <strong>state</strong>: Current state value
             </li>
@@ -104,11 +104,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
             💡 Best Practice:
           </h4>
-          <p className="text-base text-blue-700 dark:text-blue-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Use functional updates when the new state depends on the previous
             state.
           </p>
@@ -120,33 +120,33 @@ export const definitions: Record<string, Definition> = {
   useMemo: {
     title: "useMemo Hook",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>useMemo</strong> is a React Hook that lets you cache expensive
           calculations between re-renders.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">Syntax:</h4>
-          <code className="text-sm">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
+          <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>
             const memoizedValue = useMemo(() =&gt; computation, [dependencies])
           </code>
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">When to Use:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>When to Use:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Expensive calculations</li>
             <li>• Creating objects that cause re-renders</li>
             <li>• Optimizing child component props</li>
           </ul>
         </div>
 
-        <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-orange-800 dark:text-orange-200">
+        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.3em" }}>
             ⚡ Performance:
           </h4>
-          <p className="text-base text-orange-700 dark:text-orange-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Only use when you have a proven performance problem. Profile first!
           </p>
         </div>
@@ -157,33 +157,33 @@ export const definitions: Record<string, Definition> = {
   useCallback: {
     title: "useCallback Hook",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>useCallback</strong> is a React Hook that lets you cache a
           function definition between re-renders.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">Syntax:</h4>
-          <code className="text-sm">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
+          <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>
             const memoizedCallback = useCallback(fn, [dependencies])
           </code>
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Common Use Cases:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Common Use Cases:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Preventing unnecessary re-renders of child components</li>
             <li>• Optimizing event handlers passed as props</li>
             <li>• Dependency of other hooks</li>
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             ✅ Tip:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Use with React.memo() for maximum optimization benefit.
           </p>
         </div>
@@ -194,15 +194,15 @@ export const definitions: Record<string, Definition> = {
   keys: {
     title: "React Keys",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Keys</strong> help React identify which items have changed,
           are added, or are removed in lists.
         </p>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Requirements:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Requirements:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Must be unique among siblings</li>
             <li>• Should be stable across re-renders</li>
             <li>• Should not be array indices (in most cases)</li>
@@ -210,8 +210,8 @@ export const definitions: Record<string, Definition> = {
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Good Key Examples:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Good Key Examples:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • Database IDs: <code>user.id</code>
             </li>
@@ -220,11 +220,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.3em" }}>
             ❌ Avoid:
           </h4>
-          <p className="text-base text-red-700 dark:text-red-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Using array indices as keys when list items can be reordered, added,
             or removed.
           </p>
@@ -236,15 +236,15 @@ export const definitions: Record<string, Definition> = {
   immutability: {
     title: "State Immutability",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Immutability</strong> means not changing existing
           objects/arrays, but creating new ones instead.
         </p>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">Why It Matters:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Why It Matters:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• React uses Object.is() to detect changes</li>
             <li>• Enables efficient re-rendering</li>
             <li>• Prevents bugs from shared references</li>
@@ -253,10 +253,10 @@ export const definitions: Record<string, Definition> = {
         </div>
 
         <div>
-          <h4 className="font-semibold text-base mb-2">
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>
             Safe Update Patterns:
           </h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • Arrays: <code>[...items, newItem]</code>
             </li>
@@ -272,11 +272,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
             🔧 Tools:
           </h4>
-          <p className="text-base text-purple-700 dark:text-purple-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Consider using Immer for complex state updates.
           </p>
         </div>
@@ -287,29 +287,29 @@ export const definitions: Record<string, Definition> = {
   hedonicAdaptation: {
     title: "Hedonic Adaptation",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Hedonic Adaptation</strong> is the tendency for humans to
           quickly return to a baseline level of happiness despite positive or
           negative events.
         </p>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             How it works:
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Initial boost in happiness from positive changes</li>
             <li>• Gradual return to baseline happiness level</li>
             <li>• New circumstances become "normal"</li>
           </ul>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
             Examples:
           </h4>
-          <p className="text-base text-yellow-700 dark:text-yellow-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Winning the lottery, getting a promotion, or buying a new car
             initially brings joy, but happiness levels typically return to
             baseline within months.
@@ -322,17 +322,17 @@ export const definitions: Record<string, Definition> = {
   affectiveForecasting: {
     title: "Affective Forecasting",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Affective Forecasting</strong> is our ability to predict how
           future events will make us feel. Humans are notoriously bad at this.
         </p>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
             Common Mistakes:
           </h4>
-          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Impact bias:</strong> Overestimating intensity of future
               emotions
@@ -348,11 +348,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             Why it matters:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Understanding this bias helps us make better decisions and have more
             realistic expectations about future happiness.
           </p>
@@ -364,17 +364,17 @@ export const definitions: Record<string, Definition> = {
   socialComparison: {
     title: "Social Comparison Theory",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Social Comparison Theory</strong> explains how we evaluate
           ourselves relative to others to assess our own worth and abilities.
         </p>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
             Types of Comparison:
           </h4>
-          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Upward:</strong> Comparing to those "better off"
             </li>
@@ -387,11 +387,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-orange-800 dark:text-orange-200">
+        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.3em" }}>
             Impact on happiness:
           </h4>
-          <p className="text-base text-orange-700 dark:text-orange-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Frequent upward comparisons can decrease life satisfaction, while
             focusing on personal progress tends to increase well-being.
           </p>
@@ -403,17 +403,17 @@ export const definitions: Record<string, Definition> = {
   mindfulness: {
     title: "Mindfulness",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Mindfulness</strong> is the practice of purposeful,
           non-judgmental awareness of the present moment.
         </p>
 
-        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-teal-800 dark:text-teal-200">
+        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.4em" }}>
             Core Elements:
           </h4>
-          <ul className="text-base space-y-1 text-teal-700 dark:text-teal-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Present-moment awareness</li>
             <li>• Non-judgmental observation</li>
             <li>• Acceptance of current experience</li>
@@ -421,11 +421,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             Benefits for happiness:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Regular mindfulness practice can increase life satisfaction, reduce
             stress, and help you savor positive experiences more fully.
           </p>
@@ -437,17 +437,17 @@ export const definitions: Record<string, Definition> = {
   gratitudePractice: {
     title: "Gratitude Practice",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Gratitude Practice</strong> involves regularly acknowledging
           and appreciating positive aspects of life, both big and small.
         </p>
 
-        <div className="bg-pink-50 dark:bg-pink-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-pink-800 dark:text-pink-200">
+        <div style={{ background: "#fdf2f8", border: "1px solid #f9a8d4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#be185d", marginBottom: "0.4em" }}>
             Effective Methods:
           </h4>
-          <ul className="text-base space-y-1 text-pink-700 dark:text-pink-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Three good things exercise (daily)</li>
             <li>• Gratitude journaling</li>
             <li>• Gratitude letters to others</li>
@@ -455,11 +455,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-indigo-800 dark:text-indigo-200">
+        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.3em" }}>
             Research findings:
           </h4>
-          <p className="text-base text-indigo-700 dark:text-indigo-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Studies show gratitude practice can increase happiness by 25%,
             improve sleep quality, strengthen relationships, and boost immune
             function.
@@ -473,28 +473,28 @@ export const definitions: Record<string, Definition> = {
   thamHutNganSach: {
     title: "Thâm Hụt Ngân Sách (Budget Deficit)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Thâm hụt ngân sách</strong> xảy ra khi chính phủ chi tiêu
           nhiều hơn số tiền thu được từ thuế và các nguồn thu khác.
         </p>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
             Tác động:
           </h4>
-          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Chính phủ phải đi vay để bù đắp</li>
             <li>• Tăng nợ công quốc gia</li>
             <li>• Có thể dẫn đến lạm phát nếu in thêm tiền</li>
           </ul>
         </div>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
             Cách xử lý:
           </h4>
-          <p className="text-base text-blue-700 dark:text-blue-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Chính phủ thường phát hành trái phiếu để vay tiền thay vì in thêm
             tiền.
           </p>
@@ -506,17 +506,17 @@ export const definitions: Record<string, Definition> = {
   traiPhieuKhoBac: {
     title: "Trái Phiếu Kho Bạc (Treasury Bonds)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Trái phiếu kho bạc</strong> là chứng khoán nợ do chính phủ
           phát hành để huy động vốn từ các nhà đầu tư.
         </p>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             Các loại:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Treasury Bills:</strong> Ngắn hạn (&lt;1 năm)
             </li>
@@ -529,11 +529,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
             💡 Đặc điểm:
           </h4>
-          <p className="text-base text-yellow-700 dark:text-yellow-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Được coi là đầu tư an toàn nhất vì có sự bảo đảm của chính phủ Mỹ.
           </p>
         </div>
@@ -544,28 +544,28 @@ export const definitions: Record<string, Definition> = {
   lamPhat: {
     title: "Lạm Phát (Inflation)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Lạm phát</strong> là hiện tượng giá cả hàng hóa và dịch vụ
           tăng liên tục trong thời gian dài.
         </p>
 
-        <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-orange-800 dark:text-orange-200">
+        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.4em" }}>
             Nguyên nhân chính:
           </h4>
-          <ul className="text-base space-y-1 text-orange-700 dark:text-orange-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• In quá nhiều tiền</li>
             <li>• Cầu vượt quá cung</li>
             <li>• Chi phí sản xuất tăng</li>
           </ul>
         </div>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.3em" }}>
             ⚠️ Ví dụ lịch sử:
           </h4>
-          <p className="text-base text-red-700 dark:text-red-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Đức sau Thế chiến I và Zimbabwe trong những năm 2000 đã trải qua
             siêu lạm phát.
           </p>
@@ -577,26 +577,26 @@ export const definitions: Record<string, Definition> = {
   brettonWoods: {
     title: "Hiệp Định Bretton Woods (1944)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Hiệp định Bretton Woods</strong> là thỏa thuận quốc tế thiết
           lập hệ thống tiền tệ toàn cầu sau Thế chiến II.
         </p>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             Nội dung chính:
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Đô la Mỹ được neo vào vàng</li>
             <li>• Các đồng tiền khác neo vào đô la</li>
             <li>• Tỷ giá hối đoái cố định</li>
           </ul>
         </div>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1">📅 Kết thúc: 1971</h4>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.3em" }}>📅 Kết thúc: 1971</h4>
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Nixon Shock chấm dứt việc quy đổi đô la sang vàng.
           </p>
         </div>
@@ -607,28 +607,28 @@ export const definitions: Record<string, Definition> = {
   nixonShock: {
     title: "Nixon Shock (1971)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Nixon Shock</strong> là quyết định của Tổng thống Nixon ngừng
           quy đổi đô la Mỹ sang vàng vào năm 1971.
         </p>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
             Hậu quả:
           </h4>
-          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Đô la trở thành tiền pháp định</li>
             <li>• Tỷ giá hối đoái thả nổi</li>
             <li>• Kết thúc hệ thống Bretton Woods</li>
           </ul>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
             🌍 Tác động toàn cầu:
           </h4>
-          <p className="text-base text-yellow-700 dark:text-yellow-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Bắt đầu kỷ nguyên đô la dựa vào niềm tin chứ không phải vàng.
           </p>
         </div>
@@ -639,28 +639,28 @@ export const definitions: Record<string, Definition> = {
   tienPhapDinh: {
     title: "Tiền Pháp Định (Fiat Currency)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Tiền pháp định</strong> là đồng tiền không được bảo đảm bằng
           vàng hay kim loại quý, mà dựa vào niềm tin của người dân.
         </p>
 
-        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-indigo-800 dark:text-indigo-200">
+        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.4em" }}>
             Đặc điểm:
           </h4>
-          <ul className="text-base space-y-1 text-indigo-700 dark:text-indigo-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Không neo vào vàng</li>
             <li>• Giá trị dựa vào niềm tin</li>
             <li>• Chính phủ có thể in thêm tiền</li>
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             ✅ Ưu điểm:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Linh hoạt trong chính sách tiền tệ để ứng phó với khủng hoảng.
           </p>
         </div>
@@ -671,28 +671,28 @@ export const definitions: Record<string, Definition> = {
   petrodollar: {
     title: "Petrodollar",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Petrodollar</strong> là hệ thống sử dụng đô la Mỹ làm đồng
           tiền chính trong giao dịch dầu mỏ toàn cầu.
         </p>
 
-        <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-amber-800 dark:text-amber-200">
+        <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.4em" }}>
             Cách hoạt động:
           </h4>
-          <ul className="text-base space-y-1 text-amber-700 dark:text-amber-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Dầu được bán bằng đô la</li>
             <li>• Các nước phải có đô la để mua dầu</li>
             <li>• Tăng cầu đô la toàn cầu</li>
           </ul>
         </div>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
             💪 Củng cố sức mạnh:
           </h4>
-          <p className="text-base text-blue-700 dark:text-blue-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Giúp duy trì vị thế đô la như đồng tiền dự trữ toàn cầu.
           </p>
         </div>
@@ -703,17 +703,17 @@ export const definitions: Record<string, Definition> = {
   thanhKhoan: {
     title: "Thanh Khoản (Liquidity)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Thanh khoản</strong> là khả năng chuyển đổi một tài sản thành
           tiền mặt một cách nhanh chóng và không mất giá.
         </p>
 
-        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-teal-800 dark:text-teal-200">
+        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.4em" }}>
             Mức độ thanh khoản:
           </h4>
-          <ul className="text-base space-y-1 text-teal-700 dark:text-teal-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Cao:</strong> Tiền mặt, trái phiếu chính phủ
             </li>
@@ -726,11 +726,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-emerald-800 dark:text-emerald-200">
+        <div style={{ background: "#ecfdf5", border: "1px solid #6ee7b7", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#047857", marginBottom: "0.3em" }}>
             🏦 Thị trường Mỹ:
           </h4>
-          <p className="text-base text-emerald-700 dark:text-emerald-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Có thanh khoản cao nhất thế giới, thu hút nhà đầu tư toàn cầu.
           </p>
         </div>
@@ -742,29 +742,29 @@ export const definitions: Record<string, Definition> = {
   wastedRender: {
     title: "Wasted Render",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           A <strong>Wasted Render</strong> happens when React runs a
           component&apos;s logic and generates a Virtual DOM tree, but the
           result is exactly the same as before.
         </p>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
             Why it&apos;s bad:
           </h4>
-          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Burns CPU cycles for no visible change</li>
             <li>• Slows down your app unnecessarily</li>
             <li>• Drains battery on mobile devices</li>
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             ✅ How to detect:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Use React DevTools Profiler. Yellow/red bars indicate components
             that took time to render.
           </p>
@@ -776,17 +776,17 @@ export const definitions: Record<string, Definition> = {
   webVitals: {
     title: "Web Vitals",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Web Vitals</strong> are Google&apos;s industry-standard
           metrics for measuring real user experience on websites.
         </p>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             Core Metrics:
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>LCP:</strong> Largest Contentful Paint (loading speed)
             </li>
@@ -799,11 +799,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
             💡 Good to know:
           </h4>
-          <p className="text-base text-yellow-700 dark:text-yellow-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             These metrics affect your Google Search ranking!
           </p>
         </div>
@@ -814,16 +814,16 @@ export const definitions: Record<string, Definition> = {
   shallowEquality: {
     title: "Shallow Equality (===)",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Shallow Equality</strong> is how React compares props using
           the strict equality operator (===). This is the root cause of many
           performance issues.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">Examples:</h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Examples:</h4>
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               ✅ <code>true === true</code> (Pass)
             </li>
@@ -836,11 +836,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-orange-800 dark:text-orange-200">
+        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.3em" }}>
             ⚠️ The trap:
           </h4>
-          <p className="text-base text-orange-700 dark:text-orange-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Objects, Arrays, and Functions are reference types. Creating new
             ones makes React think data changed!
           </p>
@@ -852,18 +852,18 @@ export const definitions: Record<string, Definition> = {
   reconciliation: {
     title: "Reconciliation",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Reconciliation</strong> is React&apos;s process of comparing
           the new Virtual DOM tree with the old one to figure out what actually
           changed.
         </p>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
             The Process:
           </h4>
-          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>1. Build new Virtual DOM tree</li>
             <li>2. Compare with old tree (diffing)</li>
             <li>3. Calculate minimal changes needed</li>
@@ -871,11 +871,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
             💡 Performance tip:
           </h4>
-          <p className="text-base text-blue-700 dark:text-blue-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Shallower component trees = faster reconciliation = better
             performance.
           </p>
@@ -887,28 +887,28 @@ export const definitions: Record<string, Definition> = {
   treeShaking: {
     title: "Tree Shaking",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Tree Shaking</strong> is the process of removing unused code
           (dead code) from your JavaScript bundle during the build.
         </p>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             How it works:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Bundler analyzes your imports</li>
             <li>• Removes functions you never call</li>
             <li>• Smaller bundle = faster load times</li>
           </ul>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
             ⚠️ Gotcha:
           </h4>
-          <p className="text-base text-yellow-700 dark:text-yellow-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Use named exports instead of default objects. Bundlers can&apos;t
             shake out unused keys from objects!
           </p>
@@ -920,17 +920,17 @@ export const definitions: Record<string, Definition> = {
   codeSplitting: {
     title: "Code Splitting",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Code Splitting</strong> breaks your app into smaller chunks
           that load on-demand instead of shipping everything at once.
         </p>
 
-        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-indigo-800 dark:text-indigo-200">
+        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.4em" }}>
             Types:
           </h4>
-          <ul className="text-base space-y-1 text-indigo-700 dark:text-indigo-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Static:</strong> Separate vendor vs app code
             </li>
@@ -943,11 +943,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-teal-800 dark:text-teal-200">
+        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.3em" }}>
             ✅ In React:
           </h4>
-          <p className="text-base text-teal-700 dark:text-teal-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Use <code>React.lazy()</code> and <code>Suspense</code> to split
             heavy components.
           </p>
@@ -959,36 +959,36 @@ export const definitions: Record<string, Definition> = {
   reactMemo: {
     title: "React.memo()",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>React.memo()</strong> is a higher-order component that
           prevents re-renders when props haven&apos;t changed.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">How it works:</h4>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>How it works:</h4>
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Wraps your component in a &quot;shield&quot; that compares old vs
             new props before deciding to re-render.
           </p>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             ✅ When to use:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Expensive child components</li>
             <li>• Parents that update frequently</li>
             <li>• When Profiler shows wasted renders</li>
           </ul>
         </div>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.3em" }}>
             ❌ Don&apos;t overuse:
           </h4>
-          <p className="text-base text-red-700 dark:text-red-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Adds memory overhead. Only use when Profiler proves you have a
             problem!
           </p>
@@ -1000,28 +1000,28 @@ export const definitions: Record<string, Definition> = {
   rumVsSynthetic: {
     title: "RUM vs Synthetic Monitoring",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           Two approaches to monitoring your app&apos;s performance in the real
           world.
         </p>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             RUM (Real User Monitoring):
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Data from actual users&apos; browsers</li>
             <li>• High variability (different devices/networks)</li>
             <li>• Shows real pain points</li>
           </ul>
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
             Synthetic Monitoring:
           </h4>
-          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Automated tests in controlled lab</li>
             <li>• Low variability (consistent)</li>
             <li>• Catches regressions before deploy</li>
@@ -1034,17 +1034,17 @@ export const definitions: Record<string, Definition> = {
   profilerApi: {
     title: "React Profiler API",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           The <strong>Profiler API</strong> lets you measure rendering
           performance programmatically in your code.
         </p>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2">
+        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>
             Key metrics provided:
           </h4>
-          <ul className="text-base space-y-1 text-gray-600 dark:text-gray-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>actualDuration:</strong> Time spent rendering
             </li>
@@ -1057,11 +1057,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             💡 Pro tip:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             If actualDuration ≈ baseDuration on updates, your memoization is
             broken!
           </p>
@@ -1073,28 +1073,28 @@ export const definitions: Record<string, Definition> = {
   useDeferredValue: {
     title: "useDeferredValue Hook",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>useDeferredValue</strong> tells React to prioritize urgent
           updates (like typing) over expensive ones (like filtering a list).
         </p>
 
-        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-indigo-800 dark:text-indigo-200">
+        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.4em" }}>
             How it works:
           </h4>
-          <ul className="text-base space-y-1 text-indigo-700 dark:text-indigo-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Returns a &quot;deferred&quot; version of a value</li>
             <li>• React updates UI immediately for urgent updates</li>
             <li>• Heavy updates happen in background</li>
           </ul>
         </div>
 
-        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-teal-800 dark:text-teal-200">
+        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.3em" }}>
             ✅ Perfect for:
           </h4>
-          <p className="text-base text-teal-700 dark:text-teal-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Search inputs that filter large lists, autocomplete, or any input +
             heavy computation combo.
           </p>
@@ -1106,40 +1106,40 @@ export const definitions: Record<string, Definition> = {
   stylingStrategy: {
     title: "Styling Strategy & Performance",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           How you style your React app directly affects the{" "}
           <strong>Reconciliation</strong> cost—the process where React compares
           Virtual DOM trees.
         </p>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
             ⚠️ CSS-in-JS (Styled Components):
           </h4>
-          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Creates deep component wrappers</li>
             <li>• Runtime style computation</li>
             <li>• Higher reconciliation cost</li>
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             ✅ Atomic CSS (Tailwind):
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Zero runtime cost</li>
             <li>• Tiny footprint</li>
             <li>• No component wrappers</li>
           </ul>
         </div>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             ✅ CSS Modules:
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Scoped styles, no runtime cost</li>
             <li>• Solid middle ground</li>
             <li>• Works great with React</li>
@@ -1152,29 +1152,29 @@ export const definitions: Record<string, Definition> = {
   renderProps: {
     title: "Render Props Pattern",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Render Props</strong> is a pattern where a component takes a
           function as a prop that returns React elements. It allows you to
           isolate renders to specific parts of your UI.
         </p>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
             Why use it:
           </h4>
-          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Hooks couple state to the whole component</li>
             <li>• Render props isolate updates to sub-sections</li>
             <li>• Only the specific part re-renders</li>
           </ul>
         </div>
 
-        <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-teal-800 dark:text-teal-200">
+        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.3em" }}>
             ✅ Perfect for:
           </h4>
-          <p className="text-base text-teal-700 dark:text-teal-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             High-performance forms (like React Final Form), animation libraries,
             and any scenario where you need fine-grained render control.
           </p>
@@ -1186,25 +1186,25 @@ export const definitions: Record<string, Definition> = {
   leanScorecard: {
     title: "The Lean React Scorecard",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           When evaluating a new library or pattern, score it against these
           metrics to improve real-user experience:
         </p>
 
-        <div className="my-4">
+        <div style={{ margin: "0.75rem 0" }}>
           <img
             src="/blog-images/react-performance/scorecard.png"
             alt="React Performance Scorecard - Application Delivery Scorecard"
-            className="w-full rounded-lg shadow-md"
+            style={{ maxWidth: "100%", height: "auto", display: "block", border: "1px solid var(--border-light)" }}
           />
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
             🎯 Quantitative Metrics:
           </h4>
-          <ul className="text-base space-y-1 text-purple-700 dark:text-purple-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Improve initial load:</strong> Does it reduce time to
               interactive?
@@ -1224,11 +1224,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-pink-50 dark:bg-pink-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-pink-800 dark:text-pink-200">
+        <div style={{ background: "#fdf2f8", border: "1px solid #f9a8d4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#be185d", marginBottom: "0.4em" }}>
             🧠 Qualitative Metrics:
           </h4>
-          <ul className="text-base space-y-1 text-pink-700 dark:text-pink-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>More flexibility:</strong> Can it adapt to different use
               cases?
@@ -1244,11 +1244,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
             💡 Rule of thumb:
           </h4>
-          <p className="text-base text-green-700 dark:text-green-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             If a library or pattern scores poorly on 3+ metrics, look for
             alternatives or isolate its usage to non-critical paths.
           </p>
@@ -1260,18 +1260,18 @@ export const definitions: Record<string, Definition> = {
   suspenseTransitions: {
     title: "Suspense & Transitions",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Suspense</strong> and <strong>Transitions</strong> are React
           18 features that let you mark updates as &quot;non-urgent&quot; so
           React can prioritize user interactions.
         </p>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             How it works:
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>startTransition:</strong> Marks state updates as low
               priority
@@ -1283,11 +1283,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             Use cases:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • Route transitions (navigate while old page stays interactive)
             </li>
@@ -1296,11 +1296,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
             ✨ The power:
           </h4>
-          <p className="text-base text-purple-700 dark:text-purple-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Unlike useDeferredValue (which defers a value), startTransition
             defers the entire state update, giving you even finer control over
             rendering priorities.
@@ -1313,18 +1313,18 @@ export const definitions: Record<string, Definition> = {
   browserslist: {
     title: "Browserslist Configuration",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Browserslist</strong> tells your bundler which browsers you
           support, so it knows which syntax to transpile and which polyfills to
           include.
         </p>
 
-        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-red-800 dark:text-red-200">
+        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
             ❌ Too broad (default):
           </h4>
-          <ul className="text-base space-y-1 text-red-700 dark:text-red-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <code>&quot;defaults&quot;</code> includes IE 11!
             </li>
@@ -1333,11 +1333,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             ✅ Optimized for modern browsers:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <code>&quot;last 2 versions, not dead&quot;</code>
             </li>
@@ -1346,11 +1346,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
             💡 Pro tip:
           </h4>
-          <p className="text-base text-blue-700 dark:text-blue-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Check your analytics! If 99% of users are on modern browsers, why
             ship polyfills for the 1%?
           </p>
@@ -1362,28 +1362,28 @@ export const definitions: Record<string, Definition> = {
   sourceMaps: {
     title: "Source Maps in Production",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           <strong>Source Maps</strong> let you debug minified production code,
           but they come with a performance cost if shipped to users.
         </p>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-yellow-800 dark:text-yellow-200">
+        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.4em" }}>
             ⚠️ The trade-off:
           </h4>
-          <ul className="text-base space-y-1 text-yellow-700 dark:text-yellow-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>• Source maps are HUGE (often larger than your code)</li>
             <li>• Users download them even though they never use them</li>
             <li>• Increases bandwidth costs</li>
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             ✅ Best practice:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <strong>Development:</strong> Full source maps for debugging
             </li>
@@ -1397,11 +1397,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
             🔧 Webpack config:
           </h4>
-          <p className="text-base text-purple-700 dark:text-purple-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Set <code>devtool: &apos;hidden-source-map&apos;</code> to generate
             maps without the comment in your bundle. Users don&apos;t download
             them, but you can still debug crashes!
@@ -1414,17 +1414,17 @@ export const definitions: Record<string, Definition> = {
   fetchPriority: {
     title: "Fetch Priority API",
     content: (
-      <div className="space-y-4">
-        <p className="text-base text-gray-600 dark:text-gray-300">
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
           The <strong>Fetch Priority API</strong> lets you tell the browser
           which resources are most important to load first.
         </p>
 
-        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-blue-800 dark:text-blue-200">
+        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
             Priority values:
           </h4>
-          <ul className="text-base space-y-1 text-blue-700 dark:text-blue-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • <code>fetchpriority=&quot;high&quot;</code> - Load ASAP (hero
               images, critical CSS)
@@ -1440,11 +1440,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-2 text-green-800 dark:text-green-200">
+        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
             Perfect for:
           </h4>
-          <ul className="text-base space-y-1 text-green-700 dark:text-green-300">
+          <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
               • Improving LCP (Largest Contentful Paint) by prioritizing hero
               images
@@ -1454,11 +1454,11 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
-          <h4 className="font-semibold text-base mb-1 text-purple-800 dark:text-purple-200">
+        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
             💡 In Next.js:
           </h4>
-          <p className="text-base text-purple-700 dark:text-purple-300">
+          <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Use <code>&lt;Image priority /&gt;</code> for above-fold images and
             <code>&lt;Script strategy=&quot;lazyOnload&quot; /&gt;</code> for
             non-critical scripts.
@@ -2324,7 +2324,7 @@ const HomePage: React.FC<HomePageProps> = ({ onJoinRoom }) => {
             />
           </div>
 
-          <div className="space-y-4">
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
             <Button
               onClick={createRoom}
               disabled={isCreating || !userName.trim()}

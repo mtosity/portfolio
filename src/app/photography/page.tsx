@@ -179,53 +179,38 @@ export default function Photography() {
         style={{
           marginTop: "56px",
           borderBottom: "1px solid var(--border)",
-          padding: "3rem clamp(1.5rem, 5vw, 4rem) 2rem",
+          padding: "3rem clamp(1.5rem, 5vw, 4rem) 2.5rem",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-            marginBottom: "0.75rem",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--muted)",
-            }}
-          >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "1.75rem" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--muted)" }}>
             05 —
           </span>
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--fg)",
-            }}
-          >
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg)" }}>
             PHOTOGRAPHY
           </span>
         </div>
+
         <motion.p
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.8125rem",
-            letterSpacing: "0.05em",
-            color: "var(--muted)",
+            fontFamily: "var(--font-crimson-text), Georgia, serif",
+            fontSize: "clamp(2rem, 5vw, 3.5rem)",
+            fontWeight: 400,
+            fontStyle: "italic",
+            lineHeight: 1.15,
+            letterSpacing: "-0.01em",
+            color: "var(--fg)",
+            maxWidth: "720px",
+            textAlign: "center",
+            margin: "0 auto",
           }}
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          Shoot the adjective, not the noun.
+          "Shoot the adjective,
+          <br />
+          not the noun."
         </motion.p>
       </div>
 

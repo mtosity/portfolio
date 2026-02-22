@@ -19,55 +19,115 @@ export default function CodeView({
 }: CodeViewProps) {
   return (
     <div
-      className={`h-full flex flex-col overflow-hidden ${
+      className={`${
         isClosing
           ? "animate-definition-exit"
           : isTransitioning
           ? "animate-fade-blur-out"
           : "animate-slide-in-left"
       }`}
+      style={{ height: "100%", display: "flex", flexDirection: "column", overflow: "hidden" }}
     >
-      <div className="flex items-center justify-between mb-4 flex-shrink-0">
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm truncate pr-2">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "0.75rem",
+          flexShrink: 0,
+          gap: "0.5rem",
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.72rem",
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--fg)",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
           {codeExample.title}
         </h3>
         <button
           onClick={onClose}
-          className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-200 transition-colors flex items-center gap-1 flex-shrink-0"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "var(--muted)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            flexShrink: 0,
+            transition: "color 0.15s",
+          }}
+          onMouseEnter={(e) =>
+            ((e.currentTarget as HTMLElement).style.color = "var(--fg)")
+          }
+          onMouseLeave={(e) =>
+            ((e.currentTarget as HTMLElement).style.color = "var(--muted)")
+          }
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Back
+          ← Back
         </button>
       </div>
 
-      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 break-words flex-shrink-0">
-        {codeExample.description}
-      </p>
+      <div
+        style={{
+          borderTop: "1px solid var(--border-light)",
+          paddingTop: "0.75rem",
+          marginBottom: "1rem",
+          flexShrink: 0,
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.75rem",
+            lineHeight: 1.6,
+            color: "var(--muted)",
+          }}
+        >
+          {codeExample.description}
+        </p>
+      </div>
 
-      <div className="space-y-4 flex-1 overflow-y-auto min-h-0 pb-12">
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", flex: 1, overflowY: "auto", minHeight: 0, paddingBottom: "3rem" }}>
         {codeExample.wrongCode && (
           <div>
-            <h4 className="text-red-800 dark:text-red-200 font-semibold mb-2 text-sm">
-              ❌ Wrong Approach
+            <h4
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#b91c1c",
+                marginBottom: "0.5rem",
+              }}
+            >
+              ✗ Wrong Approach
             </h4>
             <CodeBlock
               code={codeExample.wrongCode.code}
               language={codeExample.wrongCode.language}
               variant="error"
             />
-            <p className="text-xs text-red-700 dark:text-red-300 mt-2 break-words">
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.7rem",
+                lineHeight: 1.5,
+                color: "var(--muted)",
+                marginTop: "0.5rem",
+              }}
+            >
               {codeExample.wrongCode.explanation}
             </p>
           </div>
@@ -75,15 +135,33 @@ export default function CodeView({
 
         {codeExample.correctCode && (
           <div>
-            <h4 className="text-green-800 dark:text-green-200 font-semibold mb-2 text-sm">
-              ✅ Correct Approach
+            <h4
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#166534",
+                marginBottom: "0.5rem",
+              }}
+            >
+              ✓ Correct Approach
             </h4>
             <CodeBlock
               code={codeExample.correctCode.code}
               language={codeExample.correctCode.language}
               variant="success"
             />
-            <p className="text-xs text-green-700 dark:text-green-300 mt-2 break-words">
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.7rem",
+                lineHeight: 1.5,
+                color: "var(--muted)",
+                marginTop: "0.5rem",
+              }}
+            >
               {codeExample.correctCode.explanation}
             </p>
           </div>
@@ -91,14 +169,32 @@ export default function CodeView({
 
         {codeExample.alternativeCode && (
           <div>
-            <h4 className="text-blue-800 dark:text-blue-200 font-semibold mb-2 text-sm">
-              💡 Alternative Approach
+            <h4
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--muted)",
+                marginBottom: "0.5rem",
+              }}
+            >
+              → Alternative
             </h4>
             <CodeBlock
               code={codeExample.alternativeCode.code}
               language={codeExample.alternativeCode.language}
             />
-            <p className="text-xs text-blue-700 dark:text-blue-300 mt-2 break-words">
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.7rem",
+                lineHeight: 1.5,
+                color: "var(--muted)",
+                marginTop: "0.5rem",
+              }}
+            >
               {codeExample.alternativeCode.explanation}
             </p>
           </div>
