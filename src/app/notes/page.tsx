@@ -21,6 +21,20 @@ interface Feed {
 
 const LEAFLET_BASE = "https://mtosity.leaflet.pub";
 
+const INSTAGRAM_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0;vertical-align:-1px"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>`;
+const TIKTOK_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0;vertical-align:-1px"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>`;
+
+function socialLinkHtml(iconSvg: string, title: string): string {
+  return `${iconSvg}<span>${title} ↗</span>`;
+}
+
+function extractCaption(el: Element, platform: string): string {
+  const h3Text = el.querySelector("h3")?.textContent || "";
+  const match = h3Text.match(new RegExp(`on ${platform}:\\s*[""""]\\s*(.+)`, "i"));
+  const caption = match ? match[1].replace(/[""""]/g, "").trim() : "";
+  return caption.length > 60 ? caption.slice(0, 57) + "…" : caption;
+}
+
 // ─── Sticky-note palette ───────────────────────────────────
 const STICKY_COLORS = [
   { bg: "#fff9c4", border: "#f9e44c" }, // yellow
@@ -60,6 +74,11 @@ function cleanNoteHtml(html: string): string {
   if (typeof window === "undefined") return html;
   const doc = new DOMParser().parseFromString(html, "text/html");
   doc.querySelectorAll("script").forEach((s) => s.remove());
+  doc.querySelectorAll<HTMLElement>("span.line-through, span[class*='line-through']").forEach((span) => {
+    const s = doc.createElement("s");
+    s.innerHTML = span.innerHTML;
+    span.replaceWith(s);
+  });
   doc.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
     if (img.src.startsWith(window.location.origin + "/api/")) {
       img.src = LEAFLET_BASE + img.getAttribute("src")!;
@@ -75,10 +94,39 @@ function cleanNoteHtml(html: string): string {
       "#";
     const a = doc.createElement("a");
     a.href = href;
-    a.textContent = "View on Instagram ↗";
+    a.className = "social-embed-link";
     a.target = "_blank";
     a.rel = "noopener noreferrer";
+    a.innerHTML = socialLinkHtml(INSTAGRAM_ICON_SVG, "Instagram");
     bq.replaceWith(a);
+  });
+  doc.querySelectorAll<HTMLAnchorElement>("a[href*='instagram.com']").forEach((a) => {
+    const href = a.getAttribute("href") || "#";
+    const caption = extractCaption(a, "Instagram");
+    a.className = "social-embed-link";
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.innerHTML = socialLinkHtml(INSTAGRAM_ICON_SVG, caption || "Instagram");
+    a.href = href;
+  });
+  doc.querySelectorAll<HTMLElement>("blockquote.tiktok-embed").forEach((bq) => {
+    const href = bq.getAttribute("cite") || bq.querySelector("a")?.getAttribute("href") || "#";
+    const a = doc.createElement("a");
+    a.href = href;
+    a.className = "social-embed-link";
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.innerHTML = socialLinkHtml(TIKTOK_ICON_SVG, "TikTok");
+    bq.replaceWith(a);
+  });
+  doc.querySelectorAll<HTMLAnchorElement>("a[href*='tiktok.com']").forEach((a) => {
+    const href = a.getAttribute("href") || "#";
+    const caption = extractCaption(a, "TikTok");
+    a.className = "social-embed-link";
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.innerHTML = socialLinkHtml(TIKTOK_ICON_SVG, caption || "TikTok");
+    a.href = href;
   });
   return doc.body.innerHTML;
 }
@@ -136,18 +184,34 @@ function StickyNote({
 
 // ─── NoteModal ─────────────────────────────────────────────
 
-function NoteModal({ note, index, onClose }: { note: Note; index: number; onClose: () => void }) {
+function NoteModal({
+  note,
+  index,
+  notes,
+  onClose,
+  onNavigate,
+}: {
+  note: Note;
+  index: number;
+  notes: Note[];
+  onClose: () => void;
+  onNavigate: (index: number) => void;
+}) {
   const color = getColor(index);
   const srcRotation = getRotation(index);
+  const prevNote = notes[index - 1] ?? null;
+  const nextNote = notes[index + 1] ?? null;
 
-  // close on Escape
+  // close on Escape, navigate on arrow keys
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && prevNote) onNavigate(index - 1);
+      if (e.key === "ArrowRight" && nextNote) onNavigate(index + 1);
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [onClose]);
+  }, [onClose, onNavigate, index, prevNote, nextNote]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -209,6 +273,26 @@ function NoteModal({ note, index, onClose }: { note: Note; index: number; onClos
           >
             Read on Leaflet ↗
           </Link>
+        </div>
+
+        {/* Prev / Next navigation */}
+        <div className="note-modal-nav">
+          <button
+            className="note-modal-nav-btn"
+            onClick={() => onNavigate(index - 1)}
+            disabled={!prevNote}
+            aria-label="Previous note"
+          >
+            ← {prevNote ? prevNote.title : ""}
+          </button>
+          <button
+            className="note-modal-nav-btn note-modal-nav-btn--next"
+            onClick={() => onNavigate(index + 1)}
+            disabled={!nextNote}
+            aria-label="Next note"
+          >
+            {nextNote ? nextNote.title : ""} →
+          </button>
         </div>
 
         {/* Folded corner */}
@@ -312,8 +396,8 @@ export default function Notes() {
           const params = new URLSearchParams(window.location.search);
           const noteId = params.get("note");
           if (noteId) {
-            const found = data.items.find(n => getNoteSlug(n.title) === noteId || getNoteSlug(n.id) === noteId || n.id === noteId);
-            if (found) setSelected(found);
+            const foundIndex = data.items.findIndex(n => getNoteSlug(n.title) === noteId || getNoteSlug(n.id) === noteId || n.id === noteId);
+            if (foundIndex !== -1) { setSelected(data.items[foundIndex]); setSelectedIndex(foundIndex); }
           }
         }
       })
@@ -375,7 +459,16 @@ export default function Notes() {
 
       {/* Modal */}
       <AnimatePresence mode="wait">
-        {selected && <NoteModal key={selected.id} note={selected} index={selectedIndex} onClose={closeModal} />}
+        {selected && (
+          <NoteModal
+            key={selected.id}
+            note={selected}
+            index={selectedIndex}
+            notes={feed?.items ?? []}
+            onClose={closeModal}
+            onNavigate={(i) => openModal((feed?.items ?? [])[i], i)}
+          />
+        )}
       </AnimatePresence>
 
       {/* ─── Styles ────────────────────────────────────────── */}
@@ -574,6 +667,35 @@ export default function Notes() {
           scrollbar-color: rgba(0,0,0,0.2) transparent;
         }
 
+        /* Nav footer */
+        .note-modal-nav {
+          display: flex;
+          justify-content: space-between;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          border-top: 1px solid rgba(0,0,0,0.08);
+          flex-shrink: 0;
+        }
+        .note-modal-nav-btn {
+          background: none;
+          border: none;
+          font-family: var(--font-mono);
+          font-size: 0.6rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgba(0,0,0,0.4);
+          cursor: pointer;
+          padding: 0.25rem 0;
+          max-width: 45%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          transition: color 0.15s;
+        }
+        .note-modal-nav-btn--next { text-align: right; }
+        .note-modal-nav-btn:hover:not(:disabled) { color: rgba(0,0,0,0.8); }
+        .note-modal-nav-btn:disabled { opacity: 0.25; cursor: default; }
+
         /* Folded corner */
         .note-modal-fold {
           position: absolute;
@@ -652,6 +774,28 @@ export default function Notes() {
         .note-content s { opacity: 0.5; }
         .note-content a { color: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0,0,0,0.25); text-decoration: none; }
         .note-content a:hover { border-bottom-color: rgba(0,0,0,0.65); }
+        .note-content .social-embed-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-family: var(--font-mono);
+          font-size: 0.68rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgba(0,0,0,0.55);
+          background: rgba(0,0,0,0.04);
+          border: 1px solid rgba(0,0,0,0.12);
+          border-bottom: 1px solid rgba(0,0,0,0.12);
+          border-radius: 2px;
+          padding: 0.25rem 0.55rem;
+          margin: 0.5rem 0;
+          transition: color 0.15s, background 0.15s, border-color 0.15s;
+        }
+        .note-content .social-embed-link:hover {
+          color: rgba(0,0,0,0.85);
+          background: rgba(0,0,0,0.07);
+          border-color: rgba(0,0,0,0.25);
+        }
         .note-content strong { color: rgba(0,0,0,0.85); font-weight: 600; }
         .note-content em { font-style: italic; }
         .note-content h1, .note-content h2, .note-content h3 {
