@@ -1,38 +1,46 @@
 "use client";
 import styles from "./contact.module.scss";
-import { AiFillMail } from "react-icons/ai";
 import Link from "next/link";
 import { Reveal } from "../../utils/Reveal";
+import { SectionHeader } from "../../utils/SectionHeader";
 
 export const Contact = () => {
   return (
     <section className="section-wrapper" id="contact">
+      <SectionHeader title="Contact" num="04" />
       <div className={styles.contactWrapper}>
         <Reveal width="100%">
-          <h4 className={styles.contactTitle}>
-            Contact<span>.</span>
-          </h4>
+          <h2 className={styles.contactTitle}>
+            LET&apos;S WORK
+            <br />
+            TOGETHER.
+          </h2>
         </Reveal>
         <Reveal width="100%">
-          <p className={styles.contactCopy}>
-            Have an idea to discuss? Shoot me an email if you want to connect!
-            You can also find me on{" "}
+          <div className={styles.contactLinks}>
+            <Link
+              href="mailto:mtosity@gmail.com"
+              className={styles.contactLink}
+            >
+              mtosity@gmail.com ↗
+            </Link>
             <Link
               href="https://www.linkedin.com/in/mtosity/"
               target="_blank"
               rel="nofollow"
+              className={styles.contactLink}
             >
-              Linkedin
-            </Link>{" "}
-          </p>
-        </Reveal>
-        <Reveal width="100%">
-          <Link href="mailto:mtosity@gmail.com">
-            <div className={styles.contactEmail}>
-              <AiFillMail size="2.4rem" />
-              <span>Send An Email</span>
-            </div>
-          </Link>
+              LinkedIn ↗
+            </Link>
+            <Link
+              href="https://github.com/mtosity"
+              target="_blank"
+              rel="nofollow"
+              className={styles.contactLink}
+            >
+              GitHub ↗
+            </Link>
+          </div>
         </Reveal>
       </div>
     </section>

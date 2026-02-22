@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { motion, AnimatePresence } from "framer-motion";
 import { SlideTabs } from "@/components/SlideTabs";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 import { blogPosts, CategoryType } from "@/data/blogPosts";
@@ -12,7 +13,7 @@ const LottieAnimation = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-[400px] h-[400px] rounded-2xl bg-gray-800 animate-pulse" />
+      <div style={{ width: 300, height: 300, background: "var(--bg-secondary)" }} />
     ),
   }
 );
@@ -26,88 +27,230 @@ export default function BlogHome() {
   );
 
   return (
-    <div className="relative">
-      <div className="sticky top-4 bg-transparent z-10">
-        <SlideTabs />
-      </div>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--fg)" }}>
+      <SlideTabs />
 
-      <div className="max-w-6xl mx-auto px-4 pb-8 pt-12 min-h-[calc(100vh-5rem)]">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:h-[calc(100vh-10rem)]">
-          {/* Left Column - Header, Subheader, and Image */}
-          <div className="flex flex-col h-full lg:col-span-2">
-            <header className="mb-8 flex-shrink-0 pb-6">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-2 font-heading tracking-tight">
-                MTosity&apos;s Blog
-              </h1>
-              <p className="text-gray-400 text-lg font-serif font-light">
-                Leave some notes for the world
+      <div
+        style={{
+          maxWidth: "1152px",
+          margin: "0 auto",
+          padding: "0 1.5rem 4rem",
+          paddingTop: "calc(56px + 3rem)",
+        }}
+      >
+        <div className="blog-list-grid">
+          {/* Left column */}
+          <motion.div
+            style={{ display: "flex", flexDirection: "column" }}
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                borderBottom: "1px solid var(--border)",
+                paddingBottom: "2rem",
+                marginBottom: "2rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
+                  marginBottom: "0.75rem",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.2em",
+                    color: "var(--muted)",
+                  }}
+                >
+                  06 —
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "var(--fg)",
+                  }}
+                >
+                  WRITING
+                </span>
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.8125rem",
+                  color: "var(--muted)",
+                  letterSpacing: "0.03em",
+                }}
+              >
+                Leave some notes for the world.
               </p>
-            </header>
-
-            <div className="min-h-0 flex items-start justify-center">
-              <LottieAnimation />
             </div>
 
             <Link
               href="/notes"
-              className="text-blue-500 hover:underline mb-4 inline-block"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.75rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "var(--fg)",
+                textDecoration: "none",
+                borderBottom: "1px solid var(--border-light)",
+                paddingBottom: "1px",
+                width: "fit-content",
+                display: "inline-block",
+                marginBottom: "2rem",
+              }}
             >
-              Oh captain, my captain! &rarr;
+              Personal notes →
             </Link>
-          </div>
 
-          {/* Right Column - Blog List */}
-          <div className="flex flex-col lg:h-full lg:overflow-hidden lg:col-span-3">
+            {/* Lottie — hidden on mobile */}
+            <div className="blog-lottie-wrapper">
+              <LottieAnimation />
+            </div>
+          </motion.div>
+
+          {/* Right column — post list */}
+          <motion.div
+            style={{ display: "flex", flexDirection: "column" }}
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
             <CategoryFilter
               selectedCategory={selectedCategory}
               onCategoryChange={setSelectedCategory}
             />
 
-            <div className="space-y-8 lg:overflow-y-auto lg:flex-1 pr-4 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-              {filteredPosts.map((post, index) => (
-                <article
-                  key={post.slug}
-                  className={`${
-                    index !== filteredPosts.length - 1
-                      ? "border-b border-gray-700 pb-8"
-                      : ""
-                  }`}
+            <div className="scrollbar-thin" style={{ overflowY: "auto", flex: 1 }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedCategory}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
                 >
-                  <div className="mb-3">
-                    <span
-                      className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wide border ${
-                        post.category === "Building"
-                          ? "text-blue-300 border-blue-600 bg-blue-900/20"
-                          : post.category === "Living"
-                          ? "text-green-300 border-green-600 bg-green-900/20"
-                          : post.category === "Money"
-                          ? "text-purple-300 border-purple-600 bg-purple-900/20"
-                          : post.category === "Tiếng Việt"
-                          ? "text-yellow-300 border-yellow-600 bg-yellow-900/20"
-                          : "text-gray-300 border-gray-600 bg-gray-900/20"
-                      }`}
+                  {filteredPosts.map((post, index) => (
+                    <motion.article
+                      key={post.slug}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.35,
+                        delay: index * 0.06,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      style={{
+                        borderBottom:
+                          index !== filteredPosts.length - 1
+                            ? "1px solid var(--border-light)"
+                            : "none",
+                        padding: "1.75rem 0",
+                      }}
                     >
-                      {post.category}
-                    </span>
-                  </div>
-                  <h2 className="text-2xl font-semibold font-heading mb-3 leading-tight">
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="hover:text-gray-400 transition-colors"
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "baseline",
+                          justifyContent: "space-between",
+                          gap: "1rem",
+                          marginBottom: "0.6rem",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: "0.65rem",
+                            letterSpacing: "0.12em",
+                            textTransform: "uppercase",
+                            color: "var(--muted)",
+                            border: "1px solid var(--border-light)",
+                            padding: "0.15rem 0.5rem",
+                          }}
+                        >
+                          {post.category}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: "0.7rem",
+                            letterSpacing: "0.08em",
+                            color: "var(--muted)",
+                            flexShrink: 0,
+                          }}
+                        >
+                          {post.date}
+                        </span>
+                      </div>
+
+                      <h2
+                        style={{
+                          fontFamily: "var(--font-crimson-text), Georgia, serif",
+                          fontSize: "1.4rem",
+                          fontWeight: 600,
+                          lineHeight: 1.3,
+                          marginBottom: "0.6rem",
+                        }}
+                      >
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          style={{
+                            color: "var(--fg)",
+                            textDecoration: "none",
+                            transition: "opacity 0.15s",
+                          }}
+                          onMouseEnter={(e) =>
+                            ((e.currentTarget as HTMLElement).style.opacity = "0.6")
+                          }
+                          onMouseLeave={(e) =>
+                            ((e.currentTarget as HTMLElement).style.opacity = "1")
+                          }
+                        >
+                          {post.title}
+                        </Link>
+                      </h2>
+
+                      <p
+                        style={{
+                          fontSize: "0.9375rem",
+                          color: "var(--muted)",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {post.excerpt}
+                      </p>
+                    </motion.article>
+                  ))}
+
+                  {filteredPosts.length === 0 && (
+                    <p
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.75rem",
+                        color: "var(--muted)",
+                        padding: "3rem 0",
+                      }}
                     >
-                      {post.title}
-                    </Link>
-                  </h2>
-                  <div className="text-sm text-gray-400 mb-4 font-sans font-medium uppercase tracking-wide">
-                    {post.date}
-                  </div>
-                  <p className="text-gray-300 break-words leading-relaxed font-serif">
-                    {post.excerpt}
-                  </p>
-                </article>
-              ))}
+                      No posts in this category yet.
+                    </p>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

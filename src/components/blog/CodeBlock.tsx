@@ -1,40 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-// Dynamic import to avoid SSR issues
 const loadPrism = async () => {
   if (typeof window === "undefined") return null;
-
   try {
     const Prism = (await import("prismjs")).default;
-
-    // Import language components dynamically
-    const languageImports = [
-      "prismjs/components/prism-clike",
-      "prismjs/components/prism-javascript",
-      "prismjs/components/prism-typescript",
-      "prismjs/components/prism-jsx",
-      "prismjs/components/prism-tsx",
-      "prismjs/components/prism-bash",
-      "prismjs/components/prism-json",
-      "prismjs/components/prism-css",
-      "prismjs/components/prism-markup",
-    ];
-
     await Promise.all(
-      languageImports.map(async (lang) => {
-        try {
-          await import(/* webpackChunkName: "prism-lang" */ lang);
-        } catch {
-          // Silently fail if language can't be loaded
-        }
-      })
+      [
+        "prismjs/components/prism-clike",
+        "prismjs/components/prism-javascript",
+        "prismjs/components/prism-typescript",
+        "prismjs/components/prism-jsx",
+        "prismjs/components/prism-tsx",
+        "prismjs/components/prism-bash",
+        "prismjs/components/prism-json",
+        "prismjs/components/prism-css",
+        "prismjs/components/prism-markup",
+      ].map((lang) => import(/* webpackChunkName: "prism-lang" */ lang).catch(() => {}))
     );
-
     return Prism;
-  } catch (error) {
-    console.warn("Failed to load Prism.js:", error);
+  } catch {
     return null;
   }
 };
@@ -46,6 +32,12 @@ interface CodeBlockProps {
   variant?: "default" | "error" | "success";
 }
 
+const VARIANT_BORDER: Record<string, string> = {
+  error:   "2px solid #fca5a5",
+  success: "2px solid #86efac",
+  default: "1px solid var(--border-light)",
+};
+
 export default function CodeBlock({
   code,
   language = "javascript",
@@ -53,62 +45,52 @@ export default function CodeBlock({
   variant = "default",
 }: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
-  const [isHighlighted, setIsHighlighted] = useState(false);
 
+  // Re-highlight whenever code or language changes
   useEffect(() => {
     let mounted = true;
-
-    const highlightCode = async () => {
-      if (codeRef.current && !isHighlighted) {
-        const Prism = await loadPrism();
-        if (Prism && mounted) {
-          Prism.highlightElement(codeRef.current);
-          setIsHighlighted(true);
-        }
+    const highlight = async () => {
+      if (!codeRef.current) return;
+      // Reset text so Prism re-processes from scratch
+      codeRef.current.textContent = code;
+      const Prism = await loadPrism();
+      if (Prism && mounted && codeRef.current) {
+        Prism.highlightElement(codeRef.current);
       }
     };
-
-    highlightCode();
-
-    return () => {
-      mounted = false;
-    };
-  }, [code, language, isHighlighted]);
-
-  const getVariantClasses = () => {
-    switch (variant) {
-      case "error":
-        return "bg-red-600 dark:bg-gray-900/80 border border-red-200 dark:border-red-900";
-      case "success":
-        return "bg-green-50 dark:bg-gray-900/80 border border-green-200 dark:border-green-900";
-      default:
-        return "border border-gray-200 dark:border-gray-700";
-    }
-  };
-
-  const getCodeVariantClasses = () => {
-    switch (variant) {
-      // case "error":
-      //   return "bg-red-100 dark:bg-red-900/30";
-      // case "success":
-      //   return "bg-green-100 dark:bg-green-900/30";
-      default:
-        return "";
-    }
-  };
+    highlight();
+    return () => { mounted = false; };
+  }, [code, language]);
 
   return (
-    <div className={`rounded-lg p-4 my-6 ${getVariantClasses()} ${className}`}>
+    <div
+      className={className}
+      style={{
+        borderLeft: VARIANT_BORDER[variant],
+        background: "#2a2836",
+        border: `1px solid #3a384a`,
+        borderLeftWidth: variant !== "default" ? "3px" : "1px",
+        borderLeftColor: variant === "error" ? "#fca5a5" : variant === "success" ? "#86efac" : "#3a384a",
+        margin: "0.25rem 0",
+        overflow: "hidden",
+      }}
+    >
       <pre
-        className={`${getCodeVariantClasses()} p-3 rounded text-sm overflow-x-auto`}
+        style={{
+          margin: 0,
+          padding: "0.85rem 1rem",
+          overflowX: "auto",
+          fontSize: "0.78rem",
+          lineHeight: 1.6,
+          background: "transparent",
+        }}
       >
         <code
           ref={codeRef}
           className={`language-${language}`}
           style={{
-            fontFamily:
-              'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
-            backgroundColor: "transparent",
+            fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
+            background: "transparent",
           }}
         >
           {code}

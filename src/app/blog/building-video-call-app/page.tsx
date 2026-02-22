@@ -58,7 +58,7 @@ function BlogContent() {
         </li>
       </ol>
 
-      <pre className="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm">
+      <pre>
         {`┌─────────────┐    WebSocket     ┌─────────────────┐    Redis     ┌─────────┐
 │   React     │◄────────────────►│   Go Server     │◄────────────►│ Redis   │
 │   Frontend  │                  │   (Signaling)   │              │ Pub/Sub │
@@ -91,7 +91,7 @@ function BlogContent() {
 
       <p>Create the following directory structure:</p>
 
-      <pre className="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm mb-6">
+      <pre>
         {`video-call-app/
 ├── frontend/          # React TypeScript application
 ├── backend/           # Go signaling server
@@ -109,7 +109,7 @@ function BlogContent() {
 
       <p>Create the backend directory and initialize a Go module:</p>
 
-      <pre className="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm mb-6">
+      <pre>
         {`mkdir backend && cd backend
 go mod init video-call-backend`}
       </pre>
@@ -156,7 +156,7 @@ go mod init video-call-backend`}
 
       <p>Create a new React TypeScript application:</p>
 
-      <pre className="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm mb-6">
+      <pre>
         {`npx create-react-app frontend --template typescript
 cd frontend
 npm install @radix-ui/react-avatar @radix-ui/react-slot class-variance-authority clsx lucide-react tailwind-merge tailwindcss-animate socket.io-client`}
@@ -324,7 +324,7 @@ npm install @radix-ui/react-avatar @radix-ui/react-slot class-variance-authority
         1. getUserMedia Errors
       </h3>
       <p>Ensure HTTPS or localhost for development:</p>
-      <pre className="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto text-sm mb-4">
+      <pre>
         {`// Ensure HTTPS or localhost for development
 if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
   console.error('WebRTC requires HTTPS in production');

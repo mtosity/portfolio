@@ -1,27 +1,17 @@
 "use client";
 import styles from "./header.module.scss";
-import { Reveal } from "./Reveal";
 
 interface Props {
   title: string;
-  dir?: "l" | "r";
+  num?: string;
 }
 
-export const SectionHeader = ({ title, dir = "r" }: Props) => {
+export const SectionHeader = ({ title, num = "01" }: Props) => {
   return (
-    <div
-      className={styles.sectionHeader}
-      style={{ flexDirection: dir === "r" ? "row" : "row-reverse" }}
-    >
+    <div className={styles.sectionHeader}>
+      <span className={styles.num}>{num} —</span>
+      <h3 className={styles.title}>{title.toUpperCase()}</h3>
       <div className={styles.line} />
-      <h3>
-        <Reveal>
-          <span className={styles.title}>
-            {title}
-            <span>.</span>
-          </span>
-        </Reveal>
-      </h3>
     </div>
   );
 };

@@ -1,37 +1,74 @@
 .experience {
-  margin-bottom: 2.4rem;
-  padding: 0 1.2rem 2.4rem;
+  margin-bottom: 0;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
 
-  border-bottom: 1px solid var(--background-light);
+.experience:last-child {
+  border-bottom: none;
 }
 
 .heading {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
 }
 
 .title {
-  font-size: var(--text-md);
-  font-weight: bold;
-  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--fg);
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  flex-shrink: 0;
 }
 
 .position {
-  color: var(--brand);
-  font-weight: bold;
+  font-size: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-light);
+  margin: 1.25rem 0;
 }
 
 .description {
-  margin-bottom: 1.8rem;
-  font-weight: 200;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--fg);
 }
 
 .tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2rem;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border-light);
+  padding: 0.2rem 0.6rem;
 }

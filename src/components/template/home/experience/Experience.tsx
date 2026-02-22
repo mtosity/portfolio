@@ -5,7 +5,7 @@ import { ExperienceItem } from "./ExperienceItem";
 export const Experience = () => {
   return (
     <section className="section-wrapper" id="experience">
-      <SectionHeader title="Experience" dir="l" />
+      <SectionHeader title="Experience" num="02" />
       {experience.map((item) => (
         <ExperienceItem key={item.title} {...item} />
       ))}
@@ -18,7 +18,7 @@ const experience = [
     title: "Coalition Inc",
     link: "https://www.youtube.com/watch?v=c27e3yi2g9E&ab_channel=Coalition%2CInc",
     position: "Software Engineer II",
-    time: "Jun 2022 - Present",
+    time: "Jun 2022 – Present",
     location: "",
     description:
       "• Reduced insurance quote generation latency by 58% by architecting a new internationalized (i18n) intake form using React, React Hook Form, and TanStack Query for real-time data synchronization.\n\n" +
@@ -43,7 +43,7 @@ const experience = [
   {
     title: "Pixie",
     position: "Frontend Engineer",
-    time: "Mar 2021 - Jun 2022",
+    time: "Mar 2021 – Jun 2022",
     location: "",
     description:
       "• Scaled frontend architecture to support user growth from 0 to 50k users for a core MVP product, delivering critical features including real-time video calling (WebRTC), chat (WebSocket), and scheduling.\n\n" +
@@ -69,7 +69,7 @@ const experience = [
     title: "Vinbrain",
     link: "https://www.linkedin.com/company/vinbrain/",
     position: "Software Engineer",
-    time: "Nov 2020 - Feb 2021",
+    time: "Nov 2020 – Feb 2021",
     location: "",
     description:
       "• Delivered a secure, HIPAA-compliant telehealth dashboard (\"Dr. Aid\"), implementing real-time video consultations using React, Redux, and WebRTC.\n\n" +
@@ -79,7 +79,7 @@ const experience = [
   {
     title: "Facebook Developer Circle",
     position: "Teaching Assistant",
-    time: "May 2020 - Sep 2020",
+    time: "May 2020 – Sep 2020",
     location: "",
     description:
       "Teaching React Native for the mobile development course, reviewing code and guiding final capstone projects to completion.",

@@ -17,46 +17,38 @@ export const ExperienceItem = ({
   link,
   position,
   time,
-  location,
   description,
   tech,
 }: Props) => {
   const titleContent = link ? (
     <a className={styles.title} href={link} rel="noreferrer" target="_blank">
-      {title}
+      {title.toUpperCase()}
     </a>
   ) : (
-    <span className={styles.title}>{title}</span>
+    <span className={styles.title}>{title.toUpperCase()}</span>
   );
 
   return (
     <div className={styles.experience}>
-      <div className={styles.heading}>
-        <Reveal>
+      <Reveal width="100%">
+        <div className={styles.heading}>
           {titleContent}
-        </Reveal>
-        <Reveal>
-          <span>{time}</span>
-        </Reveal>
-      </div>
-
-      <div className={styles.heading}>
-        <Reveal>
-          <span className={styles.position}>{position}</span>
-        </Reveal>
-        <Reveal>
-          <span>{location}</span>
-        </Reveal>
-      </div>
+          <span className={styles.time}>{time}</span>
+        </div>
+      </Reveal>
       <Reveal>
+        <span className={styles.position}>{position}</span>
+      </Reveal>
+      <div className={styles.divider} />
+      <Reveal width="100%">
         <p className={styles.description} style={{ whiteSpace: "pre-line" }}>
           {description}
         </p>
       </Reveal>
-      <Reveal>
+      <Reveal width="100%">
         <div className={styles.tech}>
           {tech.map((item) => (
-            <span key={item} className="chip">
+            <span key={item} className={styles.chip}>
               {item}
             </span>
           ))}

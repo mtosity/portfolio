@@ -44,7 +44,7 @@ export const SideBar = () => {
           initial={{ x: -70 }}
           animate={{ x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          href="#about"
+          href="/"
           onClick={() => {
             setSelected("about");
           }}

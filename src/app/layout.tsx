@@ -95,7 +95,7 @@ export default function RootLayout({
         <meta itemprop="description" content="Hey! I'm John Carlo Devera, and I'm a Bachelor of Science in Information Technology graduate."/>
         <meta itemprop="image" content="https://deverajc.com/screenshot.png"/> */}
 
-      <body className={`${inter.variable} ${crimsonText.variable} ${lora.variable} antialiased bg-zinc-800`} id="root">
+      <body className={`${inter.variable} ${crimsonText.variable} ${lora.variable} antialiased`} id="root">
         {children}
         <Analytics />
       </body>
