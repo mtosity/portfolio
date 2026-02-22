@@ -65,6 +65,22 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Minh Tam Nguyen",
+  alternateName: "MTosity",
+  url: "https://mtosity.com",
+  sameAs: [
+    "https://github.com/mtosity",
+    "https://linkedin.com/in/mtosity",
+    "https://twitter.com/mtosity",
+  ],
+  jobTitle: "Software Engineer",
+  description:
+    "Software Engineer building interesting and challenging things. Portfolio and personal website.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -75,6 +91,10 @@ export default function RootLayout({
       <head>
         <script src="./gatsby.js" async={false}></script>
         <script src="./sw.js" async={false}></script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
 
       <body className={`${inter.variable} ${crimsonText.variable} ${lora.variable} antialiased`} id="root">

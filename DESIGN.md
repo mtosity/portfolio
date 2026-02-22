@@ -235,17 +235,25 @@ All content sections sit inside a max-width `1400px` container.
 
 ### Notes (`/notes`)
 
+- **Data source**: Fetches from `/api/notes` (Leaflet JSON Feed); images/links rewritten to `LEAFLET_BASE`
 - **Background**: Subtle radial gradients — lime-tinted at top-left, lavender-tinted at bottom-right over cream
-- **Masonry grid**: CSS columns (4 cols → 3 → 2 → 1)
+- **Grid**: CSS Grid, `repeat(4, 1fr)`, `align-items: start`, `gap: 1.25rem` (4 cols → 3 → 2 → 1)
 - **Sticky notes**:
-  - Pastel background (8-color rotation), 3px left border in darker shade
-  - Slight pseudo-random rotation (±3°)
-  - Faux tape strip at top (white translucent rectangle)
-  - Box shadow: `2px 3px 12px rgba(0,0,0,0.10)`
-  - Hover: scale 1.04, straightens to 0°, lifts up 6px, shadow deepens
+  - Pastel background (8-color rotation), 3px left border in darker shade, `border-radius: 2px`
+  - Slight pseudo-random rotation (±3°, deterministic per index)
+  - Faux tape strip at top (40×12px, white translucent, `rgba(255,255,255,0.55)`)
+  - Box shadow: `2px 3px 12px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06)`
+  - Hover: scale 1.04, straightens to 0°, lifts up 6px, shadow → `0 12px 32px rgba(0,0,0,0.18)`
   - Content: Date (mono 0.6rem) → Title (Crimson Text 1.1rem) → Preview (0.78rem, 4-line clamp)
-- **Note modal**: Centered card, cream bg, light border, `0 24px 64px` shadow, escape to close
-- **Loading state**: Placeholder notes with pulse animation (opacity 0.4 ↔ 0.6)
+- **Note modal**:
+  - Backdrop: `rgba(13,13,13,0.55)` + `blur(6px)`; click backdrop to close, ESC key supported
+  - Card: note's pastel bg, `border-left: 5px solid` note border color, `border-radius: 1px`, max-width 620px, max-height 84vh
+  - Shadow: `8px 16px 48px rgba(0,0,0,0.32), 2px 4px 12px rgba(0,0,0,0.14), inset 0 0 0 1px rgba(255,255,255,0.35)`
+  - Top adhesive strip (32px, darkened note color) with centered tape decoration
+  - Scrollable content area with **ruled lines** (`repeating-linear-gradient` every 28px)
+  - Folded corner (38×38px triangle at bottom-right)
+  - URL updated via `?note=<slug>` on open; direct-link support on load
+- **Loading state**: 12 placeholder notes with `pulse-placeholder` animation (opacity 0.4 ↔ 0.6)
 
 ---
 
@@ -275,7 +283,7 @@ All animations use Framer Motion unless noted as CSS keyframes.
 | **Sticky note entrance** | `opacity 0→1, y 30→0, rotate` | 0.35s, 0.03s stagger (max 0.6s) | Default | Mount |
 | **Sticky note hover** | `scale 1.04, rotate 0, y -6, shadow deepens` | 0.2s | Default | Hover |
 | **Note modal backdrop** | `opacity 0→1` | 0.2s | Default | Mount |
-| **Note modal card** | `opacity 0→1, scale 0.92→1, y 30→0` | 0.25s | `[0.22, 1, 0.36, 1]` | Mount |
+| **Note modal card** | `opacity 0→1, scale 0.25→1, y -80→0, rotate srcRotation*3→0` | Spring (stiffness 320, damping 26, mass 0.85) | Spring | Mount |
 
 ### CSS Keyframe Animations
 
@@ -305,14 +313,14 @@ All animations use Framer Motion unless noted as CSS keyframes.
 
 | Width    | Effect                                                        |
 |----------|---------------------------------------------------------------|
-| `480px`  | Notes grid → 1 column                                        |
+| `480px`  | Notes CSS grid → 1 column                                    |
 | `640px`  | Photo grid → 1 image/row                                     |
 | `768px`  | Photo grid → 2/row; mobile nav triggers; hero photo hidden   |
-| `800px`  | Notes grid → 2 columns                                       |
+| `800px`  | Notes CSS grid → 2 columns                                   |
 | `900px`  | About section collapses to single column                      |
 | `1023px` | Blog sidebar → mobile slide-in; TOC button appears; Lottie hidden |
 | `1024px` | Blog layouts → two-column grid; photo grid → 3–4/row         |
-| `1200px` | Notes grid → 3 columns; photo grid → max 5/row               |
+| `1200px` | Notes CSS grid → 3 columns; photo grid → max 5/row           |
 | `1280px` | Photo grid → 1200px max container                             |
 
 ---
@@ -330,7 +338,7 @@ All modals share these traits:
 |-------|----------|-------------|-----------|
 | Project | `rgba(242, 239, 232, 0.85)` + `blur(8px)` | `4px 4px 0 var(--border)` | 700px |
 | Photo lightbox | `rgba(242, 239, 232, 0.92)` + `blur(8px)` | None | 56rem |
-| Note | `rgba(0, 0, 0, 0.5)` + `blur(4px)` | `0 24px 64px rgba(0,0,0,0.2)` | 640px |
+| Note | `rgba(13,13,13,0.55)` + `blur(6px)` | `8px 16px 48px rgba(0,0,0,0.32)` + inset glow | 620px |
 
 ---
 

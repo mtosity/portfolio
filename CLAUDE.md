@@ -52,3 +52,7 @@ Images are served from Vercel Blob storage (requires `BLOB_READ_WRITE_TOKEN`). T
 ### Path Alias
 
 `@/*` → `./src/*`
+
+## Design Documentation
+
+`DESIGN.md` is the canonical design reference for this site. **Always keep it up to date** when making visual changes. After any change to colors, typography, spacing, layout, animations, components, or page structure, update the relevant section(s) in `DESIGN.md` to reflect the current implementation.

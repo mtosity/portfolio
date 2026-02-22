@@ -21,25 +21,41 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const post = blogPosts.find((post) => post.slug === params.slug);
-  
+
   if (!post) {
-    return {
-      title: "Post Not Found",
-    };
+    return { title: "Post Not Found" };
   }
+
+  const postUrl = `https://mtosity.com/blog/${post.slug}`;
+  const publishedTime = new Date(post.date).toISOString();
 
   return {
     title: post.title,
     description: post.excerpt,
+    authors: [{ name: "Minh Tam Nguyen", url: "https://mtosity.com" }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url: postUrl,
       type: "article",
+      publishedTime,
+      authors: ["Minh Tam Nguyen"],
+      images: [
+        {
+          url: "/thumbnail.png",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
+      card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-    }
+      creator: "@mtosity",
+      images: ["/thumbnail.png"],
+    },
   };
 }
 
@@ -50,16 +66,56 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post!.title,
+    description: post!.excerpt,
+    url: `https://mtosity.com/blog/${post!.slug}`,
+    datePublished: new Date(post!.date).toISOString(),
+    author: {
+      "@type": "Person",
+      name: "Minh Tam Nguyen",
+      url: "https://mtosity.com",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Minh Tam Nguyen",
+      url: "https://mtosity.com",
+    },
+    image: "https://mtosity.com/thumbnail.png",
+  };
+
   // Route to the appropriate component based on slug
   switch (params.slug) {
     case "building-video-call-app":
-      return <BuildingVideoCallAppPage />;
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <BuildingVideoCallAppPage />
+        </>
+      );
     case "decoding-happiness":
-      return <DecodingHappinessPage />;
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <DecodingHappinessPage />
+        </>
+      );
     case "react-common-mistakes":
-      return <ReactCommonMistakesPage />;
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <ReactCommonMistakesPage />
+        </>
+      );
     case "hoa-ky-vay-tien":
-      return <HoaKyVayTienPage />;
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <HoaKyVayTienPage />
+        </>
+      );
     default:
       notFound();
   }
