@@ -13,11 +13,13 @@ export async function generateStaticParams() {
   }));
 }
 
+import { Metadata } from "next";
+
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}) {
+}): Promise<Metadata> {
   const post = blogPosts.find((post) => post.slug === params.slug);
   
   if (!post) {
@@ -29,6 +31,15 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+    },
+    twitter: {
+      title: post.title,
+      description: post.excerpt,
+    }
   };
 }
 
