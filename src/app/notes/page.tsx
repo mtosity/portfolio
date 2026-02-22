@@ -428,12 +428,14 @@ export default function Notes() {
           padding: 1rem clamp(1rem, 4vw, 3rem) 6rem;
         }
         .board-grid {
-          columns: 4;
-          column-gap: 1.25rem;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.25rem;
+          align-items: start;
         }
-        @media (max-width: 1200px) { .board-grid { columns: 3; } }
-        @media (max-width: 800px)  { .board-grid { columns: 2; } }
-        @media (max-width: 480px)  { .board-grid { columns: 1; } }
+        @media (max-width: 1200px) { .board-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 800px)  { .board-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px)  { .board-grid { grid-template-columns: 1fr; } }
 
         .board-error {
           font-family: var(--font-mono);
@@ -449,8 +451,6 @@ export default function Notes() {
           align-items: flex-start;
           text-align: left;
           width: 100%;
-          break-inside: avoid;
-          margin-bottom: 1.25rem;
           padding: 1.5rem 1.4rem 1.3rem;
           background: var(--note-bg);
           border: none;
