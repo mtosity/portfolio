@@ -418,7 +418,7 @@ export default function Notes() {
           <span className="board-header-title">NOTES</span>
         </div>
         <p className="board-header-desc">
-          Words drift in, words drift out — most passed through me, not from me
+          Etching small truths into the world — a quiet legacy, one note at a time
         </p>
       </div>
 
