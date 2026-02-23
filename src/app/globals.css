@@ -1,8 +1,6 @@
 @import "prismjs/themes/prism-tomorrow.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --font-sans: var(--font-inter);
