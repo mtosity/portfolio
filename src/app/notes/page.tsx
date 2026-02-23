@@ -418,8 +418,7 @@ export default function Notes() {
           <span className="board-header-title">NOTES</span>
         </div>
         <p className="board-header-desc">
-          What you see here is only between us. My thoughts will change over
-          time, so don&apos;t map these notes to my personality.
+          Leave some notes to the world, most are not mine
         </p>
       </div>
 
