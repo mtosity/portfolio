@@ -91,6 +91,8 @@ function InteractiveAnchor({ text, definitionKey }: InteractiveAnchorProps) {
             <svg
               viewBox="0 0 20 20"
               fill="currentColor"
+              width="20"
+              height="20"
               className={`w-full h-full transition-all duration-300 ${
                 isAnimating ? "animate-pulse" : ""
               } text-blue-500 dark:text-blue-400`}
@@ -114,6 +116,8 @@ function InteractiveAnchor({ text, definitionKey }: InteractiveAnchorProps) {
             <svg
               viewBox="0 0 20 20"
               fill="currentColor"
+              width="16"
+              height="16"
               className="w-full h-full"
             >
               <path
