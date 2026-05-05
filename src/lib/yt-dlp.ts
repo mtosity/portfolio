@@ -1,56 +1,64 @@
 import { spawn, type ChildProcessByStdio } from "node:child_process";
 import type { Readable } from "node:stream";
-import path from "node:path";
-import os from "node:os";
 import { existsSync, chmodSync, writeFileSync } from "node:fs";
 
-function resolveBinary(): string {
-  if (process.env.YT_DLP_PATH) return process.env.YT_DLP_PATH;
-  // Bracket-notation defeats Turbopack's static NFT tracer, which otherwise
-  // sees `path.join(process.cwd(), ...)` as a request to trace the entire
-  // project root and pulls 700+ MB of node_modules into the function bundle.
-  // On Vercel, LAMBDA_TASK_ROOT is the function root and is the correct base.
-  const root =
-    process.env.LAMBDA_TASK_ROOT ?? (process as { cwd: () => string })["cwd"]();
-  const binDir = `${root}/bin`;
-  if (process.platform === "linux") {
-    const archBin = `${binDir}/yt-dlp-linux-${process.arch}`;
-    if (existsSync(archBin)) return archBin;
-  }
-  return `${binDir}/${process.platform === "win32" ? "yt-dlp.exe" : "yt-dlp"}`;
+// Turbopack's NFT tracer in Next 16 detects `process.cwd()` and `path.join`
+// as filesystem operations and pulls the entire project root (incl. node_modules,
+// ~700 MB) into the serverless function. Bracket notation and turbopackIgnore
+// comments did not stop it. Hide cwd resolution behind eval — the static
+// analyzer cannot follow strings inside eval. LAMBDA_TASK_ROOT is set on Vercel
+// and avoids the eval branch entirely in production.
+function untracedRoot(): string {
+  if (process.env.LAMBDA_TASK_ROOT) return process.env.LAMBDA_TASK_ROOT;
+  // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-eval
+  return (0, eval)("process.cwd()") as string;
 }
 
-const YT_DLP = resolveBinary();
+let resolvedBin: string | null = null;
+function getBin(): string {
+  if (resolvedBin) return resolvedBin;
+  if (process.env.YT_DLP_PATH) {
+    resolvedBin = process.env.YT_DLP_PATH;
+    return resolvedBin;
+  }
+  const root = untracedRoot();
+  if (process.platform === "linux") {
+    resolvedBin = `${root}/bin/yt-dlp-linux-${process.arch}`;
+  } else if (process.platform === "win32") {
+    resolvedBin = `${root}/bin/yt-dlp.exe`;
+  } else {
+    resolvedBin = `${root}/bin/yt-dlp`;
+  }
+  return resolvedBin;
+}
 
 let ensured = false;
-function ensureExecutable() {
+function ensureExecutable(bin: string) {
   if (ensured || process.platform === "win32") return;
-  if (existsSync(YT_DLP)) {
-    try {
-      chmodSync(YT_DLP, 0o755);
-    } catch {
-      // read-only filesystem on Vercel after cold start is fine; bit stays set from build.
-    }
-  }
   ensured = true;
+  try {
+    chmodSync(bin, 0o755);
+  } catch {
+    // Read-only filesystem on Vercel after cold start; the executable bit
+    // is preserved from build time, so this is fine.
+  }
 }
 
 let cachedCookiesPath: string | null | undefined;
 function resolveCookiesPath(): string | null {
   if (cachedCookiesPath !== undefined) return cachedCookiesPath;
 
-  // Direct path wins.
   const direct = process.env.IG_COOKIES_PATH || process.env.YT_DLP_COOKIES;
   if (direct && existsSync(direct)) {
     cachedCookiesPath = direct;
     return cachedCookiesPath;
   }
 
-  // Inline cookies (Netscape format) via env. Vercel envs survive across invocations
-  // within the same lambda instance — write once to /tmp.
   const inline = process.env.IG_COOKIES_TXT;
   if (inline && inline.trim()) {
-    const target = path.join(os.tmpdir(), "ig-cookies.txt");
+    // /tmp is writable on Vercel and outside the project root, so this
+    // does not trigger over-tracing.
+    const target = "/tmp/ig-cookies.txt";
     try {
       if (!existsSync(target)) {
         writeFileSync(target, inline, { mode: 0o600 });
@@ -77,10 +85,11 @@ const COMMON_ARGS = [
 type YtDlpProcess = ChildProcessByStdio<null, Readable, Readable>;
 
 export function runYtDlp(args: string[]): YtDlpProcess {
-  ensureExecutable();
+  const bin = getBin();
+  ensureExecutable(bin);
   const cookiesPath = resolveCookiesPath();
   const cookieArgs = cookiesPath ? ["--cookies", cookiesPath] : [];
-  return spawn(YT_DLP, [...COMMON_ARGS, ...cookieArgs, ...args], {
+  return spawn(bin, [...COMMON_ARGS, ...cookieArgs, ...args], {
     stdio: ["ignore", "pipe", "pipe"],
   });
 }
