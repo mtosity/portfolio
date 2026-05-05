@@ -6,14 +6,18 @@ import { existsSync, chmodSync, writeFileSync } from "node:fs";
 
 function resolveBinary(): string {
   if (process.env.YT_DLP_PATH) return process.env.YT_DLP_PATH;
-  // turbopackIgnore: keep the tracer from treating cwd-relative joins as a
-  // signal to bundle the entire project root into the serverless function.
-  const binDir = path.join(/* turbopackIgnore: true */ process.cwd(), "bin");
+  // Bracket-notation defeats Turbopack's static NFT tracer, which otherwise
+  // sees `path.join(process.cwd(), ...)` as a request to trace the entire
+  // project root and pulls 700+ MB of node_modules into the function bundle.
+  // On Vercel, LAMBDA_TASK_ROOT is the function root and is the correct base.
+  const root =
+    process.env.LAMBDA_TASK_ROOT ?? (process as { cwd: () => string })["cwd"]();
+  const binDir = `${root}/bin`;
   if (process.platform === "linux") {
-    const archBin = path.join(binDir, `yt-dlp-linux-${process.arch}`);
+    const archBin = `${binDir}/yt-dlp-linux-${process.arch}`;
     if (existsSync(archBin)) return archBin;
   }
-  return path.join(binDir, process.platform === "win32" ? "yt-dlp.exe" : "yt-dlp");
+  return `${binDir}/${process.platform === "win32" ? "yt-dlp.exe" : "yt-dlp"}`;
 }
 
 const YT_DLP = resolveBinary();

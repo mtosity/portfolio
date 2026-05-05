@@ -2,9 +2,9 @@
 const nextConfig = {
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
   outputFileTracingIncludes: {
-    "/api/instagram/info": ["./bin/**/*"],
-    "/api/instagram/audio": ["./bin/**/*"],
-    "/api/instagram/download": ["./bin/**/*"],
+    "/api/instagram/info": ["./bin/yt-dlp-linux-*"],
+    "/api/instagram/audio": ["./bin/yt-dlp-linux-*"],
+    "/api/instagram/download": ["./bin/yt-dlp-linux-*"],
   },
   outputFileTracingExcludes: {
     "*": [
