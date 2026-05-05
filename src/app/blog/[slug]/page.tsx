@@ -19,9 +19,10 @@ import { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = blogPosts.find((post) => post.slug === params.slug);
+  const { slug } = await params;
+  const post = blogPosts.find((post) => post.slug === slug);
 
   if (!post) {
     return { title: "Post Not Found" };
@@ -60,8 +61,13 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((post) => post.slug === params.slug);
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = blogPosts.find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
@@ -88,7 +94,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   };
 
   // Route to the appropriate component based on slug
-  switch (params.slug) {
+  switch (slug) {
     case "building-video-call-app":
       return (
         <>
