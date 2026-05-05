@@ -1,5 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
+  outputFileTracingIncludes: {
+    "/api/instagram/info": ["./bin/yt-dlp-linux-*"],
+    "/api/instagram/audio": ["./bin/yt-dlp-linux-*"],
+    "/api/instagram/download": ["./bin/yt-dlp-linux-*"],
+  },
+  outputFileTracingExcludes: {
+    "*": [
+      "node_modules/@huggingface/**",
+      "node_modules/onnxruntime-node/**",
+      "node_modules/onnxruntime-web/**",
+      "node_modules/onnxruntime-common/**",
+      "node_modules/sharp/**",
+      "node_modules/@img/**",
+    ],
+  },
   images: {
     remotePatterns: [
       {

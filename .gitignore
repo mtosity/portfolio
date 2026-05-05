@@ -36,3 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 .env
+
+# yt-dlp binaries (downloaded by postinstall)
+/bin/yt-dlp
+/bin/yt-dlp-*

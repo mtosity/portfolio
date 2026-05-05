@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blogPosts";
+import { safeJsonLd } from "@/lib/jsonld";
 
 // Import all the individual blog post components
 import BuildingVideoCallAppPage from "../building-video-call-app/page";
@@ -18,9 +19,10 @@ import { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = blogPosts.find((post) => post.slug === params.slug);
+  const { slug } = await params;
+  const post = blogPosts.find((post) => post.slug === slug);
 
   if (!post) {
     return { title: "Post Not Found" };
@@ -59,8 +61,13 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((post) => post.slug === params.slug);
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = blogPosts.find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
@@ -87,32 +94,32 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   };
 
   // Route to the appropriate component based on slug
-  switch (params.slug) {
+  switch (slug) {
     case "building-video-call-app":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <BuildingVideoCallAppPage />
         </>
       );
     case "decoding-happiness":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <DecodingHappinessPage />
         </>
       );
     case "react-common-mistakes":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <ReactCommonMistakesPage />
         </>
       );
     case "hoa-ky-vay-tien":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <HoaKyVayTienPage />
         </>
       );

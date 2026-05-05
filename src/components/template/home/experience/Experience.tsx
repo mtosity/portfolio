@@ -15,10 +15,19 @@ export const Experience = () => {
 
 const experience = [
   {
+    title: "SAS Institute",
+    link: "https://www.sas.com/",
+    position: "Software Engineer II",
+    time: "Apr 2026 – Present",
+    location: "",
+    description: "🌐 Localization l10n - i18n",
+    tech: [],
+  },
+  {
     title: "Coalition Inc",
     link: "https://www.youtube.com/watch?v=c27e3yi2g9E&ab_channel=Coalition%2CInc",
     position: "Software Engineer II",
-    time: "Jun 2022 – Present",
+    time: "Jun 2022 – April 2026",
     location: "",
     description:
       "• Reduced insurance quote generation latency by 58% by architecting a new internationalized (i18n) intake form using React, React Hook Form, and TanStack Query for real-time data synchronization.\n\n" +

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Crimson_Text, Lora } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { safeJsonLd } from "@/lib/jsonld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -93,7 +94,7 @@ export default function RootLayout({
         <script src="./sw.js" async={false}></script>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(personJsonLd) }}
         />
       </head>
 

@@ -4,14 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
-    "upload-gallery": "node scripts/upload-to-blob.js"
+    "upload-gallery": "node scripts/upload-to-blob.js",
+    "postinstall": "node scripts/install-ytdlp.mjs"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
     "@lottiefiles/react-lottie-player": "^3.5.4",
     "@types/prismjs": "^1.26.5",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^1.4.0",
     "@vercel/blob": "^2.0.0",
     "@vercel/functions": "^3.0.0",
@@ -19,7 +23,7 @@
     "exif-reader": "^2.0.2",
     "framer-motion": "^12.0.0",
     "lottie-react": "^2.4.1",
-    "next": "16.0.10",
+    "next": "16.2.4",
     "prismjs": "^1.30.0",
     "react": "^18",
     "react-dom": "^18",
@@ -33,7 +37,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^9.0.0",
-    "eslint-config-next": "16.0.10",
+    "eslint-config-next": "16.2.4",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
