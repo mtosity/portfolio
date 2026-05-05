@@ -6,7 +6,9 @@ import { existsSync, chmodSync, writeFileSync } from "node:fs";
 
 function resolveBinary(): string {
   if (process.env.YT_DLP_PATH) return process.env.YT_DLP_PATH;
-  const binDir = path.join(process.cwd(), "bin");
+  // turbopackIgnore: keep the tracer from treating cwd-relative joins as a
+  // signal to bundle the entire project root into the serverless function.
+  const binDir = path.join(/* turbopackIgnore: true */ process.cwd(), "bin");
   if (process.platform === "linux") {
     const archBin = path.join(binDir, `yt-dlp-linux-${process.arch}`);
     if (existsSync(archBin)) return archBin;
