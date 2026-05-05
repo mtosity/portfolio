@@ -1,5 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
+  outputFileTracingIncludes: {
+    "/api/instagram/info": ["./bin/**/*"],
+    "/api/instagram/audio": ["./bin/**/*"],
+    "/api/instagram/download": ["./bin/**/*"],
+  },
+  outputFileTracingExcludes: {
+    "*": [
+      "node_modules/@huggingface/**",
+      "node_modules/onnxruntime-node/**",
+      "node_modules/onnxruntime-web/**",
+      "node_modules/onnxruntime-common/**",
+      "node_modules/sharp/**",
+      "node_modules/@img/**",
+    ],
+  },
   images: {
     remotePatterns: [
       {

@@ -113,6 +113,7 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
 | Contact       | 04     |
 | Photography   | 05     |
 | Notes / Blog  | 06     |
+| Tools         | 07     |
 
 ---
 
@@ -123,9 +124,9 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
 - **Fixed** top bar, `56px` height, cream background with bottom border
 - **Logo**: "MTOSITY" in monospace bold, `0.875rem`, `0.15em` letter-spacing, uppercase
 - **Logo interaction**: Clicking fires confetti (tsparticles) and navigates home
-- **Desktop links**: `About`, `Photos`, `Writing`, `Contact` — monospace 0.75rem, muted color, hover → fg
+- **Desktop links**: `About`, `Photos`, `Writing`, `Tools` — monospace 0.75rem, muted color, hover → fg
 - **Mobile**: Hamburger icon (3 horizontal lines SVG / X close), dropdown overlay
-- **Links**: `{ label: "About", href: "/" }, { label: "Photos", href: "/photography" }, { label: "Writing", href: "/blog" }, { label: "Contact", href: "/#contact" }`
+- **Links**: `{ label: "About", href: "/" }, { label: "Photos", href: "/photography" }, { label: "Writing", href: "/blog" }, { label: "Tools", href: "/tools" }`
 
 ### Hero Section
 
@@ -232,6 +233,88 @@ All content sections sit inside a max-width `1400px` container.
 - **Lazy loading**: IntersectionObserver with 500px rootMargin
 - **Image hover**: `scale(1.03)` with 0.3s ease transition
 - **Lightbox modal**: Blurred cream backdrop (`rgba(242, 239, 232, 0.92)`, `blur(8px)`), image scales up from 0.92, "Close ✕" button in monospace
+
+### Tools (`/tools`)
+
+- **Header**: Section pattern `07 — TOOLS` with horizontal rule and `{n} ITEMS` count chip on the right
+- **Headline**: Crimson Text `clamp(2.5rem, 6vw, 4.75rem)` with italic muted "Built to be useful." accent; followed by an Inter 1.0625rem muted lede (max-width 52ch)
+- **Tool list**: Vertical list of rows with bottom border (light); each row is a `Link` to `/tools/<slug>`
+- **Row layout**: `auto 1fr auto` grid → number (mono 0.75rem muted) | content block | arrow `→`
+- **Row content**: Title (Crimson Text `clamp(1.5rem, 3.5vw, 2.25rem)` 700) + status chip (`● LIVE` / `◐ BETA` / `○ WIP` · year, mono 0.65rem muted), description (1rem muted, max 62ch), tag chips (same `.chip` styling)
+- **Row entrance**: Clip-path wipe from left (`inset(0 100% 0 0)` → `inset(0 0% 0 0)`), 0.8s, ease `[0.65, 0, 0.35, 1]`, staggered 0.08s per row
+- **Row hover**: Background → `var(--accent)` (lime), `padding-left` slides from `1rem` → `1.5rem`, arrow translates `+8px` — all 0.3s ease
+
+### Tool — Image Grid (`/tools/img-grid`)
+
+- **Layout**: Full-bleed two-column workspace (288px sidebar + flex canvas), with a thin top header strip carrying the crumbs (`← All tools`, `07.03 — TOOL`, `CANVAS · 100% CLIENT-SIDE`) and the title row
+- **Title row**: "Image *grid.*" (Crimson Text `clamp(1.85rem, 4.5vw, 2.75rem)` 700, italic muted accent) + a mono tagline on the right ("Drop images → choose a layout → pan / zoom each tile → export PNG.")
+- **Sidebar (`288px`, cream)**: Each control wrapped in a `Section` with mono 0.65rem 700 uppercase muted label
+  - **Image count / Aspect ratio / Gap / Export size**: Connected pill row (no gap; 1px outer border, internal 1px dividers). Active segment fills lime, inactive segments hover to `var(--bg-secondary)` and `var(--fg)` text
+  - **Layout**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/lime rectangles inside; active card border + bg flip to lime
+  - **Radius**: Native range slider, accent `var(--fg)`, label shows live px
+  - **Background**: Inline color picker chip (28×28, 1px black border) + mono uppercase hex readout in a bordered strip
+  - **Export button** (sticks to bottom via `margin-top: auto`): Mono 0.78rem 700 uppercase. Lime + 4px hard offset shadow when ready, gray + no shadow when blocked. Hover lifts via `translate(-2px, -2px)` with the shadow growing to `6px 6px`. Disabled label shows remaining count: `Fill 2 more`
+- **Canvas pane**: `var(--bg-secondary)` background with a left 1px black rule. Centers a fixed-aspect canvas with `8px 8px 0 var(--border)` hard-offset shadow. Canvas dimensions recompute via `ResizeObserver` whenever the aspect ratio changes (200ms transition on width/height)
+- **Image block**:
+  - Empty state: cream-secondary fill with a 1px dashed border-light outline; centered `+` icon and mono "CLICK OR DROP" label
+  - Hover (empty): outline upgrades to dashed black
+  - Hover (filled): outline upgrades to 2px solid lime
+  - Drag-over: outline becomes 2px dashed black
+  - Filled: image positioned via `cover` math identical to `useImageCombiner.exportImage` so preview matches export pixel-for-pixel
+  - Hover overlay (filled): semi-opaque dark veil (`rgba(13,13,13,0.35)`) with two button rows — `Replace` / `Remove` (mono uppercase, 1px black borders; Remove tinted muted-red) and zoom controls `[−] NNN% [+]` (28px square buttons)
+- **Interactions**:
+  - Click empty block → file picker
+  - Drop file on block → upload (drag/drop highlight)
+  - Mouse drag on filled block → pan, clamped to keep image covering tile
+  - Wheel on filled block → zoom (1x → 5x clamp); zooming out clamps offsets back into range
+  - Replacing or counting up/down auto-revokes Object URLs to avoid leaks
+- **Mobile (<768px)**: Workspace flips to vertical (sidebar above canvas, max 50vh), `CANVAS · 100% CLIENT-SIDE` label and tagline hide
+- **Export pipeline**: `exportImage()` mirrors the CSS preview math on a single `<canvas>`. Block sizes use the same `gap.value / 600 * baseSize` and `borderRadius / 600 * baseSize` scaling so the rendered PNG matches the on-screen tile geometry. Sources: `crossOrigin = "anonymous"`, then `drawImage` with the cover-region math (offset/scale fed back into `sx/sy/sw/sh`). Output sizes: 1080 / 1440 / 2160 / 4320 px on the longest edge
+
+### Tool — Instagram Reel Extractor (`/tools/instagram`)
+
+- **Crumbs**: `← All tools` link, then sub-section header `07.02 — TOOL` left, `YT-DLP · WHISPER · WASM` right
+- **Title**: "Instagram reels, *extracted.*" — Crimson Text `clamp(2.5rem, 6vw, 4.5rem)` with italic muted accent
+- **URL form**: Mono uppercase label "REEL URL", then a flex strip on `var(--bg-secondary)` with 1px black border + `4px 4px 0` shadow:
+  - Mono input (transparent, no border, 0.9rem)
+  - Lime "→ FETCH" submit button (mono 0.75rem 700, 1px black border) — disables to `var(--border-light)` while loading and shows a spinner; otherwise scale 1.02 / 0.98 hover/tap
+  - Footnote line beneath: "Supports /reel/, /reels/, /p/ and /tv/ links · public posts only"
+- **Error banner**: 1px red border + `3px solid #a83232` left rule on `var(--bg-secondary)` carrying server message in mono
+- **Info card**: Two-column grid (`160px 1fr`, collapses below 600px). Left: 9:16 thumbnail with light border. Right:
+  - Uploader handle (mono 0.65rem uppercase muted)
+  - Title (Crimson Text 1.4rem, 3-line clamp)
+  - Meta chips: duration · `WxH` (mono 0.65rem chips)
+  - Action row: `Download MP4` primary action (cream bg, black border, mono 0.72rem 700) + `Get transcript` accent action (lime bg, black border)
+  - Card has 1px black border + `6px 6px 0` shadow
+- **Stage progress**: While transcribing, four-step ordered list with `StageDot` glyphs:
+  - Pending: hollow square (light border)
+  - Active: lime square with pulsing opacity (1 ↔ 0.3, 1.2s)
+  - Done: solid muted square
+  - Steps: `Downloading audio`, `Decoding audio`, `Loading Whisper model` (with `— NN%` while shards download), `Transcribing`
+- **Transcript section**: Header strip `TRANSCRIPT — [Copy] [.txt] [.srt]` (small bordered mono pill buttons), then a Crimson Text 1.0625rem block on `var(--bg-secondary)` with light border, line-height 1.75, whitespace preserved
+- **Footnote row**: DOWNLOADER / TRANSCRIPTION / STORAGE labels and values
+- **Server pipeline**: `/api/instagram/info` (POST, yt-dlp `--dump-single-json`), `/api/instagram/audio` (GET, `bestaudio[ext=m4a]/bestaudio` streamed inline as `audio/mp4`), `/api/instagram/download` (GET, `mp4/best` streamed as attachment). All run on `nodejs` runtime, gated by `checkRateLimit` (10/h sliding window via Upstash; no-op locally). yt-dlp binary resolved from `./bin/`; `next.config.mjs` declares `outputFileTracingIncludes` for each route so the binary is bundled into the serverless function on Vercel.
+- **Client pipeline**: Audio fetched from `/api/instagram/audio` → `AudioContext({ sampleRate: 16000 }).decodeAudioData` (resamples) → mono downmix → dynamic-import of `@huggingface/transformers` → `pipeline("automatic-speech-recognition", "onnx-community/whisper-base.en", { dtype: { encoder_model: "fp32", decoder_model_merged: "q4" }, device: "wasm" })` with `chunk_length_s: 30`, `stride_length_s: 5`, `return_timestamps: true` for SRT export.
+
+### Tool — Speech to Text (`/tools/speech-to-text`)
+
+- **Crumbs**: `← All tools` link (mono 0.7rem uppercase, light underline)
+- **Sub-section header**: `07.01 — TOOL` left, `ON-DEVICE · WHISPER-BASE.EN` right, with horizontal rule between
+- **Title**: "Speech *to* text." — Crimson Text `clamp(2.5rem, 6vw, 4.5rem)` with italic muted "to"
+- **Recorder card**:
+  - 1px black border on `var(--bg-secondary)` with `6px 6px 0` hard offset shadow
+  - Top meta strip: animated status dot + phase label (left), `MM:SS` elapsed timer (right) — both mono 0.7rem uppercase muted
+  - **Mic button** (150×150 wrapper, 88px circular button visually):
+    - Idle: lime background, black 1px border, mic SVG icon, `6px 6px 0` shadow
+    - Recording: black background with stop-square in lime, gentle scale pulse (1 ↔ 1.04, 1.4s loop), three concentric ring waves expanding outward (1.6s, 0.45s stagger)
+    - Hover/tap: scale 1.04 / 0.96 spring
+  - **Waveform**: 28-bar live FFT visualizer (3px wide bars, 56px tall) — driven by `AnalyserNode.getByteFrequencyData`, animates each bar's `height` per frame; idle bars are static gray
+  - **Status line**: Mono 0.75rem uppercase, errors switch to muted red (`#a83232`)
+  - **Loading bar**: 3px tall, fills `var(--fg)` over `var(--border-light)` track (only during model download)
+- **Transcript panel**: Crimson Text 1.0625rem on `var(--bg)`, light border, 180px min-height. Empty state: italic muted "Your words will land here." Filled state fades up (0.3s)
+- **Transcript actions**: Mono pill buttons (Copy / Clear) with border-color hover transition; Copy briefly swaps to "Copied"
+- **Footnotes row**: Auto-fit grid (220px min) — three labeled facts: MODEL, RUNTIME, PRIVACY (mono 0.65rem labels, mono 0.8rem values)
+- **Stack**: `@huggingface/transformers` v4 + `onnx-community/whisper-base.en` (q8 quantization, WASM device); `MediaRecorder` (audio/webm;codecs=opus) → `AudioContext.decodeAudioData` at 16kHz → Float32 mono → Whisper pipeline. Lazy-loaded on mount via dynamic import
 
 ### Notes (`/notes`)
 
@@ -442,7 +525,14 @@ src/
 │   ├── page.tsx              ← Home page composition
 │   ├── blog/                 ← Blog index + dynamic post routes
 │   ├── notes/page.tsx        ← Sticky notes page (inline styles)
-│   └── photography/page.tsx  ← Photo gallery (inline styles)
+│   ├── photography/page.tsx  ← Photo gallery (inline styles)
+│   ├── tools/                ← Tools index + individual tool routes
+│   │   ├── page.tsx          ← Tools list (lime hover row)
+│   │   ├── speech-to-text/   ← On-device Whisper transcription
+│   │   ├── instagram/        ← Instagram reel → MP4 / audio / transcript
+│   │   └── img-grid/         ← Client-side image-grid combiner (Canvas)
+│   └── api/
+│       └── instagram/        ← yt-dlp-backed info / audio / download routes
 ├── components/
 │   ├── Hero.tsx              ← Full-screen hero with parallax
 │   ├── SlideTabs.tsx         ← Fixed navigation bar
@@ -452,6 +542,11 @@ src/
 │       ├── nav/              ← SideBar, Heading + SCSS
 │       ├── buttons/          ← OutlineButton, StandardButton + SCSS
 │       └── utils/            ← Reveal, SectionHeader + SCSS
-└── data/
-    └── blogPosts.ts          ← Blog post registry
+├── data/
+│   ├── blogPosts.ts          ← Blog post registry
+│   └── tools.ts              ← Tools registry
+└── lib/
+    ├── instagram-url.ts      ← Reel URL parser
+    ├── yt-dlp.ts             ← yt-dlp spawn + stream helpers
+    └── rate-limit.ts         ← Upstash sliding-window limiter
 ```

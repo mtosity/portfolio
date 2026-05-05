@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blogPosts";
+import { safeJsonLd } from "@/lib/jsonld";
 
 // Import all the individual blog post components
 import BuildingVideoCallAppPage from "../building-video-call-app/page";
@@ -91,28 +92,28 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     case "building-video-call-app":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <BuildingVideoCallAppPage />
         </>
       );
     case "decoding-happiness":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <DecodingHappinessPage />
         </>
       );
     case "react-common-mistakes":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <ReactCommonMistakesPage />
         </>
       );
     case "hoa-ky-vay-tien":
       return (
         <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
           <HoaKyVayTienPage />
         </>
       );
