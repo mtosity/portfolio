@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@mtosity/admin/auth";
 
 // Guard the editor pages: bounce anonymous visitors to the GitHub sign-in.
 // (API admin routes additionally re-check auth server-side as defense in depth.)

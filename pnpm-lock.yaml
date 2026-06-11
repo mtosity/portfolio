@@ -53,6 +53,9 @@ importers:
       '@lottiefiles/react-lottie-player':
         specifier: ^3.5.4
         version: 3.6.0(react@18.3.1)
+      '@mtosity/admin':
+        specifier: workspace:*
+        version: link:../../packages/admin
       '@mtosity/design-system':
         specifier: workspace:*
         version: link:../../packages/design-system
@@ -71,21 +74,6 @@ importers:
       '@neondatabase/serverless':
         specifier: ^1.1.0
         version: 1.1.0
-      '@tiptap/extension-image':
-        specifier: ^3.26.0
-        version: 3.26.0(@tiptap/core@3.26.0(@tiptap/pm@3.26.0))
-      '@tiptap/extension-link':
-        specifier: ^3.26.0
-        version: 3.26.0(@tiptap/core@3.26.0(@tiptap/pm@3.26.0))(@tiptap/pm@3.26.0)
-      '@tiptap/pm':
-        specifier: ^3.26.0
-        version: 3.26.0
-      '@tiptap/react':
-        specifier: ^3.26.0
-        version: 3.26.0(@floating-ui/dom@1.7.6)(@tiptap/core@3.26.0(@tiptap/pm@3.26.0))(@tiptap/pm@3.26.0)(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tiptap/starter-kit':
-        specifier: ^3.26.0
-        version: 3.26.0
       '@types/prismjs':
         specifier: ^1.26.5
         version: 1.26.6
@@ -119,9 +107,6 @@ importers:
       next:
         specifier: 'catalog:'
         version: 16.2.4(@babel/core@7.28.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)
-      next-auth:
-        specifier: 5.0.0-beta.31
-        version: 5.0.0-beta.31(next@16.2.4(@babel/core@7.28.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react@18.3.1)
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
@@ -168,6 +153,58 @@ importers:
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.19(yaml@2.5.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/admin:
+    dependencies:
+      '@mtosity/lib':
+        specifier: workspace:*
+        version: link:../lib
+      '@tiptap/extension-image':
+        specifier: ^3.26.0
+        version: 3.26.0(@tiptap/core@3.26.0(@tiptap/pm@3.26.0))
+      '@tiptap/extension-link':
+        specifier: ^3.26.0
+        version: 3.26.0(@tiptap/core@3.26.0(@tiptap/pm@3.26.0))(@tiptap/pm@3.26.0)
+      '@tiptap/pm':
+        specifier: ^3.26.0
+        version: 3.26.0
+      '@tiptap/react':
+        specifier: ^3.26.0
+        version: 3.26.0(@floating-ui/dom@1.7.6)(@tiptap/core@3.26.0(@tiptap/pm@3.26.0))(@tiptap/pm@3.26.0)(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tiptap/starter-kit':
+        specifier: ^3.26.0
+        version: 3.26.0
+      '@vercel/blob':
+        specifier: ^2.0.0
+        version: 2.3.0
+      next-auth:
+        specifier: 5.0.0-beta.31
+        version: 5.0.0-beta.31(next@16.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react@18.3.1)
+    devDependencies:
+      '@mtosity/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^24.0.0
+        version: 24.10.13
+      '@types/react':
+        specifier: 'catalog:'
+        version: 18.3.28
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 18.3.7(@types/react@18.3.28)
+      next:
+        specifier: 'catalog:'
+        version: 16.2.4(@babel/core@7.28.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)
+      react:
+        specifier: 'catalog:'
+        version: 18.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 18.3.1(react@18.3.1)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -4646,7 +4683,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-auth@5.0.0-beta.31(next@16.2.4(@babel/core@7.28.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react@18.3.1):
+  next-auth@5.0.0-beta.31(next@16.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3))(react@18.3.1):
     dependencies:
       '@auth/core': 0.41.2
       next: 16.2.4(@babel/core@7.28.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.97.3)

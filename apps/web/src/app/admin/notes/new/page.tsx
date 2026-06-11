@@ -1,7 +1,3 @@
-import NoteEditor from "@/components/admin/NoteEditor";
+export { NewNotePage as default } from "@mtosity/admin";
 
 export const dynamic = "force-dynamic";
-
-export default function NewNotePage() {
-  return <NoteEditor />;
-}

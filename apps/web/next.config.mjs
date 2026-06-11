@@ -7,6 +7,7 @@ const nextConfig = {
     "@mtosity/tool-speech-to-text",
     "@mtosity/tool-img-grid",
     "@mtosity/tool-instagram",
+    "@mtosity/admin",
   ],
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
   outputFileTracingIncludes: {
