@@ -3,10 +3,10 @@
 import { SlideTabs } from "@/components/SlideTabs";
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 interface Note {
   id: string;
+  slug?: string;
   url: string;
   title: string;
   content_html: string;
@@ -265,14 +265,6 @@ function NoteModal({
             className="note-content"
             dangerouslySetInnerHTML={{ __html: cleanNoteHtml(note.content_html) }}
           />
-          <Link
-            href={note.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="note-modal-link"
-          >
-            Read on Leaflet ↗
-          </Link>
         </div>
 
         {/* Prev / Next navigation */}
@@ -381,7 +373,7 @@ export default function Notes() {
     setSelectedIndex(index);
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
-      url.searchParams.set("note", getNoteSlug(note.title));
+      url.searchParams.set("note", note.slug ?? getNoteSlug(note.title));
       window.history.replaceState({}, "", url.toString());
     }
   }, []);
@@ -390,13 +382,18 @@ export default function Notes() {
     fetch("/api/notes")
       .then((r) => r.json())
       .then((data: Feed) => {
+        if (!data || !Array.isArray(data.items)) {
+          setError(true);
+          setLoading(false);
+          return;
+        }
         setFeed(data);
         setLoading(false);
         if (typeof window !== "undefined") {
           const params = new URLSearchParams(window.location.search);
           const noteId = params.get("note");
           if (noteId) {
-            const foundIndex = data.items.findIndex(n => getNoteSlug(n.title) === noteId || getNoteSlug(n.id) === noteId || n.id === noteId);
+            const foundIndex = data.items.findIndex(n => (n.slug && n.slug === noteId) || getNoteSlug(n.title) === noteId || getNoteSlug(n.id) === noteId || n.id === noteId);
             if (foundIndex !== -1) { setSelected(data.items[foundIndex]); setSelectedIndex(foundIndex); }
           }
         }
@@ -429,16 +426,21 @@ export default function Notes() {
         {error && (
           <p className="board-error">
             Failed to load notes.{" "}
-            <Link
-              href="https://mtosity.leaflet.pub"
-              target="_blank"
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
               style={{
+                background: "none",
+                border: "none",
                 color: "var(--fg)",
                 borderBottom: "1px solid var(--border-light)",
+                cursor: "pointer",
+                font: "inherit",
+                padding: 0,
               }}
             >
-              Read on Leaflet ↗
-            </Link>
+              Try again
+            </button>
           </p>
         )}
 
@@ -743,23 +745,6 @@ export default function Notes() {
           line-height: 1.25;
           color: rgba(0,0,0,0.85);
           margin: 0 0 1.1rem;
-        }
-        .note-modal-link {
-          display: inline-block;
-          font-family: var(--font-mono);
-          font-size: 0.68rem;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(0,0,0,0.6);
-          text-decoration: none;
-          border-bottom: 1px solid rgba(0,0,0,0.2);
-          padding-bottom: 1px;
-          margin-top: 1.75rem;
-          transition: color 0.15s, border-color 0.15s;
-        }
-        .note-modal-link:hover {
-          color: rgba(0,0,0,0.9);
-          border-bottom-color: rgba(0,0,0,0.6);
         }
 
         /* ── Note content ── */

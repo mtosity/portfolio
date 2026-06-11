@@ -1,26 +1,33 @@
 import { NextResponse } from "next/server";
+import { listPublishedNotes } from "@/lib/notes";
 
-export const revalidate = 3600; // revalidate every hour
+// Read straight from Postgres so edits show up immediately.
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const res = await fetch("https://mtosity.leaflet.pub/json", {
-      next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch notes" },
-        { status: 502 }
-      );
-    }
-
-    const data = await res.json();
-    return NextResponse.json(data);
+    const notes = await listPublishedNotes();
+    return NextResponse.json(
+      {
+        title: "mtosity",
+        description:
+          "Leave these notes to the world ~ some are mine, some passed through me",
+        items: notes.map((n) => ({
+          id: n.id,
+          slug: n.slug,
+          url: `/notes?note=${n.slug}`,
+          title: n.title,
+          content_html: n.bodyHtml,
+          summary: n.summary,
+          date_modified: n.createdAt,
+        })),
+      },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   } catch {
     return NextResponse.json(
-      { error: "Failed to fetch notes" },
-      { status: 500 }
+      { error: "Failed to load notes" },
+      { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }
 }
