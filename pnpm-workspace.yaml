@@ -4,7 +4,7 @@ packages:
 
 # Single source of truth for versions shared across workspace packages.
 catalog:
-  next: 16.2.4
+  next: 16.2.9
   react: ^19.2.0
   react-dom: ^19.2.0
   "@types/react": ^19.2.0
@@ -13,4 +13,4 @@ catalog:
   framer-motion: ^12.0.0
   sass: ^1.80.1
   eslint: ^9.0.0
-  eslint-config-next: 16.2.4
+  eslint-config-next: 16.2.9
