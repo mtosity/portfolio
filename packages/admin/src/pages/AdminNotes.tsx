@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AccentButton } from "@mtosity/design-system";
 import { listAllNotes } from "@mtosity/lib/notes";
 import NotesList from "../components/NotesList";
 
@@ -18,7 +18,7 @@ export default async function AdminNotes() {
       <div style={{ display: "flex", alignItems: "baseline", gap: "1rem", marginBottom: "1.75rem" }}>
         <h1
           style={{
-            fontFamily: "var(--font-crimson-text), Georgia, serif",
+            fontFamily: "var(--font-heading)",
             fontSize: "2rem",
             fontWeight: 600,
             margin: 0,
@@ -36,26 +36,21 @@ export default async function AdminNotes() {
           {notes.length}
         </span>
         <span style={{ flex: 1 }} />
-        <Link
+        <AccentButton
           href="/admin/notes/new"
           style={{
-            background: "var(--accent)",
-            color: "var(--accent-fg)",
-            border: "1px solid var(--accent-fg)",
             borderRadius: 2,
             padding: "0.5rem 1rem",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.74rem",
-            fontWeight: 700,
-            textDecoration: "none",
+            letterSpacing: 0,
+            textTransform: "none",
           }}
         >
           + New note
-        </Link>
+        </AccentButton>
       </div>
 
       {error && (
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "#b00020", lineHeight: 1.6 }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--danger)", lineHeight: 1.6 }}>
           {error}
         </p>
       )}

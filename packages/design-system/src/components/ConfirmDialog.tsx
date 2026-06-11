@@ -13,7 +13,7 @@ export interface ConfirmDialogProps {
   onCancel: () => void;
 }
 
-export default function ConfirmDialog({
+export function ConfirmDialog({
   open,
   title = "Are you sure?",
   message,
@@ -88,7 +88,7 @@ export default function ConfirmDialog({
           to { opacity: 1; transform: scale(1) translateY(0); }
         }
         .confirm-title {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 1.3rem; font-weight: 600;
           margin: 0 0 0.5rem; color: var(--fg);
         }
@@ -108,7 +108,7 @@ export default function ConfirmDialog({
           border: 1px solid var(--border-light);
         }
         .confirm-ok {
-          background: #b00020; color: #fff; border: 1px solid #b00020;
+          background: var(--danger); color: var(--bg); border: 1px solid var(--danger);
           font-weight: 700;
         }
         .confirm-cancel:disabled, .confirm-ok:disabled { opacity: 0.6; cursor: default; }

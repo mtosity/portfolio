@@ -109,7 +109,7 @@ export const Hero = () => {
             {/* Display name */}
             <div
               style={{
-                fontFamily: "var(--font-crimson-text), Georgia, serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: "clamp(3.5rem, 9vw, 11rem)",
                 fontWeight: 700,
                 lineHeight: 0.9,

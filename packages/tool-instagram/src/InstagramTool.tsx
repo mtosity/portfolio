@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { SlideTabs } from "@mtosity/design-system";
+import { AccentButton, SlideTabs } from "@mtosity/design-system";
 
 type Info = {
   title: string;
@@ -293,7 +293,7 @@ export default function InstagramToolPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontFamily: "var(--font-crimson-text), Georgia, serif",
+            fontFamily: "var(--font-heading)",
             fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
             fontWeight: 700,
             letterSpacing: "-0.025em",
@@ -353,7 +353,7 @@ export default function InstagramToolPage() {
               border: "1px solid var(--border)",
               background: "var(--bg-secondary)",
               padding: "0.5rem",
-              boxShadow: "4px 4px 0 var(--border)",
+              boxShadow: "var(--shadow-brutal)",
             }}
           >
             <input
@@ -374,30 +374,18 @@ export default function InstagramToolPage() {
                 color: "var(--fg)",
               }}
             />
-            <motion.button
+            <AccentButton
               type="submit"
               disabled={fetching || !url}
-              whileHover={!fetching && url ? { scale: 1.02 } : {}}
-              whileTap={!fetching && url ? { scale: 0.98 } : {}}
               style={{
-                fontFamily: "var(--font-mono)",
                 fontSize: "0.75rem",
                 letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                fontWeight: 700,
-                color: fetching || !url ? "var(--fg)" : "var(--accent-fg)",
-                background: fetching || !url ? "var(--border-light)" : "var(--accent)",
-                border: "1px solid var(--border)",
                 padding: "0.85rem 1.5rem",
-                cursor: fetching || !url ? "not-allowed" : "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
               }}
             >
               {fetching ? <Spinner /> : <span>→</span>}
               Fetch
-            </motion.button>
+            </AccentButton>
           </div>
           <p
             style={{
@@ -455,7 +443,7 @@ export default function InstagramToolPage() {
                 border: "1px solid var(--border)",
                 background: "var(--bg-secondary)",
                 padding: "clamp(1.25rem, 3vw, 1.75rem)",
-                boxShadow: "6px 6px 0 var(--border)",
+                boxShadow: "var(--shadow-brutal-lg)",
                 display: "grid",
                 gridTemplateColumns: "minmax(0, 160px) 1fr",
                 gap: "clamp(1rem, 3vw, 1.75rem)",
@@ -515,7 +503,7 @@ export default function InstagramToolPage() {
                 )}
                 <h2
                   style={{
-                    fontFamily: "var(--font-crimson-text), Georgia, serif",
+                    fontFamily: "var(--font-heading)",
                     fontSize: "1.4rem",
                     fontWeight: 600,
                     lineHeight: 1.3,
@@ -576,14 +564,14 @@ export default function InstagramToolPage() {
                     <ArrowDownIcon />
                     Download MP4
                   </PrimaryAction>
-                  <AccentAction
+                  <AccentButton
                     onClick={handleTranscribe}
                     disabled={transcribing}
-                    busy={transcribing}
+                    style={{ fontSize: "0.72rem", padding: "0.7rem 1rem" }}
                   >
                     {transcribing ? <Spinner /> : <FileIcon />}
                     Get transcript
-                  </AccentAction>
+                  </AccentButton>
                 </div>
 
                 {transcribing && (
@@ -738,7 +726,7 @@ export default function InstagramToolPage() {
                   lineHeight: 1.75,
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-word",
-                  fontFamily: "var(--font-crimson-text), Georgia, serif",
+                  fontFamily: "var(--font-heading)",
                   color: "var(--fg)",
                 }}
               >
@@ -802,45 +790,6 @@ function PrimaryAction({
         display: "inline-flex",
         alignItems: "center",
         gap: "0.5rem",
-      }}
-    >
-      {children}
-    </motion.button>
-  );
-}
-
-function AccentAction({
-  children,
-  onClick,
-  disabled,
-  busy,
-}: {
-  children: React.ReactNode;
-  onClick: () => void;
-  disabled?: boolean;
-  busy?: boolean;
-}) {
-  return (
-    <motion.button
-      onClick={onClick}
-      disabled={disabled}
-      whileHover={!disabled ? { scale: 1.02 } : {}}
-      whileTap={!disabled ? { scale: 0.97 } : {}}
-      style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.72rem",
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        fontWeight: 700,
-        color: busy ? "var(--fg)" : "var(--accent-fg)",
-        background: busy ? "var(--border-light)" : "var(--accent)",
-        border: "1px solid var(--border)",
-        padding: "0.7rem 1rem",
-        cursor: disabled ? "not-allowed" : "pointer",
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "0.5rem",
-        opacity: disabled && !busy ? 0.55 : 1,
       }}
     >
       {children}

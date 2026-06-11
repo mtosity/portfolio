@@ -80,7 +80,7 @@ export default function ToolsPage() {
         >
           <h1
             style={{
-              fontFamily: "var(--font-crimson-text), Georgia, serif",
+              fontFamily: "var(--font-heading)",
               fontSize: "clamp(2.5rem, 6vw, 4.75rem)",
               fontWeight: 700,
               lineHeight: 1.05,
@@ -180,7 +180,7 @@ function ToolRow({
           >
             <h2
               style={{
-                fontFamily: "var(--font-crimson-text), Georgia, serif",
+                fontFamily: "var(--font-heading)",
                 fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)",
                 fontWeight: 700,
                 letterSpacing: "-0.02em",

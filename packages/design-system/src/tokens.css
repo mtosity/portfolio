@@ -22,8 +22,9 @@
   --color-border: #0d0d0d;
   --color-border-light: #ccc8bd;
   --color-muted: #666460;
+  --color-danger: #b00020;
 
-  --font-heading: var(--font-crimson-text);
+  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
   --font-sans: var(--font-inter);
   --font-serif: var(--font-lora);
 }
@@ -32,7 +33,7 @@
   --font-sans: var(--font-inter);
   --font-serif: var(--font-lora);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-heading: var(--font-crimson-text);
+  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
 
   color-scheme: light;
 
@@ -50,6 +51,13 @@
      dark override needed). */
   --accent-fg: #0d0d0d;
   --accent-fg-muted: #3f3e38;
+
+  /* Errors / destructive actions — readable on both themes */
+  --danger: #b00020;
+
+  /* Brutalist offset shadows (follow --border, so they adapt per theme) */
+  --shadow-brutal: 4px 4px 0 var(--border);
+  --shadow-brutal-lg: 6px 6px 0 var(--border);
 
   /* Legacy aliases (kept for backward compat with existing components) */
   --background: #f2efe8;
@@ -74,6 +82,7 @@
   --border: #f2efe8;
   --border-light: #3b3830;
   --muted: #a5a097;
+  --danger: #f06a7e;
 
   --color-bg: #14130f;
   --color-bg-secondary: #1e1c17;
@@ -82,6 +91,7 @@
   --color-border: #f2efe8;
   --color-border-light: #3b3830;
   --color-muted: #a5a097;
+  --color-danger: #f06a7e;
 
   --background: #14130f;
   --bg-opaque: rgba(20, 19, 15, 0.25);
@@ -107,6 +117,7 @@
   --border: #0d0d0d;
   --border-light: #ccc8bd;
   --muted: #666460;
+  --danger: #b00020;
 
   --color-bg: #f2efe8;
   --color-bg-secondary: #e8e5dd;
@@ -115,6 +126,7 @@
   --color-border: #0d0d0d;
   --color-border-light: #ccc8bd;
   --color-muted: #666460;
+  --color-danger: #b00020;
 
   --background: #f2efe8;
   --bg-opaque: rgba(242, 239, 232, 0.25);
@@ -140,6 +152,17 @@
 
 [data-theme="dark"] .theme-toggle-sun {
   display: block;
+}
+
+/* Muted-to-foreground hover, the standard treatment for secondary links
+   and icon buttons. Replaces per-element JS mouseenter/leave handlers. */
+.link-hover {
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.link-hover:hover {
+  color: var(--fg);
 }
 
 /* Global chip / tag */

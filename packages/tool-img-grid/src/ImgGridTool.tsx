@@ -89,7 +89,7 @@ export default function ImgGridPage() {
         >
           <h1
             style={{
-              fontFamily: "var(--font-crimson-text), Georgia, serif",
+              fontFamily: "var(--font-heading)",
               fontSize: "clamp(1.85rem, 4.5vw, 2.75rem)",
               fontWeight: 700,
               letterSpacing: "-0.025em",

@@ -1,5 +1,6 @@
 "use client";
 
+import { AccentButton } from "@mtosity/design-system";
 import LayoutPreview from "./LayoutPreview";
 import {
   ASPECT_RATIOS,
@@ -175,37 +176,19 @@ export default function Sidebar({
         />
       </Section>
 
-      <button
+      <AccentButton
         onClick={exportImage}
         disabled={!allFilled}
+        shadow
         style={{
           marginTop: "auto",
-          fontFamily: "var(--font-mono)",
           fontSize: "0.78rem",
-          fontWeight: 700,
           letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: allFilled ? "var(--accent-fg)" : "var(--fg)",
-          background: allFilled ? "var(--accent)" : "var(--border-light)",
-          border: `1px solid ${allFilled ? "var(--accent-fg)" : "var(--border)"}`,
           padding: "0.95rem",
-          cursor: allFilled ? "pointer" : "not-allowed",
-          boxShadow: allFilled ? "4px 4px 0 var(--border)" : "none",
-          transition: "transform 0.15s, box-shadow 0.15s, background 0.15s",
-        }}
-        onMouseEnter={(e) => {
-          if (!allFilled) return;
-          (e.currentTarget as HTMLElement).style.transform = "translate(-2px, -2px)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "6px 6px 0 var(--border)";
-        }}
-        onMouseLeave={(e) => {
-          if (!allFilled) return;
-          (e.currentTarget as HTMLElement).style.transform = "translate(0, 0)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "4px 4px 0 var(--border)";
         }}
       >
         {allFilled ? "↓ Export PNG" : `Fill ${imageCount - Object.keys(images).length} more`}
-      </button>
+      </AccentButton>
     </aside>
   );
 }

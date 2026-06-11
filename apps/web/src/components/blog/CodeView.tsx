@@ -55,24 +55,17 @@ export default function CodeView({
         </h3>
         <button
           onClick={onClose}
+          className="link-hover"
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: "0.65rem",
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: "var(--muted)",
             background: "none",
             border: "none",
             cursor: "pointer",
             flexShrink: 0,
-            transition: "color 0.15s",
           }}
-          onMouseEnter={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "var(--fg)")
-          }
-          onMouseLeave={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "var(--muted)")
-          }
         >
           ← Back
         </button>

@@ -6,7 +6,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
-import ConfirmDialog from "./ConfirmDialog";
+import { AccentButton, ConfirmDialog } from "@mtosity/design-system";
 
 export interface EditorNote {
   id: string;
@@ -205,9 +205,19 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         >
           Cancel
         </button>
-        <button className="note-editor-save" onClick={save} disabled={saving}>
+        <AccentButton
+          onClick={save}
+          disabled={saving}
+          style={{
+            borderRadius: 2,
+            padding: "0.5rem 1.1rem",
+            fontSize: "0.75rem",
+            letterSpacing: 0,
+            textTransform: "none",
+          }}
+        >
           {saving ? "Saving…" : isEdit ? "Save changes" : "Create note"}
-        </button>
+        </AccentButton>
       </div>
 
       <ConfirmDialog
@@ -223,7 +233,7 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         .note-editor { display: flex; flex-direction: column; gap: 1rem; }
         .note-editor-header { display: flex; align-items: center; }
         .note-editor-title {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 1.9rem; font-weight: 600;
           background: transparent; border: none; border-bottom: 1px solid var(--border-light);
           color: var(--fg); padding: 0.5rem 0; outline: none;
@@ -245,7 +255,7 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         .note-editor-prose:focus { outline: none; }
         .note-editor-prose p { margin: 0 0 0.9em; }
         .note-editor-prose h2, .note-editor-prose h3 {
-          font-family: var(--font-crimson-text), Georgia, serif; margin: 1.1em 0 0.4em;
+          font-family: var(--font-heading); margin: 1.1em 0 0.4em;
         }
         .note-editor-prose blockquote {
           border-left: 3px solid var(--border); margin: 1em 0; padding-left: 1rem; color: var(--muted);
@@ -262,15 +272,9 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
           display: inline-flex; align-items: center; gap: 0.4rem;
           font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); cursor: pointer;
         }
-        .note-editor-error { font-family: var(--font-mono); font-size: 0.72rem; color: #b00020; }
-        .note-editor-save {
-          background: var(--accent); color: var(--accent-fg); border: 1px solid var(--accent-fg);
-          border-radius: 2px; padding: 0.5rem 1.1rem; font-family: var(--font-mono);
-          font-size: 0.75rem; font-weight: 700; cursor: pointer;
-        }
-        .note-editor-save:disabled { opacity: 0.6; cursor: default; }
+        .note-editor-error { font-family: var(--font-mono); font-size: 0.72rem; color: var(--danger); }
         .note-editor-delete {
-          background: transparent; color: #b00020; border: 1px solid #b00020;
+          background: transparent; color: var(--danger); border: 1px solid var(--danger);
           border-radius: 2px; padding: 0.5rem 0.9rem; font-family: var(--font-mono);
           font-size: 0.75rem; cursor: pointer;
         }

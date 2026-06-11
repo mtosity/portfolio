@@ -100,8 +100,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // suppressHydrationWarning: the theme script sets data-theme before React hydrates
-    <html lang="en" suppressHydrationWarning>
+    // suppressHydrationWarning: the theme script sets data-theme before React hydrates.
+    // Font variables live on <html> so :root token aliases (--font-heading)
+    // can resolve them — var() substitution happens where the alias is declared.
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${crimsonText.variable} ${lora.variable}`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
@@ -110,7 +116,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={`${inter.variable} ${crimsonText.variable} ${lora.variable} antialiased`} id="root">
+      <body className="antialiased" id="root">
         {children}
         <Analytics />
         {/* Legacy Gatsby-era cleanup: unregister old service workers + caches. */}

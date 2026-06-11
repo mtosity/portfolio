@@ -198,7 +198,7 @@ export default function BlogHome() {
 
                       <h2
                         style={{
-                          fontFamily: "var(--font-crimson-text), Georgia, serif",
+                          fontFamily: "var(--font-heading)",
                           fontSize: "1.4rem",
                           fontWeight: 600,
                           lineHeight: 1.3,

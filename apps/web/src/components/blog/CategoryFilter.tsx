@@ -27,6 +27,7 @@ export default function CategoryFilter({
           <button
             key={category}
             onClick={() => onCategoryChange(category)}
+            className="link-hover"
             style={{
               padding: "0.6rem 1rem",
               fontFamily: "var(--font-mono)",
@@ -39,17 +40,10 @@ export default function CategoryFilter({
                 ? "2px solid var(--fg)"
                 : "2px solid transparent",
               marginBottom: "-1px",
-              color: isActive ? "var(--fg)" : "var(--muted)",
+              // Inline color pins the active tab; inactive tabs fall through
+              // to .link-hover (muted, fg on hover).
+              color: isActive ? "var(--fg)" : undefined,
               cursor: "pointer",
-              transition: "color 0.15s",
-            }}
-            onMouseEnter={(e) => {
-              if (!isActive)
-                (e.currentTarget as HTMLElement).style.color = "var(--fg)";
-            }}
-            onMouseLeave={(e) => {
-              if (!isActive)
-                (e.currentTarget as HTMLElement).style.color = "var(--muted)";
             }}
           >
             {category}
