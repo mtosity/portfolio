@@ -25,6 +25,8 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 | `--border`          | `#0d0d0d`                    | Section dividers, strong borders       |
 | `--border-light`    | `#ccc8bd`                    | Subtle separators, photo borders       |
 | `--muted`           | `#666460`                    | Secondary text, labels, dates          |
+| `--accent-fg`       | `#0d0d0d`                    | Ink on lime — text/borders on accent surfaces (same in dark) |
+| `--accent-fg-muted` | `#3f3e38`                    | Secondary ink on lime (same in dark)   |
 | `--bg-opaque`       | `rgba(242, 239, 232, 0.25)`  | Glassmorphic heading bar (legacy)      |
 | `--background-dark` | `#d8d4cc`                    | Legacy sidebar background              |
 | `--brand`           | `#bef264`                    | Alias for accent (legacy sidebar)      |
@@ -62,6 +64,11 @@ Mechanics (all in `tokens.css` unless noted):
 - Theme-dependent translucent overlays use
   `color-mix(in srgb, var(--bg) N%, transparent)` (photography lightbox,
   project modal) instead of hard-coded cream rgba.
+- Anything sitting on a lime surface uses `--accent-fg` / `--accent-fg-muted`
+  ("ink on lime", near-black in both themes), never `--fg`. Hover rows
+  (projects, tools, admin dashboard actions) re-point `--fg`/`--muted`/
+  `--border-light` to these inside the `:hover` rule so children pop without
+  per-element overrides.
 
 ### Notes Page — Sticky Note Colors
 

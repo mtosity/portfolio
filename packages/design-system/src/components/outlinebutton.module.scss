@@ -47,7 +47,8 @@
 }
 
 .outlineButton:hover {
-  color: var(--text);
+  /* Lime fill slides in — use ink-on-lime, not the theme fg */
+  color: var(--accent-fg);
 }
 
 .outlineButton:hover::before {

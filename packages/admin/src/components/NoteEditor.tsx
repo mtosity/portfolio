@@ -264,7 +264,7 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         }
         .note-editor-error { font-family: var(--font-mono); font-size: 0.72rem; color: #b00020; }
         .note-editor-save {
-          background: var(--accent); color: var(--fg); border: 1px solid var(--border);
+          background: var(--accent); color: var(--accent-fg); border: 1px solid var(--accent-fg);
           border-radius: 2px; padding: 0.5rem 1.1rem; font-family: var(--font-mono);
           font-size: 0.75rem; font-weight: 700; cursor: pointer;
         }

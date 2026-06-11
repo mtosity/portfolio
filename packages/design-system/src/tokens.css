@@ -18,6 +18,7 @@
   --color-bg-secondary: #e8e5dd;
   --color-fg: #0d0d0d;
   --color-accent: #bef264;
+  --color-accent-fg: #0d0d0d;
   --color-border: #0d0d0d;
   --color-border-light: #ccc8bd;
   --color-muted: #666460;
@@ -43,6 +44,12 @@
   --border: #0d0d0d;
   --border-light: #ccc8bd;
   --muted: #666460;
+
+  /* Ink on lime — text/borders sitting on an accent surface. The lime is
+     identical in both themes, so these stay near-black everywhere (no
+     dark override needed). */
+  --accent-fg: #0d0d0d;
+  --accent-fg-muted: #3f3e38;
 
   /* Legacy aliases (kept for backward compat with existing components) */
   --background: #f2efe8;

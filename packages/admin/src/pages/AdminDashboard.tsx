@@ -139,7 +139,15 @@ export default async function Dashboard() {
           text-decoration: none; color: var(--fg);
           transition: background 0.15s, transform 0.1s;
         }
-        .dash-action:hover { background: var(--accent); }
+        .dash-action:hover {
+          background: var(--accent);
+          /* Ink-on-lime so text/borders pop in both themes; --bg keeps the
+             plus chip a cream square on the lime surface. */
+          --fg: var(--accent-fg);
+          --muted: var(--accent-fg-muted);
+          --border: var(--accent-fg);
+          --bg: #f2efe8;
+        }
         .dash-action:active { transform: translateY(1px); }
         .dash-action-plus {
           font-size: 1.6rem; line-height: 1; font-weight: 300;

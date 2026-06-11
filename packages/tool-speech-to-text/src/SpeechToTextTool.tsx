@@ -469,7 +469,7 @@ export default function SpeechToTextPage() {
                     height="38"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="var(--fg)"
+                    stroke="var(--accent-fg)"
                     strokeWidth="1.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"

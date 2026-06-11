@@ -14,6 +14,14 @@
   &:first-child {
     border-top: 1px solid var(--border-light);
   }
+
+  /* The row turns lime on hover (inline style); re-point the text vars at
+     ink-on-lime so children stay high-contrast in both themes. */
+  &:hover {
+    --fg: var(--accent-fg);
+    --muted: var(--accent-fg-muted);
+    --border-light: var(--accent-fg-muted);
+  }
 }
 
 .projectNum {

@@ -24,7 +24,7 @@ export default function LayoutPreview({
         position: "relative",
         width: w,
         height: h,
-        border: `1px solid ${isActive ? "var(--fg)" : "var(--border-light)"}`,
+        border: `1px solid ${isActive ? "var(--accent-fg)" : "var(--border-light)"}`,
         background: isActive ? "var(--accent)" : "var(--bg)",
         cursor: "pointer",
         flexShrink: 0,
@@ -47,7 +47,7 @@ export default function LayoutPreview({
           key={i}
           style={{
             position: "absolute",
-            background: isActive ? "var(--fg)" : "var(--muted)",
+            background: isActive ? "var(--accent-fg)" : "var(--muted)",
             left: `calc(${block.x * 100}% + 2px)`,
             top: `calc(${block.y * 100}% + 2px)`,
             width: `calc(${block.w * 100}% - 4px)`,
