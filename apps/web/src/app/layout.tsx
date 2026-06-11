@@ -69,16 +69,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2efe8" },
-    { media: "(prefers-color-scheme: dark)", color: "#14130f" },
-  ],
+  themeColor: "#f2efe8",
 };
 
-/* Runs before first paint so the saved (or system) theme applies without a
-   flash. Server-rendered inline script — not subject to the client-render
+/* Runs before first paint so the saved theme applies without a flash.
+   Light is the default — dark only when explicitly chosen via the toggle.
+   Server-rendered inline script — not subject to the client-render
    script-tag limitation. */
-const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){}})()`;
+const themeInitScript = `(function(){var t="light";try{if(localStorage.getItem("theme")==="dark")t="dark"}catch(e){}document.documentElement.dataset.theme=t})()`;
 
 const personJsonLd = {
   "@context": "https://schema.org",

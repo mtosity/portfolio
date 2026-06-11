@@ -53,8 +53,9 @@ Mechanics (all in `tokens.css` unless noted):
 - `@custom-variant dark` remaps Tailwind's `dark:` variant from
   `prefers-color-scheme` to `[data-theme="dark"]`.
 - An inline no-flash script in `apps/web/src/app/layout.tsx` applies the saved
-  theme (`localStorage.theme`, falling back to the system preference) before
-  first paint; `<html>` has `suppressHydrationWarning`.
+  theme before first paint. **Light is the default** — dark applies only when
+  the visitor explicitly chose it (`localStorage.theme === "dark"`); the OS
+  preference is ignored. `<html>` has `suppressHydrationWarning`.
 - `ThemeToggle` (design system) sits in the `SlideTabs` nav; the sun/moon icons
   swap via pure CSS (`.theme-toggle-*` rules), so the button is hydration-safe.
 - `.theme-light-scope` re-establishes the light palette inside a subtree — used
