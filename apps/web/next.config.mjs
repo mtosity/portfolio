@@ -10,10 +10,12 @@ const nextConfig = {
     "@mtosity/admin",
   ],
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
+  // Globs relative to the app dir plus monorepo-root-relative fallbacks —
+  // the tracing root moved to the workspace root when this became a monorepo.
   outputFileTracingIncludes: {
-    "/api/instagram/info": ["./bin/yt-dlp-linux-*"],
-    "/api/instagram/audio": ["./bin/yt-dlp-linux-*"],
-    "/api/instagram/download": ["./bin/yt-dlp-linux-*"],
+    "/api/instagram/info": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
+    "/api/instagram/audio": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
+    "/api/instagram/download": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
   },
   outputFileTracingExcludes: {
     "*": [

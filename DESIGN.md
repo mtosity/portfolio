@@ -12,6 +12,10 @@ Comprehensive design reference for the portfolio site. Every visual decision —
 
 ## Color Palette
 
+Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tailwind v4
+`@theme static` block (exposing utilities like `bg-accent`, `text-muted`) plus plain
+`:root` CSS variables consumed by SCSS modules and inline styles.
+
 | Token               | Value                        | Usage                                  |
 |----------------------|------------------------------|----------------------------------------|
 | `--bg`              | `#f2efe8` (warm cream)       | Page background                        |
@@ -517,36 +521,39 @@ The blog sidebar's **CodeView** panel uses a separate dark-themed `CodeBlock` co
 
 ## File Organization
 
+Turborepo + pnpm workspace. The Next.js app composes packages; visual building
+blocks live in `@mtosity/design-system`.
+
 ```
-src/
-├── app/
-│   ├── globals.css           ← Design tokens, keyframes, global rules
-│   ├── layout.tsx            ← Font loading, meta, body class
-│   ├── page.tsx              ← Home page composition
-│   ├── blog/                 ← Blog index + dynamic post routes
-│   ├── notes/page.tsx        ← Sticky notes page (inline styles)
-│   ├── photography/page.tsx  ← Photo gallery (inline styles)
-│   ├── tools/                ← Tools index + individual tool routes
-│   │   ├── page.tsx          ← Tools list (lime hover row)
-│   │   ├── speech-to-text/   ← On-device Whisper transcription
-│   │   ├── instagram/        ← Instagram reel → MP4 / audio / transcript
-│   │   └── img-grid/         ← Client-side image-grid combiner (Canvas)
-│   └── api/
-│       └── instagram/        ← yt-dlp-backed info / audio / download routes
-├── components/
-│   ├── Hero.tsx              ← Full-screen hero with parallax
-│   ├── SlideTabs.tsx         ← Fixed navigation bar
-│   ├── blog/                 ← BlogLayout, CategoryFilter, CodeView, etc.
-│   └── template/
-│       ├── home/             ← About, Experience, Projects, Contact + SCSS
-│       ├── nav/              ← SideBar, Heading + SCSS
-│       ├── buttons/          ← OutlineButton, StandardButton + SCSS
-│       └── utils/            ← Reveal, SectionHeader + SCSS
-├── data/
-│   ├── blogPosts.ts          ← Blog post registry
-│   └── tools.ts              ← Tools registry
-└── lib/
-    ├── instagram-url.ts      ← Reel URL parser
-    ├── yt-dlp.ts             ← yt-dlp spawn + stream helpers
-    └── rate-limit.ts         ← Upstash sliding-window limiter
+apps/
+└── web/                          ← The Next.js app (only Vercel deployment)
+    └── src/
+        ├── app/
+        │   ├── globals.css       ← Tailwind v4 entry, keyframes, blog/global rules
+        │   ├── layout.tsx        ← Font loading, meta, body class
+        │   ├── page.tsx          ← Home page composition
+        │   ├── blog/             ← Blog index + dynamic post routes
+        │   ├── notes/page.tsx    ← Sticky notes page (inline styles)
+        │   ├── photography/      ← Photo gallery (inline styles)
+        │   ├── tools/            ← Tools index + thin re-export pages per tool
+        │   ├── admin/            ← Thin re-export pages from @mtosity/admin
+        │   └── api/              ← Thin re-export route files (handlers in packages)
+        ├── components/
+        │   ├── Hero.tsx          ← Full-screen hero with parallax
+        │   ├── blog/             ← BlogLayout, CategoryFilter, CodeView, etc.
+        │   └── template/
+        │       ├── home/         ← About, Experience, Projects, Contact + SCSS
+        │       └── nav/          ← SideBar, Heading + SCSS
+        └── data/                 ← blogPosts.ts, tools.ts registries
+
+packages/
+├── design-system/                ← tokens.css (@theme) + SlideTabs, Reveal,
+│                                   SectionHeader, OutlineButton, StandardButton
+├── lib/                          ← constants (SITE_URL), db, notes, rate-limit, jsonld
+├── admin/                        ← NextAuth config, admin pages, admin API handlers
+├── whisper/                      ← Shared WASM Whisper worker implementation
+├── tool-speech-to-text/          ← /tools/speech-to-text page component
+├── tool-img-grid/                ← /tools/img-grid page + canvas components
+├── tool-instagram/               ← /tools/instagram page, yt-dlp + URL libs, API handlers
+└── typescript-config/            ← Shared tsconfig bases + ambient declarations
 ```

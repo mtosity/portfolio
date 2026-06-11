@@ -22,13 +22,16 @@ function getBin(): string {
     return resolvedBin;
   }
   const root = untracedRoot();
-  if (process.platform === "linux") {
-    resolvedBin = `${root}/bin/yt-dlp-linux-${process.arch}`;
-  } else if (process.platform === "win32") {
-    resolvedBin = `${root}/bin/yt-dlp.exe`;
-  } else {
-    resolvedBin = `${root}/bin/yt-dlp`;
-  }
+  const name =
+    process.platform === "linux"
+      ? `yt-dlp-linux-${process.arch}`
+      : process.platform === "win32"
+        ? "yt-dlp.exe"
+        : "yt-dlp";
+  // Locally the task root is apps/web; on Vercel the function root is the
+  // monorepo root with the app nested under apps/web. Probe both.
+  const candidates = [`${root}/bin/${name}`, `${root}/apps/web/bin/${name}`];
+  resolvedBin = candidates.find((p) => existsSync(p)) ?? candidates[0];
   return resolvedBin;
 }
 
