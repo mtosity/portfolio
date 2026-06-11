@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "upload-gallery": "node scripts/upload-to-blob.js",
+    "build-gallery-manifest": "node scripts/build-gallery-manifest.mjs",
     "init-db": "node scripts/init-db.mjs",
     "import-notes": "node scripts/import-leaflet-notes.mjs",
     "postinstall": "node scripts/install-ytdlp.mjs"

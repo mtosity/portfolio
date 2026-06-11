@@ -254,6 +254,9 @@ importers:
       '@upstash/redis':
         specifier: ^1.37.0
         version: 1.37.0
+      '@vercel/blob':
+        specifier: ^2.0.0
+        version: 2.3.0
     devDependencies:
       '@mtosity/typescript-config':
         specifier: workspace:*

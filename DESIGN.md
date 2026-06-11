@@ -231,10 +231,11 @@ All content sections sit inside a max-width `1400px` container.
 
 - **Header**: Centered section label + italic serif quote ("Shoot the adjective, not the noun.")
 - **Justified grid**: Custom row-based layout algorithm
-  - Calculates aspect ratios from actual image dimensions
+  - Aspect ratios come from a precomputed dimensions manifest (`gallery-meta/manifest.json` in Blob, built by `pnpm --filter @mtosity/web build-gallery-manifest`) so rows are stable from first paint — no reflow as images load
   - Fills rows to target width with 4px gaps
   - Responsive images per row: 1 (mobile) → 5 (desktop)
-- **Lazy loading**: IntersectionObserver with 500px rootMargin
+- **Data**: server component with ISR (`revalidate = 300`) passes photos to the client grid — no fetch spinner
+- **Images**: `next/image` with per-tile `sizes` (Vercel image optimization — tiles are ~50 KB AVIF/WebP instead of 6–21 MB originals); native lazy loading, first two rows `priority`
 - **Image hover**: `scale(1.03)` with 0.3s ease transition
 - **Lightbox modal**: Blurred cream backdrop (`rgba(242, 239, 232, 0.92)`, `blur(8px)`), image scales up from 0.92, "Close ✕" button in monospace
 
