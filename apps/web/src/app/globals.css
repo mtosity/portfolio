@@ -20,6 +20,14 @@
   ::file-selector-button {
     border-color: #e5e7eb;
   }
+
+  [data-theme="dark"] *,
+  [data-theme="dark"] ::after,
+  [data-theme="dark"] ::before,
+  [data-theme="dark"] ::backdrop,
+  [data-theme="dark"] ::file-selector-button {
+    border-color: var(--border-light);
+  }
 }
 
 /* Blog-specific typography */

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Turborepo + pnpm workspace. **Package manager: pnpm** (not npm or yarn).
 
 - `apps/web` — the Next.js 16 app (App Router, React 19, TypeScript strict, Tailwind CSS v4, Sass modules, Framer Motion). The only deployable; routes under `src/app` are thin where the implementation lives in a package.
-- `packages/design-system` (`@mtosity/design-system`) — design tokens (`src/tokens.css`, Tailwind v4 `@theme static` + `:root` vars) and reusable UI (SlideTabs, Reveal, SectionHeader, buttons).
+- `packages/design-system` (`@mtosity/design-system`) — design tokens (`src/tokens.css`, Tailwind v4 `@theme static` + `:root` vars) and reusable UI (SlideTabs, Reveal, SectionHeader, ThemeToggle, buttons). Dark theme = `[data-theme="dark"]` on `<html>` (toggle + no-flash script in the web app's root layout); Tailwind's `dark:` variant is remapped to that attribute via `@custom-variant` in tokens.css. See DESIGN.md → "Dark Theme".
 - `packages/lib` (`@mtosity/lib`) — shared utils/constants via subpath exports: `constants` (SITE_URL etc.), `db` (Neon), `notes`, `rate-limit` (Upstash), `jsonld`.
 - `packages/admin` (`@mtosity/admin`) — NextAuth (GitHub, owner-only) config at `./auth`, admin pages (barrel export), admin API handlers at `./api/*`.
 - `packages/tool-*` — one package per tool on the `/tools` page (`tool-speech-to-text`, `tool-img-grid`, `tool-instagram`). Each exports its page component; instagram also exports API handlers at `./api/*`.

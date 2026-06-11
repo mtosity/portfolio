@@ -40,8 +40,8 @@ export default async function AdminNotes() {
           href="/admin/notes/new"
           style={{
             background: "var(--accent)",
-            color: "var(--fg)",
-            border: "1px solid var(--border)",
+            color: "var(--accent-fg)",
+            border: "1px solid var(--accent-fg)",
             borderRadius: 2,
             padding: "0.5rem 1rem",
             fontFamily: "var(--font-mono)",

@@ -249,19 +249,27 @@ function ToolRow({
         </span>
       </Link>
 
-      <style jsx>{`
+      {/* jsx global: motion.li doesn't receive the styled-jsx scope class,
+          so scoped selectors would never match the row. */}
+      <style jsx global>{`
         .tool-row:hover {
           background: var(--accent);
           padding-left: 1.5rem !important;
+          /* Ink-on-lime: children read their colors from these vars */
+          --fg: var(--accent-fg);
+          --muted: var(--accent-fg-muted);
+          --border-light: var(--accent-fg-muted);
         }
-        .tool-row:hover :global(.tool-arrow) {
+        .tool-row:hover .tool-arrow {
           transform: translateX(8px);
         }
-        .tool-row:hover :global(.tool-thumb) {
-          background: var(--bg);
-          border-color: var(--fg);
+        .tool-row:hover .tool-thumb {
+          /* Cream chip on lime — constant across themes (matches light --bg).
+             !important: the chip sets background/border inline. */
+          background: #f2efe8 !important;
+          border-color: var(--fg) !important;
         }
-        .tool-row:hover :global(.tool-thumb svg) {
+        .tool-row:hover .tool-thumb svg {
           transform: rotate(-4deg) scale(1.05);
         }
       `}</style>
