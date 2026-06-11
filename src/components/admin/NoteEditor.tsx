@@ -6,6 +6,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
+import ConfirmDialog from "./ConfirmDialog";
 
 export interface EditorNote {
   id: string;
@@ -24,6 +25,7 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -114,7 +116,6 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
 
   async function remove() {
     if (!note) return;
-    if (!window.confirm("Delete this note? This cannot be undone.")) return;
     setSaving(true);
     try {
       const res = await fetch(`/api/admin/notes/${note.id}`, {
@@ -126,6 +127,7 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
     } catch {
       setError("Failed to delete.");
       setSaving(false);
+      setConfirmOpen(false);
     }
   }
 
@@ -184,7 +186,11 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         <span style={{ flex: 1 }} />
         {error && <span className="note-editor-error">{error}</span>}
         {isEdit && (
-          <button className="note-editor-delete" onClick={remove} disabled={saving}>
+          <button
+            className="note-editor-delete"
+            onClick={() => setConfirmOpen(true)}
+            disabled={saving}
+          >
             Delete
           </button>
         )}
@@ -192,6 +198,15 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
           {saving ? "Saving…" : isEdit ? "Save changes" : "Create note"}
         </button>
       </div>
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Delete note"
+        message="Delete this note? This cannot be undone."
+        busy={saving}
+        onConfirm={remove}
+        onCancel={() => setConfirmOpen(false)}
+      />
 
       <style>{`
         .note-editor { display: flex; flex-direction: column; gap: 1rem; }
