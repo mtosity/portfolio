@@ -390,6 +390,11 @@ export default function Notes() {
     fetch("/api/notes")
       .then((r) => r.json())
       .then((data: Feed) => {
+        if (!data || !Array.isArray(data.items)) {
+          setError(true);
+          setLoading(false);
+          return;
+        }
         setFeed(data);
         setLoading(false);
         if (typeof window !== "undefined") {
