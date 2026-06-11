@@ -1,20 +1,23 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
 # testing
-/coverage
+coverage/
 
 # next.js
-/.next/
-/out/
+.next/
+out/
+
+# turborepo
+.turbo/
 
 # production
-/build
+build/
 
 # misc
 .DS_Store
@@ -27,6 +30,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -35,8 +39,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.env
-
 # yt-dlp binaries (downloaded by postinstall)
-/bin/yt-dlp
-/bin/yt-dlp-*
+apps/web/bin/yt-dlp
+apps/web/bin/yt-dlp-*
