@@ -3,7 +3,6 @@
 import { SlideTabs } from "@/components/SlideTabs";
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 interface Note {
   id: string;
@@ -266,9 +265,6 @@ function NoteModal({
             className="note-content"
             dangerouslySetInnerHTML={{ __html: cleanNoteHtml(note.content_html) }}
           />
-          <Link href={note.url} className="note-modal-link">
-            Permalink ↗
-          </Link>
         </div>
 
         {/* Prev / Next navigation */}
@@ -749,23 +745,6 @@ export default function Notes() {
           line-height: 1.25;
           color: rgba(0,0,0,0.85);
           margin: 0 0 1.1rem;
-        }
-        .note-modal-link {
-          display: inline-block;
-          font-family: var(--font-mono);
-          font-size: 0.68rem;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(0,0,0,0.6);
-          text-decoration: none;
-          border-bottom: 1px solid rgba(0,0,0,0.2);
-          padding-bottom: 1px;
-          margin-top: 1.75rem;
-          transition: color 0.15s, border-color 0.15s;
-        }
-        .note-modal-link:hover {
-          color: rgba(0,0,0,0.9);
-          border-bottom-color: rgba(0,0,0,0.6);
         }
 
         /* ── Note content ── */
