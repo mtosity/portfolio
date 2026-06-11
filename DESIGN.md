@@ -29,6 +29,40 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 | `--background-dark` | `#d8d4cc`                    | Legacy sidebar background              |
 | `--brand`           | `#bef264`                    | Alias for accent (legacy sidebar)      |
 
+### Dark Theme
+
+Activated by `data-theme="dark"` on `<html>`. The palette mirrors light — bg/fg
+swap to warm near-black + cream, the lime accent is shared:
+
+| Token            | Dark value             |
+|------------------|------------------------|
+| `--bg`           | `#14130f`              |
+| `--bg-secondary` | `#1e1c17`              |
+| `--fg`           | `#f2efe8`              |
+| `--accent`       | `#bef264` (unchanged)  |
+| `--border`       | `#f2efe8`              |
+| `--border-light` | `#3b3830`              |
+| `--muted`        | `#a5a097`              |
+
+Mechanics (all in `tokens.css` unless noted):
+
+- `[data-theme="dark"]` overrides the `:root` vars, the Tailwind `--color-*`
+  vars, and the legacy aliases; it also flips `color-scheme`.
+- `@custom-variant dark` remaps Tailwind's `dark:` variant from
+  `prefers-color-scheme` to `[data-theme="dark"]`.
+- An inline no-flash script in `apps/web/src/app/layout.tsx` applies the saved
+  theme (`localStorage.theme`, falling back to the system preference) before
+  first paint; `<html>` has `suppressHydrationWarning`.
+- `ThemeToggle` (design system) sits in the `SlideTabs` nav; the sun/moon icons
+  swap via pure CSS (`.theme-toggle-*` rules), so the button is hydration-safe.
+- `.theme-light-scope` re-establishes the light palette inside a subtree — used
+  by the blog sidebar while a definition card (fixed pastel backgrounds) is
+  open. Sticky notes on `/notes` and dark code blocks are self-contained and
+  need no scoping.
+- Theme-dependent translucent overlays use
+  `color-mix(in srgb, var(--bg) N%, transparent)` (photography lightbox,
+  project modal) instead of hard-coded cream rgba.
+
 ### Notes Page — Sticky Note Colors
 
 8-color pastel palette cycling per card:

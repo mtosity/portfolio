@@ -83,7 +83,10 @@ function Sidebar({
         </Link>
       )}
 
+      {/* Definition cards use fixed pastel backgrounds, so the panel pins the
+          light palette while one is open (theme-light-scope in tokens.css). */}
       <div
+        className={sidebarMode === "definition" ? "theme-light-scope" : undefined}
         style={{
           background: "var(--bg-secondary)",
           border: "1px solid var(--border-light)",

@@ -370,7 +370,7 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(242, 239, 232, 0.92)",
+            background: "color-mix(in srgb, var(--bg) 92%, transparent)",
             backdropFilter: "blur(8px)",
             display: "flex",
             alignItems: "center",

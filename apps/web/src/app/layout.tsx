@@ -1,5 +1,5 @@
 import { SITE_URL } from "@mtosity/lib/constants";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter, Crimson_Text, Lora } from "next/font/google";
 import "./globals.css";
@@ -68,6 +68,18 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2efe8" },
+    { media: "(prefers-color-scheme: dark)", color: "#14130f" },
+  ],
+};
+
+/* Runs before first paint so the saved (or system) theme applies without a
+   flash. Server-rendered inline script — not subject to the client-render
+   script-tag limitation. */
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="dark"&&t!=="light"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){}})()`;
+
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -90,8 +102,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // suppressHydrationWarning: the theme script sets data-theme before React hydrates
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(personJsonLd) }}
