@@ -10,6 +10,7 @@ interface Note {
   url: string;
   title: string;
   content_html: string;
+  summary?: string;
   date_modified: string;
 }
 
@@ -138,6 +139,44 @@ function getPlainPreview(html: string, max = 120): string {
   return text.length > max ? text.slice(0, max).trimEnd() + "…" : text;
 }
 
+function htmlHasText(html: string): boolean {
+  if (typeof window === "undefined") return Boolean(html);
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  return (doc.body.textContent || "").trim().length > 0;
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// Some notes are authored with the body in the record's description rather than
+// rich content blocks, so the feed's content_html is empty and the text only
+// arrives as `summary` (plain text with newlines). Render that as paragraphs.
+function summaryToHtml(summary: string): string {
+  return summary
+    .split(/\n{2,}/)
+    .map((para) => `<p>${escapeHtml(para).replace(/\n/g, "<br>")}</p>`)
+    .join("");
+}
+
+// Body HTML for the modal: prefer rich content, fall back to the summary.
+function noteBodyHtml(note: Note): string {
+  if (htmlHasText(note.content_html)) return cleanNoteHtml(note.content_html);
+  if (note.summary?.trim()) return summaryToHtml(note.summary);
+  return cleanNoteHtml(note.content_html);
+}
+
+// Preview text for the sticky note: same content/summary fallback.
+function notePreviewText(note: Note, max = 120): string {
+  const fromContent = getPlainPreview(note.content_html, max);
+  if (fromContent.trim()) return fromContent;
+  const s = note.summary?.trim() || "";
+  return s.length > max ? s.slice(0, max).trimEnd() + "…" : s;
+}
+
 // ─── StickyNote ────────────────────────────────────────────
 
 function StickyNote({
@@ -177,7 +216,7 @@ function StickyNote({
 
       <span className="sticky-date">{formatDate(note.date_modified)}</span>
       <span className="sticky-title">{note.title}</span>
-      <span className="sticky-preview">{getPlainPreview(note.content_html)}</span>
+      <span className="sticky-preview">{notePreviewText(note)}</span>
     </motion.button>
   );
 }
@@ -263,7 +302,7 @@ function NoteModal({
           <h2 className="note-modal-title">{note.title}</h2>
           <div
             className="note-content"
-            dangerouslySetInnerHTML={{ __html: cleanNoteHtml(note.content_html) }}
+            dangerouslySetInnerHTML={{ __html: noteBodyHtml(note) }}
           />
           <Link
             href={note.url}
