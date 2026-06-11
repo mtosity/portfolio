@@ -38,7 +38,29 @@ export default async function AdminLayout({
             textDecoration: "none",
           }}
         >
-          Notes · Admin
+          Admin
+        </Link>
+        <Link
+          href="/admin/notes"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.72rem",
+            color: "var(--muted)",
+            textDecoration: "none",
+          }}
+        >
+          Notes
+        </Link>
+        <Link
+          href="/admin/photography"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.72rem",
+            color: "var(--muted)",
+            textDecoration: "none",
+          }}
+        >
+          Photography
         </Link>
         <Link
           href="/notes"
@@ -49,7 +71,7 @@ export default async function AdminLayout({
             textDecoration: "none",
           }}
         >
-          View board ↗
+          View site ↗
         </Link>
         <span style={{ flex: 1 }} />
         {login && (
