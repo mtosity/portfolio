@@ -1,4 +1,4 @@
-import { list } from "@vercel/blob";
+import { list, put } from "@vercel/blob";
 
 export interface GalleryImage {
   id: string;
@@ -11,28 +11,38 @@ export interface GalleryImage {
 
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
 
-// Pixel dimensions per filename, precomputed by scripts/build-gallery-manifest.mjs
-// so the justified grid can lay out before a single image byte arrives.
-const MANIFEST_PATHNAME = "gallery-meta/manifest.json";
+// Pixel dimensions per filename, maintained by the admin upload flow (and
+// scripts/build-gallery-manifest.mjs for backfills) so the justified grid can
+// lay out before a single image byte arrives.
+export const MANIFEST_PATHNAME = "gallery-meta/manifest.json";
 
-type Manifest = Record<string, { width: number; height: number }>;
+export type GalleryManifest = Record<string, { width: number; height: number }>;
 
-async function fetchManifest(): Promise<Manifest> {
+export async function readManifest(): Promise<GalleryManifest> {
   try {
     const { blobs } = await list({ prefix: MANIFEST_PATHNAME, limit: 1 });
     if (!blobs[0]) return {};
     const res = await fetch(blobs[0].url, { cache: "no-store" });
     if (!res.ok) return {};
-    return (await res.json()) as Manifest;
+    return (await res.json()) as GalleryManifest;
   } catch {
     return {};
   }
 }
 
+export async function writeManifest(manifest: GalleryManifest): Promise<void> {
+  await put(MANIFEST_PATHNAME, JSON.stringify(manifest), {
+    access: "public",
+    contentType: "application/json",
+    allowOverwrite: true,
+    addRandomSuffix: false,
+  });
+}
+
 export async function listGalleryImages(): Promise<GalleryImage[]> {
   const [{ blobs }, manifest] = await Promise.all([
     list({ prefix: "gallery/", limit: 1000 }),
-    fetchManifest(),
+    readManifest(),
   ]);
 
   const images = blobs

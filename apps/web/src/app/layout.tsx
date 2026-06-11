@@ -1,5 +1,6 @@
 import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Crimson_Text, Lora } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -91,8 +92,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src="./gatsby.js" async={false}></script>
-        <script src="./sw.js" async={false}></script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(personJsonLd) }}
@@ -102,12 +101,15 @@ export default function RootLayout({
       <body className={`${inter.variable} ${crimsonText.variable} ${lora.variable} antialiased`} id="root">
         {children}
         <Analytics />
+        {/* Legacy Gatsby-era cleanup: unregister old service workers + caches. */}
+        <Script src="/sw.js" strategy="afterInteractive" />
+        <Script src="/gatsby.js" strategy="afterInteractive" />
+        {/* window.confetti — used by the nav logo easter egg in SlideTabs. */}
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"
+          strategy="afterInteractive"
+        />
       </body>
-
-      <script
-        src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"
-        async
-      ></script>
     </html>
   );
 }

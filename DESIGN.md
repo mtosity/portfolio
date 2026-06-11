@@ -236,8 +236,9 @@ All content sections sit inside a max-width `1400px` container.
   - Responsive images per row: 1 (mobile) → 5 (desktop)
 - **Data**: server component with ISR (`revalidate = 300`) passes photos to the client grid — no fetch spinner
 - **Images**: `next/image` with per-tile `sizes` (Vercel image optimization — tiles are ~50 KB AVIF/WebP instead of 6–21 MB originals); native lazy loading, first two rows `priority`
-- **Image hover**: `scale(1.03)` with 0.3s ease transition
-- **Lightbox modal**: Blurred cream backdrop (`rgba(242, 239, 232, 0.92)`, `blur(8px)`), image scales up from 0.92, "Close ✕" button in monospace
+- **Image hover**: `scale(1.03)` with 0.3s ease transition; hover also preloads the lightbox-size variant
+- **Lightbox modal**: Blurred cream backdrop (`rgba(242, 239, 232, 0.92)`, `blur(8px)`), image scales up from 0.92, "Close ✕" button in monospace. Opens instantly with the cached grid thumbnail (blurred 6px) as an underlay while the full-quality variant (q85, ~896px CSS width) streams in
+- **Manifest upkeep**: admin uploads measure dimensions client-side (EXIF-aware `createImageBitmap`) and merge them via `POST /api/admin/gallery/manifest`; deletes prune the entry. Bulk backfill: `pnpm --filter @mtosity/web build-gallery-manifest`
 
 ### Tools (`/tools`)
 

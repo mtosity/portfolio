@@ -1,20 +1,67 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+} from "react";
 import { SlideTabs } from "@mtosity/design-system";
 import type { GalleryImage } from "@mtosity/lib/gallery";
 
 type Photo = GalleryImage;
 
+// useLayoutEffect warns during SSR; on the server the effect never runs anyway.
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+// Mirror of next.config deviceSizes — used to predict the lightbox variant URL
+// so it can be preloaded on hover, before the user clicks.
+const DEVICE_SIZES = [640, 750, 828, 1080, 1200, 1920, 2048, 3840];
+const LIGHTBOX_CSS_WIDTH = 896; // 56rem modal cap
+const LIGHTBOX_QUALITY = 85;
+
+function lightboxVariantUrl(src: string) {
+  const target = LIGHTBOX_CSS_WIDTH * Math.min(window.devicePixelRatio || 1, 4);
+  const w = DEVICE_SIZES.find((s) => s >= target) ?? DEVICE_SIZES[DEVICE_SIZES.length - 1];
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${LIGHTBOX_QUALITY}`;
+}
+
 export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<{
+    photo: Photo;
+    thumbSrc: string | null;
+  } | null>(null);
+  const [lightboxLoaded, setLightboxLoaded] = useState(false);
+
+  // Warm the full-size variant the moment a tile is hovered, so it is usually
+  // in the HTTP cache by the time the modal opens.
+  const preloadedLightbox = useRef(new Set<string>());
+  const preloadLightbox = useCallback((photo: Photo) => {
+    if (preloadedLightbox.current.has(photo.id)) return;
+    preloadedLightbox.current.add(photo.id);
+    const img = new window.Image();
+    img.src = lightboxVariantUrl(photo.src);
+  }, []);
+
+  const openLightbox = useCallback((photo: Photo, tile: HTMLElement) => {
+    const thumbSrc = tile.querySelector("img")?.currentSrc || null;
+    setLightboxLoaded(false);
+    setSelectedPhoto({ photo, thumbSrc });
+  }, []);
   const [imageDimensions, setImageDimensions] = useState<
     Map<string, { width: number; height: number }>
   >(new Map());
-  const [windowWidth, setWindowWidth] = useState<number>(
-    typeof window !== "undefined" ? window.innerWidth : 1200,
-  );
+  // Must be deterministic for hydration: the server renders the grid at
+  // 1200px, and the first client render must match it exactly.
+  const [windowWidth, setWindowWidth] = useState<number>(1200);
+
+  // Measure before first paint so narrow screens never flash the 1200px layout.
+  useIsomorphicLayoutEffect(() => {
+    setWindowWidth(window.innerWidth);
+  }, []);
 
   // Debounce resize: re-laying out the whole grid on every pixel of a drag
   // is the opposite of snappy.
@@ -267,7 +314,8 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
                   return (
                     <div
                       key={photo.id}
-                      onClick={() => setSelectedPhoto(photo)}
+                      onClick={(e) => openLightbox(photo, e.currentTarget)}
+                      onMouseEnter={() => preloadLightbox(photo)}
                       style={{
                         width: imageWidth,
                         height: imageHeight,
@@ -348,22 +396,45 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
             transition={{ duration: 0.25 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={selectedPhoto.src}
-              alt={selectedPhoto.alt}
-              width={dimsFor(selectedPhoto).width}
-              height={dimsFor(selectedPhoto).height}
-              sizes="(max-width: 980px) 92vw, 896px"
-              quality={85}
-              priority
-              style={{
-                width: "100%",
-                height: "auto",
-                maxHeight: "85vh",
-                objectFit: "contain",
-                border: "1px solid var(--border-light)",
-              }}
-            />
+            <div style={{ position: "relative", width: "100%" }}>
+              {/* The grid thumbnail is already in cache — show it instantly
+                  (slightly blurred) while the full-quality variant streams in. */}
+              {selectedPhoto.thumbSrc && !lightboxLoaded && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={selectedPhoto.thumbSrc}
+                  alt=""
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    filter: "blur(6px)",
+                    border: "1px solid var(--border-light)",
+                  }}
+                />
+              )}
+              <Image
+                src={selectedPhoto.photo.src}
+                alt={selectedPhoto.photo.alt}
+                width={dimsFor(selectedPhoto.photo).width}
+                height={dimsFor(selectedPhoto.photo).height}
+                sizes="(max-width: 980px) 92vw, 896px"
+                quality={LIGHTBOX_QUALITY}
+                priority
+                onLoad={() => setLightboxLoaded(true)}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: "85vh",
+                  objectFit: "contain",
+                  border: "1px solid var(--border-light)",
+                  position: "relative",
+                }}
+              />
+            </div>
             <button
               onClick={() => setSelectedPhoto(null)}
               style={{

@@ -12,6 +12,33 @@ interface GalleryItem {
   uploadedAt: number;
 }
 
+// Read pixel dimensions from the file before upload, honoring EXIF rotation
+// so portrait phone shots aren't recorded sideways.
+async function measureImage(
+  file: File
+): Promise<{ width: number; height: number } | null> {
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const dims = { width: bmp.width, height: bmp.height };
+    bmp.close();
+    return dims;
+  } catch {
+    return new Promise((resolve) => {
+      const url = URL.createObjectURL(file);
+      const img = new window.Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        resolve({ width: img.naturalWidth, height: img.naturalHeight });
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(null);
+      };
+      img.src = url;
+    });
+  }
+}
+
 function formatSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
@@ -72,14 +99,21 @@ export default function AdminPhotography() {
       setError(null);
       setUploads(list.map((f) => ({ name: f.name, status: "uploading…" })));
 
+      // Dimensions for the gallery manifest, keyed by the final blob filename
+      // (uploads get a random suffix, so use the returned pathname).
+      const manifestEntries: Record<string, { width: number; height: number }> = {};
+
       for (let i = 0; i < list.length; i++) {
         const file = list[i];
         try {
-          await upload(`gallery/${file.name}`, file, {
+          const result = await upload(`gallery/${file.name}`, file, {
             access: "public",
             handleUploadUrl: "/api/admin/gallery/upload",
             contentType: file.type,
           });
+          const filename = result.pathname.split("/").pop();
+          const dims = await measureImage(file);
+          if (filename && dims) manifestEntries[filename] = dims;
           setUploads((prev) =>
             prev.map((u, idx) => (idx === i ? { ...u, status: "done" } : u))
           );
@@ -89,6 +123,20 @@ export default function AdminPhotography() {
           );
         }
       }
+
+      // Best-effort: /photography lays out from these without loading pixels.
+      if (Object.keys(manifestEntries).length > 0) {
+        try {
+          await fetch("/api/admin/gallery/manifest", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ entries: manifestEntries }),
+          });
+        } catch {
+          // The grid falls back to measuring on load for missing entries.
+        }
+      }
+
       await load();
       setTimeout(() => setUploads([]), 2500);
     },

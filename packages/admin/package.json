@@ -8,6 +8,7 @@
     "./api/notes": "./src/api/notes.ts",
     "./api/note": "./src/api/note.ts",
     "./api/gallery": "./src/api/gallery.ts",
+    "./api/gallery-manifest": "./src/api/gallery-manifest.ts",
     "./api/gallery-upload": "./src/api/gallery-upload.ts",
     "./api/upload": "./src/api/upload.ts"
   },

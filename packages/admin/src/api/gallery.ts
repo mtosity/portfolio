@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { list, del } from "@vercel/blob";
+import { readManifest, writeManifest } from "@mtosity/lib/gallery";
 import { auth } from "../auth";
 
 
@@ -42,6 +43,19 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ error: "Missing url" }, { status: 400 });
     }
     await del(url);
+    // Best-effort: drop the deleted photo's dimensions manifest entry.
+    try {
+      const filename = new URL(url).pathname.split("/").pop();
+      if (filename) {
+        const manifest = await readManifest();
+        if (filename in manifest) {
+          delete manifest[filename];
+          await writeManifest(manifest);
+        }
+      }
+    } catch {
+      // Stale manifest entries are harmless; the grid falls back to measuring.
+    }
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Delete failed" }, { status: 500 });
