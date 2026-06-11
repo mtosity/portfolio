@@ -3,6 +3,23 @@
    Canonical reference: DESIGN.md at the repo root.
    ────────────────────────────────────────────────────────────── */
 
+/* Tailwind v4 theme — exposes the palette as native utilities
+   (bg-accent, text-muted, border-border-light, font-heading, …).
+   `static` forces emission even before any utility uses them. */
+@theme static {
+  --color-bg: #f2efe8;
+  --color-bg-secondary: #e8e5dd;
+  --color-fg: #0d0d0d;
+  --color-accent: #bef264;
+  --color-border: #0d0d0d;
+  --color-border-light: #ccc8bd;
+  --color-muted: #666460;
+
+  --font-heading: var(--font-crimson-text);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-lora);
+}
+
 :root {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-lora);

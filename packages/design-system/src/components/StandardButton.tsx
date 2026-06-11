@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import { MouseEventHandler } from "react";
 import styles from "./standardbutton.module.scss";
 

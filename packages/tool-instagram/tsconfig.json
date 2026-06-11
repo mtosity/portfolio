@@ -1,8 +1,21 @@
 {
   "extends": "@mtosity/typescript-config/react-library.json",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext", "webworker"]
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "webworker"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "node_modules/@mtosity/typescript-config/css-modules.d.ts",
+    "node_modules/@mtosity/typescript-config/styled-jsx.d.ts"
+  ]
 }

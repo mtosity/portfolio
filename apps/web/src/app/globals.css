@@ -1,9 +1,26 @@
+@import "tailwindcss";
 @import "prismjs/themes/prism-tomorrow.css";
 @import "@mtosity/design-system/tokens.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Workspace packages render Tailwind classes too — point the v4 scanner at
+   their sources (paths are relative to this file). */
+@source "../../../../packages/design-system/src";
+@source "../../../../packages/admin/src";
+@source "../../../../packages/tool-speech-to-text/src";
+@source "../../../../packages/tool-img-grid/src";
+@source "../../../../packages/tool-instagram/src";
+
+/* Tailwind v3 preflight compat: keep default border color at gray-200
+   (v4 switched the default to currentColor). */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: #e5e7eb;
+  }
+}
 
 /* Blog-specific typography */
 h1,

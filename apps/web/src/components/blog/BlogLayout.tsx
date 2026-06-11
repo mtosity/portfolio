@@ -267,6 +267,9 @@ export default function BlogLayout({
   // Auto-expand sidebar on desktop
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
+    // One-time mount sync with the media query; the state is also toggled by
+    // the user, so useSyncExternalStore does not fit here.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsSidebarCollapsed(!mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsSidebarCollapsed(!e.matches);
     mq.addEventListener("change", handler);

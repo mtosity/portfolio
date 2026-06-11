@@ -1,4 +1,5 @@
 "use client";
+import type { JSX } from "react";
 import styles from "./projectmodal.module.scss";
 import { useEffect } from "react";
 import ReactDOM from "react-dom";

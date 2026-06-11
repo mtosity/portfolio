@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import { MouseEventHandler } from "react";
 import { AiFillFilePdf } from "react-icons/ai";
 import styles from "./outlinebutton.module.scss";
