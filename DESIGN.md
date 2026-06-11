@@ -27,6 +27,10 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 | `--muted`           | `#666460`                    | Secondary text, labels, dates          |
 | `--accent-fg`       | `#0d0d0d`                    | Ink on lime — text/borders on accent surfaces (same in dark) |
 | `--accent-fg-muted` | `#3f3e38`                    | Secondary ink on lime (same in dark)   |
+| `--danger`          | `#b00020` (dark: `#f06a7e`)  | Errors, destructive actions            |
+| `--shadow-brutal`   | `4px 4px 0 var(--border)`    | Brutalist offset shadow                |
+| `--shadow-brutal-lg`| `6px 6px 0 var(--border)`    | Larger offset shadow (hover/emphasis)  |
+| `--font-heading`    | Crimson Text + serif fallbacks | Use instead of spelling out the chain; the next/font variables live on `<html>` so this alias resolves |
 | `--bg-opaque`       | `rgba(242, 239, 232, 0.25)`  | Glassmorphic heading bar (legacy)      |
 | `--background-dark` | `#d8d4cc`                    | Legacy sidebar background              |
 | `--brand`           | `#bef264`                    | Alias for accent (legacy sidebar)      |
@@ -474,6 +478,30 @@ All modals share these traits:
 ---
 
 ## UI Primitives
+
+### AccentButton (design system)
+
+The lime CTA: mono uppercase, ink-on-lime text, `1px` accent-fg border,
+framer-motion scale on hover/tap. `href` renders a Next Link, `disabled`
+drops to the muted surface, `shadow` adds `--shadow-brutal`. Size tweaks go
+through `style`. Used by the tools (img-grid export, instagram fetch /
+transcript) and admin (save note, new note).
+
+### ConfirmDialog (design system)
+
+Themed confirm modal (backdrop blur, pop-in card, Escape/Enter keys, busy
+state). Destructive confirm button uses `--danger` with `--bg` text.
+
+### Muted link hover (`.link-hover`)
+
+`color: var(--muted)` → `var(--fg)` on hover with a 0.15s transition. Use
+the class instead of JS mouseenter/leave handlers. An active/pinned state
+can override `color` inline (inline beats the class).
+
+### useIsMobile / useMediaQuery (design system)
+
+`useSyncExternalStore`-based media query hooks; SSR renders the `false`
+branch. `useIsMobile()` defaults to `< 768px`.
 
 ### Chip / Tag (`.chip`)
 ```css

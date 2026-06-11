@@ -239,7 +239,7 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
 
         <motion.p
           style={{
-            fontFamily: "var(--font-crimson-text), Georgia, serif",
+            fontFamily: "var(--font-heading)",
             fontSize: "clamp(2rem, 5vw, 3.5rem)",
             fontWeight: 400,
             fontStyle: "italic",

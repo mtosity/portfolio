@@ -321,7 +321,7 @@ export default function SpeechToTextPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontFamily: "var(--font-crimson-text), Georgia, serif",
+            fontFamily: "var(--font-heading)",
             fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
             fontWeight: 700,
             letterSpacing: "-0.025em",
@@ -360,7 +360,7 @@ export default function SpeechToTextPage() {
             background: "var(--bg-secondary)",
             padding: "clamp(1.5rem, 4vw, 2.5rem)",
             position: "relative",
-            boxShadow: "6px 6px 0 var(--border)",
+            boxShadow: "var(--shadow-brutal-lg)",
           }}
         >
           {/* Top meta */}
@@ -449,8 +449,8 @@ export default function SpeechToTextPage() {
                   alignItems: "center",
                   justifyContent: "center",
                   boxShadow: isRecording
-                    ? "0 0 0 4px var(--bg-secondary), 6px 6px 0 var(--border)"
-                    : "6px 6px 0 var(--border)",
+                    ? "0 0 0 4px var(--bg-secondary), var(--shadow-brutal-lg)"
+                    : "var(--shadow-brutal-lg)",
                   transition: "background 0.2s, box-shadow 0.2s",
                 }}
               >
@@ -573,7 +573,7 @@ export default function SpeechToTextPage() {
               lineHeight: 1.75,
               whiteSpace: "pre-wrap",
               wordBreak: "break-word",
-              fontFamily: "var(--font-crimson-text), Georgia, serif",
+              fontFamily: "var(--font-heading)",
             }}
           >
             <AnimatePresence mode="wait">
@@ -596,7 +596,7 @@ export default function SpeechToTextPage() {
                   style={{
                     color: "var(--muted)",
                     fontStyle: "italic",
-                    fontFamily: "var(--font-crimson-text), Georgia, serif",
+                    fontFamily: "var(--font-heading)",
                   }}
                 >
                   Your words will land here.

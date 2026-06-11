@@ -59,25 +59,18 @@ function Sidebar({
       {!hideBackLink && (
         <Link
           href="/blog"
+          className="link-hover"
           style={{
             display: "inline-block",
             fontFamily: "var(--font-mono)",
             fontSize: "0.68rem",
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "var(--muted)",
             textDecoration: "none",
             marginBottom: "1rem",
             borderBottom: "1px solid var(--border-light)",
             paddingBottom: "1px",
-            transition: "color 0.15s",
           }}
-          onMouseEnter={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "var(--fg)")
-          }
-          onMouseLeave={(e) =>
-            ((e.currentTarget as HTMLElement).style.color = "var(--muted)")
-          }
         >
           ← Back to Blog
         </Link>
@@ -135,12 +128,12 @@ function Sidebar({
               </h3>
               <button
                 onClick={onClose}
+                className="link-hover"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "0.65rem",
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: "var(--muted)",
                   background: "none",
                   border: "none",
                   cursor: "pointer",
@@ -148,14 +141,7 @@ function Sidebar({
                   display: "flex",
                   alignItems: "center",
                   gap: "0.25rem",
-                  transition: "color 0.15s",
                 }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLElement).style.color = "var(--fg)")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLElement).style.color = "var(--muted)")
-                }
               >
                 ← Back
               </button>
@@ -450,7 +436,7 @@ export default function BlogLayout({
                 >
                   <h1
                     style={{
-                      fontFamily: "var(--font-crimson-text), Georgia, serif",
+                      fontFamily: "var(--font-heading)",
                       fontSize: "clamp(1.75rem, 4vw, 3rem)",
                       fontWeight: 700,
                       lineHeight: 1.15,
@@ -482,7 +468,7 @@ export default function BlogLayout({
 
       <style>{`
         .blog-article h2 {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 1.75rem;
           font-weight: 700;
           color: var(--fg);
@@ -493,7 +479,7 @@ export default function BlogLayout({
           line-height: 1.25;
         }
         .blog-article h3 {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 1.35rem;
           font-weight: 600;
           color: var(--fg);

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { upload } from "@vercel/blob/client";
-import ConfirmDialog from "../components/ConfirmDialog";
+import { ConfirmDialog } from "@mtosity/design-system";
 
 interface GalleryItem {
   pathname: string;
@@ -169,7 +169,7 @@ export default function AdminPhotography() {
       <div style={{ display: "flex", alignItems: "baseline", gap: "1rem", marginBottom: "1.5rem" }}>
         <h1
           style={{
-            fontFamily: "var(--font-crimson-text), Georgia, serif",
+            fontFamily: "var(--font-heading)",
             fontSize: "2rem",
             fontWeight: 600,
             margin: 0,
@@ -229,7 +229,7 @@ export default function AdminPhotography() {
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "0.72rem",
-                color: u.status === "failed" ? "#b00020" : "var(--muted)",
+                color: u.status === "failed" ? "var(--danger)" : "var(--muted)",
                 padding: "0.2rem 0",
               }}
             >
@@ -240,7 +240,7 @@ export default function AdminPhotography() {
       )}
 
       {error && (
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "#b00020" }}>{error}</p>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--danger)" }}>{error}</p>
       )}
 
       {loading ? (

@@ -25,22 +25,15 @@ export const ThemeToggle = () => {
       onClick={toggle}
       aria-label="Toggle dark mode"
       title="Toggle dark mode"
+      className="link-hover"
       style={{
         background: "none",
         border: "none",
         cursor: "pointer",
-        color: "var(--muted)",
         padding: "0.25rem",
         display: "flex",
         alignItems: "center",
-        transition: "color 0.15s",
       }}
-      onMouseEnter={(e) =>
-        ((e.currentTarget as HTMLElement).style.color = "var(--fg)")
-      }
-      onMouseLeave={(e) =>
-        ((e.currentTarget as HTMLElement).style.color = "var(--muted)")
-      }
     >
       {/* Moon — shown in light mode (click for dark) */}
       <svg

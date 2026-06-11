@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
+import { useIsMobile } from "../hooks/useMediaQuery";
 
 declare global {
   interface Window {
@@ -20,15 +21,8 @@ const NAV_LINKS = [
 
 export const SlideTabs = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const router = useRouter();
-
-  React.useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
 
   const fireConfetti = () => {
     if (typeof window !== "undefined" && window.confetti) {
@@ -97,21 +91,14 @@ export const SlideTabs = () => {
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  className="link-hover"
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: "0.75rem",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
-                    color: "var(--muted)",
                     textDecoration: "none",
-                    transition: "color 0.15s",
                   }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLElement).style.color = "var(--fg)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLElement).style.color = "var(--muted)")
-                  }
                 >
                   {link.label}
                 </Link>

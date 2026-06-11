@@ -66,7 +66,7 @@ function RevealRow({ note, index }: { note: NoteListItem; index: number }) {
       <Link
         href={`/admin/notes/${note.id}/edit`}
         style={{
-          fontFamily: "var(--font-crimson-text), Georgia, serif",
+          fontFamily: "var(--font-heading)",
           fontSize: "1.05rem",
           color: "var(--fg)",
           textDecoration: "none",

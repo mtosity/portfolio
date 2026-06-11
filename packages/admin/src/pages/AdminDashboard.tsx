@@ -124,7 +124,7 @@ export default async function Dashboard() {
 
       <style>{`
         .dash-h1 {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 2.1rem; font-weight: 600; margin: 0 0 1.5rem;
         }
         .dash-actions {
@@ -190,7 +190,7 @@ export default async function Dashboard() {
           color: var(--muted); width: 86px; flex-shrink: 0;
         }
         .dash-row-title {
-          font-family: var(--font-crimson-text), Georgia, serif; font-size: 0.98rem;
+          font-family: var(--font-heading); font-size: 0.98rem;
           color: var(--fg); text-decoration: none; flex: 1;
           overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
@@ -212,7 +212,7 @@ export default async function Dashboard() {
         .dash-empty, .dash-error {
           font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); margin: 0.5rem 0;
         }
-        .dash-error { color: #b00020; }
+        .dash-error { color: var(--danger); }
       `}</style>
     </div>
   );

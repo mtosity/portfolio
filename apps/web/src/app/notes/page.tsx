@@ -585,7 +585,7 @@ export default function Notes() {
           margin-bottom: 0.5rem;
         }
         .sticky-title {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 1.1rem;
           font-weight: 600;
           line-height: 1.35;
@@ -739,7 +739,7 @@ export default function Notes() {
           margin-bottom: 0.5rem;
         }
         .note-modal-title {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           font-size: 1.75rem;
           font-weight: 600;
           line-height: 1.25;
@@ -783,7 +783,7 @@ export default function Notes() {
         .note-content strong { color: rgba(0,0,0,0.85); font-weight: 600; }
         .note-content em { font-style: italic; }
         .note-content h1, .note-content h2, .note-content h3 {
-          font-family: var(--font-crimson-text), Georgia, serif;
+          font-family: var(--font-heading);
           color: rgba(0,0,0,0.85);
           margin: 1.25em 0 0.5em;
         }
