@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { SlideTabs } from "@/components/SlideTabs";
 
 interface Photo {
@@ -13,56 +12,16 @@ interface Photo {
   takenTime: number;
 }
 
-// Lazy loading hook
-const useLazyLoading = (threshold = 0.1) => {
-  const [visibleImages, setVisibleImages] = useState<Set<string>>(new Set());
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const imageId = entry.target.getAttribute("data-image-id");
-            if (imageId) {
-              setVisibleImages(
-                (prev) => new Set([...Array.from(prev), imageId])
-              );
-              observerRef.current?.unobserve(entry.target);
-            }
-          }
-        });
-      },
-      { threshold, rootMargin: "500px" }
-    );
-
-    return () => observerRef.current?.disconnect();
-  }, [threshold]);
-
-  const observeImage = (element: HTMLElement | null, imageId: string) => {
-    if (element && observerRef.current) {
-      element.setAttribute("data-image-id", imageId);
-      observerRef.current.observe(element);
-    }
-  };
-
-  return { visibleImages, observeImage };
-};
-
 export default function Photography() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
-  const [preloadedImages, setPreloadedImages] = useState<Set<string>>(
-    new Set()
-  );
   const [imageDimensions, setImageDimensions] = useState<
     Map<string, { width: number; height: number }>
   >(new Map());
   const [windowWidth, setWindowWidth] = useState<number>(
-    typeof window !== "undefined" ? window.innerWidth : 1200
+    typeof window !== "undefined" ? window.innerWidth : 1200,
   );
-  const { visibleImages, observeImage } = useLazyLoading();
 
   useEffect(() => {
     const fetchGalleryImages = async () => {
@@ -71,11 +30,6 @@ export default function Photography() {
         const data = await response.json();
         if (data.images) {
           setPhotos(data.images);
-          const initialImages = data.images.slice(0, 12);
-          const initialIds = new Set<string>(
-            initialImages.map((img: Photo) => img.id)
-          );
-          setPreloadedImages(initialIds);
         }
       } catch (error) {
         console.error("Failed to fetch gallery images:", error);
@@ -93,11 +47,6 @@ export default function Photography() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const allVisibleImages = new Set([
-    ...Array.from(preloadedImages),
-    ...Array.from(visibleImages),
-  ]);
-
   const handleImageLoad = (photoId: string, img: HTMLImageElement) => {
     setImageDimensions(
       (prev) =>
@@ -105,8 +54,8 @@ export default function Photography() {
           prev.set(photoId, {
             width: img.naturalWidth,
             height: img.naturalHeight,
-          })
-        )
+          }),
+        ),
     );
   };
 
@@ -118,14 +67,34 @@ export default function Photography() {
 
       const getResponsiveSettings = () => {
         if (windowWidth < 640)
-          return { targetRowWidth: windowWidth - 32, maxImagesPerRow: 1, targetRowHeight: 400 };
+          return {
+            targetRowWidth: windowWidth - 32,
+            maxImagesPerRow: 1,
+            targetRowHeight: 400,
+          };
         if (windowWidth < 768)
-          return { targetRowWidth: windowWidth - 48, maxImagesPerRow: 2, targetRowHeight: 300 };
+          return {
+            targetRowWidth: windowWidth - 48,
+            maxImagesPerRow: 2,
+            targetRowHeight: 300,
+          };
         if (windowWidth < 1024)
-          return { targetRowWidth: windowWidth - 64, maxImagesPerRow: 3, targetRowHeight: 280 };
+          return {
+            targetRowWidth: windowWidth - 64,
+            maxImagesPerRow: 3,
+            targetRowHeight: 280,
+          };
         if (windowWidth < 1280)
-          return { targetRowWidth: windowWidth - 80, maxImagesPerRow: 4, targetRowHeight: 300 };
-        return { targetRowWidth: 1200, maxImagesPerRow: 5, targetRowHeight: 300 };
+          return {
+            targetRowWidth: windowWidth - 80,
+            maxImagesPerRow: 4,
+            targetRowHeight: 300,
+          };
+        return {
+          targetRowWidth: 1200,
+          maxImagesPerRow: 5,
+          targetRowHeight: 300,
+        };
       };
 
       const { targetRowWidth, maxImagesPerRow, targetRowHeight } =
@@ -162,16 +131,22 @@ export default function Photography() {
 
       return rows;
     },
-    [windowWidth, imageDimensions]
+    [windowWidth, imageDimensions],
   );
 
   const photoRows = React.useMemo(
     () => createRows(photos),
-    [photos, createRows]
+    [photos, createRows],
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--fg)" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg)",
+        color: "var(--fg)",
+      }}
+    >
       <SlideTabs />
 
       {/* Page header */}
@@ -182,11 +157,36 @@ export default function Photography() {
           padding: "3rem clamp(1.5rem, 5vw, 4rem) 2.5rem",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "1.75rem" }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--muted)" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1rem",
+            marginBottom: "1.75rem",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--muted)",
+            }}
+          >
             05 —
           </span>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--fg)" }}>
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--fg)",
+            }}
+          >
             PHOTOGRAPHY
           </span>
         </div>
@@ -295,14 +295,9 @@ export default function Photography() {
                       imageWidth = imageHeight * aspectRatio;
                     }
 
-                    const isVisible = allVisibleImages.has(photo.id);
-
                     return (
                       <div
                         key={photo.id}
-                        ref={(el) => {
-                          if (!isVisible) observeImage(el, photo.id);
-                        }}
                         onClick={() => setSelectedPhoto(photo)}
                         style={{
                           width: imageWidth,
@@ -314,42 +309,32 @@ export default function Photography() {
                           background: "var(--bg-secondary)",
                         }}
                       >
-                        {isVisible ? (
-                          <Image
-                            src={photo.src}
-                            alt={photo.alt}
-                            width={width}
-                            height={height}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                              objectPosition: "center",
-                              transition: "transform 0.3s ease",
-                              display: "block",
-                            }}
-                            onMouseEnter={(e) =>
-                              ((e.currentTarget as HTMLElement).style.transform =
-                                "scale(1.03)")
-                            }
-                            onMouseLeave={(e) =>
-                              ((e.currentTarget as HTMLElement).style.transform =
-                                "scale(1)")
-                            }
-                            onLoad={(e) => {
-                              const img = e.target as HTMLImageElement;
-                              handleImageLoad(photo.id, img);
-                            }}
-                          />
-                        ) : (
-                          <div
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              background: "var(--bg-secondary)",
-                            }}
-                          />
-                        )}
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                            transition: "transform 0.3s ease",
+                            display: "block",
+                          }}
+                          onMouseEnter={(e) =>
+                            ((e.currentTarget as HTMLElement).style.transform =
+                              "scale(1.03)")
+                          }
+                          onMouseLeave={(e) =>
+                            ((e.currentTarget as HTMLElement).style.transform =
+                              "scale(1)")
+                          }
+                          onLoad={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            handleImageLoad(photo.id, img);
+                          }}
+                        />
                       </div>
                     );
                   })}
@@ -392,11 +377,11 @@ export default function Photography() {
             transition={{ duration: 0.25 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
+            <img
               src={selectedPhoto.src}
               alt={selectedPhoto.alt}
-              width={800}
-              height={600}
+              loading="eager"
+              decoding="async"
               style={{
                 width: "100%",
                 height: "auto",
@@ -404,7 +389,6 @@ export default function Photography() {
                 objectFit: "contain",
                 border: "1px solid var(--border-light)",
               }}
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 95vw, 80vw"
             />
             <button
               onClick={() => setSelectedPhoto(null)}
