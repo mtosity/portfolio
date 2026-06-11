@@ -63,7 +63,7 @@ export default async function AdminLayout({
           Photography
         </Link>
         <Link
-          href="/notes"
+          href="/"
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: "0.72rem",

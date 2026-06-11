@@ -145,6 +145,19 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
 
   return (
     <div className="note-editor">
+      <div className="note-editor-header">
+        <span style={{ flex: 1 }} />
+        {isEdit && (
+          <button
+            className="note-editor-delete"
+            onClick={() => setConfirmOpen(true)}
+            disabled={saving}
+          >
+            Delete
+          </button>
+        )}
+      </div>
+
       <input
         className="note-editor-title"
         placeholder="Note title…"
@@ -185,15 +198,13 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         </label>
         <span style={{ flex: 1 }} />
         {error && <span className="note-editor-error">{error}</span>}
-        {isEdit && (
-          <button
-            className="note-editor-delete"
-            onClick={() => setConfirmOpen(true)}
-            disabled={saving}
-          >
-            Delete
-          </button>
-        )}
+        <button
+          className="note-editor-cancel"
+          onClick={() => router.push("/admin/notes")}
+          disabled={saving}
+        >
+          Cancel
+        </button>
         <button className="note-editor-save" onClick={save} disabled={saving}>
           {saving ? "Saving…" : isEdit ? "Save changes" : "Create note"}
         </button>
@@ -210,6 +221,7 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
 
       <style>{`
         .note-editor { display: flex; flex-direction: column; gap: 1rem; }
+        .note-editor-header { display: flex; align-items: center; }
         .note-editor-title {
           font-family: var(--font-crimson-text), Georgia, serif;
           font-size: 1.9rem; font-weight: 600;
@@ -262,6 +274,13 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
           border-radius: 2px; padding: 0.5rem 0.9rem; font-family: var(--font-mono);
           font-size: 0.75rem; cursor: pointer;
         }
+        .note-editor-delete:disabled { opacity: 0.6; cursor: default; }
+        .note-editor-cancel {
+          background: transparent; color: var(--fg); border: 1px solid var(--border);
+          border-radius: 2px; padding: 0.5rem 0.9rem; font-family: var(--font-mono);
+          font-size: 0.75rem; cursor: pointer;
+        }
+        .note-editor-cancel:disabled { opacity: 0.6; cursor: default; }
       `}</style>
     </div>
   );
