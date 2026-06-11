@@ -1,0 +1,391 @@
+@import "tailwindcss";
+@import "prismjs/themes/prism-tomorrow.css";
+@import "@mtosity/design-system/tokens.css";
+
+/* Workspace packages render Tailwind classes too — point the v4 scanner at
+   their sources (paths are relative to this file). */
+@source "../../../../packages/design-system/src";
+@source "../../../../packages/admin/src";
+@source "../../../../packages/tool-speech-to-text/src";
+@source "../../../../packages/tool-img-grid/src";
+@source "../../../../packages/tool-instagram/src";
+
+/* Tailwind v3 preflight compat: keep default border color at gray-200
+   (v4 switched the default to currentColor). */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: #e5e7eb;
+  }
+}
+
+/* Blog-specific typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-crimson-text), "Crimson Text", Georgia, serif;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 2rem 0 1rem 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+/* Blog animations */
+@keyframes expand-pill {
+  0% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+}
+
+@keyframes collapse-pill {
+  0% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+.animate-expand-pill {
+  animation: expand-pill 300ms ease-in-out forwards;
+}
+
+.animate-collapse-pill {
+  animation: collapse-pill 300ms ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-left {
+  animation: fade-in 500ms ease-out forwards;
+}
+
+@keyframes fade-blur-out {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+.animate-fade-blur-out {
+  animation: fade-blur-out 250ms ease-in forwards;
+}
+
+@keyframes fade-in-smooth {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-smooth {
+  animation: fade-in-smooth 400ms ease-out forwards;
+}
+
+@keyframes definition-exit {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateX(-20px);
+  }
+}
+
+.animate-definition-exit {
+  animation: definition-exit 300ms ease-in forwards;
+}
+
+/* Prism.js syntax highlighting overrides */
+pre[class*="language-"] {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  border-radius: 0;
+}
+
+code[class*="language-"] {
+  background: transparent !important;
+  color: #cdd6f4;
+  text-shadow: none;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Dark syntax tokens — Catppuccin Mocha palette */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6c7086;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #cdd6f4;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f38ba8;
+}
+
+.token.boolean,
+.token.number {
+  color: #fab387;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a6e3a1;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #89dceb;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #cba6f7;
+}
+
+.token.keyword {
+  color: #f38ba8;
+  font-weight: 600;
+}
+
+.token.regex,
+.token.important {
+  color: #fab387;
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 1.0625rem;
+}
+
+a {
+  color: inherit;
+}
+
+/* ── Blog list grid ── */
+.blog-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .blog-list-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 4rem;
+    min-height: calc(100vh - 56px - 3rem);
+  }
+}
+
+/* ── Blog post grid ── */
+.blog-post-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .blog-post-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+/* ── Mobile sidebar overlay ── */
+.blog-sidebar-overlay {
+  display: none;
+}
+
+.blog-sidebar-overlay.open {
+  display: block;
+  position: fixed;
+  inset: 0;
+  top: 56px;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 39;
+}
+
+@media (min-width: 1024px) {
+
+  .blog-sidebar-overlay,
+  .blog-sidebar-overlay.open {
+    display: none;
+  }
+}
+
+.blog-sidebar-mobile {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .blog-sidebar-mobile {
+    position: fixed;
+    top: 56px;
+    right: 0;
+    bottom: 0;
+    width: 90vw;
+    max-width: none;
+    z-index: 40;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    padding: 1.5rem;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .blog-sidebar-mobile.open {
+    display: block;
+    transform: translateX(0);
+  }
+}
+
+.blog-sidebar-desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .blog-sidebar-desktop {
+    display: block;
+    position: sticky;
+    top: calc(56px + 2.5rem);
+    align-self: start;
+  }
+}
+
+/* ── Mobile blog toggle button ── */
+.blog-mobile-toc-btn {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .blog-mobile-toc-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    background: var(--fg);
+    color: var(--bg);
+    border: none;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* ── Hide Lottie on mobile ── */
+.blog-lottie-wrapper {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .blog-lottie-wrapper {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+}
+
+/* ── Blog article mobile overrides ── */
+@media (max-width: 1023px) {
+  .blog-article pre {
+    max-width: calc(100vw - 3rem);
+  }
+
+  .blog-article h2 {
+    font-size: 1.4rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

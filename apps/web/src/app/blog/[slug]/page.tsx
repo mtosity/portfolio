@@ -1,0 +1,130 @@
+import { SITE_URL } from "@mtosity/lib/constants";
+import { notFound } from "next/navigation";
+import { blogPosts } from "@/data/blogPosts";
+import { safeJsonLd } from "@mtosity/lib/jsonld";
+
+// Import all the individual blog post components
+import BuildingVideoCallAppPage from "../building-video-call-app/page";
+import DecodingHappinessPage from "../decoding-happiness/page";
+import ReactCommonMistakesPage from "../react-common-mistakes/page";
+import HoaKyVayTienPage from "../hoa-ky-vay-tien/page";
+
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((post) => post.slug === slug);
+
+  if (!post) {
+    return { title: "Post Not Found" };
+  }
+
+  const postUrl = `${SITE_URL}/blog/${post.slug}`;
+  const publishedTime = new Date(post.date).toISOString();
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    authors: [{ name: "Minh Tam Nguyen", url: SITE_URL }],
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: postUrl,
+      type: "article",
+      publishedTime,
+      authors: ["Minh Tam Nguyen"],
+      images: [
+        {
+          url: "/thumbnail.png",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      creator: "@mtosity",
+      images: ["/thumbnail.png"],
+    },
+  };
+}
+
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = blogPosts.find((post) => post.slug === slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post!.title,
+    description: post!.excerpt,
+    url: `${SITE_URL}/blog/${post!.slug}`,
+    datePublished: new Date(post!.date).toISOString(),
+    author: {
+      "@type": "Person",
+      name: "Minh Tam Nguyen",
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Minh Tam Nguyen",
+      url: SITE_URL,
+    },
+    image: `${SITE_URL}/thumbnail.png`,
+  };
+
+  // Route to the appropriate component based on slug
+  switch (slug) {
+    case "building-video-call-app":
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+          <BuildingVideoCallAppPage />
+        </>
+      );
+    case "decoding-happiness":
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+          <DecodingHappinessPage />
+        </>
+      );
+    case "react-common-mistakes":
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+          <ReactCommonMistakesPage />
+        </>
+      );
+    case "hoa-ky-vay-tien":
+      return (
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+          <HoaKyVayTienPage />
+        </>
+      );
+    default:
+      notFound();
+  }
+}

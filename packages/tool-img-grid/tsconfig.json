@@ -1,0 +1,13 @@
+{
+  "extends": "@mtosity/typescript-config/react-library.json",
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "node_modules/@mtosity/typescript-config/css-modules.d.ts",
+    "node_modules/@mtosity/typescript-config/styled-jsx.d.ts"
+  ]
+}

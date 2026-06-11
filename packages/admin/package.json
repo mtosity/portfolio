@@ -1,0 +1,43 @@
+{
+  "name": "@mtosity/admin",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts",
+    "./auth": "./src/auth.ts",
+    "./api/notes": "./src/api/notes.ts",
+    "./api/note": "./src/api/note.ts",
+    "./api/gallery": "./src/api/gallery.ts",
+    "./api/gallery-manifest": "./src/api/gallery-manifest.ts",
+    "./api/gallery-upload": "./src/api/gallery-upload.ts",
+    "./api/upload": "./src/api/upload.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mtosity/lib": "workspace:*",
+    "@tiptap/extension-image": "^3.26.0",
+    "@tiptap/extension-link": "^3.26.0",
+    "@tiptap/pm": "^3.26.0",
+    "@tiptap/react": "^3.26.0",
+    "@tiptap/starter-kit": "^3.26.0",
+    "@vercel/blob": "^2.0.0",
+    "next-auth": "5.0.0-beta.31"
+  },
+  "peerDependencies": {
+    "next": ">=16",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@mtosity/typescript-config": "workspace:*",
+    "@types/node": "^24.0.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:"
+  }
+}

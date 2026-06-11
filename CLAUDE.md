@@ -2,57 +2,48 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
+## Monorepo Layout
 
-- `pnpm dev` - Start the development server
-- `pnpm build` - Build the production application
-- `pnpm start` - Start the production server
-- `pnpm lint` - Run ESLint
-- `pnpm upload-gallery` - Upload images to Vercel Blob storage for the photography page
+Turborepo + pnpm workspace. **Package manager: pnpm** (not npm or yarn).
 
-**Package manager: pnpm** (not npm or yarn)
+- `apps/web` — the Next.js 16 app (App Router, React 19, TypeScript strict, Tailwind CSS v4, Sass modules, Framer Motion). The only deployable; routes under `src/app` are thin where the implementation lives in a package.
+- `packages/design-system` (`@mtosity/design-system`) — design tokens (`src/tokens.css`, Tailwind v4 `@theme static` + `:root` vars) and reusable UI (SlideTabs, Reveal, SectionHeader, buttons).
+- `packages/lib` (`@mtosity/lib`) — shared utils/constants via subpath exports: `constants` (SITE_URL etc.), `db` (Neon), `notes`, `rate-limit` (Upstash), `jsonld`.
+- `packages/admin` (`@mtosity/admin`) — NextAuth (GitHub, owner-only) config at `./auth`, admin pages (barrel export), admin API handlers at `./api/*`.
+- `packages/tool-*` — one package per tool on the `/tools` page (`tool-speech-to-text`, `tool-img-grid`, `tool-instagram`). Each exports its page component; instagram also exports API handlers at `./api/*`.
+- `packages/whisper` (`@mtosity/whisper`) — shared WASM Whisper worker. Tools ship a one-line `src/whisper-worker.ts` entry importing `@mtosity/whisper/worker` because webpack workers need a package-relative `new URL(...)`.
+- `packages/typescript-config` — shared tsconfig bases (`base`, `nextjs`, `react-library`) and ambient types (`css-modules.d.ts`, `styled-jsx.d.ts`) referenced via each package's tsconfig `files`.
 
-## Architecture Overview
+All packages are source-only (no build step) and listed in `transpilePackages` in `apps/web/next.config.mjs`. Shared dependency versions live in the pnpm `catalog:` in `pnpm-workspace.yaml`.
 
-Next.js 16 portfolio site using the App Router. TypeScript strict mode, Tailwind CSS, Sass modules, and Framer Motion for animations.
+## Commands (run from repo root)
 
-### Pages & Routing
+- `pnpm dev` — start the dev server (via turbo)
+- `pnpm build` — production build
+- `pnpm lint` — ESLint (flat config, `eslint .` in apps/web — `next lint` was removed in Next 16)
+- `pnpm typecheck` — `tsc --noEmit` across all packages
+- `pnpm upload-gallery` — upload images to Vercel Blob for the photography page
 
-- `/` — Home page with animated logo + sections (About, Experience, Projects, Contact)
-- `/blog` — Blog index, filterable by category
-- `/blog/[slug]` — Dynamic route that renders individual blog post components
-- `/photography` — Photo gallery backed by Vercel Blob
-- `/notes` — Notes page
+## Conventions & Gotchas
+
+- **Route files stay thin but segment configs stay literal**: `export const dynamic` / `runtime` / `maxDuration` and `metadata` must be written literally in `apps/web/src/app/**/route.ts|page.tsx|layout.tsx` (Next statically analyzes them); the handler/component itself is re-exported from a package.
+- **Tailwind v4 is CSS-first**: no `tailwind.config.ts`. Entry is `@import "tailwindcss"` in `apps/web/src/app/globals.css`, tokens via `@theme static` in the design-system package, and `@source` directives point the scanner at `packages/*/src`. When adding a new package whose components use Tailwind classes, add an `@source` line.
+- The whisper worker URL must remain `new URL("./whisper-worker.ts", import.meta.url)` relative to the importing package file.
+- `@huggingface/transformers` must remain a direct dependency of `apps/web` (in addition to `@mtosity/whisper`) so `serverExternalPackages` can externalize it.
+- yt-dlp binaries download to `apps/web/bin/` via the `postinstall` script and are traced into the instagram API functions via `outputFileTracingIncludes`.
+
+## Pages
+
+- `/` home, `/blog` + `/blog/[slug]`, `/photography` (Vercel Blob), `/notes`, `/tools/*`, `/admin/*` (GitHub-auth gated via middleware).
 
 ### Blog System
 
-Blog posts are written as standalone Next.js page components under `src/app/blog/<slug>/page.tsx` and wrapped with `BlogLayout`. To add a new post:
+Blog posts are standalone page components under `apps/web/src/app/blog/<slug>/page.tsx` wrapped with `BlogLayout`. To add a post: create the page, register it in `apps/web/src/data/blogPosts.ts`, and add a `case` to the switch in `apps/web/src/app/blog/[slug]/page.tsx`. `BlogLayout` provides the dynamic sidebar (TOC / definitions / code anchors) via `BlogContext`; definitions live in `apps/web/src/components/blog/definitions.tsx`.
 
-1. Create `src/app/blog/<slug>/page.tsx` using `BlogLayout` as the wrapper
-2. Register the post in `src/data/blogPosts.ts` (slug, title, date, excerpt, category)
-3. Add a `case` to the switch in `src/app/blog/[slug]/page.tsx` that imports and returns the new component
+## Deployment
 
-`BlogLayout` provides a dynamic sidebar with three modes: table of contents (auto-extracted from headings), inline definitions (`InteractiveAnchor`), and code examples (`CodeAnchor`). State flows through `BlogContext`. Definitions and code examples are stored in `src/components/blog/definitions.tsx`.
-
-### Photography Gallery
-
-Images are served from Vercel Blob storage (requires `BLOB_READ_WRITE_TOKEN`). The API route `src/app/api/gallery/route.ts` lists blobs under the `gallery/` prefix. Upload new photos with `pnpm upload-gallery` (see `scripts/upload-to-blob.js`). The page uses a custom justified-grid layout that computes row heights from actual image aspect ratios.
-
-### MTosity Component
-
-`src/components/mtosity.tsx` is the animated logo/hero on the home page. It uses browser-only APIs (scroll, window) so it is dynamically imported with `ssr: false` in `src/app/page.tsx`.
-
-### Styling
-
-- Global styles: `src/app/globals.css`
-- Component-level: Sass modules (`.module.scss`) co-located with each component, named in kebab-case
-- Utilities: Tailwind CSS
-- Fonts loaded via `next/font/google`: Inter (`--font-inter`), Crimson Text (`--font-crimson-text`), Lora (`--font-lora`)
-
-### Path Alias
-
-`@/*` → `./src/*`
+Single Vercel project. Root `vercel.json` builds the workspace (`turbo run build`) with output at `apps/web/.next`. Requires `BLOB_READ_WRITE_TOKEN`, Neon Postgres (`DATABASE_URL`), `AUTH_*` (NextAuth GitHub), and optionally Upstash KV env vars.
 
 ## Design Documentation
 
-`DESIGN.md` is the canonical design reference for this site. **Always keep it up to date** when making visual changes. After any change to colors, typography, spacing, layout, animations, components, or page structure, update the relevant section(s) in `DESIGN.md` to reflect the current implementation.
+`DESIGN.md` is the canonical design reference. **Always keep it up to date** when making visual changes — colors, typography, spacing, layout, animations, components, or page structure. Token changes belong in `packages/design-system/src/tokens.css` and the DESIGN.md palette table together.

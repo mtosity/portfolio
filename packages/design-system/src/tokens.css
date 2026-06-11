@@ -1,0 +1,103 @@
+/* ──────────────────────────────────────────────────────────────
+   MTosity design tokens — warm cream + black + lime
+   Canonical reference: DESIGN.md at the repo root.
+   ────────────────────────────────────────────────────────────── */
+
+/* Tailwind v4 theme — exposes the palette as native utilities
+   (bg-accent, text-muted, border-border-light, font-heading, …).
+   `static` forces emission even before any utility uses them. */
+@theme static {
+  --color-bg: #f2efe8;
+  --color-bg-secondary: #e8e5dd;
+  --color-fg: #0d0d0d;
+  --color-accent: #bef264;
+  --color-border: #0d0d0d;
+  --color-border-light: #ccc8bd;
+  --color-muted: #666460;
+
+  --font-heading: var(--font-crimson-text);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-lora);
+}
+
+:root {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-lora);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-heading: var(--font-crimson-text);
+
+  /* Core palette */
+  --bg: #f2efe8;
+  --bg-secondary: #e8e5dd;
+  --fg: #0d0d0d;
+  --accent: #bef264;
+  --border: #0d0d0d;
+  --border-light: #ccc8bd;
+  --muted: #666460;
+
+  /* Legacy aliases (kept for backward compat with existing components) */
+  --background: #f2efe8;
+  --bg-opaque: rgba(242, 239, 232, 0.25);
+  --background-light: #e8e5dd;
+  --background-dark: #d8d4cc;
+  --text: #0d0d0d;
+  --brand: #bef264;
+}
+
+/* ── Shared brutalist utility classes ── */
+
+/* Global chip / tag */
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border-light);
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+}
+
+/* Section wrapper — applied per home section */
+.section-wrapper {
+  padding: 6rem clamp(1.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.border-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Custom scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
