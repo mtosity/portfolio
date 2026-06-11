@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@mtosity/design-system", "@mtosity/lib"],
+  transpilePackages: [
+    "@mtosity/design-system",
+    "@mtosity/lib",
+    "@mtosity/whisper",
+    "@mtosity/tool-speech-to-text",
+    "@mtosity/tool-img-grid",
+    "@mtosity/tool-instagram",
+  ],
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
   outputFileTracingIncludes: {
     "/api/instagram/info": ["./bin/yt-dlp-linux-*"],
