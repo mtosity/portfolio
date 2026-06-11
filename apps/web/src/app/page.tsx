@@ -1,5 +1,5 @@
 "use client";
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/template/home/about/About";
 import { Experience } from "@/components/template/home/experience/Experience";

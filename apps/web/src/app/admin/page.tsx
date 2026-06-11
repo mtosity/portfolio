@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { list } from "@vercel/blob";
-import { listAllNotes } from "@/lib/notes";
+import { listAllNotes } from "@mtosity/lib/notes";
 
 export const dynamic = "force-dynamic";
 

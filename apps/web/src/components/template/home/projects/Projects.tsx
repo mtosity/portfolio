@@ -1,5 +1,5 @@
 "use client";
-import { SectionHeader } from "../../utils/SectionHeader";
+import { SectionHeader } from "@mtosity/design-system";
 import { Project } from "./Project";
 import styles from "./projects.module.scss";
 

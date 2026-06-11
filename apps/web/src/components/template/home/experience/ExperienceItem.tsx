@@ -1,5 +1,5 @@
 "use client";
-import { Reveal } from "../../utils/Reveal";
+import { Reveal } from "@mtosity/design-system";
 import styles from "./experience.module.scss";
 
 interface Props {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listAllNotes } from "@/lib/notes";
+import { listAllNotes } from "@mtosity/lib/notes";
 import NotesList from "@/components/admin/NotesList";
 
 export const dynamic = "force-dynamic";

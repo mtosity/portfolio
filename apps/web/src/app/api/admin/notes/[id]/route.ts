@@ -5,7 +5,7 @@ import {
   getNoteById,
   updateNote,
   type NoteInput,
-} from "@/lib/notes";
+} from "@mtosity/lib/notes";
 
 export const dynamic = "force-dynamic";
 

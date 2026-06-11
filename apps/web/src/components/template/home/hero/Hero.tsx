@@ -2,8 +2,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { DotGrid } from "./DotGrid";
 import styles from "./hero.module.scss";
-import { StandardButton } from "../../buttons/StandardButton";
-import { Reveal } from "../../utils/Reveal";
+import { Reveal, StandardButton } from "@mtosity/design-system";
 
 export const Hero = () => {
   return (

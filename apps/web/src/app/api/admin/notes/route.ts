@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { createNote, listAllNotes, type NoteInput } from "@/lib/notes";
+import { createNote, listAllNotes, type NoteInput } from "@mtosity/lib/notes";
 
 export const dynamic = "force-dynamic";
 

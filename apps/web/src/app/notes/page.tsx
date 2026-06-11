@@ -1,6 +1,6 @@
 "use client";
 
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 

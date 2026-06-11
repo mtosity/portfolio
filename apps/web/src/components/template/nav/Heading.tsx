@@ -1,6 +1,6 @@
 import styles from "./heading.module.scss";
 import { MyLinks } from "./components/MyLinks";
-import { OutlineButton } from "../buttons/OutlineButton";
+import { OutlineButton } from "@mtosity/design-system";
 
 export const Heading = () => {
   return (

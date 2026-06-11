@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["@mtosity/design-system", "@mtosity/lib"],
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
   outputFileTracingIncludes: {
     "/api/instagram/info": ["./bin/yt-dlp-linux-*"],

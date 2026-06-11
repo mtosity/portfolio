@@ -1,5 +1,5 @@
 "use client";
-import { Reveal } from "../../utils/Reveal";
+import { Reveal } from "@mtosity/design-system";
 import styles from "./stats.module.scss";
 
 export const Stats = () => {

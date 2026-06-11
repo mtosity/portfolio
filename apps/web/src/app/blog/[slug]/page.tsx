@@ -1,6 +1,7 @@
+import { SITE_URL } from "@mtosity/lib/constants";
 import { notFound } from "next/navigation";
 import { blogPosts } from "@/data/blogPosts";
-import { safeJsonLd } from "@/lib/jsonld";
+import { safeJsonLd } from "@mtosity/lib/jsonld";
 
 // Import all the individual blog post components
 import BuildingVideoCallAppPage from "../building-video-call-app/page";
@@ -28,13 +29,13 @@ export async function generateMetadata({
     return { title: "Post Not Found" };
   }
 
-  const postUrl = `https://mtosity.com/blog/${post.slug}`;
+  const postUrl = `${SITE_URL}/blog/${post.slug}`;
   const publishedTime = new Date(post.date).toISOString();
 
   return {
     title: post.title,
     description: post.excerpt,
-    authors: [{ name: "Minh Tam Nguyen", url: "https://mtosity.com" }],
+    authors: [{ name: "Minh Tam Nguyen", url: SITE_URL }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -78,19 +79,19 @@ export default async function BlogPost({
     "@type": "BlogPosting",
     headline: post!.title,
     description: post!.excerpt,
-    url: `https://mtosity.com/blog/${post!.slug}`,
+    url: `${SITE_URL}/blog/${post!.slug}`,
     datePublished: new Date(post!.date).toISOString(),
     author: {
       "@type": "Person",
       name: "Minh Tam Nguyen",
-      url: "https://mtosity.com",
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Person",
       name: "Minh Tam Nguyen",
-      url: "https://mtosity.com",
+      url: SITE_URL,
     },
-    image: "https://mtosity.com/thumbnail.png",
+    image: `${SITE_URL}/thumbnail.png`,
   };
 
   // Route to the appropriate component based on slug

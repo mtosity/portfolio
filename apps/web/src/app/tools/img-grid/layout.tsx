@@ -1,3 +1,4 @@
+import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     title: "Image Grid | MTosity Tools",
     description:
       "Combine multiple images into a single composition. Drop, drag, pan, zoom, export — entirely client-side.",
-    url: "https://mtosity.com/tools/img-grid",
+    url: `${SITE_URL}/tools/img-grid`,
   },
 };
 

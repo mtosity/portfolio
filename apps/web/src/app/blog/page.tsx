@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 import { blogPosts, CategoryType } from "@/data/blogPosts";
 

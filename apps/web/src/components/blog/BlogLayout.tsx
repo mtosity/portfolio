@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 import {
   definitions,
   type Definition,

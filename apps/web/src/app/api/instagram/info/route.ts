@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getInfo, hasCookies } from "@/lib/yt-dlp";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit } from "@mtosity/lib/rate-limit";
 import { parseInstagramUrl } from "@/lib/instagram-url";
 
 export const runtime = "nodejs";

@@ -1,8 +1,9 @@
+import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata } from "next";
 import { Inter, Crimson_Text, Lora } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import { safeJsonLd } from "@/lib/jsonld";
+import { safeJsonLd } from "@mtosity/lib/jsonld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,7 +26,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mtosity.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "MTosity | Baymax Engineer",
     template: "%s | MTosity",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MTosity | Baymax Engineer",
     description: "Baymax Engineer, I'll do everything that interesting and challenging.",
-    url: "https://mtosity.com/",
+    url: `${SITE_URL}/`,
     siteName: "MTosity",
     images: [
       {
@@ -71,7 +72,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "Minh Tam Nguyen",
   alternateName: "MTosity",
-  url: "https://mtosity.com",
+  url: SITE_URL,
   sameAs: [
     "https://github.com/mtosity",
     "https://linkedin.com/in/mtosity",

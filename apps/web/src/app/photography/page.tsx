@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 
 interface Photo {
   id: string;

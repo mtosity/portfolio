@@ -1,8 +1,7 @@
 "use client";
 import styles from "./contact.module.scss";
 import Link from "next/link";
-import { Reveal } from "../../utils/Reveal";
-import { SectionHeader } from "../../utils/SectionHeader";
+import { Reveal, SectionHeader } from "@mtosity/design-system";
 
 export const Contact = () => {
   return (

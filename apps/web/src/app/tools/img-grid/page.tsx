@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 import Sidebar from "./_components/Sidebar";
 import Canvas from "./_components/Canvas";
 import { useImageCombiner } from "./_components/useImageCombiner";

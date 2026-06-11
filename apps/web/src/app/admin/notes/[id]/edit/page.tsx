@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import NoteEditor from "@/components/admin/NoteEditor";
-import { getNoteById } from "@/lib/notes";
+import { getNoteById } from "@mtosity/lib/notes";
 
 export const dynamic = "force-dynamic";
 

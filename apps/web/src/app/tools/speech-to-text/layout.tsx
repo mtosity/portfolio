@@ -1,3 +1,4 @@
+import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     title: "Speech to Text | MTosity Tools",
     description:
       "On-device speech transcription with Whisper. Runs entirely in your browser — no audio leaves your device.",
-    url: "https://mtosity.com/tools/speech-to-text",
+    url: `${SITE_URL}/tools/speech-to-text`,
   },
 };
 

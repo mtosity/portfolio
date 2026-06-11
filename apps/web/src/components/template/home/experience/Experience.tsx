@@ -1,5 +1,5 @@
 "use client";
-import { SectionHeader } from "../../utils/SectionHeader";
+import { SectionHeader } from "@mtosity/design-system";
 import { ExperienceItem } from "./ExperienceItem";
 
 export const Experience = () => {

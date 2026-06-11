@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { listPublishedNotes } from "@/lib/notes";
+import { listPublishedNotes } from "@mtosity/lib/notes";
 
 // Read straight from Postgres so edits show up immediately.
 export const dynamic = "force-dynamic";

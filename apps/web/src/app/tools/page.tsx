@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { SlideTabs } from "@/components/SlideTabs";
+import { SlideTabs } from "@mtosity/design-system";
 import { tools, type ToolIconName } from "@/data/tools";
 
 const STATUS_LABEL: Record<string, string> = {

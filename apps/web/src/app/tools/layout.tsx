@@ -1,3 +1,4 @@
+import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     title: "Tools | MTosity",
     description:
       "Small browser-only tools I've built for myself. No accounts, no uploads, no telemetry.",
-    url: "https://mtosity.com/tools",
+    url: `${SITE_URL}/tools`,
   },
 };
 

@@ -1,7 +1,6 @@
 "use client";
 import { MyLinks } from "../../nav/components/MyLinks";
-import { Reveal } from "../../utils/Reveal";
-import { SectionHeader } from "../../utils/SectionHeader";
+import { Reveal, SectionHeader } from "@mtosity/design-system";
 import styles from "./about.module.scss";
 import { Stats } from "./Stats";
 
