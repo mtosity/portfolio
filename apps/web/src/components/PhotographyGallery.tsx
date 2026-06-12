@@ -58,9 +58,15 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
   // 1200px, and the first client render must match it exactly.
   const [windowWidth, setWindowWidth] = useState<number>(1200);
 
+  // documentElement.clientWidth, not window.innerWidth: when the server-rendered
+  // 1200px grid overflows a phone, mobile Chrome reports the overflowed width
+  // through innerWidth — laying out against it keeps the page permanently wider
+  // than the screen. clientWidth stays pinned to the real layout viewport.
+  const viewportWidth = () => document.documentElement.clientWidth;
+
   // Measure before first paint so narrow screens never flash the 1200px layout.
   useIsomorphicLayoutEffect(() => {
-    setWindowWidth(window.innerWidth);
+    setWindowWidth(viewportWidth());
   }, []);
 
   // Debounce resize: re-laying out the whole grid on every pixel of a drag
@@ -69,7 +75,7 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
     let timer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(timer);
-      timer = setTimeout(() => setWindowWidth(window.innerWidth), 100);
+      timer = setTimeout(() => setWindowWidth(viewportWidth()), 100);
     };
     window.addEventListener("resize", handleResize);
     return () => {
@@ -294,22 +300,20 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
                   display: "flex",
                   gap: "4px",
                   marginBottom: "4px",
-                  justifyContent: "center",
                 }}
               >
                 {row.map((photo) => {
                   const { aspectRatio } = dimsFor(photo);
 
-                  const isSingleImage = row.length === 1;
-                  let imageWidth, imageHeight;
-
-                  if (isSingleImage) {
-                    imageWidth = availableWidth;
-                    imageHeight = imageWidth / aspectRatio;
-                  } else {
-                    imageHeight = rowHeight;
-                    imageWidth = imageHeight * aspectRatio;
-                  }
+                  // Pixel width is only an estimate for the `sizes` hint; the
+                  // rendered width is a percentage of the row (proportional to
+                  // aspect ratio) so the grid always fits its container —
+                  // including the pre-hydration paint where the server's
+                  // 1200px grouping renders on a narrow phone.
+                  const imageWidth =
+                    row.length === 1
+                      ? availableWidth
+                      : rowHeight * aspectRatio;
 
                   return (
                     <div
@@ -317,8 +321,10 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
                       onClick={(e) => openLightbox(photo, e.currentTarget)}
                       onMouseEnter={() => preloadLightbox(photo)}
                       style={{
-                        width: imageWidth,
-                        height: imageHeight,
+                        width: `calc((100% - ${gapTotal}px) * ${
+                          aspectRatio / totalAspectRatio
+                        })`,
+                        aspectRatio: `${aspectRatio}`,
                         flexShrink: 0,
                         cursor: "pointer",
                         position: "relative",
