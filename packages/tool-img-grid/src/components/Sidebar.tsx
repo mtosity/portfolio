@@ -60,7 +60,7 @@ export default function Sidebar({
   exportImage,
   images,
 }: Props) {
-  const isStack = mode === "hstack" || mode === "vstack";
+  const isStack = mode === "row" || mode === "column";
   const allFilled = isStack
     ? stackCount >= 1
     : Object.keys(images).length === imageCount &&
@@ -101,7 +101,7 @@ export default function Sidebar({
               margin: 0,
             }}
           >
-            {mode === "hstack"
+            {mode === "column"
               ? "Images divide the canvas into equal columns."
               : "Images divide the canvas into equal rows."}{" "}
             Drop into the trailing tile to add another — every tile resizes to

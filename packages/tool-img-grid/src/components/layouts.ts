@@ -11,12 +11,14 @@ export type Layout = { name: string; blocks: Block[] };
 
 export type Option<T> = { label: string; value: T };
 
-export type Mode = "grid" | "hstack" | "vstack";
+export type Mode = "grid" | "row" | "column";
 
 export const MODES: { label: string; value: Mode }[] = [
   { label: "Grid", value: "grid" },
-  { label: "Row", value: "hstack" },
-  { label: "Column", value: "vstack" },
+  // Row = each image is a horizontal row (stacked top→bottom);
+  // Column = each image is a vertical column (placed left→right).
+  { label: "Row", value: "row" },
+  { label: "Column", value: "column" },
 ];
 
 export const ASPECT_RATIOS: AspectRatio[] = [

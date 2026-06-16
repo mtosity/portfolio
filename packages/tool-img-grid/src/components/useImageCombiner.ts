@@ -240,13 +240,13 @@ export function useImageCombiner() {
   };
 }
 
-// Equal divisions of the unit square along the stack axis (Row = columns,
-// Column = rows). `count` cells fill the whole container.
+// Equal divisions of the unit square: Row stacks horizontal rows top→bottom,
+// Column places vertical columns left→right. `count` cells fill the container.
 function stackBlocks(mode: Mode, count: number): Block[] {
   const blocks: Block[] = [];
   for (let i = 0; i < count; i++) {
     blocks.push(
-      mode === "hstack"
+      mode === "column"
         ? { x: i / count, y: 0, w: 1 / count, h: 1 }
         : { x: 0, y: i / count, w: 1, h: 1 / count },
     );
