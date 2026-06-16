@@ -3,9 +3,9 @@ import {
   ASPECT_RATIOS,
   EXPORT_SIZES,
   GAP_OPTIONS,
-  STACK_ASPECT_RATIOS,
   getLayouts,
   type AspectRatio,
+  type Block,
   type Mode,
   type Option,
 } from "./layouts";
@@ -16,8 +16,6 @@ export type ImageState = {
   scale: number;
   offsetX: number;
   offsetY: number;
-  /** natural width / height, used to size stack cells */
-  ratio?: number;
 };
 
 export type Transform = Partial<Pick<ImageState, "scale" | "offsetX" | "offsetY">>;
@@ -26,9 +24,6 @@ export function useImageCombiner() {
   const [mode, setModeRaw] = useState<Mode>("grid");
   const [imageCount, setImageCountRaw] = useState(2);
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>(ASPECT_RATIOS[0]);
-  const [stackAspect, setStackAspect] = useState<AspectRatio>(
-    STACK_ASPECT_RATIOS[0],
-  );
   const [layoutIndex, setLayoutIndex] = useState(0);
   const [images, setImages] = useState<Record<number, ImageState>>({});
   const [gap, setGap] = useState<Option<number>>(GAP_OPTIONS[0]);
@@ -37,11 +32,17 @@ export function useImageCombiner() {
   const [borderRadius, setBorderRadius] = useState(0);
 
   const layouts = getLayouts(imageCount);
-  const currentLayout = layouts[layoutIndex] || layouts[0];
 
   // For stack modes: the contiguous, ordered list of filled images (slots 0..n-1).
   const stackImages: ImageState[] = [];
   for (let i = 0; images[i]; i++) stackImages.push(images[i]);
+
+  // Row/Column stack the images as equal divisions inside the fixed-aspect
+  // container; an extra trailing cell is the "add" tile (infinite stacking).
+  const currentLayout =
+    mode === "grid"
+      ? layouts[layoutIndex] || layouts[0]
+      : { name: mode, blocks: stackBlocks(mode, stackImages.length + 1) };
 
   const clearImages = useCallback(() => {
     setImages((prev) => {
@@ -77,19 +78,6 @@ export function useImageCombiner() {
       next[blockIndex] = { url, file, scale: 1, offsetX: 0, offsetY: 0 };
       return next;
     });
-    // Resolve the natural aspect ratio so stack cells can be sized correctly.
-    const probe = new Image();
-    probe.onload = () => {
-      const ratio = probe.naturalHeight
-        ? probe.naturalWidth / probe.naturalHeight
-        : 1;
-      setImages((prev) =>
-        prev[blockIndex]
-          ? { ...prev, [blockIndex]: { ...prev[blockIndex], ratio } }
-          : prev,
-      );
-    };
-    probe.src = url;
   }, []);
 
   const handleImageTransform = useCallback(
@@ -138,98 +126,13 @@ export function useImageCombiner() {
   const exportImage = useCallback(async () => {
     const baseSize = exportSize.value;
 
-    // Build the ordered list of filled stack images from the dense slot record.
-    const ordered: ImageState[] = [];
-    for (let i = 0; images[i]; i++) ordered.push(images[i]);
-
-    const canvas = document.createElement("canvas");
-    let ctx: CanvasRenderingContext2D | null;
-
-    if (mode === "hstack" || mode === "vstack") {
-      if (ordered.length === 0) return;
-
-      const gapPx = Math.round((gap.value / 600) * baseSize);
-      const radiusPx = Math.round((borderRadius / 600) * baseSize);
-      const totalGap = gapPx * Math.max(0, ordered.length - 1);
-
-      const loaded = await Promise.all(ordered.map((s) => loadImage(s.url)));
-      // "Auto" keeps each image's own ratio; a fixed ratio makes uniform tiles.
-      const fixedRatio =
-        stackAspect.value !== "auto"
-          ? stackAspect.width / stackAspect.height
-          : null;
-      const ratios = loaded.map((im) =>
-        fixedRatio ?? (im.naturalHeight ? im.naturalWidth / im.naturalHeight : 1),
-      );
-
-      if (mode === "hstack") {
-        const widths = ratios.map((r) => Math.max(1, Math.round(baseSize * r)));
-        canvas.width = widths.reduce((a, b) => a + b, 0) + totalGap;
-        canvas.height = baseSize;
-        ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.fillStyle = bgColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        let x = 0;
-        for (let i = 0; i < loaded.length; i++) {
-          ctx.save();
-          if (radiusPx > 0) {
-            roundRect(ctx, x, 0, widths[i], baseSize, radiusPx);
-            ctx.clip();
-          }
-          drawCover(
-            ctx,
-            loaded[i],
-            x,
-            0,
-            widths[i],
-            baseSize,
-            ordered[i].scale || 1,
-            ordered[i].offsetX || 0,
-            ordered[i].offsetY || 0,
-          );
-          ctx.restore();
-          x += widths[i] + gapPx;
-        }
-      } else {
-        const heights = ratios.map((r) =>
-          Math.max(1, Math.round(baseSize / r)),
-        );
-        canvas.width = baseSize;
-        canvas.height = heights.reduce((a, b) => a + b, 0) + totalGap;
-        ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.fillStyle = bgColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        let y = 0;
-        for (let i = 0; i < loaded.length; i++) {
-          ctx.save();
-          if (radiusPx > 0) {
-            roundRect(ctx, 0, y, baseSize, heights[i], radiusPx);
-            ctx.clip();
-          }
-          drawCover(
-            ctx,
-            loaded[i],
-            0,
-            y,
-            baseSize,
-            heights[i],
-            ordered[i].scale || 1,
-            ordered[i].offsetX || 0,
-            ordered[i].offsetY || 0,
-          );
-          ctx.restore();
-          y += heights[i] + gapPx;
-        }
-      }
-
-      const link = document.createElement("a");
-      link.download = `img-stack-${Date.now()}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      return;
-    }
+    // Stack modes divide the canvas into N equal cells (no trailing add-tile);
+    // grid uses the selected preset. Both share the same fixed-aspect canvas.
+    const blocks =
+      mode === "grid"
+        ? currentLayout.blocks
+        : stackBlocks(mode, stackImages.length);
+    if (mode !== "grid" && blocks.length === 0) return;
 
     const canvasWidth =
       aspectRatio.width >= aspectRatio.height
@@ -240,9 +143,10 @@ export function useImageCombiner() {
         ? baseSize
         : Math.round(baseSize * (aspectRatio.height / aspectRatio.width));
 
+    const canvas = document.createElement("canvas");
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     ctx.fillStyle = bgColor;
@@ -251,7 +155,6 @@ export function useImageCombiner() {
     const gapPx = Math.round((gap.value / 600) * baseSize);
     const radiusPx = Math.round((borderRadius / 600) * baseSize);
 
-    const blocks = currentLayout.blocks;
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i];
       const bx = Math.round(block.x * canvasWidth + gapPx / 2);
@@ -299,8 +202,8 @@ export function useImageCombiner() {
   }, [
     mode,
     aspectRatio,
-    stackAspect,
     currentLayout,
+    stackImages,
     images,
     gap,
     exportSize,
@@ -313,8 +216,6 @@ export function useImageCombiner() {
     setMode,
     stackImages,
     handleStackRemove,
-    stackAspect,
-    setStackAspect,
     imageCount,
     setImageCount,
     aspectRatio,
@@ -337,6 +238,20 @@ export function useImageCombiner() {
     setBorderRadius,
     exportImage,
   };
+}
+
+// Equal divisions of the unit square along the stack axis (Row = columns,
+// Column = rows). `count` cells fill the whole container.
+function stackBlocks(mode: Mode, count: number): Block[] {
+  const blocks: Block[] = [];
+  for (let i = 0; i < count; i++) {
+    blocks.push(
+      mode === "hstack"
+        ? { x: i / count, y: 0, w: 1 / count, h: 1 }
+        : { x: 0, y: i / count, w: 1, h: 1 / count },
+    );
+  }
+  return blocks;
 }
 
 function loadImage(src: string): Promise<HTMLImageElement> {

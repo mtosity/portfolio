@@ -2,15 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import ImageBlock from "./ImageBlock";
-import StackCanvas from "./StackCanvas";
-import type { AspectRatio, Layout, Mode, Option } from "./layouts";
+import type { AspectRatio, Layout, Option } from "./layouts";
 import type { ImageState, Transform } from "./useImageCombiner";
 
 type Props = {
-  mode: Mode;
-  stackImages: ImageState[];
-  stackAspect: AspectRatio;
-  onStackRemove: (i: number) => void;
   currentLayout: Layout;
   aspectRatio: AspectRatio;
   images: Record<number, ImageState>;
@@ -23,10 +18,6 @@ type Props = {
 };
 
 export default function Canvas({
-  mode,
-  stackImages,
-  stackAspect,
-  onStackRemove,
   currentLayout,
   aspectRatio,
   images,
@@ -40,10 +31,7 @@ export default function Canvas({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [size, setSize] = useState({ width: 400, height: 400 });
 
-  // `mode` is a dependency so the observer re-attaches to the grid container
-  // when returning from a stack mode (the container unmounts/remounts).
   useEffect(() => {
-    if (mode !== "grid") return;
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => {
@@ -65,23 +53,7 @@ export default function Canvas({
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, [aspectRatio, mode]);
-
-  if (mode === "hstack" || mode === "vstack") {
-    return (
-      <StackCanvas
-        mode={mode}
-        aspect={stackAspect}
-        stackImages={stackImages}
-        onUpload={onUpload}
-        onRemove={onStackRemove}
-        onTransform={onTransform}
-        gap={gap}
-        bgColor={bgColor}
-        borderRadius={borderRadius}
-      />
-    );
-  }
+  }, [aspectRatio]);
 
   return (
     <div
