@@ -16,8 +16,6 @@ type Props = {
   onRemove: (i: number) => void;
   onTransform: (i: number, t: Transform) => void;
   style: CSSProperties;
-  /** Stack cells match the image aspect ratio exactly, so pan/zoom is disabled. */
-  disableTransform?: boolean;
 };
 
 export default function ImageBlock({
@@ -27,7 +25,6 @@ export default function ImageBlock({
   onRemove,
   onTransform,
   style,
-  disableTransform = false,
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const blockRef = useRef<HTMLDivElement | null>(null);
@@ -122,7 +119,7 @@ export default function ImageBlock({
 
   const handleWheel = useCallback(
     (e: WheelEvent) => {
-      if (!image || disableTransform) return;
+      if (!image) return;
       e.preventDefault();
       const scale = image.scale || 1;
       const delta = -e.deltaY * 0.002;
@@ -137,12 +134,12 @@ export default function ImageBlock({
 
       onTransform(index, { scale: newScale, offsetX, offsetY });
     },
-    [image, index, onTransform, disableTransform],
+    [image, index, onTransform],
   );
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      if (!image || disableTransform) return;
+      if (!image) return;
       if ((e.target as HTMLElement).tagName === "BUTTON") return;
       e.preventDefault();
       setDragging(true);
@@ -153,7 +150,7 @@ export default function ImageBlock({
         offsetY: image.offsetY || 0,
       };
     },
-    [image, disableTransform],
+    [image],
   );
 
   useEffect(() => {
@@ -233,13 +230,7 @@ export default function ImageBlock({
         overflow: "hidden",
         outline,
         outlineOffset: -1,
-        cursor: image
-          ? disableTransform
-            ? "default"
-            : dragging
-              ? "grabbing"
-              : "grab"
-          : "pointer",
+        cursor: image ? (dragging ? "grabbing" : "grab") : "pointer",
         background: image ? "transparent" : "var(--bg-secondary)",
         display: "flex",
         alignItems: "center",
@@ -320,13 +311,7 @@ export default function ImageBlock({
                 Remove
               </OverlayBtn>
             </div>
-            <div
-              style={{
-                display: disableTransform ? "none" : "flex",
-                gap: 4,
-                alignItems: "center",
-              }}
-            >
+            <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
               <SquareBtn
                 onClick={(e) => {
                   e.stopPropagation();

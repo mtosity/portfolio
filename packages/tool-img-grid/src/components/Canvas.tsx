@@ -38,12 +38,16 @@ export default function Canvas({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [size, setSize] = useState({ width: 400, height: 400 });
 
+  // `mode` is a dependency so the observer re-attaches to the grid container
+  // when returning from a stack mode (the container unmounts/remounts).
   useEffect(() => {
+    if (mode !== "grid") return;
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => {
       const rect = el.getBoundingClientRect();
       const padded = { w: rect.width - 32, h: rect.height - 32 };
+      if (padded.w <= 0 || padded.h <= 0) return;
       const ratio = aspectRatio.width / aspectRatio.height;
 
       let w: number;
@@ -59,7 +63,7 @@ export default function Canvas({
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, [aspectRatio]);
+  }, [aspectRatio, mode]);
 
   if (mode === "hstack" || mode === "vstack") {
     return (

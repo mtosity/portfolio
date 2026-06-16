@@ -105,7 +105,7 @@ export default function Sidebar({
               ? "Images stack left → right at equal height."
               : "Images stack top → bottom at equal width."}{" "}
             Drop into the trailing tile to keep adding — the strip grows with
-            every image.
+            every image. Drag to pan, scroll to zoom each tile.
           </p>
         </Section>
       ) : (

@@ -168,7 +168,17 @@ export function useImageCombiner() {
             roundRect(ctx, x, 0, widths[i], baseSize, radiusPx);
             ctx.clip();
           }
-          ctx.drawImage(loaded[i], x, 0, widths[i], baseSize);
+          drawCover(
+            ctx,
+            loaded[i],
+            x,
+            0,
+            widths[i],
+            baseSize,
+            ordered[i].scale || 1,
+            ordered[i].offsetX || 0,
+            ordered[i].offsetY || 0,
+          );
           ctx.restore();
           x += widths[i] + gapPx;
         }
@@ -189,7 +199,17 @@ export function useImageCombiner() {
             roundRect(ctx, 0, y, baseSize, heights[i], radiusPx);
             ctx.clip();
           }
-          ctx.drawImage(loaded[i], 0, y, baseSize, heights[i]);
+          drawCover(
+            ctx,
+            loaded[i],
+            0,
+            y,
+            baseSize,
+            heights[i],
+            ordered[i].scale || 1,
+            ordered[i].offsetX || 0,
+            ordered[i].offsetY || 0,
+          );
           ctx.restore();
           y += heights[i] + gapPx;
         }

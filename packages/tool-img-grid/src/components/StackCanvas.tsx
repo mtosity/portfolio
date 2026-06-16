@@ -105,7 +105,6 @@ export default function StackCanvas({
                 onUpload={onUpload}
                 onRemove={onRemove}
                 onTransform={onTransform}
-                disableTransform
                 style={{ inset: 0, borderRadius }}
               />
             </div>
