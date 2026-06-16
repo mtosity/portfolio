@@ -9,6 +9,7 @@ import type { ImageState, Transform } from "./useImageCombiner";
 type Props = {
   mode: Mode;
   stackImages: ImageState[];
+  stackAspect: AspectRatio;
   onStackRemove: (i: number) => void;
   currentLayout: Layout;
   aspectRatio: AspectRatio;
@@ -24,6 +25,7 @@ type Props = {
 export default function Canvas({
   mode,
   stackImages,
+  stackAspect,
   onStackRemove,
   currentLayout,
   aspectRatio,
@@ -69,6 +71,7 @@ export default function Canvas({
     return (
       <StackCanvas
         mode={mode}
+        aspect={stackAspect}
         stackImages={stackImages}
         onUpload={onUpload}
         onRemove={onStackRemove}

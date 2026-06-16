@@ -27,6 +27,12 @@ export const ASPECT_RATIOS: AspectRatio[] = [
   { label: "3:4", value: "3/4", width: 3, height: 4 },
 ];
 
+// Stack modes also offer "Auto" — each tile keeps the image's own aspect ratio.
+export const STACK_ASPECT_RATIOS: AspectRatio[] = [
+  { label: "Auto", value: "auto", width: 0, height: 0 },
+  ...ASPECT_RATIOS,
+];
+
 export function getLayouts(count: number): Layout[] {
   switch (count) {
     case 2:

@@ -3,6 +3,7 @@ import {
   ASPECT_RATIOS,
   EXPORT_SIZES,
   GAP_OPTIONS,
+  STACK_ASPECT_RATIOS,
   getLayouts,
   type AspectRatio,
   type Mode,
@@ -25,6 +26,9 @@ export function useImageCombiner() {
   const [mode, setModeRaw] = useState<Mode>("grid");
   const [imageCount, setImageCountRaw] = useState(2);
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>(ASPECT_RATIOS[0]);
+  const [stackAspect, setStackAspect] = useState<AspectRatio>(
+    STACK_ASPECT_RATIOS[0],
+  );
   const [layoutIndex, setLayoutIndex] = useState(0);
   const [images, setImages] = useState<Record<number, ImageState>>({});
   const [gap, setGap] = useState<Option<number>>(GAP_OPTIONS[0]);
@@ -149,8 +153,13 @@ export function useImageCombiner() {
       const totalGap = gapPx * Math.max(0, ordered.length - 1);
 
       const loaded = await Promise.all(ordered.map((s) => loadImage(s.url)));
+      // "Auto" keeps each image's own ratio; a fixed ratio makes uniform tiles.
+      const fixedRatio =
+        stackAspect.value !== "auto"
+          ? stackAspect.width / stackAspect.height
+          : null;
       const ratios = loaded.map((im) =>
-        im.naturalHeight ? im.naturalWidth / im.naturalHeight : 1,
+        fixedRatio ?? (im.naturalHeight ? im.naturalWidth / im.naturalHeight : 1),
       );
 
       if (mode === "hstack") {
@@ -290,6 +299,7 @@ export function useImageCombiner() {
   }, [
     mode,
     aspectRatio,
+    stackAspect,
     currentLayout,
     images,
     gap,
@@ -303,6 +313,8 @@ export function useImageCombiner() {
     setMode,
     stackImages,
     handleStackRemove,
+    stackAspect,
+    setStackAspect,
     imageCount,
     setImageCount,
     aspectRatio,

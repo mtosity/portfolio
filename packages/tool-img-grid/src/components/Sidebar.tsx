@@ -8,6 +8,7 @@ import {
   GAP_OPTIONS,
   IMAGE_COUNTS,
   MODES,
+  STACK_ASPECT_RATIOS,
   type AspectRatio,
   type Layout,
   type Mode,
@@ -19,6 +20,8 @@ type Props = {
   mode: Mode;
   setMode: (m: Mode) => void;
   stackCount: number;
+  stackAspect: AspectRatio;
+  setStackAspect: (a: AspectRatio) => void;
   imageCount: number;
   setImageCount: (n: number) => void;
   aspectRatio: AspectRatio;
@@ -42,6 +45,8 @@ export default function Sidebar({
   mode,
   setMode,
   stackCount,
+  stackAspect,
+  setStackAspect,
   imageCount,
   setImageCount,
   aspectRatio,
@@ -90,24 +95,40 @@ export default function Sidebar({
       </Section>
 
       {isStack ? (
-        <Section title="Stack">
-          <p
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.68rem",
-              lineHeight: 1.6,
-              letterSpacing: "0.04em",
-              color: "var(--muted)",
-              margin: 0,
-            }}
-          >
-            {mode === "hstack"
-              ? "Images stack left → right at equal height."
-              : "Images stack top → bottom at equal width."}{" "}
-            Drop into the trailing tile to keep adding — the strip grows with
-            every image. Drag to pan, scroll to zoom each tile.
-          </p>
-        </Section>
+        <>
+          <Section title="Stack">
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.68rem",
+                lineHeight: 1.6,
+                letterSpacing: "0.04em",
+                color: "var(--muted)",
+                margin: 0,
+              }}
+            >
+              {mode === "hstack"
+                ? "Images stack left → right at equal height."
+                : "Images stack top → bottom at equal width."}{" "}
+              Drop into the trailing tile to keep adding — the strip grows with
+              every image. Drag to pan, scroll to zoom each tile.
+            </p>
+          </Section>
+
+          <Section title="Aspect ratio">
+            <Pills
+              options={STACK_ASPECT_RATIOS.map((a) => ({
+                label: a.label,
+                value: a.value,
+              }))}
+              activeValue={stackAspect.value}
+              onChange={(v) => {
+                const ar = STACK_ASPECT_RATIOS.find((a) => a.value === v);
+                if (ar) setStackAspect(ar);
+              }}
+            />
+          </Section>
+        </>
       ) : (
         <>
           <Section title="Images">

@@ -137,6 +137,8 @@ export default function ImgGridPage() {
           mode={c.mode}
           setMode={c.setMode}
           stackCount={c.stackImages.length}
+          stackAspect={c.stackAspect}
+          setStackAspect={c.setStackAspect}
           imageCount={c.imageCount}
           setImageCount={c.setImageCount}
           aspectRatio={c.aspectRatio}
@@ -158,6 +160,7 @@ export default function ImgGridPage() {
         <Canvas
           mode={c.mode}
           stackImages={c.stackImages}
+          stackAspect={c.stackAspect}
           onStackRemove={c.handleStackRemove}
           currentLayout={c.currentLayout}
           aspectRatio={c.aspectRatio}

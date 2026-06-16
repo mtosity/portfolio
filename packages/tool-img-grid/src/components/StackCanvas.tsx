@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import ImageBlock from "./ImageBlock";
-import type { Mode, Option } from "./layouts";
+import type { AspectRatio, Mode, Option } from "./layouts";
 import type { ImageState, Transform } from "./useImageCombiner";
 
 type Props = {
   mode: Mode; // "hstack" | "vstack"
+  aspect: AspectRatio; // "auto" = each tile keeps its image ratio
   stackImages: ImageState[];
   onUpload: (i: number, file: File) => void;
   onRemove: (i: number) => void;
@@ -23,6 +24,7 @@ const EMPTY_RATIO = 0.66;
 
 export default function StackCanvas({
   mode,
+  aspect,
   stackImages,
   onUpload,
   onRemove,
@@ -34,6 +36,10 @@ export default function StackCanvas({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [cross, setCross] = useState(360);
   const horizontal = mode === "hstack";
+  // A fixed aspect ratio makes every tile uniform (cover-cropped); "auto" lets
+  // each tile keep its image's natural ratio.
+  const fixedRatio =
+    aspect.value !== "auto" ? aspect.width / aspect.height : null;
 
   useEffect(() => {
     const el = containerRef.current;
@@ -81,13 +87,11 @@ export default function StackCanvas({
         }}
       >
         {cells.map((cell) => {
-          const ratio = cell.image?.ratio ?? EMPTY_RATIO;
-          const w = horizontal
-            ? Math.round(cross * (cell.image ? ratio : EMPTY_RATIO))
-            : cross;
-          const h = horizontal
-            ? cross
-            : Math.round(cross / (cell.image ? ratio : 1 / EMPTY_RATIO));
+          // Placeholder tiles lean portrait in a row / landscape in a column.
+          const emptyRatio = horizontal ? EMPTY_RATIO : 1 / EMPTY_RATIO;
+          const ratio = fixedRatio ?? cell.image?.ratio ?? emptyRatio;
+          const w = horizontal ? Math.round(cross * ratio) : cross;
+          const h = horizontal ? cross : Math.round(cross / ratio);
 
           return (
             <div
