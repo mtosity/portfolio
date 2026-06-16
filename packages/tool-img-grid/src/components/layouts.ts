@@ -11,6 +11,14 @@ export type Layout = { name: string; blocks: Block[] };
 
 export type Option<T> = { label: string; value: T };
 
+export type Mode = "grid" | "hstack" | "vstack";
+
+export const MODES: { label: string; value: Mode }[] = [
+  { label: "Grid", value: "grid" },
+  { label: "Row", value: "hstack" },
+  { label: "Column", value: "vstack" },
+];
+
 export const ASPECT_RATIOS: AspectRatio[] = [
   { label: "1:1", value: "1/1", width: 1, height: 1 },
   { label: "4:3", value: "4/3", width: 4, height: 3 },

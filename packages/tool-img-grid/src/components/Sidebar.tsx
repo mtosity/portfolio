@@ -7,13 +7,18 @@ import {
   EXPORT_SIZES,
   GAP_OPTIONS,
   IMAGE_COUNTS,
+  MODES,
   type AspectRatio,
   type Layout,
+  type Mode,
   type Option,
 } from "./layouts";
 import type { ImageState } from "./useImageCombiner";
 
 type Props = {
+  mode: Mode;
+  setMode: (m: Mode) => void;
+  stackCount: number;
   imageCount: number;
   setImageCount: (n: number) => void;
   aspectRatio: AspectRatio;
@@ -34,6 +39,9 @@ type Props = {
 };
 
 export default function Sidebar({
+  mode,
+  setMode,
+  stackCount,
   imageCount,
   setImageCount,
   aspectRatio,
@@ -52,9 +60,12 @@ export default function Sidebar({
   exportImage,
   images,
 }: Props) {
-  const allFilled =
-    Object.keys(images).length === imageCount &&
-    Object.values(images).every(Boolean);
+  const isStack = mode === "hstack" || mode === "vstack";
+  const allFilled = isStack
+    ? stackCount >= 1
+    : Object.keys(images).length === imageCount &&
+      Object.values(images).every(Boolean);
+  const remaining = imageCount - Object.keys(images).length;
 
   return (
     <aside
@@ -70,38 +81,72 @@ export default function Sidebar({
       }}
       className="ig-sidebar scrollbar-thin"
     >
-      <Section title="Images">
-        <Pills
-          options={IMAGE_COUNTS.map((c) => ({ label: String(c), value: c }))}
-          activeValue={imageCount}
-          onChange={(v) => setImageCount(v)}
-        />
-      </Section>
-
-      <Section title="Aspect ratio">
-        <Pills
-          options={ASPECT_RATIOS.map((a) => ({ label: a.label, value: a.value }))}
-          activeValue={aspectRatio.value}
-          onChange={(v) => {
-            const ar = ASPECT_RATIOS.find((a) => a.value === v);
-            if (ar) setAspectRatio(ar);
-          }}
-        />
-      </Section>
-
       <Section title="Layout">
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {layouts.map((layout, i) => (
-            <LayoutPreview
-              key={`${layout.name}-${i}`}
-              layout={layout}
-              isActive={layoutIndex === i}
-              onClick={() => setLayoutIndex(i)}
-              aspectRatio={aspectRatio}
-            />
-          ))}
-        </div>
+        <Pills
+          options={MODES}
+          activeValue={mode}
+          onChange={(v) => setMode(v)}
+        />
       </Section>
+
+      {isStack ? (
+        <Section title="Stack">
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.68rem",
+              lineHeight: 1.6,
+              letterSpacing: "0.04em",
+              color: "var(--muted)",
+              margin: 0,
+            }}
+          >
+            {mode === "hstack"
+              ? "Images stack left → right at equal height."
+              : "Images stack top → bottom at equal width."}{" "}
+            Drop into the trailing tile to keep adding — the strip grows with
+            every image.
+          </p>
+        </Section>
+      ) : (
+        <>
+          <Section title="Images">
+            <Pills
+              options={IMAGE_COUNTS.map((c) => ({ label: String(c), value: c }))}
+              activeValue={imageCount}
+              onChange={(v) => setImageCount(v)}
+            />
+          </Section>
+
+          <Section title="Aspect ratio">
+            <Pills
+              options={ASPECT_RATIOS.map((a) => ({
+                label: a.label,
+                value: a.value,
+              }))}
+              activeValue={aspectRatio.value}
+              onChange={(v) => {
+                const ar = ASPECT_RATIOS.find((a) => a.value === v);
+                if (ar) setAspectRatio(ar);
+              }}
+            />
+          </Section>
+
+          <Section title="Grid">
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {layouts.map((layout, i) => (
+                <LayoutPreview
+                  key={`${layout.name}-${i}`}
+                  layout={layout}
+                  isActive={layoutIndex === i}
+                  onClick={() => setLayoutIndex(i)}
+                  aspectRatio={aspectRatio}
+                />
+              ))}
+            </div>
+          </Section>
+        </>
+      )}
 
       <Section title="Gap">
         <Pills
@@ -165,7 +210,15 @@ export default function Sidebar({
         </div>
       </Section>
 
-      <Section title="Export size">
+      <Section
+        title={
+          mode === "hstack"
+            ? "Export height"
+            : mode === "vstack"
+              ? "Export width"
+              : "Export size"
+        }
+      >
         <Pills
           options={EXPORT_SIZES.map((s) => ({ label: s.label, value: s.value }))}
           activeValue={exportSize.value}
@@ -187,7 +240,13 @@ export default function Sidebar({
           padding: "0.95rem",
         }}
       >
-        {allFilled ? "↓ Export PNG" : `Fill ${imageCount - Object.keys(images).length} more`}
+        {isStack
+          ? allFilled
+            ? "↓ Export PNG"
+            : "Add an image"
+          : allFilled
+            ? "↓ Export PNG"
+            : `Fill ${remaining} more`}
       </AccentButton>
     </aside>
   );

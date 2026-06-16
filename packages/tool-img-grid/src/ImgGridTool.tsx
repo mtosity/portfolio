@@ -134,6 +134,9 @@ export default function ImgGridPage() {
         className="ig-workspace"
       >
         <Sidebar
+          mode={c.mode}
+          setMode={c.setMode}
+          stackCount={c.stackImages.length}
           imageCount={c.imageCount}
           setImageCount={c.setImageCount}
           aspectRatio={c.aspectRatio}
@@ -153,6 +156,9 @@ export default function ImgGridPage() {
           images={c.images}
         />
         <Canvas
+          mode={c.mode}
+          stackImages={c.stackImages}
+          onStackRemove={c.handleStackRemove}
           currentLayout={c.currentLayout}
           aspectRatio={c.aspectRatio}
           images={c.images}

@@ -2,10 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import ImageBlock from "./ImageBlock";
-import type { AspectRatio, Layout, Option } from "./layouts";
+import StackCanvas from "./StackCanvas";
+import type { AspectRatio, Layout, Mode, Option } from "./layouts";
 import type { ImageState, Transform } from "./useImageCombiner";
 
 type Props = {
+  mode: Mode;
+  stackImages: ImageState[];
+  onStackRemove: (i: number) => void;
   currentLayout: Layout;
   aspectRatio: AspectRatio;
   images: Record<number, ImageState>;
@@ -18,6 +22,9 @@ type Props = {
 };
 
 export default function Canvas({
+  mode,
+  stackImages,
+  onStackRemove,
   currentLayout,
   aspectRatio,
   images,
@@ -53,6 +60,21 @@ export default function Canvas({
     ro.observe(el);
     return () => ro.disconnect();
   }, [aspectRatio]);
+
+  if (mode === "hstack" || mode === "vstack") {
+    return (
+      <StackCanvas
+        mode={mode}
+        stackImages={stackImages}
+        onUpload={onUpload}
+        onRemove={onStackRemove}
+        onTransform={onTransform}
+        gap={gap}
+        bgColor={bgColor}
+        borderRadius={borderRadius}
+      />
+    );
+  }
 
   return (
     <div
