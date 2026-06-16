@@ -37,6 +37,7 @@ export default function Canvas({
     const ro = new ResizeObserver(() => {
       const rect = el.getBoundingClientRect();
       const padded = { w: rect.width - 32, h: rect.height - 32 };
+      if (padded.w <= 0 || padded.h <= 0) return;
       const ratio = aspectRatio.width / aspectRatio.height;
 
       let w: number;

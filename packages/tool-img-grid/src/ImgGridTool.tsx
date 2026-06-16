@@ -134,6 +134,9 @@ export default function ImgGridPage() {
         className="ig-workspace"
       >
         <Sidebar
+          mode={c.mode}
+          setMode={c.setMode}
+          stackCount={c.stackImages.length}
           imageCount={c.imageCount}
           setImageCount={c.setImageCount}
           aspectRatio={c.aspectRatio}
@@ -157,7 +160,7 @@ export default function ImgGridPage() {
           aspectRatio={c.aspectRatio}
           images={c.images}
           onUpload={c.handleImageUpload}
-          onRemove={c.handleRemoveImage}
+          onRemove={c.mode === "grid" ? c.handleRemoveImage : c.handleStackRemove}
           onTransform={c.handleImageTransform}
           gap={c.gap}
           bgColor={c.bgColor}

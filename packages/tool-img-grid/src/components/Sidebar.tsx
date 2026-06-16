@@ -7,13 +7,18 @@ import {
   EXPORT_SIZES,
   GAP_OPTIONS,
   IMAGE_COUNTS,
+  MODES,
   type AspectRatio,
   type Layout,
+  type Mode,
   type Option,
 } from "./layouts";
 import type { ImageState } from "./useImageCombiner";
 
 type Props = {
+  mode: Mode;
+  setMode: (m: Mode) => void;
+  stackCount: number;
   imageCount: number;
   setImageCount: (n: number) => void;
   aspectRatio: AspectRatio;
@@ -34,6 +39,9 @@ type Props = {
 };
 
 export default function Sidebar({
+  mode,
+  setMode,
+  stackCount,
   imageCount,
   setImageCount,
   aspectRatio,
@@ -52,9 +60,12 @@ export default function Sidebar({
   exportImage,
   images,
 }: Props) {
-  const allFilled =
-    Object.keys(images).length === imageCount &&
-    Object.values(images).every(Boolean);
+  const isStack = mode === "row" || mode === "column";
+  const allFilled = isStack
+    ? stackCount >= 1
+    : Object.keys(images).length === imageCount &&
+      Object.values(images).every(Boolean);
+  const remaining = imageCount - Object.keys(images).length;
 
   return (
     <aside
@@ -70,13 +81,44 @@ export default function Sidebar({
       }}
       className="ig-sidebar scrollbar-thin"
     >
-      <Section title="Images">
+      <Section title="Layout">
         <Pills
-          options={IMAGE_COUNTS.map((c) => ({ label: String(c), value: c }))}
-          activeValue={imageCount}
-          onChange={(v) => setImageCount(v)}
+          options={MODES}
+          activeValue={mode}
+          onChange={(v) => setMode(v)}
         />
       </Section>
+
+      {isStack && (
+        <Section title="Stack">
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.68rem",
+              lineHeight: 1.6,
+              letterSpacing: "0.04em",
+              color: "var(--muted)",
+              margin: 0,
+            }}
+          >
+            {mode === "column"
+              ? "Images divide the canvas into equal columns."
+              : "Images divide the canvas into equal rows."}{" "}
+            Drop into the trailing tile to add another — every tile resizes to
+            fit. Drag to pan, scroll to zoom each one.
+          </p>
+        </Section>
+      )}
+
+      {!isStack && (
+        <Section title="Images">
+          <Pills
+            options={IMAGE_COUNTS.map((c) => ({ label: String(c), value: c }))}
+            activeValue={imageCount}
+            onChange={(v) => setImageCount(v)}
+          />
+        </Section>
+      )}
 
       <Section title="Aspect ratio">
         <Pills
@@ -89,19 +131,21 @@ export default function Sidebar({
         />
       </Section>
 
-      <Section title="Layout">
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {layouts.map((layout, i) => (
-            <LayoutPreview
-              key={`${layout.name}-${i}`}
-              layout={layout}
-              isActive={layoutIndex === i}
-              onClick={() => setLayoutIndex(i)}
-              aspectRatio={aspectRatio}
-            />
-          ))}
-        </div>
-      </Section>
+      {!isStack && (
+        <Section title="Grid">
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {layouts.map((layout, i) => (
+              <LayoutPreview
+                key={`${layout.name}-${i}`}
+                layout={layout}
+                isActive={layoutIndex === i}
+                onClick={() => setLayoutIndex(i)}
+                aspectRatio={aspectRatio}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
 
       <Section title="Gap">
         <Pills
@@ -187,7 +231,13 @@ export default function Sidebar({
           padding: "0.95rem",
         }}
       >
-        {allFilled ? "↓ Export PNG" : `Fill ${imageCount - Object.keys(images).length} more`}
+        {isStack
+          ? allFilled
+            ? "↓ Export PNG"
+            : "Add an image"
+          : allFilled
+            ? "↓ Export PNG"
+            : `Fill ${remaining} more`}
       </AccentButton>
     </aside>
   );
