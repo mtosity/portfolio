@@ -83,6 +83,12 @@ const COMMON_ARGS = [
   "--no-warnings",
   "--no-cache-dir",
   "--no-progress",
+  // YouTube increasingly gates the default web client behind "Sign in to
+  // confirm you're not a bot". These extra player clients are namespaced to
+  // the youtube extractor (ignored for IG/TikTok) and need no PO token, so
+  // yt-dlp can fall back to them when the web client is challenged.
+  "--extractor-args",
+  "youtube:player_client=default,web_safari,mweb,tv",
 ];
 
 type YtDlpProcess = ChildProcessByStdio<null, Readable, Readable>;

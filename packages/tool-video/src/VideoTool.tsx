@@ -17,6 +17,41 @@ type Info = {
 type Chunk = { text: string; timestamp: [number, number | null] };
 type TranscribeResult = { text: string; chunks?: Chunk[] };
 
+// Chrome's built-in AI Summarizer (https://developer.chrome.com/docs/ai/summarizer-api)
+type SummarizerAvailability =
+  | "unavailable"
+  | "downloadable"
+  | "downloading"
+  | "available";
+
+interface SummarizerMonitor {
+  addEventListener(
+    type: "downloadprogress",
+    listener: (e: { loaded: number }) => void,
+  ): void;
+}
+
+interface SummarizerInstance {
+  summarize(input: string, options?: { context?: string }): Promise<string>;
+  destroy(): void;
+}
+
+interface SummarizerFactory {
+  availability(): Promise<SummarizerAvailability>;
+  create(options?: {
+    sharedContext?: string;
+    type?: "tldr" | "key-points" | "teaser" | "headline";
+    format?: "markdown" | "plain-text";
+    length?: "short" | "medium" | "long";
+    monitor?: (m: SummarizerMonitor) => void;
+  }): Promise<SummarizerInstance>;
+}
+
+function getSummarizer(): SummarizerFactory | undefined {
+  return (globalThis as unknown as { Summarizer?: SummarizerFactory })
+    .Summarizer;
+}
+
 const STAGES = [
   "Downloading audio",
   "Decoding audio",
@@ -35,6 +70,10 @@ export default function VideoToolPage() {
   const [transcript, setTranscript] = useState<TranscribeResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [summary, setSummary] = useState("");
+  const [summarizing, setSummarizing] = useState(false);
+  const [summaryProgress, setSummaryProgress] = useState(0);
+  const [summaryError, setSummaryError] = useState("");
   const abortRef = useRef<AbortController | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const workerReadyRef = useRef<Promise<void> | null>(null);
@@ -120,11 +159,18 @@ export default function VideoToolPage() {
     };
   }, []);
 
+  function resetSummary() {
+    setSummary("");
+    setSummaryError("");
+    setSummaryProgress(0);
+  }
+
   async function handleFetch(e?: React.FormEvent) {
     e?.preventDefault();
     setError("");
     setInfo(null);
     setTranscript(null);
+    resetSummary();
     setFetching(true);
     try {
       const res = await fetch("/api/video/info", {
@@ -150,6 +196,7 @@ export default function VideoToolPage() {
     setTranscribing(true);
     setError("");
     setTranscript(null);
+    resetSummary();
     setModelProgress(0);
     abortRef.current = new AbortController();
     try {
@@ -204,6 +251,52 @@ export default function VideoToolPage() {
     await navigator.clipboard.writeText(transcript.text.trim());
     setCopied(true);
     setTimeout(() => setCopied(false), 1400);
+  }
+
+  async function handleSummarize() {
+    if (!transcript) return;
+    setSummarizing(true);
+    setSummary("");
+    setSummaryError("");
+    setSummaryProgress(0);
+    try {
+      const Summarizer = getSummarizer();
+      if (!Summarizer) {
+        throw new Error(
+          "This browser doesn't expose the built-in AI Summarizer. Use Chrome 138+ on desktop (Mac/Windows/Linux) — see chrome://on-device-internals.",
+        );
+      }
+      const availability = await Summarizer.availability();
+      if (availability === "unavailable") {
+        throw new Error(
+          "The built-in AI Summarizer isn't available on this device.",
+        );
+      }
+      const summarizer = await Summarizer.create({
+        sharedContext:
+          "A transcript of a short social media video (Instagram, YouTube, or TikTok).",
+        type: "key-points",
+        format: "plain-text",
+        length: "medium",
+        monitor(m) {
+          m.addEventListener("downloadprogress", (e) => {
+            setSummaryProgress(Math.round(e.loaded * 100));
+          });
+        },
+      });
+      try {
+        const result = await summarizer.summarize(transcript.text.trim(), {
+          context: "Summarize the key points of what the speaker says.",
+        });
+        setSummary(result.trim());
+      } finally {
+        summarizer.destroy();
+      }
+    } catch (err) {
+      setSummaryError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setSummarizing(false);
+    }
   }
 
   function downloadBlob(filename: string, contents: string, mime: string) {
@@ -688,6 +781,13 @@ export default function VideoToolPage() {
                   }}
                 />
                 <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                  <SmallBtn onClick={handleSummarize} disabled={summarizing}>
+                    {summarizing
+                      ? "Summarizing…"
+                      : summary
+                        ? "Re-summarize"
+                        : "Summarize ✦"}
+                  </SmallBtn>
                   <SmallBtn onClick={handleCopy}>
                     {copied ? "Copied" : "Copy"}
                   </SmallBtn>
@@ -717,6 +817,88 @@ export default function VideoToolPage() {
                   )}
                 </div>
               </div>
+
+              {/* AI summary */}
+              <AnimatePresence>
+                {(summarizing || summary || summaryError) && (
+                  <motion.div
+                    key="summary"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      marginBottom: "1.25rem",
+                      border: "1px solid var(--border)",
+                      borderLeft: "3px solid var(--accent)",
+                      background: "var(--bg-secondary)",
+                      padding: "1rem 1.25rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        marginBottom: "0.6rem",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "var(--muted)",
+                      }}
+                    >
+                      <span style={{ color: "var(--fg)", fontWeight: 700 }}>
+                        AI Summary ✦
+                      </span>
+                      <span>· built-in browser AI · on-device</span>
+                    </div>
+
+                    {summaryError ? (
+                      <p
+                        style={{
+                          margin: 0,
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.78rem",
+                          lineHeight: 1.6,
+                          color: "#a83232",
+                          whiteSpace: "pre-wrap",
+                        }}
+                      >
+                        {summaryError}
+                      </p>
+                    ) : summary ? (
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: "1rem",
+                          lineHeight: 1.7,
+                          whiteSpace: "pre-wrap",
+                          wordBreak: "break-word",
+                          fontFamily: "var(--font-heading)",
+                          color: "var(--fg)",
+                        }}
+                      >
+                        {summary}
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          margin: 0,
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.75rem",
+                          letterSpacing: "0.08em",
+                          color: "var(--muted)",
+                        }}
+                      >
+                        {summaryProgress > 0 && summaryProgress < 100
+                          ? `Downloading on-device model — ${summaryProgress}%`
+                          : "Summarizing…"}
+                      </p>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <div
                 style={{
@@ -801,13 +983,16 @@ function PrimaryAction({
 function SmallBtn({
   children,
   onClick,
+  disabled,
 }: {
   children: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       style={{
         fontFamily: "var(--font-mono)",
         fontSize: "0.65rem",
@@ -817,10 +1002,12 @@ function SmallBtn({
         background: "transparent",
         border: "1px solid var(--border-light)",
         padding: "0.35rem 0.7rem",
-        cursor: "pointer",
+        cursor: disabled ? "not-allowed" : "pointer",
+        opacity: disabled ? 0.55 : 1,
         transition: "border-color 0.15s, background 0.15s",
       }}
       onMouseEnter={(e) => {
+        if (disabled) return;
         (e.currentTarget as HTMLElement).style.borderColor = "var(--fg)";
         (e.currentTarget as HTMLElement).style.background = "var(--bg-secondary)";
       }}

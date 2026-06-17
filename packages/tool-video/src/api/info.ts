@@ -40,14 +40,37 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     const raw = err instanceof Error ? err.message : "Failed to read video";
     const blocked =
-      /rate-limit|login required|requested content is not available|sign in|private|cookies/i.test(
+      /rate-limit|login required|requested content is not available|sign in|not a bot|private|cookies/i.test(
         raw,
       );
     const message = blocked
-      ? hasCookies()
-        ? `${ref.platform} blocked this request even with cookies — they may be expired. Refresh YT_DLP_COOKIES / IG_COOKIES_TXT or try a different post.`
-        : `${ref.platform} requires authentication to view this video. Set YT_DLP_COOKIES / IG_COOKIES_TXT (Netscape cookies.txt) or IG_COOKIES_PATH on the server. See https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp`
+      ? buildBlockedMessage(ref.platform, hasCookies())
       : raw;
     return NextResponse.json({ error: message }, { status: 502 });
   }
+}
+
+const COOKIES_DOC =
+  "https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp";
+
+function buildBlockedMessage(
+  platform: "instagram" | "youtube" | "tiktok",
+  hasCookiesConfigured: boolean,
+): string {
+  const label =
+    platform === "youtube"
+      ? "YouTube"
+      : platform === "tiktok"
+        ? "TikTok"
+        : "Instagram";
+
+  if (hasCookiesConfigured) {
+    return `${label} blocked this request even with cookies — they may be expired. Refresh the cookies (YT_DLP_COOKIES / IG_COOKIES_TXT) or try a different link.`;
+  }
+
+  if (platform === "youtube") {
+    return `YouTube blocked this request — it sometimes flags server/datacenter IPs as bots ("sign in to confirm you're not a bot"). Try again in a moment, use a different video, or set YT_DLP_COOKIES (Netscape cookies.txt) on the server. See ${COOKIES_DOC}`;
+  }
+
+  return `${label} requires authentication to view this content. Set YT_DLP_COOKIES / IG_COOKIES_TXT (Netscape cookies.txt) or IG_COOKIES_PATH on the server. See ${COOKIES_DOC}`;
 }
