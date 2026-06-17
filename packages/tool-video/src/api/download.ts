@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { streamYtDlp } from "../lib/yt-dlp";
 import { checkRateLimit } from "@mtosity/lib/rate-limit";
-import { parseInstagramUrl } from "../lib/instagram-url";
+import { parseVideoUrl } from "../lib/video-url";
 
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get("url");
-  const ref = url ? parseInstagramUrl(url) : null;
+  const ref = url ? parseVideoUrl(url) : null;
   if (!url || !ref) {
-    return NextResponse.json({ error: "Invalid Instagram URL" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Unsupported URL. Paste an Instagram, YouTube, or TikTok link." },
+      { status: 400 },
+    );
   }
 
   const rl = await checkRateLimit(req);
@@ -24,7 +27,7 @@ export async function GET(req: NextRequest) {
   return new Response(stream, {
     headers: {
       "Content-Type": "video/mp4",
-      "Content-Disposition": `attachment; filename="reel-${ref.shortcode}.mp4"`,
+      "Content-Disposition": `attachment; filename="${ref.platform}-${ref.id}.mp4"`,
       "Cache-Control": "no-store",
     },
   });

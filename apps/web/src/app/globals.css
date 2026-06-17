@@ -8,7 +8,7 @@
 @source "../../../../packages/admin/src";
 @source "../../../../packages/tool-speech-to-text/src";
 @source "../../../../packages/tool-img-grid/src";
-@source "../../../../packages/tool-instagram/src";
+@source "../../../../packages/tool-video/src";
 
 /* Tailwind v3 preflight compat: keep default border color at gray-200
    (v4 switched the default to currentColor). */

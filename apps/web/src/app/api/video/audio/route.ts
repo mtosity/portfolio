@@ -1,4 +1,4 @@
-export { GET } from "@mtosity/tool-instagram/api/audio";
+export { GET } from "@mtosity/tool-video/api/audio";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;

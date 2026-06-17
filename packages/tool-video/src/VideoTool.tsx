@@ -25,7 +25,7 @@ const STAGES = [
 ] as const;
 type Stage = "" | (typeof STAGES)[number];
 
-export default function InstagramToolPage() {
+export default function VideoToolPage() {
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState<Info | null>(null);
   const [fetching, setFetching] = useState(false);
@@ -127,13 +127,13 @@ export default function InstagramToolPage() {
     setTranscript(null);
     setFetching(true);
     try {
-      const res = await fetch("/api/instagram/info", {
+      const res = await fetch("/api/video/info", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ url }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Failed to load reel");
+      if (!res.ok) throw new Error(data.error ?? "Failed to load video");
       setInfo(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -143,7 +143,7 @@ export default function InstagramToolPage() {
   }
 
   function handleDownload() {
-    window.location.href = `/api/instagram/download?url=${encodeURIComponent(url)}`;
+    window.location.href = `/api/video/download?url=${encodeURIComponent(url)}`;
   }
 
   async function handleTranscribe() {
@@ -155,7 +155,7 @@ export default function InstagramToolPage() {
     try {
       setStage("Downloading audio");
       const audioRes = await fetch(
-        `/api/instagram/audio?url=${encodeURIComponent(url)}`,
+        `/api/video/audio?url=${encodeURIComponent(url)}`,
         { signal: abortRef.current.signal },
       );
       if (!audioRes.ok) {
@@ -301,7 +301,7 @@ export default function InstagramToolPage() {
             margin: "2.5rem 0 1rem",
           }}
         >
-          Instagram reels,{" "}
+          Any video,{" "}
           <span style={{ fontStyle: "italic", color: "var(--muted)" }}>
             extracted.
           </span>
@@ -318,10 +318,10 @@ export default function InstagramToolPage() {
             margin: 0,
           }}
         >
-          Paste a public reel URL to grab the MP4 or run a full transcript.
-          Audio is fetched server-side via yt-dlp; the transcription itself runs
-          locally in your browser via WebAssembly Whisper. No accounts, no
-          storage.
+          Paste a public Instagram, YouTube, or TikTok URL to grab the MP4 or
+          run a full transcript. Audio is fetched server-side via yt-dlp; the
+          transcription itself runs locally in your browser via WebAssembly
+          Whisper. No accounts, no storage.
         </motion.p>
 
         {/* URL form */}
@@ -343,7 +343,7 @@ export default function InstagramToolPage() {
               marginBottom: "0.6rem",
             }}
           >
-            Reel URL
+            Video URL
           </label>
           <div
             style={{
@@ -360,7 +360,7 @@ export default function InstagramToolPage() {
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://www.instagram.com/reel/..."
+              placeholder="https://www.youtube.com/watch?v=…  ·  instagram.com/reel/…  ·  tiktok.com/@…"
               required
               style={{
                 flex: 1,
@@ -397,7 +397,8 @@ export default function InstagramToolPage() {
               color: "var(--muted)",
             }}
           >
-            Supports /reel/, /reels/, /p/ and /tv/ links · public posts only
+            Instagram reels &amp; posts · YouTube videos &amp; Shorts · TikTok
+            videos · public posts only
           </p>
         </motion.form>
 
@@ -449,7 +450,7 @@ export default function InstagramToolPage() {
                 gap: "clamp(1rem, 3vw, 1.75rem)",
                 alignItems: "start",
               }}
-              className="ig-info-card"
+              className="video-info-card"
             >
               {info.thumbnail ? (
                 <div
@@ -464,7 +465,7 @@ export default function InstagramToolPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={`/api/instagram/thumb?url=${encodeURIComponent(info.thumbnail)}`}
+                    src={`/api/video/thumb?url=${encodeURIComponent(info.thumbnail)}`}
                     alt=""
                     referrerPolicy="no-referrer"
                     style={{
@@ -634,10 +635,10 @@ export default function InstagramToolPage() {
 
               <style jsx>{`
                 @media (max-width: 600px) {
-                  :global(.ig-info-card) {
+                  :global(.video-info-card) {
                     grid-template-columns: 1fr !important;
                   }
-                  :global(.ig-info-card) > div:first-child {
+                  :global(.video-info-card) > div:first-child {
                     max-width: 220px;
                     margin: 0 auto;
                   }

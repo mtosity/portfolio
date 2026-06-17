@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getInfo, hasCookies } from "../lib/yt-dlp";
 import { checkRateLimit } from "@mtosity/lib/rate-limit";
-import { parseInstagramUrl } from "../lib/instagram-url";
+import { parseVideoUrl } from "../lib/video-url";
 
 
 export async function POST(req: NextRequest) {
   const { url } = (await req.json().catch(() => ({}))) as { url?: string };
-  if (!url || !parseInstagramUrl(url)) {
-    return NextResponse.json({ error: "Invalid Instagram URL" }, { status: 400 });
+  const ref = url ? parseVideoUrl(url) : null;
+  if (!url || !ref) {
+    return NextResponse.json(
+      { error: "Unsupported URL. Paste an Instagram, YouTube, or TikTok link." },
+      { status: 400 },
+    );
   }
 
   const rl = await checkRateLimit(req);
@@ -34,15 +38,15 @@ export async function POST(req: NextRequest) {
       height: info.height ?? null,
     });
   } catch (err) {
-    const raw = err instanceof Error ? err.message : "Failed to read reel";
+    const raw = err instanceof Error ? err.message : "Failed to read video";
     const blocked =
-      /rate-limit|login required|requested content is not available|cookies/i.test(
+      /rate-limit|login required|requested content is not available|sign in|private|cookies/i.test(
         raw,
       );
     const message = blocked
       ? hasCookies()
-        ? "Instagram blocked this request even with cookies — they may be expired. Refresh IG_COOKIES_TXT or try a different post."
-        : "Instagram requires authentication to view this reel. Set IG_COOKIES_TXT (Netscape cookies.txt) or IG_COOKIES_PATH on the server. See https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp"
+        ? `${ref.platform} blocked this request even with cookies — they may be expired. Refresh YT_DLP_COOKIES / IG_COOKIES_TXT or try a different post.`
+        : `${ref.platform} requires authentication to view this video. Set YT_DLP_COOKIES / IG_COOKIES_TXT (Netscape cookies.txt) or IG_COOKIES_PATH on the server. See https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp`
       : raw;
     return NextResponse.json({ error: message }, { status: 502 });
   }
