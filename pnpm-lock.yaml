@@ -12,6 +12,9 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.2.0
       version: 19.2.3
+    eslint:
+      specifier: ^9.0.0
+      version: 9.39.4
     eslint-config-next:
       specifier: 16.2.9
       version: 16.2.9
@@ -85,7 +88,7 @@ importers:
         version: 1.6.1(next@16.2.9(@babel/core@7.28.5)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass@1.97.3))(react@19.2.7)
       '@vercel/blob':
         specifier: ^2.0.0
-        version: 2.4.0
+        version: 2.4.1
       '@vercel/functions':
         specifier: ^3.0.0
         version: 3.7.1
@@ -182,7 +185,7 @@ importers:
         version: 3.26.1
       '@vercel/blob':
         specifier: ^2.0.0
-        version: 2.4.0
+        version: 2.4.1
       next-auth:
         specifier: 5.0.0-beta.31
         version: 5.0.0-beta.31(next@16.2.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass@1.97.3))(react@19.2.7)
@@ -256,7 +259,7 @@ importers:
         version: 1.38.0
       '@vercel/blob':
         specifier: ^2.0.0
-        version: 2.4.0
+        version: 2.4.1
     devDependencies:
       '@mtosity/typescript-config':
         specifier: workspace:*
@@ -1339,8 +1342,8 @@ packages:
       vue-router:
         optional: true
 
-  '@vercel/blob@2.4.0':
-    resolution: {integrity: sha512-ncQ8CRb6XoEAYJwjOTRGpACRT6h/AeY+/33gLyeVxG5BIes27OPm1jmqreF+JHjcTmGhClTP+kBpmyLfbV0xew==}
+  '@vercel/blob@2.4.1':
+    resolution: {integrity: sha512-8GQbIsNVWu0PnG6AYHSCHupYBW0RzP26mb2V3QSoirG7i1EvISHEnW0QcvX+NUc5htALNg6vvls9nEavlwYHuA==}
     engines: {node: '>=20.0.0'}
 
   '@vercel/cli-config@0.2.0':
@@ -2832,8 +2835,8 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici@6.26.0:
-    resolution: {integrity: sha512-4yqz8a3n5HmGTlsbADNtr/dJlhkh/55Rq798G6ibiULcXbDtaLpTl1pvdqcbFfeoj3iSi52lePFM7h9H21cw/A==}
+  undici@6.27.0:
+    resolution: {integrity: sha512-YmfV3YnEDzXRC5lZ2jWtWWHKGUm1zIt8AhesR1tens+HTNv+YZlN/dp6G727LOvMJ8xjP9Be7Y2Sdr96LDm+pg==}
     engines: {node: '>=18.17'}
 
   update-browserslist-db@1.2.2:
@@ -3764,13 +3767,14 @@ snapshots:
       next: 16.2.9(@babel/core@7.28.5)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass@1.97.3)
       react: 19.2.7
 
-  '@vercel/blob@2.4.0':
+  '@vercel/blob@2.4.1':
     dependencies:
+      '@vercel/oidc': 3.6.1
       async-retry: 1.3.3
       is-buffer: 2.0.5
       is-node-process: 1.2.0
       throttleit: 2.1.0
-      undici: 6.26.0
+      undici: 6.27.0
 
   '@vercel/cli-config@0.2.0':
     dependencies:
@@ -5542,7 +5546,7 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici@6.26.0: {}
+  undici@6.27.0: {}
 
   update-browserslist-db@1.2.2(browserslist@4.28.1):
     dependencies:
