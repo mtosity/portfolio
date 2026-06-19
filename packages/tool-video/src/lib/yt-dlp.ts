@@ -78,18 +78,38 @@ function resolveCookiesPath(): string | null {
   return cachedCookiesPath;
 }
 
-const COMMON_ARGS = [
-  "--no-playlist",
-  "--no-warnings",
-  "--no-cache-dir",
-  "--no-progress",
-  // YouTube increasingly gates the default web client behind "Sign in to
-  // confirm you're not a bot". These extra player clients are namespaced to
-  // the youtube extractor (ignored for IG/TikTok) and need no PO token, so
-  // yt-dlp can fall back to them when the web client is challenged.
-  "--extractor-args",
-  "youtube:player_client=default,web_safari,mweb,tv",
-];
+// YouTube gates the default web client behind "Sign in to confirm you're not a
+// bot", which fires almost every time from a server/datacenter IP (Vercel).
+// The `android_vr` and `web_embedded` clients are the only ones that need no PO
+// token (per yt-dlp's PO Token Guide), so they still return playable formats
+// from datacenter IPs without cookies. Lead with them, then fall back to the
+// web clients (useful when cookies ARE configured). The extractor-args namespace
+// is `youtube:`, so this is ignored for the IG/TikTok extractors.
+function youtubeExtractorArgs(): string {
+  const parts = ["player_client=android_vr,web_embedded,tv,web_safari,default"];
+  // Optional manual PO token (yt-dlp PO Token Guide): pass as
+  // `web_embedded.gvs+TOKEN` style entries via YT_DLP_PO_TOKEN, e.g.
+  // "web_embedded.gvs+XXX,web_embedded.player+YYY".
+  const poToken = process.env.YT_DLP_PO_TOKEN?.trim();
+  if (poToken) parts.push(`po_token=${poToken}`);
+  const visitorData = process.env.YT_DLP_VISITOR_DATA?.trim();
+  if (visitorData) parts.push(`visitor_data=${visitorData}`);
+  return `youtube:${parts.join(";")}`;
+}
+
+function commonArgs(): string[] {
+  return [
+    "--no-playlist",
+    "--no-warnings",
+    "--no-cache-dir",
+    "--no-progress",
+    // Tolerate transient throttling/challenges before giving up.
+    "--extractor-retries",
+    "3",
+    "--extractor-args",
+    youtubeExtractorArgs(),
+  ];
+}
 
 type YtDlpProcess = ChildProcessByStdio<null, Readable, Readable>;
 
@@ -98,7 +118,7 @@ export function runYtDlp(args: string[]): YtDlpProcess {
   ensureExecutable(bin);
   const cookiesPath = resolveCookiesPath();
   const cookieArgs = cookiesPath ? ["--cookies", cookiesPath] : [];
-  return spawn(bin, [...COMMON_ARGS, ...cookieArgs, ...args], {
+  return spawn(bin, [...commonArgs(), ...cookieArgs, ...args], {
     stdio: ["ignore", "pipe", "pipe"],
   });
 }
