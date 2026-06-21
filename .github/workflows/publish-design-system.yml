@@ -1,0 +1,39 @@
+name: Publish @mtosity/design-system
+
+# Publishes packages/design-system to GitHub Packages.
+# Triggered by pushing a tag like `design-system-v0.1.0` (works from any branch),
+# or manually via the Actions tab. Uses the built-in GITHUB_TOKEN — no PAT needed.
+
+on:
+  push:
+    tags:
+      - "design-system-v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.3
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@mtosity"
+
+      # Install only the design-system subtree (and its workspace deps),
+      # skipping postinstall scripts so the heavy apps/web binaries don't run.
+      - run: pnpm install --ignore-scripts --no-frozen-lockfile --filter "@mtosity/design-system..."
+
+      - run: pnpm --filter @mtosity/design-system publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
