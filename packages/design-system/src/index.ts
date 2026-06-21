@@ -1,4 +1,5 @@
 export { SlideTabs } from "./components/SlideTabs";
+export { Tag, type TagTone } from "./components/Tag";
 export { ThemeToggle } from "./components/ThemeToggle";
 export { AccentButton } from "./components/AccentButton";
 export { ConfirmDialog } from "./components/ConfirmDialog";

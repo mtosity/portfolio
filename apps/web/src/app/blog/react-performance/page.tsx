@@ -157,7 +157,7 @@ function BlogContent() {
         />
       </div>
 
-      <p className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg text-yellow-800 dark:text-yellow-200 mt-4">
+      <p className="bg-warning-surface p-4 rounded-lg text-warning mt-4">
         <strong>The Trap:</strong> Developers often confuse the Render Phase
         with the Commit Phase. React runs your component&apos;s JavaScript logic{" "}
         <em>every time</em> a parent renders—but it only touches the DOM if the
@@ -205,7 +205,7 @@ function BlogContent() {
         <li>
           <strong>The Flamegraph:</strong> Each bar is a component.{" "}
           <span className="text-gray-500">Gray</span> = did not render (good).{" "}
-          <span className="text-yellow-600">Yellow/Red</span> = took time to
+          <span className="text-warning">Yellow/Red</span> = took time to
           render (investigate).
         </li>
         <li>
@@ -400,7 +400,7 @@ function BlogContent() {
         — See how to protect expensive components from unnecessary re-renders.
       </p>
 
-      <p className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg text-red-800 dark:text-red-200">
+      <p className="bg-negative-surface p-4 rounded-lg text-negative">
         <strong>Warning:</strong> Don&apos;t add React.memo everywhere! It adds
         memory overhead and code complexity. Only use it when the Profiler
         proves you have a problem.
@@ -711,7 +711,7 @@ function BlogContent() {
         — See how to configure browserslist and source maps properly.
       </p>
 
-      <p className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg text-green-800 dark:text-green-200 mt-4">
+      <p className="bg-positive-surface p-4 rounded-lg text-positive mt-4">
         <strong>Real Impact:</strong> Updating browserslist alone can reduce
         your bundle from 450KB to 180KB. That&apos;s a 60% reduction with a
         5-line config change!
@@ -873,7 +873,7 @@ function BlogContent() {
         </li>
       </ul>
 
-      <p className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg text-yellow-800 dark:text-yellow-200 mt-4">
+      <p className="bg-warning-surface p-4 rounded-lg text-warning mt-4">
         <strong>Best Practice:</strong> Start with framework defaults (Next.js
         auto-prefetches). If using Vite/Webpack, implement route-based splitting
         with TanStack Router. Only manually optimize if profiling shows slow
@@ -953,7 +953,7 @@ function BlogContent() {
         isolate its usage to non-critical paths.
       </p>
 
-      <p className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg text-green-800 dark:text-green-200 mt-6">
+      <p className="bg-positive-surface p-4 rounded-lg text-positive mt-6">
         <strong>Final Thought:</strong> &quot;Building the right thing wrong is
         better than building the wrong thing right... but you can always make
         the right thing <em>righter</em>.&quot;

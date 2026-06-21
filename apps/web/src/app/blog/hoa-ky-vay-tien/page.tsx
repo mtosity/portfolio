@@ -28,7 +28,7 @@ function BlogContent() {
         Những công cụ này được bán cho các nhà đầu tư trong và ngoài nước, bao gồm cả chính phủ nước ngoài, như một cách để huy động vốn.
       </p>
 
-      <blockquote className="bg-gray-800 border-l-4 border-yellow-500 p-4 my-6 italic">
+      <blockquote className="bg-gray-800 border-l-4 border-warning p-4 my-6 italic">
         <p>Vay nợ ~ phát hành trái phiếu</p>
       </blockquote>
 
