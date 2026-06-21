@@ -1,0 +1,165 @@
+/* ──────────────────────────────────────────────────────────────
+   @mtosity/design-system — shadcn/ui bridge
+
+   Drop-in theme for shadcn/ui (Tailwind v4) apps that want the
+   MTosity brutalist-editorial look (warm cream + black + lime).
+
+   Usage (after `@import "tailwindcss"`):
+     @import "@mtosity/design-system/shadcn.css";
+
+   This is SELF-CONTAINED — do NOT also import tokens.css in a shadcn
+   app, or the brand color utilities (bg-accent = lime) will collide
+   with shadcn's accent (a hover surface). This file maps shadcn's
+   semantic tokens onto the palette and ships the heading typography.
+
+   Dark theme: add `data-theme="dark"` to <html> (e.g. next-themes
+   `attribute="data-theme"`). Light is the default.
+   ────────────────────────────────────────────────────────────── */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ── Source palette (runtime CSS vars; flip per theme) ── */
+:root {
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas,
+    "Liberation Mono", Menlo, monospace;
+
+  color-scheme: light;
+
+  --bg: #f2efe8;
+  --bg-secondary: #e8e5dd;
+  --fg: #0d0d0d;
+  --accent: #bef264;
+  --accent-fg: #0d0d0d;
+  --accent-fg-muted: #3f3e38;
+  --border: #0d0d0d;
+  --border-light: #ccc8bd;
+  --muted: #666460;
+  --danger: #b00020;
+
+  --shadow-brutal: 4px 4px 0 var(--border);
+  --shadow-brutal-lg: 6px 6px 0 var(--border);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #14130f;
+  --bg-secondary: #1e1c17;
+  --fg: #f2efe8;
+  --accent: #bef264;
+  --accent-fg: #0d0d0d;
+  --accent-fg-muted: #3f3e38;
+  --border: #f2efe8;
+  --border-light: #3b3830;
+  --muted: #a5a097;
+  --danger: #f06a7e;
+}
+
+/* ── shadcn semantic tokens → palette ── */
+@theme {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+
+  --color-card: var(--bg-secondary);
+  --color-card-foreground: var(--fg);
+
+  --color-popover: var(--bg-secondary);
+  --color-popover-foreground: var(--fg);
+
+  /* Lime is the primary CTA — ink-on-lime text in both themes */
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-fg);
+
+  --color-secondary: var(--bg-secondary);
+  --color-secondary-foreground: var(--fg);
+
+  --color-muted: var(--bg-secondary);
+  --color-muted-foreground: var(--muted);
+
+  /* shadcn "accent" = hover/active surface → subtle lime tint */
+  --color-accent: color-mix(in srgb, var(--accent) 16%, transparent);
+  --color-accent-foreground: var(--fg);
+
+  --color-destructive: var(--danger);
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: var(--border-light);
+  --color-input: var(--border-light);
+  --color-ring: var(--accent);
+
+  --color-sidebar: var(--bg-secondary);
+  --color-sidebar-foreground: var(--fg);
+  --color-sidebar-primary: var(--accent);
+  --color-sidebar-primary-foreground: var(--accent-fg);
+  --color-sidebar-accent: color-mix(in srgb, var(--accent) 16%, transparent);
+  --color-sidebar-accent-foreground: var(--fg);
+  --color-sidebar-border: var(--border-light);
+  --color-sidebar-ring: var(--accent);
+
+  /* Data-viz palette — legible on warm-black and cream */
+  --color-chart-1: #a3e635;
+  --color-chart-2: #38bdf8;
+  --color-chart-3: #fbbf24;
+  --color-chart-4: #f06a7e;
+  --color-chart-5: #a78bfa;
+
+  /* Brutalist: near-sharp corners (portfolio uses ~4px on buttons) */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+
+  /* Fonts — provide --font-inter / --font-crimson-text / --font-lora
+     via next/font in the consuming app's layout. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
+  --font-mono: var(--font-mono);
+}
+
+/* ── Base typography: serif display headings (the editorial signature) ── */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+  }
+  h1 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* ── Shared brutalist utilities ── */
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border-light);
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+}
+
+.shadow-brutal {
+  box-shadow: var(--shadow-brutal);
+}
+
+.shadow-brutal-lg {
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+.link-hover {
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.link-hover:hover {
+  color: var(--fg);
+}

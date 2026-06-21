@@ -1,6 +1,6 @@
 {
   "name": "@mtosity/design-system",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MTosity design tokens and brutalist UI primitives (warm cream + black + lime).",
   "license": "MIT",
   "repository": {
@@ -21,6 +21,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./tokens.css": "./src/tokens.css",
+    "./shadcn.css": "./src/shadcn.css",
     "./styles": "./src/tokens.css"
   },
   "scripts": {
