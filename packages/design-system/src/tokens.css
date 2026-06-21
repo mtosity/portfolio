@@ -11,6 +11,8 @@
    `static` forces emission even before any utility uses them. */
 /* Make Tailwind's dark: variant follow the theme switch instead of the
    OS preference. */
+@import "./system.css";
+
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme static {

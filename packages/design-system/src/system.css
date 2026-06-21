@@ -1,0 +1,194 @@
+/* ──────────────────────────────────────────────────────────────
+   @mtosity/design-system — shared system layer
+
+   Status colors, tags, cards, tables, and the chart palette. Imported
+   by both tokens.css and shadcn.css, so every consuming app gets them.
+
+   Theme-adaptive via [data-theme="dark"]. Status TEXT uses a darker
+   shade in light and a brighter one in dark; SURFACES/borders use
+   translucent tints (color-mix) so they read on both the cream and
+   warm-black backgrounds without per-theme overrides.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Semantic status — readable text on the light (cream) background */
+  --positive: #15803d; /* green-700 */
+  --negative: #b91c1c; /* red-700   */
+  --warning: #b45309; /* amber-700 */
+  --info: #1d4ed8; /* blue-700  */
+
+  /* Translucent surfaces + borders (work on both themes) */
+  --positive-surface: color-mix(in srgb, #22c55e 14%, transparent);
+  --positive-surface-strong: color-mix(in srgb, #22c55e 22%, transparent);
+  --positive-border: color-mix(in srgb, #22c55e 38%, transparent);
+  --negative-surface: color-mix(in srgb, #ef4444 14%, transparent);
+  --negative-surface-strong: color-mix(in srgb, #ef4444 22%, transparent);
+  --negative-border: color-mix(in srgb, #ef4444 38%, transparent);
+  --warning-surface: color-mix(in srgb, #f59e0b 16%, transparent);
+  --warning-surface-strong: color-mix(in srgb, #f59e0b 24%, transparent);
+  --warning-border: color-mix(in srgb, #f59e0b 40%, transparent);
+  --info-surface: color-mix(in srgb, #3b82f6 14%, transparent);
+  --info-border: color-mix(in srgb, #3b82f6 38%, transparent);
+
+  /* Chart palette — distinct + legible on the cream background */
+  --chart-1: #84cc16; /* lime   */
+  --chart-2: #0ea5e9; /* sky    */
+  --chart-3: #f59e0b; /* amber  */
+  --chart-4: #ec4899; /* pink   */
+  --chart-5: #8b5cf6; /* violet */
+  --chart-6: #14b8a6; /* teal   */
+  --chart-7: #f97316; /* orange */
+  --chart-8: #64748b; /* slate  */
+}
+
+[data-theme="dark"] {
+  --positive: #4ade80; /* green-400 */
+  --negative: #f87171; /* red-400   */
+  --warning: #fbbf24; /* amber-400 */
+  --info: #60a5fa; /* blue-400  */
+
+  /* Brighter chart hues for the warm-black background */
+  --chart-1: #a3e635;
+  --chart-2: #38bdf8;
+  --chart-3: #fbbf24;
+  --chart-4: #f472b6;
+  --chart-5: #a78bfa;
+  --chart-6: #2dd4bf;
+  --chart-7: #fb923c;
+  --chart-8: #94a3b8;
+}
+
+/* Expose as Tailwind utilities: text-positive, bg-negative-surface,
+   ring-warning, text-chart-3, … */
+@theme {
+  --color-positive: var(--positive);
+  --color-positive-surface: var(--positive-surface);
+  --color-negative: var(--negative);
+  --color-negative-surface: var(--negative-surface);
+  --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+  --color-info: var(--info);
+  --color-info-surface: var(--info-surface);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+}
+
+/* ── Tag / status pill ──
+   Mono uppercase, tinted surface + ring, colored text. Compose a tone:
+   <span class="tag tag-positive">BUY</span> */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 0.12rem 0.45rem;
+  font-family: var(
+    --font-mono,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace
+  );
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tag-positive {
+  color: var(--positive);
+  background: var(--positive-surface);
+  border-color: var(--positive-border);
+}
+.tag-negative {
+  color: var(--negative);
+  background: var(--negative-surface);
+  border-color: var(--negative-border);
+}
+.tag-warning {
+  color: var(--warning);
+  background: var(--warning-surface);
+  border-color: var(--warning-border);
+}
+.tag-info {
+  color: var(--info);
+  background: var(--info-surface);
+  border-color: var(--info-border);
+}
+.tag-neutral {
+  color: var(--muted);
+  background: var(--bg-secondary);
+  border-color: var(--border-light);
+}
+.tag-strong-positive {
+  color: var(--positive);
+  background: var(--positive-surface-strong);
+  border-color: var(--positive-border);
+  font-weight: 700;
+}
+.tag-strong-negative {
+  color: var(--negative);
+  background: var(--negative-surface-strong);
+  border-color: var(--negative-border);
+  font-weight: 700;
+}
+
+/* ── Card ── */
+.ds-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 1rem;
+}
+.ds-card-interactive {
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
+}
+.ds-card-interactive:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+}
+
+/* ── Table ── */
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.ds-table th {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.ds-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.ds-table tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+/* ── Numeric deltas ── */
+.stat-up {
+  color: var(--positive);
+}
+.stat-down {
+  color: var(--negative);
+}

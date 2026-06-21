@@ -536,6 +536,56 @@ Monospace, 0.7rem, uppercase, underline = `1px solid var(--border-light)` that d
 
 ---
 
+## System Layer — Status, Tags, Cards, Charts
+
+`packages/design-system/src/system.css` is a shared layer imported by both
+`tokens.css` (portfolio) and `shadcn.css` (shadcn consumers like thestockie),
+so every app gets the same status vocabulary.
+
+### Status colors
+
+Semantic tokens, theme-adaptive: the **text** shade darkens in light and
+brightens in dark; **surfaces/borders** are translucent `color-mix` tints that
+read on both cream and warm-black.
+
+| Tone       | Light text | Dark text  | Utilities                                                 |
+| ---------- | ---------- | ---------- | --------------------------------------------------------- |
+| `positive` | `#15803d`  | `#4ade80`  | `text-positive` · `bg-positive-surface` · `ring-positive` |
+| `negative` | `#b91c1c`  | `#f87171`  | `text-negative` · `bg-negative-surface` · `ring-negative` |
+| `warning`  | `#b45309`  | `#fbbf24`  | `text-warning` · `bg-warning-surface` · `ring-warning`    |
+| `info`     | `#1d4ed8`  | `#60a5fa`  | `text-info` · `bg-info-surface` · `ring-info`             |
+
+`.stat-up` / `.stat-down` are shorthand text colors for numeric deltas.
+
+### Tags
+
+`.tag` + a tone class — mono, uppercase, tinted surface + ring:
+
+```html
+<span class="tag tag-positive">Buy</span>
+<span class="tag tag-strong-negative">Strong Sell</span>
+```
+
+Tones: `tag-positive`, `tag-negative`, `tag-warning`, `tag-info`,
+`tag-neutral`, plus denser `tag-strong-positive` / `tag-strong-negative`.
+Also a React component: `import { Tag } from "@mtosity/design-system"` →
+`<Tag tone="positive">Buy</Tag>`.
+
+### Cards & tables
+
+- `.ds-card` — `--bg-secondary` surface, `--border-light` border, 4px radius.
+  Add `.ds-card-interactive` for a hover that drops the brutalist offset shadow.
+- `.ds-table` — full-width, mono uppercase `<th>`, `--border-light` row rules,
+  `--bg-secondary` row hover.
+
+### Chart palette
+
+Eight distinct, theme-tuned hues exposed as `--color-chart-1..8` (use
+`text-chart-3`, `fill-chart-2`, or `var(--chart-2)` directly). Brighter variants
+apply automatically under `[data-theme="dark"]`.
+
+---
+
 ## Technology Stack
 
 | Layer | Tool |
