@@ -6,16 +6,26 @@ const nextConfig = {
     "@mtosity/whisper",
     "@mtosity/tool-speech-to-text",
     "@mtosity/tool-img-grid",
-    "@mtosity/tool-instagram",
+    "@mtosity/tool-video",
     "@mtosity/admin",
   ],
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node", "sharp"],
+  async redirects() {
+    // The Instagram Reel Extractor became the multi-platform Video Extractor.
+    return [
+      {
+        source: "/tools/instagram",
+        destination: "/tools/video",
+        permanent: true,
+      },
+    ];
+  },
   // Globs relative to the app dir plus monorepo-root-relative fallbacks —
   // the tracing root moved to the workspace root when this became a monorepo.
   outputFileTracingIncludes: {
-    "/api/instagram/info": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
-    "/api/instagram/audio": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
-    "/api/instagram/download": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
+    "/api/video/info": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
+    "/api/video/audio": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
+    "/api/video/download": ["./bin/yt-dlp-linux-*", "apps/web/bin/yt-dlp-linux-*"],
   },
   outputFileTracingExcludes: {
     "*": [

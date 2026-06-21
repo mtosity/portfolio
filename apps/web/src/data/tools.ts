@@ -35,11 +35,11 @@ export const tools: Tool[] = [
     icon: "grid",
   },
   {
-    slug: "instagram",
-    title: "Instagram Reel Extractor",
-    tagline: "MP4, audio, or transcript from any public reel.",
+    slug: "video",
+    title: "Video Extractor",
+    tagline: "MP4, audio, or transcript from any public video.",
     description:
-      "Paste a public Instagram reel URL to download the video or generate a full transcript. Audio is fetched server-side via yt-dlp; transcription happens locally in-browser via WASM Whisper.",
+      "Paste a public Instagram, YouTube, or TikTok URL to download the video or generate a full transcript. Audio is fetched server-side via yt-dlp; transcription happens locally in-browser via WASM Whisper.",
     tags: ["yt-dlp", "Whisper", "WASM", "Next.js API"],
     status: "live",
     year: "2026",

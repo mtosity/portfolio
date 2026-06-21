@@ -2,9 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 const ALLOWED_HOSTS = [
+  // Instagram
   ".cdninstagram.com",
   ".fbcdn.net",
   ".instagram.com",
+  // YouTube
+  ".ytimg.com",
+  ".ggpht.com",
+  ".googleusercontent.com",
+  // TikTok
+  ".tiktokcdn.com",
+  ".tiktokcdn-us.com",
+  ".tiktokcdn-eu.com",
+  ".ibyteimg.com",
+  ".ttwstatic.com",
+  ".muscdn.com",
 ];
 
 export async function GET(req: NextRequest) {
