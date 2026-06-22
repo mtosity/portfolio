@@ -40,6 +40,12 @@ This exposes:
   `dark:` variant (`@custom-variant`).
 - Shared utility classes: `.chip`, `.link-hover`, `.section-wrapper`,
   `.theme-light-scope`, `.scrollbar-thin`.
+- System layer (status colors, tags, cards, tables, chart palette) via
+  `src/system.css`, imported by both `tokens.css` and `shadcn.css`:
+  - `.tag` (+ `.tag-positive` / `-negative` / `-warning` / `-info` / `-neutral`)
+  - `.ds-card` — the default card: strong theme-adaptive border + hard offset
+    shadow, shown directly. Add `.ds-card-interactive` for a hover lift.
+  - `.ds-table`, and `--color-chart-1..8`.
 
 The lime accent is identical in both themes; only bg/fg/border swap.
 
