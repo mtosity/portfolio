@@ -142,22 +142,26 @@
   font-weight: 700;
 }
 
-/* ── Card ── */
+/* ── Card ──
+   Default card chrome is brutalist: a strong (theme-adaptive) border + hard
+   offset shadow, shown directly. `--border` is near-black on light and
+   near-white on dark, so the card lifts off either background. Add
+   `.ds-card-interactive` for a hover lift. */
 .ds-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 1rem;
+  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
 }
 .ds-card-interactive {
   transition:
-    border-color 0.15s,
     box-shadow 0.15s,
     transform 0.15s;
 }
 .ds-card-interactive:hover {
-  border-color: var(--border);
-  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-brutal-lg, 6px 6px 0 var(--border));
 }
 
 /* ── Table ── */
