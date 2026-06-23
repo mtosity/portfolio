@@ -100,26 +100,13 @@ export function DesignSystemShowcase({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "1rem",
-              paddingBottom: "1.25rem",
-              borderBottom: "1px solid var(--border)",
-            }}
+          <span
+            className="tag tag-positive"
+            title="Latest published version"
+            style={{ display: "inline-block", marginBottom: "1.5rem" }}
           >
-            <span style={{ fontFamily: mono, fontSize: "0.75rem", letterSpacing: "0.2em", color: "var(--muted)" }}>
-              00 —
-            </span>
-            <span style={{ fontFamily: mono, fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.2em" }}>
-              DESIGN SYSTEM
-            </span>
-            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
-            <span className="tag tag-positive" title="Latest published version">
-              v{version}
-            </span>
-          </div>
+            v{version}
+          </span>
 
           <h1
             style={{
@@ -128,11 +115,11 @@ export function DesignSystemShowcase({
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-0.025em",
-              margin: "3rem 0 0",
+              margin: 0,
               maxWidth: "16ch",
             }}
           >
-            Tokens &amp; components,{" "}
+            Design system,{" "}
             <span style={{ fontStyle: "italic", color: "var(--muted)" }}>one source of truth.</span>
           </h1>
           <p style={{ marginTop: "1.5rem", fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--muted)", maxWidth: "56ch" }}>
@@ -143,8 +130,18 @@ export function DesignSystemShowcase({
           </p>
         </motion.header>
 
+        {/* ── Installation ── */}
+        <Section num="01" title="Installation">
+          <div className="ds-card" style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+            <span className="tag tag-info">Coming soon</span>
+            <span style={{ color: "var(--muted)", fontSize: "0.95rem" }}>
+              Install + setup instructions are on the way.
+            </span>
+          </div>
+        </Section>
+
         {/* ── Colors ── */}
-        <Section num="01" title="Core palette" subtitle="Swap bg/fg + borders per theme; the lime accent is constant.">
+        <Section num="02" title="Core palette" subtitle="Swap bg/fg + borders per theme; the lime accent is constant.">
           <Grid min={150}>
             {CORE.map((t) => (
               <Swatch key={t.v} {...t} value={resolved[t.v]} />
@@ -153,7 +150,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Status ── */}
-        <Section num="02" title="Status colors" subtitle="Semantic tones for positive / negative / warning / info, plus translucent surfaces.">
+        <Section num="03" title="Status colors" subtitle="Semantic tones for positive / negative / warning / info, plus translucent surfaces.">
           <Grid min={150}>
             {STATUS.map((t) => (
               <Swatch key={t.v} {...t} value={resolved[t.v]} />
@@ -168,7 +165,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Chart palette ── */}
-        <Section num="03" title="Chart palette" subtitle="Eight distinct hues, brightened on dark.">
+        <Section num="04" title="Chart palette" subtitle="Eight distinct hues, brightened on dark.">
           <Grid min={110}>
             {CHART.map((v, i) => (
               <Swatch key={v} v={v} label={`Chart ${i + 1}`} value={resolved[v]} />
@@ -177,7 +174,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Typography ── */}
-        <Section num="04" title="Typography">
+        <Section num="05" title="Typography">
           <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
             {FONTS.map((f) => (
               <div key={f.v} className="ds-card">
@@ -193,7 +190,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Shadows ── */}
-        <Section num="05" title="Shadows" subtitle="Hard offset shadows that follow --border, so they adapt per theme.">
+        <Section num="06" title="Shadows" subtitle="Hard offset shadows that follow --border, so they adapt per theme.">
           <Grid min={200}>
             {[
               { v: "--shadow-brutal", label: "Brutal" },
@@ -217,7 +214,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Tags ── */}
-        <Section num="06" title="Tags" subtitle="<Tag tone> pills built on the .tag utilities.">
+        <Section num="07" title="Tags" subtitle="<Tag tone> pills built on the .tag utilities.">
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", alignItems: "center" }}>
             <Tag tone="positive">Positive</Tag>
             <Tag tone="negative">Negative</Tag>
@@ -230,7 +227,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Cards ── */}
-        <Section num="07" title="Cards" subtitle=".ds-card is brutalist by default (border + offset shadow). Add .ds-card-interactive for a hover lift.">
+        <Section num="08" title="Cards" subtitle=".ds-card is brutalist by default (border + offset shadow). Add .ds-card-interactive for a hover lift.">
           <Grid min={240}>
             <div className="ds-card">
               <div style={{ fontFamily: heading, fontSize: "1.25rem", marginBottom: "0.35rem" }}>
@@ -252,7 +249,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Buttons ── */}
-        <Section num="08" title="Buttons">
+        <Section num="09" title="Buttons">
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center" }}>
             <AccentButton onClick={() => {}}>Accent</AccentButton>
             <AccentButton shadow onClick={() => {}}>Accent · shadow</AccentButton>
@@ -264,7 +261,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Chips & table ── */}
-        <Section num="09" title="Chips & table">
+        <Section num="10" title="Chips & table">
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
             <span className="chip">.chip</span>
             <span className="chip">Mono label</span>
@@ -301,7 +298,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Components ── */}
-        <Section num="10" title="Components">
+        <Section num="11" title="Components">
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             <ComponentRow label="<ThemeToggle />" note="Stateless, hydration-safe theme switch.">
               <ThemeToggle />
