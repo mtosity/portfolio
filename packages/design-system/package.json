@@ -23,7 +23,8 @@
     "./tokens.css": "./src/tokens.css",
     "./shadcn.css": "./src/shadcn.css",
     "./system.css": "./src/system.css",
-    "./styles": "./src/tokens.css"
+    "./styles": "./src/tokens.css",
+    "./package.json": "./package.json"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
