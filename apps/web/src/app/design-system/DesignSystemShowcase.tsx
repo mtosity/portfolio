@@ -119,8 +119,7 @@ export function DesignSystemShowcase({
               maxWidth: "16ch",
             }}
           >
-            Design system,{" "}
-            <span style={{ fontStyle: "italic", color: "var(--muted)" }}>one source of truth.</span>
+            Design system.
           </h1>
           <p style={{ marginTop: "1.5rem", fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--muted)", maxWidth: "56ch" }}>
             A living reference for{" "}
