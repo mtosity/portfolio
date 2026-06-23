@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { label: "Photos", href: "/photography" },
   { label: "Writing", href: "/blog" },
   { label: "Tools", href: "/tools" },
+  { label: "Design System", href: "/design-system" },
 ];
 
 export const SlideTabs = () => {

@@ -47,3 +47,5 @@ Single Vercel project. Root `vercel.json` builds the workspace (`turbo run build
 ## Design Documentation
 
 `DESIGN.md` is the canonical design reference. **Always keep it up to date** when making visual changes — colors, typography, spacing, layout, animations, components, or page structure. Token changes belong in `packages/design-system/src/tokens.css` and the DESIGN.md palette table together.
+
+The rendered showcase lives at `/design-system` (`apps/web/src/app/design-system/`). When you change `@mtosity/design-system` tokens, components, or version, follow `packages/design-system/AGENTS.md` to keep that page in sync.
