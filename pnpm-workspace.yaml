@@ -2,6 +2,15 @@ packages:
   - apps/*
   - packages/*
 
+# pnpm 11 requires an explicit build-script decision. These match the
+# pnpm 10 behavior on main (scripts were never run; sharp/onnxruntime ship
+# prebuilt binaries, so no native build is needed).
+allowBuilds:
+  '@parcel/watcher': false
+  onnxruntime-node: false
+  protobufjs: false
+  sharp: false
+
 # Single source of truth for versions shared across workspace packages.
 catalog:
   next: 16.2.9
@@ -9,7 +18,7 @@ catalog:
   react-dom: ^19.2.0
   "@types/react": ^19.2.0
   "@types/react-dom": ^19.2.0
-  typescript: ^5.9.0
+  typescript: ^6.0.0
   framer-motion: ^12.0.0
   sass: ^1.80.1
   eslint: ^9.0.0
