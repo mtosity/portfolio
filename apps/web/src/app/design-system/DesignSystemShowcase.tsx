@@ -326,13 +326,20 @@ export function DesignSystemShowcase({
               <ThemeToggle />
             </ComponentRow>
 
-            <ComponentRow label="<SectionHeader />" note="Numbered editorial section title.">
-              {/* SectionHeader ships a 3rem bottom margin (it's a full-width
-                  section divider); cancel it so the demo lines up in the row. */}
-              <div style={{ width: "100%", maxWidth: 420, marginBottom: "-3rem" }}>
+            {/* SectionHeader is a full-width section divider, so it gets its
+                own stacked row instead of the centered label/demo split. Its
+                built-in 3rem bottom margin is canceled to avoid a big gap. */}
+            <div style={{ paddingBottom: "1.5rem", borderBottom: "1px solid var(--border-light)" }}>
+              <div style={{ fontFamily: mono, fontSize: "0.8rem", fontWeight: 700 }}>
+                &lt;SectionHeader /&gt;
+              </div>
+              <div style={{ color: "var(--muted)", fontSize: "0.85rem", marginTop: "0.3rem", marginBottom: "1.5rem" }}>
+                Numbered editorial section title — a full-width divider.
+              </div>
+              <div style={{ marginBottom: "-3rem" }}>
                 <SectionHeader num="04" title="Example" />
               </div>
-            </ComponentRow>
+            </div>
 
             <ComponentRow label="<ConfirmDialog />" note="Accessible modal — Esc / Enter handled.">
               <AccentButton onClick={() => setConfirmOpen(true)}>Open dialog</AccentButton>
