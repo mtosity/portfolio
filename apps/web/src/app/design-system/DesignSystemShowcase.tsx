@@ -136,7 +136,7 @@ export function DesignSystemShowcase({
           <div className="ds-card" style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
             <span className="tag tag-info">Coming soon</span>
             <span style={{ color: "var(--muted)", fontSize: "0.95rem" }}>
-              Install + setup instructions are on the way.
+              Private package only for now.
             </span>
           </div>
         </Section>
