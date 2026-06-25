@@ -301,7 +301,7 @@ export function DesignSystemShowcase({
         {/* ── Components ── */}
         <Section num="11" title="Components">
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            <ComponentRow label="<Select />" note="Brutalist native select — accessible, custom chevron, offset-shadow focus.">
+            <ComponentRow label="<Select />" note="Brutalist select with a fully styled dropdown — accessible listbox, lime-highlighted options.">
               <Select
                 defaultValue="medium"
                 aria-label="Demo select"
@@ -317,7 +317,8 @@ export function DesignSystemShowcase({
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <Toggle defaultChecked aria-label="Demo toggle on" />
                 <Toggle aria-label="Demo toggle off" />
-                <Toggle disabled defaultChecked aria-label="Demo toggle disabled" />
+                <Toggle disabled defaultChecked aria-label="Demo toggle disabled on" />
+                <Toggle disabled aria-label="Demo toggle disabled off" />
               </div>
             </ComponentRow>
 
@@ -326,7 +327,9 @@ export function DesignSystemShowcase({
             </ComponentRow>
 
             <ComponentRow label="<SectionHeader />" note="Numbered editorial section title.">
-              <div style={{ width: "100%", maxWidth: 420 }}>
+              {/* SectionHeader ships a 3rem bottom margin (it's a full-width
+                  section divider); cancel it so the demo lines up in the row. */}
+              <div style={{ width: "100%", maxWidth: 420, marginBottom: "-3rem" }}>
                 <SectionHeader num="04" title="Example" />
               </div>
             </ComponentRow>
