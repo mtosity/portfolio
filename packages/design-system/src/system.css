@@ -196,3 +196,93 @@
 .stat-down {
   color: var(--negative);
 }
+
+/* ── Select ──
+   Native <select> with the appearance stripped, a strong brutalist border and
+   a hard offset shadow on focus. Theme-adaptive via the border/bg tokens. */
+.ds-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.ds-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--font-sans, inherit);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--fg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.5rem 2rem 0.5rem 0.7rem;
+  cursor: pointer;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+}
+.ds-select select:focus-visible {
+  outline: none;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+}
+.ds-select select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-select-chevron {
+  position: absolute;
+  right: 0.65rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* ── Toggle / switch ──
+   Rectangular brutalist switch: hard border + square thumb. Off = surface +
+   ink thumb; on = lime track + ink-on-lime thumb. */
+.ds-toggle {
+  position: relative;
+  display: inline-block;
+  width: 2.6rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    box-shadow 0.15s,
+    transform 0.15s;
+}
+.ds-toggle:focus-visible {
+  outline: none;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+}
+.ds-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ds-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--fg);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.18s;
+}
+.ds-toggle[aria-checked="true"] {
+  background: var(--accent);
+}
+.ds-toggle[aria-checked="true"] .ds-toggle-thumb {
+  background: var(--accent-fg);
+  transform: translateX(1.1rem);
+}

@@ -12,6 +12,8 @@ import {
   ConfirmDialog,
   ThemeToggle,
   Reveal,
+  Select,
+  Toggle,
 } from "@mtosity/design-system";
 
 const mono = "var(--font-mono)";
@@ -299,6 +301,26 @@ export function DesignSystemShowcase({
         {/* ── Components ── */}
         <Section num="11" title="Components">
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+            <ComponentRow label="<Select />" note="Brutalist native select — accessible, custom chevron, offset-shadow focus.">
+              <Select
+                defaultValue="medium"
+                aria-label="Demo select"
+                options={[
+                  { value: "low", label: "Low" },
+                  { value: "medium", label: "Medium" },
+                  { value: "high", label: "High" },
+                ]}
+              />
+            </ComponentRow>
+
+            <ComponentRow label="<Toggle />" note="Switch (button[role=switch]) — lime on-state, keyboard-operable.">
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                <Toggle defaultChecked aria-label="Demo toggle on" />
+                <Toggle aria-label="Demo toggle off" />
+                <Toggle disabled defaultChecked aria-label="Demo toggle disabled" />
+              </div>
+            </ComponentRow>
+
             <ComponentRow label="<ThemeToggle />" note="Stateless, hydration-safe theme switch.">
               <ThemeToggle />
             </ComponentRow>

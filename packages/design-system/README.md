@@ -46,6 +46,8 @@ This exposes:
   - `.ds-card` — the default card: strong theme-adaptive border + hard offset
     shadow, shown directly. Add `.ds-card-interactive` for a hover lift.
   - `.ds-table`, and `--color-chart-1..8`.
+  - `.ds-select` and `.ds-toggle` — brutalist form controls (paired with the
+    `<Select>` / `<Toggle>` React components).
 
 The lime accent is identical in both themes; only bg/fg/border swap.
 
