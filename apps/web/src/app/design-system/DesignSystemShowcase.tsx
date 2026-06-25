@@ -12,6 +12,8 @@ import {
   ConfirmDialog,
   ThemeToggle,
   Reveal,
+  Select,
+  Toggle,
 } from "@mtosity/design-system";
 
 const mono = "var(--font-mono)";
@@ -134,7 +136,7 @@ export function DesignSystemShowcase({
           <div className="ds-card" style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
             <span className="tag tag-info">Coming soon</span>
             <span style={{ color: "var(--muted)", fontSize: "0.95rem" }}>
-              Install + setup instructions are on the way.
+              Private package only for now.
             </span>
           </div>
         </Section>
@@ -299,15 +301,45 @@ export function DesignSystemShowcase({
         {/* ── Components ── */}
         <Section num="11" title="Components">
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+            <ComponentRow label="<Select />" note="Brutalist select with a fully styled dropdown — accessible listbox, lime-highlighted options.">
+              <Select
+                defaultValue="medium"
+                aria-label="Demo select"
+                options={[
+                  { value: "low", label: "Low" },
+                  { value: "medium", label: "Medium" },
+                  { value: "high", label: "High" },
+                ]}
+              />
+            </ComponentRow>
+
+            <ComponentRow label="<Toggle />" note="Switch (button[role=switch]) — lime on-state, keyboard-operable.">
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                <Toggle defaultChecked aria-label="Demo toggle on" />
+                <Toggle aria-label="Demo toggle off" />
+                <Toggle disabled defaultChecked aria-label="Demo toggle disabled on" />
+                <Toggle disabled aria-label="Demo toggle disabled off" />
+              </div>
+            </ComponentRow>
+
             <ComponentRow label="<ThemeToggle />" note="Stateless, hydration-safe theme switch.">
               <ThemeToggle />
             </ComponentRow>
 
-            <ComponentRow label="<SectionHeader />" note="Numbered editorial section title.">
-              <div style={{ width: "100%", maxWidth: 420 }}>
+            {/* SectionHeader is a full-width section divider, so it gets its
+                own stacked row instead of the centered label/demo split. Its
+                built-in 3rem bottom margin is canceled to avoid a big gap. */}
+            <div style={{ paddingBottom: "1.5rem", borderBottom: "1px solid var(--border-light)" }}>
+              <div style={{ fontFamily: mono, fontSize: "0.8rem", fontWeight: 700 }}>
+                &lt;SectionHeader /&gt;
+              </div>
+              <div style={{ color: "var(--muted)", fontSize: "0.85rem", marginTop: "0.3rem", marginBottom: "1.5rem" }}>
+                Numbered editorial section title — a full-width divider.
+              </div>
+              <div style={{ marginBottom: "-3rem" }}>
                 <SectionHeader num="04" title="Example" />
               </div>
-            </ComponentRow>
+            </div>
 
             <ComponentRow label="<ConfirmDialog />" note="Accessible modal — Esc / Enter handled.">
               <AccentButton onClick={() => setConfirmOpen(true)}>Open dialog</AccentButton>

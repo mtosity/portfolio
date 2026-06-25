@@ -7,4 +7,6 @@ export { Reveal } from "./components/Reveal";
 export { SectionHeader } from "./components/SectionHeader";
 export { OutlineButton } from "./components/OutlineButton";
 export { StandardButton } from "./components/StandardButton";
+export { Select, type SelectOption } from "./components/Select";
+export { Toggle } from "./components/Toggle";
 export { useMediaQuery, useIsMobile } from "./hooks/useMediaQuery";
