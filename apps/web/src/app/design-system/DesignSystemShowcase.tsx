@@ -14,6 +14,7 @@ import {
   Reveal,
   Select,
   Toggle,
+  AudioPlayer,
 } from "@mtosity/design-system";
 
 const mono = "var(--font-mono)";
@@ -320,6 +321,13 @@ export function DesignSystemShowcase({
                 <Toggle disabled defaultChecked aria-label="Demo toggle disabled on" />
                 <Toggle disabled aria-label="Demo toggle disabled off" />
               </div>
+            </ComponentRow>
+
+            <ComponentRow label="<AudioPlayer />" note="Brutalist MP3 player — lime play/pause, accent seek bar (keyboard-operable), time read-out. For voice/audio samples.">
+              <AudioPlayer
+                src="/samples/demo-voice.mp3"
+                title="Aria — sample voice"
+              />
             </ComponentRow>
 
             <ComponentRow label="<ThemeToggle />" note="Stateless, hydration-safe theme switch.">
