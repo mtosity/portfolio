@@ -9,4 +9,5 @@ export { OutlineButton } from "./components/OutlineButton";
 export { StandardButton } from "./components/StandardButton";
 export { Select, type SelectOption } from "./components/Select";
 export { Toggle } from "./components/Toggle";
+export { AudioPlayer } from "./components/AudioPlayer";
 export { useMediaQuery, useIsMobile } from "./hooks/useMediaQuery";
