@@ -1,0 +1,3 @@
+export { AdminBlog as default } from "@mtosity/admin";
+
+export const dynamic = "force-dynamic";

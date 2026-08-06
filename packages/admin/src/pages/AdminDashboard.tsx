@@ -52,6 +52,13 @@ export default async function Dashboard() {
             <span className="dash-action-sub">Write &amp; publish</span>
           </span>
         </Link>
+        <Link href="/admin/blog/new" className="dash-action">
+          <span className="dash-action-plus">+</span>
+          <span>
+            <span className="dash-action-title">New blog post</span>
+            <span className="dash-action-sub">Draft &amp; publish</span>
+          </span>
+        </Link>
         <Link href="/admin/photography" className="dash-action">
           <span className="dash-action-plus">+</span>
           <span>
@@ -120,6 +127,34 @@ export default async function Dashboard() {
             </div>
           )}
         </section>
+
+        {/* Blog — editor-authored posts live in Postgres; the five legacy
+            posts stay as hand-written .tsx under apps/web/src/app/blog. */}
+        <section className="dash-blog">
+          <div className="dash-sec-head">
+            <h2 className="dash-h2">Blog</h2>
+            <Link href="/admin/blog" className="dash-viewall">
+              View all →
+            </Link>
+          </div>
+          <ul className="dash-list">
+            <li className="dash-row">
+              <Link href="/admin/blog" className="dash-row-title">
+                All posts &amp; drafts
+              </Link>
+            </li>
+            <li className="dash-row">
+              <Link href="/admin/blog/new" className="dash-row-title">
+                Write a new post
+              </Link>
+            </li>
+            <li className="dash-row">
+              <Link href="/admin/blog/definitions" className="dash-row-title">
+                Anchor sources — definitions &amp; code examples
+              </Link>
+            </li>
+          </ul>
+        </section>
       </div>
 
       <style>{`
@@ -128,7 +163,8 @@ export default async function Dashboard() {
           font-size: 2.1rem; font-weight: 600; margin: 0 0 1.5rem;
         }
         .dash-actions {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 2.5rem;
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 0.85rem; margin-bottom: 2.5rem;
         }
         .dash-action {
           display: flex; align-items: center; gap: 0.9rem;
@@ -164,6 +200,7 @@ export default async function Dashboard() {
         .dash-cols {
           display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
         }
+        .dash-blog { grid-column: 1 / -1; }
         @media (max-width: 700px) {
           .dash-cols { grid-template-columns: 1fr; gap: 2rem; }
           .dash-actions { grid-template-columns: 1fr; }
