@@ -47,6 +47,17 @@ export default async function AdminLayout({
           Notes
         </Link>
         <Link
+          href="/admin/blog"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.72rem",
+            color: "var(--muted)",
+            textDecoration: "none",
+          }}
+        >
+          Blog
+        </Link>
+        <Link
           href="/admin/photography"
           style={{
             fontFamily: "var(--font-mono)",

@@ -18,6 +18,20 @@ interface BlogLayoutProps {
   date: string;
   category?: string;
   children: React.ReactNode;
+  /**
+   * Extra anchor targets for editor-authored posts, keyed the same way as
+   * definitions.tsx (contract §1's `data-anchor-key`).
+   *
+   * Contract §4: static wins. These are merged UNDER the static maps, so a key
+   * that exists in definitions.tsx always resolves to the hand-written version
+   * and the 5 legacy posts cannot be affected by a database row. Legacy posts
+   * pass neither prop, so their lookup is byte-identical to before.
+   *
+   * `Definition.content` is a ReactNode here even though the DB stores HTML —
+   * the caller converts with `renderBlogHtml()` before passing it in.
+   */
+  extraDefinitions?: Record<string, Definition>;
+  extraCodeExamples?: Record<string, CodeExample>;
 }
 
 interface Heading {
@@ -242,8 +256,18 @@ export default function BlogLayout({
   date,
   category,
   children,
+  extraDefinitions,
+  extraCodeExamples,
 }: BlogLayoutProps) {
   void category;
+  // Static-file first, DB second (contract §4): spreading the static maps last
+  // means a key present in both resolves to the hand-written entry.
+  const resolvedDefinitions = extraDefinitions
+    ? { ...extraDefinitions, ...definitions }
+    : definitions;
+  const resolvedCodeExamples = extraCodeExamples
+    ? { ...extraCodeExamples, ...codeExamples }
+    : codeExamples;
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [sidebarMode, setSidebarMode] = useState<SidebarMode>("toc");
   const [currentDefinition, setCurrentDefinition] = useState<Definition | null>(null);
@@ -315,7 +339,7 @@ export default function BlogLayout({
   };
 
   const handleDefinitionRequest = (definitionKey: string, _anchorId: string) => {
-    const definition = definitions[definitionKey];
+    const definition = resolvedDefinitions[definitionKey];
     if (!definition) return;
     if (isSidebarCollapsed) setIsSidebarCollapsed(false);
     if (sidebarMode === "definition" && currentDefinition) {
@@ -333,7 +357,7 @@ export default function BlogLayout({
   };
 
   const handleCodeExampleRequest = (codeKey: string, _anchorId: string) => {
-    const codeExample = codeExamples[codeKey];
+    const codeExample = resolvedCodeExamples[codeKey];
     if (!codeExample) return;
     if (isSidebarCollapsed) setIsSidebarCollapsed(false);
     if (sidebarMode === "code" && currentCodeExample) {

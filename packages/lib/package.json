@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./blog": "./src/blog.ts",
+    "./blog-definitions": "./src/blog-definitions.ts",
     "./constants": "./src/constants.ts",
     "./db": "./src/db.ts",
     "./gallery": "./src/gallery.ts",
