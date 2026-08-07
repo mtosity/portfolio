@@ -37,51 +37,21 @@ export function parseBlogDate(date: string): number {
   return Number.isNaN(t) ? 0 : t;
 }
 
-export const blogPosts: BlogPost[] = [
-  {
-    slug: "react-performance",
-    title:
-      "React Performance: From Audit to Optimization",
-    date: "January 3, 2026",
-    excerpt:
-      "Master React performance with a systematic approach. Learn to identify wasted renders, use the React Profiler effectively, and apply optimization techniques like memoization, code splitting, and state normalization.",
-    category: "Building",
-  },
-  {
-    slug: "building-video-call-app",
-    title:
-      "Building a Modern Video Call Application: React, Go, WebRTC, and Redis",
-    date: "September 17, 2025",
-    excerpt:
-      "Learn how to build a full-featured video calling application similar to Google Meet using React, Go, WebRTC, and Redis. Complete with real-time signaling, peer-to-peer communication, and modern UI.",
-    category: "Building",
-  },
-  {
-    slug: "decoding-happiness",
-    title:
-      "Decoding Happiness: Strategies to Cultivate Joy and Fulfillment in Everyday Life",
-    date: "June 17, 2024",
-    excerpt:
-      "Discover evidence-based strategies to find lasting happiness beyond material pursuits. Learn how to overcome your brain&apos;s misconceptions and cultivate genuine joy through meaningful connections, gratitude, and mindful living...",
-    category: "Living",
-  },
-  {
-    slug: "react-common-mistakes",
-    title: "React Common Mistakes: How to Avoid and Fix Them",
-    date: "January 15, 2024",
-    excerpt:
-      "A comprehensive guide to the most frequent React mistakes and practical solutions with code examples to help you write better, more maintainable React applications...",
-    category: "Building",
-  },
-  {
-    slug: "hoa-ky-vay-tien",
-    title: "Hoa Kỳ Vay Tiền Như Thế Nào? Vai Trò của Trái Phiếu Kho Bạc",
-    date: "July 14, 2025",
-    excerpt:
-      "Tìm hiểu cách chính phủ Hoa Kỳ huy động vốn qua trái phiếu kho bạc, vai trò của đồng đô la như tiền dự trữ toàn cầu, và tác động của Nhật Bản trong việc nắm giữ nợ công Mỹ...",
-    category: "Tiếng Việt",
-  },
-];
+/**
+ * Legacy hand-written posts.
+ *
+ * EMPTY as of the 2026-08-07 migration — all 5 original posts now live in the
+ * `blog_posts` table and render through the same path as editor-authored ones.
+ * Their .tsx page components and the LEGACY_POSTS entries went with them, so
+ * nothing here shadows a database row any more.
+ *
+ * The export is kept (rather than deleted) because the two-source merge in
+ * postSource.ts and sitemap.ts is still the right shape: if a post ever needs
+ * bespoke JSX again — an interactive widget the editor cannot express — adding
+ * it back here plus an entry in LEGACY_POSTS restores the legacy path, and it
+ * will take precedence over any database row with the same slug.
+ */
+export const blogPosts: BlogPost[] = [];
 
 export const categories = [
   "Building",

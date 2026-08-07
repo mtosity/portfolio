@@ -14,45 +14,34 @@ import {
 } from "@/components/blog/postSource";
 import { blogPosts } from "@/data/blogPosts";
 
-// Import all the individual blog post components
-import BuildingVideoCallAppPage from "../building-video-call-app/page";
-import DecodingHappinessPage from "../decoding-happiness/page";
-import HoaKyVayTienPage from "../hoa-ky-vay-tien/page";
-import ReactCommonMistakesPage from "../react-common-mistakes/page";
-import ReactPerformancePage from "../react-performance/page";
-
 /**
- * ─── RESOLUTION ORDER (integration contract §4) ────────────────────────────
+ * ─── RESOLUTION ORDER ──────────────────────────────────────────────────────
  *
- *   1. LEGACY_POSTS — the hand-written .tsx posts. Always win on a slug clash.
- *   2. blog_posts    — editor-authored rows, rendered from body_html.
+ *   1. LEGACY_POSTS — hand-written .tsx posts. Always win on a slug clash.
+ *   2. blog_posts    — database rows, rendered from body_html.
  *   3. notFound()
  *
- * Read this before adding a post, because there are two overlapping route
- * shapes and they do NOT resolve in the obvious order:
+ * LEGACY_POSTS is EMPTY as of the 2026-08-07 migration: all 5 original posts
+ * were converted to database rows and their .tsx components deleted. Every post
+ * on the site now takes branch 2, which is also why they finally emit JSON-LD —
+ * only this route generates it, and the folder routes used to shadow it.
+ *
+ * The branch is kept rather than deleted because it is the escape hatch: a post
+ * needing bespoke JSX (an interactive widget the editor cannot express) can be
+ * added back as a component here, and it will take precedence over any database
+ * row sharing its slug.
+ *
+ * If you do add one, note the two route shapes do NOT resolve in the obvious
+ * order:
  *
  *   apps/web/src/app/blog/<slug>/page.tsx   ← a *static* segment
  *   apps/web/src/app/blog/[slug]/page.tsx   ← this file, a *dynamic* segment
  *
- * Next.js always prefers the static segment, so for every slug in LEGACY_POSTS
- * the folder route is what actually gets served and the switch below never
- * runs. It is still kept complete and in sync on purpose: it is the contract's
- * stated precedence rule, it keeps `/blog/<legacy-slug>` correct if a folder is
- * ever deleted or refactored into this route, and — the reason it matters most
- * — it guarantees a legacy slug can never be shadowed by a database row that
- * happens to share it.
- *
- * `react-performance` used to be registered in data/blogPosts.ts with a folder
- * route but NO case here, which read as "the switch is exhaustive" while it
- * silently was not. Every legacy slug now has an entry; a missing one is a bug.
+ * Next.js always prefers the static segment, so a folder route silently wins
+ * over everything below — including the JSON-LD this file emits. Prefer
+ * registering the component in LEGACY_POSTS over creating a folder route.
  */
-const LEGACY_POSTS: Record<string, ComponentType> = {
-  "building-video-call-app": BuildingVideoCallAppPage,
-  "decoding-happiness": DecodingHappinessPage,
-  "hoa-ky-vay-tien": HoaKyVayTienPage,
-  "react-common-mistakes": ReactCommonMistakesPage,
-  "react-performance": ReactPerformancePage,
-};
+const LEGACY_POSTS: Record<string, ComponentType> = {};
 
 // ISR, so a newly published database post becomes reachable without a redeploy.
 export const revalidate = 300;
