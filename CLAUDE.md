@@ -38,21 +38,23 @@ All packages are source-only (no build step) and listed in `transpilePackages` i
 
 ### Blog System
 
-Posts come from **two sources**, and the split is deliberate.
+All posts live in the Neon `blog_posts` table and are written through `/admin/blog`. Publishing needs no deploy.
 
-**1. Legacy hand-written posts** (the original 5) — standalone page components at `apps/web/src/app/blog/<slug>/page.tsx` wrapped with `BlogLayout`, registered in `apps/web/src/data/blogPosts.ts`. They use JSX-only interactive components (`InteractiveAnchor`, `CodeAnchor`, `CodeBlock`, `LottieAnimation`) that an editor cannot express, so they are **not** migrated. Leave them alone.
+The original 5 hand-written `.tsx` posts were **migrated into the database on 2026-08-07** and their page components deleted. Verified at the time: reader-visible text byte-identical for all 5, all 63 anchors still rendering, zero unconverted markup. Two posts had a literal `"Published "` baked into their date string and three did not — the migration dropped it so all 5 render dates consistently. `react-common-mistakes` had an on-page `<h1>` ("React **Hooks** Common Mistakes…") that disagreed with the registry title; the on-page one won, so title and metadata finally agree.
 
-**2. Editor-authored posts** — rows in the Neon `blog_posts` table, written through `/admin/blog` and rendered dynamically. No deploy needed to publish.
+**Route resolution** in `apps/web/src/app/blog/[slug]/page.tsx`: `LEGACY_POSTS` first, then the database, then `notFound()`. `LEGACY_POSTS` is now **empty** — it is kept as the escape hatch for a post needing bespoke JSX (an interactive widget the editor cannot express), and such a post still takes precedence over a database row with the same slug.
 
-**Route resolution** in `apps/web/src/app/blog/[slug]/page.tsx`: legacy `switch` first, then DB lookup, then `notFound()`. Legacy always wins on a slug collision. Note Next prefers a static `blog/<slug>/page.tsx` folder route over the dynamic `[slug]` route, so for the 5 legacy posts the switch never actually executes — it is kept complete so a DB row can never shadow a legacy slug. (Consequence: legacy posts currently emit no JSON-LD, since only `[slug]` generates it.)
+⚠️ Do NOT add a post as `apps/web/src/app/blog/<slug>/page.tsx`. Next prefers a static segment over the dynamic `[slug]`, so a folder route silently shadows this file — including the JSON-LD only it emits. That is why the original 5 had no structured data for their whole life; migrating them fixed it. Register a component in `LEGACY_POSTS` instead.
 
-**Drafts**: `published = false` is reachable at `/blog/<slug>` but excluded from the index, from `generateStaticParams` and from the sitemap, and renders `robots: noindex,nofollow` plus a visible badge. Publishing stamps `published_at`; unpublishing preserves it, so re-publishing keeps the original date.
+**Drafts**: `published = false` is reachable at `/blog/<slug>` but excluded from the index, `generateStaticParams` and the sitemap, and renders `robots: noindex,nofollow` plus a visible badge. Publishing stamps `published_at`; unpublishing preserves it, so re-publishing keeps the original date.
 
 **Anchors** are stored in `body_html` as `<span data-anchor="definition|code" data-anchor-key="KEY">label</span>` — produced by the Tiptap nodes in `packages/admin/src/components/blog/anchorNodes.ts` and converted back into the real `InteractiveAnchor`/`CodeAnchor` components by `apps/web/src/components/blog/htmlToReact.tsx`. **That HTML shape is a contract between the editor and the renderer; changing one side silently breaks every anchor at runtime.** `htmlToReact` builds React elements directly (no `dangerouslySetInnerHTML`) and sanitises structurally via tag/attribute allowlists.
 
-**Definitions and code examples** resolve **static file first, then DB**: `apps/web/src/components/blog/definitions.tsx` keeps serving the legacy posts, and rows in `blog_definitions` / `blog_code_examples` (managed at `/admin/blog/definitions`) are merged on top. A key in both → static wins, so an editor-authored key can never break an existing post.
+**Definitions and code examples** resolve **static file first, then DB**: the 83 entries in `apps/web/src/components/blog/definitions.tsx` still back every migrated post, and rows in `blog_definitions` / `blog_code_examples` (managed at `/admin/blog/definitions`) are merged on top. A key in both → static wins. Editing a legacy definition therefore still means editing that file.
 
 **Blog slugs fold diacritics** (`slugify` in `packages/lib/src/blog.ts`) so "Hoa Kỳ Vay Tiền" → `hoa-ky-vay-tien`. The notes slugifier deliberately still strips non-ASCII — the notes page derives slugs from titles at read time for deep links, so changing it would break already-shared note URLs.
+
+⚠️ **Post content now lives only in Postgres.** The `.tsx` originals are recoverable from git history (before the 2026-08-07 migration commit), but anything written since exists solely in the database — keep Neon backups in mind.
 
 ## Deployment
 

@@ -101,7 +101,7 @@ export default function CodeView({
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#b91c1c",
+                color: "var(--def-red-text)",
                 marginBottom: "0.5rem",
               }}
             >
@@ -135,7 +135,7 @@ export default function CodeView({
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#166534",
+                color: "var(--def-green-text)",
                 marginBottom: "0.5rem",
               }}
             >

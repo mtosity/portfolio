@@ -90,10 +90,12 @@ function Sidebar({
         </Link>
       )}
 
-      {/* Definition cards use fixed pastel backgrounds, so the panel pins the
-          light palette while one is open (theme-light-scope in tokens.css). */}
+      {/* Definition cards used to carry hardcoded pastel hex, so this panel
+          pinned `theme-light-scope` whenever one was open — which meant a
+          reader in dark mode got a bright white panel next to a dark article.
+          The cards now use the --def-* tokens (tokens.css), which have dark
+          values, so the panel follows the theme like everything else. */}
       <div
-        className={sidebarMode === "definition" ? "theme-light-scope" : undefined}
         style={{
           background: "var(--bg-secondary)",
           border: "1px solid var(--border-light)",

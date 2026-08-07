@@ -30,6 +30,7 @@
  */
 
 import React from "react";
+import NextImage from "next/image";
 import CodeAnchor from "./CodeAnchor";
 import InteractiveAnchor from "./InteractiveAnchor";
 
@@ -633,6 +634,41 @@ function renderNodes(nodes: HtmlNode[], parentTag: string, path: string): React.
 
     const props = buildProps(node, key);
     if (VOID_TAGS.has(node.tag)) {
+      // Route local images through next/image so stored posts keep the
+      // optimisation the hand-written ones had. The 2026-08-07 migration
+      // turned <Image> into plain <img>, which silently dropped the
+      // /_next/image pipeline — responsive srcset, AVIF/WebP negotiation and
+      // the LCP benefit that comes with them.
+      //
+      // Only same-origin paths: a remote host would need next.config
+      // remotePatterns, and failing that next/image throws at render time, so
+      // an author pasting an external URL must degrade to a plain <img>
+      // rather than break the whole post. Width and height are required
+      // because these are not `fill` images.
+      const src = typeof props.src === "string" ? props.src : "";
+      const w = Number(props.width);
+      const h = Number(props.height);
+      if (
+        node.tag === "img" &&
+        src.startsWith("/") &&
+        !src.startsWith("//") &&
+        Number.isFinite(w) &&
+        Number.isFinite(h) &&
+        w > 0 &&
+        h > 0
+      ) {
+        out.push(
+          React.createElement(NextImage, {
+            ...props,
+            key: props.key,
+            src,
+            width: w,
+            height: h,
+            alt: typeof props.alt === "string" ? props.alt : "",
+          })
+        );
+        return;
+      }
       out.push(React.createElement(node.tag, props));
       return;
     }
