@@ -68,6 +68,26 @@
   --background-dark: #d8d4cc;
   --text: #0d0d0d;
   --brand: #bef264;
+
+  /* ── Blog definition callouts ──────────────────────────────────────────
+     The definition sidebar renders pastel callout cards. Those colours used
+     to be hardcoded hex inside apps/web/src/components/blog/definitions.tsx,
+     which meant they could not follow the theme — so BlogLayout pinned the
+     whole panel to `theme-light-scope` whenever a definition was open, and a
+     reader in dark mode got a bright white panel. Expressing them as tokens
+     lets the cards flip with the theme and lets that pin go away. */
+  --def-green-bg: #f0fdf4;    --def-green-border: #86efac;   --def-green-text: #2d7a4f;
+  --def-blue-bg: #eff6ff;     --def-blue-border: #93c5fd;    --def-blue-text: #2563eb;
+  --def-purple-bg: #faf5ff;   --def-purple-border: #d8b4fe;  --def-purple-text: #7c3aed;
+  --def-red-bg: #fef2f2;      --def-red-border: #fca5a5;     --def-red-text: #c0392b;
+  --def-gray-bg: #f9fafb;     --def-gray-border: #d1d5db;    --def-gray-text: #374151;
+  --def-amber-bg: #fefce8;    --def-amber-border: #fde68a;   --def-amber-text: #b45309;
+  --def-teal-bg: #f0fdfa;     --def-teal-border: #5eead4;    --def-teal-text: #0f766e;
+  --def-orange-bg: #fff7ed;   --def-orange-border: #fdba74;  --def-orange-text: #c2410c;
+  --def-indigo-bg: #eef2ff;   --def-indigo-border: #a5b4fc;  --def-indigo-text: #4f46e5;
+  --def-pink-bg: #fdf2f8;     --def-pink-border: #f9a8d4;    --def-pink-text: #be185d;
+  --def-yellow-bg: #fffbeb;   --def-yellow-border: #fcd34d;  --def-yellow-text: #a16207;
+  --def-emerald-bg: #ecfdf5;  --def-emerald-border: #6ee7b7; --def-emerald-text: #047857;
 }
 
 /* ── Dark theme ──
@@ -101,6 +121,23 @@
   --background-dark: #2a2720;
   --text: #f2efe8;
   --brand: #bef264;
+
+  /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
+     tone that sits on --bg-secondary, borders take the old text colour and
+     text takes the old border colour, so each card keeps its hue identity
+     while meeting contrast on a dark panel. */
+  --def-green-bg: #0a2216;    --def-green-border: #2d7a4f;   --def-green-text: #86efac;
+  --def-blue-bg: #0c1a2e;     --def-blue-border: #2563eb;    --def-blue-text: #93c5fd;
+  --def-purple-bg: #1a0f2e;   --def-purple-border: #7c3aed;  --def-purple-text: #d8b4fe;
+  --def-red-bg: #2a0f0f;      --def-red-border: #c0392b;     --def-red-text: #fca5a5;
+  --def-gray-bg: #1a1916;     --def-gray-border: #4a4740;    --def-gray-text: #d1d5db;
+  --def-amber-bg: #2a1f08;    --def-amber-border: #b45309;   --def-amber-text: #fde68a;
+  --def-teal-bg: #062420;     --def-teal-border: #0f766e;    --def-teal-text: #5eead4;
+  --def-orange-bg: #2a1608;   --def-orange-border: #c2410c;  --def-orange-text: #fdba74;
+  --def-indigo-bg: #12142e;   --def-indigo-border: #4f46e5;  --def-indigo-text: #a5b4fc;
+  --def-pink-bg: #2a0f1c;     --def-pink-border: #be185d;    --def-pink-text: #f9a8d4;
+  --def-yellow-bg: #2a2208;   --def-yellow-border: #a16207;  --def-yellow-text: #fcd34d;
+  --def-emerald-bg: #06231a;  --def-emerald-border: #047857; --def-emerald-text: #6ee7b7;
 }
 
 /* ── Shared brutalist utility classes ── */
@@ -120,6 +157,7 @@
   --border-light: #ccc8bd;
   --muted: #666460;
   --danger: #b00020;
+
 
   --color-bg: #f2efe8;
   --color-bg-secondary: #e8e5dd;

@@ -35,7 +35,7 @@ export const definitions: Record<string, Definition> = {
           effects in functional components.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
           <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>useEffect(setup, dependencies?)</code>
         </div>
@@ -63,8 +63,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.3em" }}>
             ⚠️ Important:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -85,7 +85,7 @@ export const definitions: Record<string, Definition> = {
           functional components.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
           <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>
             const [state, setState] = useState(initialState)
@@ -104,8 +104,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.3em" }}>
             💡 Best Practice:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -126,7 +126,7 @@ export const definitions: Record<string, Definition> = {
           calculations between re-renders.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
           <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>
             const memoizedValue = useMemo(() =&gt; computation, [dependencies])
@@ -142,8 +142,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-orange-bg)", border: "1px solid var(--def-orange-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-orange-text)", marginBottom: "0.3em" }}>
             ⚡ Performance:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -163,7 +163,7 @@ export const definitions: Record<string, Definition> = {
           function definition between re-renders.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Syntax:</h4>
           <code style={{ fontFamily: "var(--font-mono)", fontSize: "0.82em", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.1em 0.35em", color: "var(--fg)" }}>
             const memoizedCallback = useCallback(fn, [dependencies])
@@ -179,8 +179,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             ✅ Tip:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -220,8 +220,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.3em" }}>
             ❌ Avoid:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -272,8 +272,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.3em" }}>
             🔧 Tools:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -294,8 +294,8 @@ export const definitions: Record<string, Definition> = {
           negative events.
         </p>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             How it works:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -305,8 +305,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.3em" }}>
             Examples:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -328,8 +328,8 @@ export const definitions: Record<string, Definition> = {
           future events will make us feel. Humans are notoriously bad at this.
         </p>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.4em" }}>
             Common Mistakes:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -348,8 +348,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             Why it matters:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -370,8 +370,8 @@ export const definitions: Record<string, Definition> = {
           ourselves relative to others to assess our own worth and abilities.
         </p>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.4em" }}>
             Types of Comparison:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -387,8 +387,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-orange-bg)", border: "1px solid var(--def-orange-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-orange-text)", marginBottom: "0.3em" }}>
             Impact on happiness:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -409,8 +409,8 @@ export const definitions: Record<string, Definition> = {
           non-judgmental awareness of the present moment.
         </p>
 
-        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-teal-bg)", border: "1px solid var(--def-teal-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-teal-text)", marginBottom: "0.4em" }}>
             Core Elements:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -421,8 +421,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             Benefits for happiness:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -443,8 +443,8 @@ export const definitions: Record<string, Definition> = {
           and appreciating positive aspects of life, both big and small.
         </p>
 
-        <div style={{ background: "#fdf2f8", border: "1px solid #f9a8d4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#be185d", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-pink-bg)", border: "1px solid var(--def-pink-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-pink-text)", marginBottom: "0.4em" }}>
             Effective Methods:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -455,8 +455,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-indigo-bg)", border: "1px solid var(--def-indigo-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-indigo-text)", marginBottom: "0.3em" }}>
             Research findings:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -479,8 +479,8 @@ export const definitions: Record<string, Definition> = {
           nhiều hơn số tiền thu được từ thuế và các nguồn thu khác.
         </p>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.4em" }}>
             Tác động:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -490,8 +490,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.3em" }}>
             Cách xử lý:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -512,8 +512,8 @@ export const definitions: Record<string, Definition> = {
           phát hành để huy động vốn từ các nhà đầu tư.
         </p>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             Các loại:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -529,8 +529,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.3em" }}>
             💡 Đặc điểm:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -550,8 +550,8 @@ export const definitions: Record<string, Definition> = {
           tăng liên tục trong thời gian dài.
         </p>
 
-        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-orange-bg)", border: "1px solid var(--def-orange-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-orange-text)", marginBottom: "0.4em" }}>
             Nguyên nhân chính:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -561,8 +561,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.3em" }}>
             ⚠️ Ví dụ lịch sử:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -583,8 +583,8 @@ export const definitions: Record<string, Definition> = {
           lập hệ thống tiền tệ toàn cầu sau Thế chiến II.
         </p>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             Nội dung chính:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -594,7 +594,7 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.3em" }}>📅 Kết thúc: 1971</h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Nixon Shock chấm dứt việc quy đổi đô la sang vàng.
@@ -613,8 +613,8 @@ export const definitions: Record<string, Definition> = {
           quy đổi đô la Mỹ sang vàng vào năm 1971.
         </p>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.4em" }}>
             Hậu quả:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -624,8 +624,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.3em" }}>
             🌍 Tác động toàn cầu:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -645,8 +645,8 @@ export const definitions: Record<string, Definition> = {
           vàng hay kim loại quý, mà dựa vào niềm tin của người dân.
         </p>
 
-        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-indigo-bg)", border: "1px solid var(--def-indigo-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-indigo-text)", marginBottom: "0.4em" }}>
             Đặc điểm:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -656,8 +656,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             ✅ Ưu điểm:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -677,8 +677,8 @@ export const definitions: Record<string, Definition> = {
           tiền chính trong giao dịch dầu mỏ toàn cầu.
         </p>
 
-        <div style={{ background: "#fffbeb", border: "1px solid #fcd34d", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-yellow-bg)", border: "1px solid var(--def-yellow-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.4em" }}>
             Cách hoạt động:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -688,8 +688,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.3em" }}>
             💪 Củng cố sức mạnh:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -709,8 +709,8 @@ export const definitions: Record<string, Definition> = {
           tiền mặt một cách nhanh chóng và không mất giá.
         </p>
 
-        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-teal-bg)", border: "1px solid var(--def-teal-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-teal-text)", marginBottom: "0.4em" }}>
             Mức độ thanh khoản:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -726,8 +726,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#ecfdf5", border: "1px solid #6ee7b7", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#047857", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-emerald-bg)", border: "1px solid var(--def-emerald-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-emerald-text)", marginBottom: "0.3em" }}>
             🏦 Thị trường Mỹ:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -749,8 +749,8 @@ export const definitions: Record<string, Definition> = {
           result is exactly the same as before.
         </p>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.4em" }}>
             Why it&apos;s bad:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -760,8 +760,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             ✅ How to detect:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -782,8 +782,8 @@ export const definitions: Record<string, Definition> = {
           metrics for measuring real user experience on websites.
         </p>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             Core Metrics:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -799,8 +799,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.3em" }}>
             💡 Good to know:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -821,7 +821,7 @@ export const definitions: Record<string, Definition> = {
           performance issues.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>Examples:</h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
             <li>
@@ -836,8 +836,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c2410c", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-orange-bg)", border: "1px solid var(--def-orange-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-orange-text)", marginBottom: "0.3em" }}>
             ⚠️ The trap:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -859,8 +859,8 @@ export const definitions: Record<string, Definition> = {
           changed.
         </p>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.4em" }}>
             The Process:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -871,8 +871,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.3em" }}>
             💡 Performance tip:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -893,8 +893,8 @@ export const definitions: Record<string, Definition> = {
           (dead code) from your JavaScript bundle during the build.
         </p>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             How it works:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -904,8 +904,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.3em" }}>
             ⚠️ Gotcha:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -926,8 +926,8 @@ export const definitions: Record<string, Definition> = {
           that load on-demand instead of shipping everything at once.
         </p>
 
-        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-indigo-bg)", border: "1px solid var(--def-indigo-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-indigo-text)", marginBottom: "0.4em" }}>
             Types:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -943,8 +943,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-teal-bg)", border: "1px solid var(--def-teal-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-teal-text)", marginBottom: "0.3em" }}>
             ✅ In React:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -965,7 +965,7 @@ export const definitions: Record<string, Definition> = {
           prevents re-renders when props haven&apos;t changed.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>How it works:</h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
             Wraps your component in a &quot;shield&quot; that compares old vs
@@ -973,8 +973,8 @@ export const definitions: Record<string, Definition> = {
           </p>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             ✅ When to use:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -984,8 +984,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.3em" }}>
             ❌ Don&apos;t overuse:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1006,8 +1006,8 @@ export const definitions: Record<string, Definition> = {
           world.
         </p>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             RUM (Real User Monitoring):
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1017,8 +1017,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.4em" }}>
             Synthetic Monitoring:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1040,7 +1040,7 @@ export const definitions: Record<string, Definition> = {
           performance programmatically in your code.
         </p>
 
-        <div style={{ background: "#f9fafb", border: "1px solid #d1d5db", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+        <div style={{ background: "var(--def-gray-bg)", border: "1px solid var(--def-gray-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
           <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--fg)", marginBottom: "0.4em" }}>
             Key metrics provided:
           </h4>
@@ -1057,8 +1057,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             💡 Pro tip:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1079,8 +1079,8 @@ export const definitions: Record<string, Definition> = {
           updates (like typing) over expensive ones (like filtering a list).
         </p>
 
-        <div style={{ background: "#eef2ff", border: "1px solid #a5b4fc", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-indigo-bg)", border: "1px solid var(--def-indigo-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-indigo-text)", marginBottom: "0.4em" }}>
             How it works:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1090,8 +1090,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-teal-bg)", border: "1px solid var(--def-teal-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-teal-text)", marginBottom: "0.3em" }}>
             ✅ Perfect for:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1113,8 +1113,8 @@ export const definitions: Record<string, Definition> = {
           Virtual DOM trees.
         </p>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.4em" }}>
             ⚠️ CSS-in-JS (Styled Components):
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1124,8 +1124,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             ✅ Atomic CSS (Tailwind):
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1135,8 +1135,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             ✅ CSS Modules:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1159,8 +1159,8 @@ export const definitions: Record<string, Definition> = {
           isolate renders to specific parts of your UI.
         </p>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.4em" }}>
             Why use it:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1170,8 +1170,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdfa", border: "1px solid #5eead4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0f766e", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-teal-bg)", border: "1px solid var(--def-teal-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-teal-text)", marginBottom: "0.3em" }}>
             ✅ Perfect for:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1200,8 +1200,8 @@ export const definitions: Record<string, Definition> = {
           />
         </div>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.4em" }}>
             🎯 Quantitative Metrics:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1224,8 +1224,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#fdf2f8", border: "1px solid #f9a8d4", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#be185d", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-pink-bg)", border: "1px solid var(--def-pink-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-pink-text)", marginBottom: "0.4em" }}>
             🧠 Qualitative Metrics:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1244,8 +1244,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.3em" }}>
             💡 Rule of thumb:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1267,8 +1267,8 @@ export const definitions: Record<string, Definition> = {
           React can prioritize user interactions.
         </p>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             How it works:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1283,8 +1283,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             Use cases:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1296,8 +1296,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.3em" }}>
             ✨ The power:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1320,8 +1320,8 @@ export const definitions: Record<string, Definition> = {
           include.
         </p>
 
-        <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c0392b", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-red-bg)", border: "1px solid var(--def-red-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-red-text)", marginBottom: "0.4em" }}>
             ❌ Too broad (default):
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1333,8 +1333,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             ✅ Optimized for modern browsers:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1346,8 +1346,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.3em" }}>
             💡 Pro tip:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1368,8 +1368,8 @@ export const definitions: Record<string, Definition> = {
           but they come with a performance cost if shipped to users.
         </p>
 
-        <div style={{ background: "#fefce8", border: "1px solid #fde68a", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-amber-bg)", border: "1px solid var(--def-amber-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-amber-text)", marginBottom: "0.4em" }}>
             ⚠️ The trade-off:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1379,8 +1379,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             ✅ Best practice:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1397,8 +1397,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.3em" }}>
             🔧 Webpack config:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -1420,8 +1420,8 @@ export const definitions: Record<string, Definition> = {
           which resources are most important to load first.
         </p>
 
-        <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-blue-bg)", border: "1px solid var(--def-blue-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-blue-text)", marginBottom: "0.4em" }}>
             Priority values:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1440,8 +1440,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#f0fdf4", border: "1px solid #86efac", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d7a4f", marginBottom: "0.4em" }}>
+        <div style={{ background: "var(--def-green-bg)", border: "1px solid var(--def-green-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-green-text)", marginBottom: "0.4em" }}>
             Perfect for:
           </h4>
           <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0 }}>
@@ -1454,8 +1454,8 @@ export const definitions: Record<string, Definition> = {
           </ul>
         </div>
 
-        <div style={{ background: "#faf5ff", border: "1px solid #d8b4fe", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
-          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "0.3em" }}>
+        <div style={{ background: "var(--def-purple-bg)", border: "1px solid var(--def-purple-border)", padding: "0.75rem 1rem", margin: "0.25rem 0" }}>
+          <h4 style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--def-purple-text)", marginBottom: "0.3em" }}>
             💡 In Next.js:
           </h4>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.7, color: "var(--muted)", margin: 0 }}>
@@ -3428,7 +3428,7 @@ const DrawingCanvas = () => {
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = 'var(--fg)';
     
     contextRef.current = ctx;
   }, []);
@@ -3530,7 +3530,7 @@ const RichTextEditor = () => {
         contentEditable
         onInput={handleInput}
         style={{
-          border: '1px solid #ccc',
+          border: '1px solid var(--border-light)',
           padding: '10px',
           minHeight: '200px'
         }}
