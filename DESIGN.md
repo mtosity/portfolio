@@ -90,6 +90,37 @@ Mechanics (all in `tokens.css` unless noted):
 | Cyan     | `#b2ebf2` | `#6cc9d6` |
 | Purple   | `#d1c4e9` | `#9e8ec4` |
 
+### Blog Definition Callouts — `--def-*`
+
+The definition sidebar renders pastel callout cards inside each definition.
+Twelve hues, each a `{bg, border, text}` triad, themed via `--def-<hue>-<role>`.
+
+| Hue     | Light bg / border / text          | Dark bg / border / text           |
+|---------|-----------------------------------|-----------------------------------|
+| green   | `#f0fdf4` `#86efac` `#2d7a4f`     | `#0a2216` `#2d7a4f` `#86efac`     |
+| blue    | `#eff6ff` `#93c5fd` `#2563eb`     | `#0c1a2e` `#2563eb` `#93c5fd`     |
+| purple  | `#faf5ff` `#d8b4fe` `#7c3aed`     | `#1a0f2e` `#7c3aed` `#d8b4fe`     |
+| red     | `#fef2f2` `#fca5a5` `#c0392b`     | `#2a0f0f` `#c0392b` `#fca5a5`     |
+| gray    | `#f9fafb` `#d1d5db` `#374151`     | `#1a1916` `#4a4740` `#d1d5db`     |
+| amber   | `#fefce8` `#fde68a` `#b45309`     | `#2a1f08` `#b45309` `#fde68a`     |
+| teal    | `#f0fdfa` `#5eead4` `#0f766e`     | `#062420` `#0f766e` `#5eead4`     |
+| orange  | `#fff7ed` `#fdba74` `#c2410c`     | `#2a1608` `#c2410c` `#fdba74`     |
+| indigo  | `#eef2ff` `#a5b4fc` `#4f46e5`     | `#12142e` `#4f46e5` `#a5b4fc`     |
+| pink    | `#fdf2f8` `#f9a8d4` `#be185d`     | `#2a0f1c` `#be185d` `#f9a8d4`     |
+| yellow  | `#fffbeb` `#fcd34d` `#a16207`     | `#2a2208` `#a16207` `#fcd34d`     |
+| emerald | `#ecfdf5` `#6ee7b7` `#047857`     | `#06231a` `#047857` `#6ee7b7`     |
+
+In dark mode the background drops to a deep hue-tinted tone that sits on
+`--bg-secondary`, the border takes the light-mode *text* colour and the text
+takes the light-mode *border* colour — so each card keeps its hue identity
+while meeting contrast on a dark panel.
+
+**Why these are tokens.** They used to be hardcoded hex inside
+`components/blog/definitions.tsx` (225 literals), which could not follow the
+theme — so `BlogLayout` pinned the whole sidebar to `.theme-light-scope`
+whenever a definition was open and a dark-mode reader got a bright white panel
+beside a dark article. Never reintroduce a raw hex there; add a `--def-*` token.
+
 ---
 
 ## Typography
