@@ -283,10 +283,9 @@ a {
 @media (min-width: 1024px) {
   .blog-post-grid {
     display: grid;
-    /* Contents/notes rail beside one reading column at a fixed measure. */
-    grid-template-columns: minmax(15rem, 21rem) minmax(0, var(--measure));
-    justify-content: center;
-    gap: clamp(3rem, 5vw, 5rem);
+    /* Contents/notes panel and article share the width 1:1. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 4rem;
     align-items: start;
   }
 }

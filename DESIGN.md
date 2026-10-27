@@ -293,17 +293,18 @@ All content sections sit inside a max-width `1400px` container.
 
 ### Blog Post (`/blog/[slug]`)
 
-- **Two-column layout** above 1024px: a `minmax(15rem, 21rem)` contents/notes rail beside one reading column at `--measure` (`40rem`), centred, gap `clamp(3rem, 5vw, 5rem)`. Below 1024px the column centres at the same measure
+- **Two-column layout**: `1fr 1fr` grid above 1024px (panel and article share the width 1:1, gap `4rem`). Below 1024px the article centres at `--measure` (`40rem`)
 - **Sidebar** (left, sticky at `56px + 2.5rem`):
   - Background: `var(--bg-secondary)`, 1px light border
   - Three modes: **TOC** (auto-extracted headings with active indicator), **Definition** (inline definition panel), **Code** (code example viewer)
-  - Active heading: left 2px border + dark text
+  - Type (ported from #111's reading rail), all in the sans (`--font-sans`): "Contents" / panel titles 700 at `0.95rem` / `1.15rem`; TOC entries `0.92rem`, line-height `1.35`, `0.38rem` vertical padding, sub-headings indented `1.8rem`; definition and code-example body `0.92rem` / `1.55`; code labels ("✗ Wrong approach") `0.85rem` 700 in the def red/green; notes `0.86rem` muted. Code itself stays mono. The inline mono label styles in `definitions.tsx` are normalised by `.def-content` overrides in `BlogLayout.tsx`
+  - Active heading: left 2px accent border + `--fg` text
   - Mode transitions: fade/blur/slide animations
-  - "← Back to Blog" link at top
+  - "← Back to blog" link at top (sans `0.92rem`, muted → fg on hover)
 - **Mobile sidebar**: Fixed right panel, slides in from right (`translateX(100%)` → `0`), 90vw width, with dark overlay backdrop
 - **Mobile TOC button**: Fixed bottom-right, dark bg, monospace 0.65rem uppercase
 - **Article typography** (ported from #111's reading page): headline, h2 and h3 in Literata 700; body in Literata at `--read-size` / `--read-leading`, full-strength `--fg` (not muted); paragraph and list spacing `1.1em`; h2 `2.2em 0 0.6em`, h3 `1.9em 0 0.45em`; date in the sans at `0.95rem` muted. Links underline in a 70% accent tint and thicken on hover. Inline code gets `bg-secondary` + light border. Pre blocks: `bg-secondary`, 1px border, `0.85rem` / `1.65`. Blockquotes: `1.2em` italic with a short 3px accent bar above. `<hr>` renders as a centred `· · ·`. Images: 1px light border.
-- **Max prose width**: the column itself (`--measure`, `40rem`, ~65 characters)
+- **Max prose width**: the article column (half the 1280px container, ≤ `--measure`)
 
 ### Photography (`/photography`)
 

@@ -71,22 +71,8 @@ function Sidebar({
   return (
     <div>
       {!hideBackLink && (
-        <Link
-          href="/blog"
-          className="link-hover"
-          style={{
-            display: "inline-block",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.68rem",
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            marginBottom: "1rem",
-            borderBottom: "1px solid var(--border-light)",
-            paddingBottom: "1px",
-          }}
-        >
-          ← Back to Blog
+        <Link href="/blog" className="rail-backlink">
+          ← Back to blog
         </Link>
       )}
 
@@ -117,60 +103,13 @@ function Sidebar({
             }`}
             style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "1rem",
-                gap: "0.5rem",
-                flexShrink: 0,
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "var(--fg)",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {currentDefinition?.title}
-              </h3>
-              <button
-                onClick={onClose}
-                className="link-hover"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  flexShrink: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.25rem",
-                }}
-              >
-                ← Back
+            <div className="rail-panel-head">
+              <h3 className="rail-panel-title">{currentDefinition?.title}</h3>
+              <button onClick={onClose} className="rail-back">
+                Back
               </button>
             </div>
-            <div
-              className="def-content"
-              style={{
-                borderTop: "1px solid var(--border-light)",
-                paddingTop: "1rem",
-                overflowY: "auto",
-                flex: 1,
-              }}
-            >
+            <div className="def-content rail-panel-scroll">
               {currentDefinition?.content}
             </div>
           </div>
@@ -190,56 +129,16 @@ function Sidebar({
             className="animate-fade-in-smooth"
             style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}
           >
-            <h3
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: "1rem",
-                flexShrink: 0,
-                borderBottom: "1px solid var(--border-light)",
-                paddingBottom: "0.75rem",
-              }}
-            >
-              Contents
-            </h3>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0",
-                overflowY: "auto",
-                flex: 1,
-              }}
-            >
+            <h3 className="rail-toc-title">Contents</h3>
+            <nav className="rail-toc">
               {headings.map((heading) => {
                 const isActive = heading.id === activeHeadingId;
                 return (
                   <button
                     key={heading.id}
                     onClick={() => onScrollToHeading(heading.id)}
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      textAlign: "left",
-                      background: isActive ? "var(--bg)" : "transparent",
-                      border: "none",
-                      paddingTop: "0.25rem",
-                      paddingBottom: "0.25rem",
-                      paddingRight: "0.5rem",
-                      paddingLeft: heading.level > 2 ? "1.5rem" : "0.5rem",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.7rem",
-                      lineHeight: 1.5,
-                      color: isActive ? "var(--fg)" : "var(--muted)",
-                      cursor: "pointer",
-                      borderLeft: isActive ? "2px solid var(--fg)" : "2px solid transparent",
-                      transition: "color 0.15s",
-                      wordBreak: "break-word",
-                    }}
+                    aria-current={isActive ? "location" : undefined}
+                    data-level={heading.level > 2 ? "sub" : undefined}
                   >
                     {heading.text}
                   </button>
@@ -608,9 +507,132 @@ export default function BlogLayout({
           margin-top: 0.6rem;
         }
 
-        /* Definition content */
+        /* ── Rail: contents, definitions, code examples ──
+           Same sans and sizes as #111's reading rail, in the panel's
+           existing box. */
+        .rail-backlink {
+          display: inline-block;
+          margin-bottom: 1rem;
+          font-family: var(--font-sans);
+          font-size: 0.92rem;
+          color: var(--muted);
+          text-decoration: none;
+          transition: color 0.15s ease;
+        }
+        .rail-backlink:hover { color: var(--fg); }
+        .rail-toc-title,
+        .rail-panel-title {
+          font-family: var(--font-sans);
+          font-size: 0.95rem;
+          font-weight: 700;
+          font-stretch: normal;
+          letter-spacing: 0;
+          line-height: 1.25;
+          color: var(--fg);
+          margin: 0;
+        }
+        .rail-toc-title {
+          flex-shrink: 0;
+          padding-bottom: 0.75rem;
+          margin-bottom: 0.75rem;
+          border-bottom: 1px solid var(--border-light);
+        }
+        .rail-toc { display: flex; flex-direction: column; overflow-y: auto; flex: 1; }
+        .rail-toc button {
+          display: block;
+          width: 100%;
+          text-align: left;
+          background: none;
+          border: none;
+          border-left: 2px solid transparent;
+          padding: 0.38rem 0.5rem 0.38rem 0.9rem;
+          font-family: var(--font-sans);
+          font-size: 0.92rem;
+          line-height: 1.35;
+          color: var(--muted);
+          cursor: pointer;
+          overflow-wrap: anywhere;
+          transition: color 0.15s ease, border-color 0.15s ease;
+        }
+        .rail-toc button[data-level="sub"] { padding-left: 1.8rem; }
+        .rail-toc button:hover { color: var(--fg); }
+        .rail-toc button[aria-current] { color: var(--fg); border-left-color: var(--accent); }
+
+        .rail-panel-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 0.75rem;
+          flex-shrink: 0;
+          padding-bottom: 0.75rem;
+          border-bottom: 1px solid var(--border-light);
+        }
+        .rail-panel-title { font-size: 1.15rem; }
+        .rail-back {
+          flex-shrink: 0;
+          font-family: var(--font-sans);
+          font-size: 0.88rem;
+          color: var(--muted);
+          background: none;
+          border: none;
+          padding: 0.2rem 0;
+          cursor: pointer;
+          transition: color 0.15s ease;
+        }
+        .rail-back::before { content: "← "; }
+        .rail-back:hover { color: var(--fg); }
+        .rail-panel-scroll { overflow-y: auto; flex: 1; min-height: 0; padding-top: 1rem; }
+        .rail-panel-lede {
+          font-family: var(--font-sans);
+          font-size: 0.92rem;
+          line-height: 1.5;
+          color: var(--muted);
+          margin: 0.75rem 0 1rem;
+          flex-shrink: 0;
+        }
+        .rail-panel-body {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+          flex: 1;
+          overflow-y: auto;
+          min-height: 0;
+          padding-bottom: 3rem;
+        }
+
+        /* Definitions (definitions.tsx + DB rows) carry inline mono label
+           styles; normalise them to the rail's sans. Code keeps mono. */
+        .def-content { font-family: var(--font-sans); font-size: 0.92rem; line-height: 1.55; }
+        .def-content p { color: var(--fg) !important; font-size: 0.92rem !important; line-height: 1.55 !important; }
         .def-content li { color: var(--muted); font-size: 0.9rem; padding: 0.15em 0; }
         .def-content strong { color: var(--fg); font-weight: 600; }
+        .def-content h4 {
+          font-family: var(--font-sans) !important;
+          font-size: 0.85rem !important;
+          font-weight: 700 !important;
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+          font-stretch: normal;
+        }
+        .def-content code { font-family: var(--font-mono) !important; }
+
+        .code-example-label {
+          font-family: var(--font-sans);
+          font-size: 0.85rem;
+          font-weight: 700;
+          letter-spacing: 0;
+          margin: 0 0 0.45rem;
+        }
+        .code-example-error { color: var(--def-red-text); }
+        .code-example-success { color: var(--def-green-text); }
+        .code-example-default { color: var(--muted); }
+        .code-example-note {
+          font-family: var(--font-sans);
+          font-size: 0.86rem;
+          line-height: 1.5;
+          color: var(--muted);
+          margin: 0.5rem 0 0;
+        }
       `}</style>
     </BlogProvider>
   );
