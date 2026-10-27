@@ -90,6 +90,11 @@ are balanced (`text-wrap: balance`), paragraphs `pretty`.
   Durations: press 140ms, fast 180ms, base 280ms, slow 640ms. All drop to
   0 under `prefers-reduced-motion`.
 - Buttons press to 0.97; nothing bounces.
+- Theme switch (`switchTheme`, used by the toggle and the desk lamp)
+  spreads the new theme as a circle from the click point via a view
+  transition (`theme-reveal`, 620ms); reduced motion swaps instantly.
+- Things that navigate take a beat: desk objects dip and leave after
+  ~260ms; the copy-email confirmation lingers ~1.8s.
 
 ## Components
 
@@ -153,7 +158,12 @@ the roll, capture date (from the camera filename) and position shown.
 ### Tools (`/tools`) — `app/tools/tools.css`
 One generous row per tool on a surface step: drawn icon, title, tagline,
 description, status · year · tags; hover fills the icon with the accent.
-Tool pages keep their v0 structure and restyle through the tokens.
+Tool pages keep their v0 structure and restyle through the tokens;
+inside `.tool-page`, inline tracked-caps labels are set in sentence case
+at ≥ 0.86rem, and the numbered header rows / italic accent words are gone.
+
+### Not found (`app/not-found.tsx`)
+The portrait, askew; "Nothing lives here." and two ways out.
 
 ### Design system (`/design-system`) — `app/design-system/ds.css`
 Sticky index; sections World, Colour, Type, Space & shape, Motion (hover a
