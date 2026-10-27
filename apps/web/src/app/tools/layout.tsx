@@ -1,5 +1,6 @@
 import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata } from "next";
+import "./tools.css";
 
 export const metadata: Metadata = {
   title: "Tools",

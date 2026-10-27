@@ -1,81 +1,119 @@
 /* ──────────────────────────────────────────────────────────────
-   MTosity design tokens — warm cream + black + lime
-   Dark theme: warm near-black + cream + the same lime, activated
-   via [data-theme="dark"] on <html> (see ThemeToggle + the inline
-   no-flash script in the web app's root layout).
-   Canonical reference: DESIGN.md at the repo root.
+   @mtosity/design-system — tokens (v1)
+
+   Two layers:
+   1. world.css — the values of one visual world (faces, palette,
+      shape, display voice). Swapping worlds means swapping that file.
+   2. this file — roles, scales, motion, layout, and the mechanics
+      (theme switch, browser surfaces) every world shares.
+
+   Dark theme: [data-theme="dark"] on <html>, set before first paint
+   by the inline script in apps/web/src/app/layout.tsx.
+   Canonical reference: DESIGN.md at the repo root and /design-system.
    ────────────────────────────────────────────────────────────── */
 
-/* Tailwind v4 theme — exposes the palette as native utilities
-   (bg-accent, text-muted, border-border-light, font-heading, …).
-   `static` forces emission even before any utility uses them. */
-/* Make Tailwind's dark: variant follow the theme switch instead of the
-   OS preference. */
 @import "./system.css";
+@import "./world.css";
+@import "./ui.css";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-@theme static {
-  --color-bg: #f2efe8;
-  --color-bg-secondary: #e8e5dd;
-  --color-fg: #0d0d0d;
-  --color-accent: #bef264;
-  --color-accent-fg: #0d0d0d;
-  --color-border: #0d0d0d;
-  --color-border-light: #ccc8bd;
-  --color-muted: #666460;
-  --color-danger: #b00020;
+/* Tailwind utilities (bg-bg, text-muted, font-display, …) read the
+   runtime roles directly, so they follow the theme with no overrides. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-surface-raised: var(--surface-raised);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-danger: var(--danger);
 
-  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lora);
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+  --font-ui: var(--font-ui);
+  --font-code: var(--font-code);
+  --font-heading: var(--font-display);
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-text);
+  --font-mono: var(--font-code);
 }
 
 :root {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lora);
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
-
   color-scheme: light;
 
-  /* Core palette */
-  --bg: #f2efe8;
-  --bg-secondary: #e8e5dd;
-  --fg: #0d0d0d;
-  --accent: #bef264;
-  --border: #0d0d0d;
-  --border-light: #ccc8bd;
-  --muted: #666460;
+  /* ── Face aliases ──
+     --font-heading / --font-sans / --font-serif predate v1 and are used
+     across the tools and admin, so they map onto the world's faces.
+     --font-mono is the face of small UI labels (it was a monospace
+     costume in v0); real code uses --font-code. */
+  --font-heading: var(--font-display);
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-text);
+  --font-mono: var(--font-ui);
+  --font-label: var(--font-ui);
 
-  /* Ink on lime — text/borders sitting on an accent surface. The lime is
-     identical in both themes, so these stay near-black everywhere (no
-     dark override needed). */
-  --accent-fg: #0d0d0d;
-  --accent-fg-muted: #3f3e38;
+  /* ── Type scale (fluid, 360px → 1440px) ── */
+  --step--2: clamp(0.75rem, 0.73rem + 0.08vw, 0.8rem);
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.19vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.13rem + 0.33vw, 1.42rem);
+  --step-2: clamp(1.44rem, 1.31rem + 0.56vw, 1.8rem);
+  --step-3: clamp(1.73rem, 1.51rem + 0.93vw, 2.36rem);
+  --step-4: clamp(2.07rem, 1.71rem + 1.53vw, 3.1rem);
+  --step-5: clamp(2.49rem, 1.89rem + 2.5vw, 4.2rem);
+  --step-6: clamp(3rem, 2rem + 4.4vw, 6rem);
 
-  /* Errors / destructive actions — readable on both themes */
-  --danger: #b00020;
+  /* Reading (Read mode surfaces — blog, notes, design-system prose) */
+  --read-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --read-leading: 1.62;
+  --measure: 36rem;
 
-  /* Brutalist offset shadows (follow --border, so they adapt per theme) */
-  --shadow-brutal: 4px 4px 0 var(--border);
-  --shadow-brutal-lg: 6px 6px 0 var(--border);
+  /* ── Space ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: clamp(5rem, 3rem + 8vw, 10rem);
 
-  /* Legacy aliases (kept for backward compat with existing components) */
-  --background: #f2efe8;
-  --bg-opaque: rgba(242, 239, 232, 0.25);
-  --background-light: #e8e5dd;
-  --background-dark: #d8d4cc;
-  --text: #0d0d0d;
-  --brand: #bef264;
+  /* ── Layout ── */
+  --nav-h: 64px;
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 2.5rem);
+  --page-max: 1440px;
 
-  /* ── Blog definition callouts ──────────────────────────────────────────
-     The definition sidebar renders pastel callout cards. Those colours used
-     to be hardcoded hex inside apps/web/src/components/blog/definitions.tsx,
-     which meant they could not follow the theme — so BlogLayout pinned the
-     whole panel to `theme-light-scope` whenever a definition was open, and a
-     reader in dark mode got a bright white panel. Expressing them as tokens
-     lets the cards flip with the theme and lets that pin go away. */
+  /* ── Motion ── */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 140ms;
+  --dur-fast: 180ms;
+  --dur-base: 280ms;
+  --dur-slow: 640ms;
+
+  /* ── Legacy (v0) aliases ──
+     Kept so the tools and admin restyle from the world without edits.
+     Offset "brutal" shadows are gone; things that float get the
+     world's float shadow, things at rest get none. */
+  --shadow-brutal: none;
+  --shadow-brutal-lg: var(--shadow-float);
+  --background: var(--bg);
+  --background-light: var(--bg-secondary);
+  --background-dark: var(--border-light);
+  --bg-opaque: var(--scrim);
+  --text: var(--fg);
+  --brand: var(--accent);
+
+  /* ── Blog definition callouts ──
+     Pastel triads used by the definition sidebar. Tokens (not hex in
+     definitions.tsx) so they follow the theme. */
   --def-green-bg: #f0fdf4;    --def-green-border: #86efac;   --def-green-text: #2d7a4f;
   --def-blue-bg: #eff6ff;     --def-blue-border: #93c5fd;    --def-blue-text: #2563eb;
   --def-purple-bg: #faf5ff;   --def-purple-border: #d8b4fe;  --def-purple-text: #7c3aed;
@@ -90,42 +128,9 @@
   --def-emerald-bg: #ecfdf5;  --def-emerald-border: #6ee7b7; --def-emerald-text: #047857;
 }
 
-/* ── Dark theme ──
-   Mirrors the light palette: bg/fg swap to warm near-black + cream,
-   the lime accent is shared. Overrides both the runtime vars and the
-   Tailwind @theme vars (utilities compile to var(--color-*)). */
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #14130f;
-  --bg-secondary: #1e1c17;
-  --fg: #f2efe8;
-  --accent: #bef264;
-  --border: #f2efe8;
-  --border-light: #3b3830;
-  --muted: #a5a097;
-  --danger: #f06a7e;
-
-  --color-bg: #14130f;
-  --color-bg-secondary: #1e1c17;
-  --color-fg: #f2efe8;
-  --color-accent: #bef264;
-  --color-border: #f2efe8;
-  --color-border-light: #3b3830;
-  --color-muted: #a5a097;
-  --color-danger: #f06a7e;
-
-  --background: #14130f;
-  --bg-opaque: rgba(20, 19, 15, 0.25);
-  --background-light: #1e1c17;
-  --background-dark: #2a2720;
-  --text: #f2efe8;
-  --brand: #bef264;
-
-  /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
-     tone that sits on --bg-secondary, borders take the old text colour and
-     text takes the old border colour, so each card keeps its hue identity
-     while meeting contrast on a dark panel. */
   --def-green-bg: #0a2216;    --def-green-border: #2d7a4f;   --def-green-text: #86efac;
   --def-blue-bg: #0c1a2e;     --def-blue-border: #2563eb;    --def-blue-text: #93c5fd;
   --def-purple-bg: #1a0f2e;   --def-purple-border: #7c3aed;  --def-purple-text: #d8b4fe;
@@ -140,123 +145,139 @@
   --def-emerald-bg: #06231a;  --def-emerald-border: #047857; --def-emerald-text: #6ee7b7;
 }
 
-/* ── Shared brutalist utility classes ── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+}
+
+/* ── Browser surfaces ──
+   The parts nobody draws still carry the world. */
+::selection {
+  background: var(--selection);
+  color: var(--selection-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+html {
+  scrollbar-color: var(--border-light) transparent;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  font-synthesis-weight: none;
+}
+
+input,
+textarea {
+  caret-color: var(--accent);
+}
 
 /* Re-establishes the light palette inside a subtree regardless of the
-   active theme — for "paper" surfaces whose content assumes a light
-   background (e.g. the blog sidebar's pastel definition cards). */
+   active theme, for paper surfaces whose content assumes light. */
 .theme-light-scope {
   color-scheme: light;
-  color: var(--fg);
-
-  --bg: #f2efe8;
-  --bg-secondary: #e8e5dd;
-  --fg: #0d0d0d;
-  --accent: #bef264;
-  --border: #0d0d0d;
-  --border-light: #ccc8bd;
-  --muted: #666460;
-  --danger: #b00020;
-
-
-  --color-bg: #f2efe8;
-  --color-bg-secondary: #e8e5dd;
-  --color-fg: #0d0d0d;
-  --color-accent: #bef264;
-  --color-border: #0d0d0d;
-  --color-border-light: #ccc8bd;
-  --color-muted: #666460;
-  --color-danger: #b00020;
-
-  --background: #f2efe8;
-  --bg-opaque: rgba(242, 239, 232, 0.25);
-  --background-light: #e8e5dd;
-  --background-dark: #d8d4cc;
-  --text: #0d0d0d;
-  --brand: #bef264;
+  color: #12110f;
+  --bg: #f3f4f0;
+  --bg-secondary: #e6e7e2;
+  --fg: #12110f;
+  --muted: #55564f;
+  --border: #12110f;
+  --border-light: #d4d5ce;
 }
 
-/* ThemeToggle icons — visibility is pure CSS keyed off [data-theme],
-   so the button renders identically on server and client. */
-.theme-toggle-moon {
-  display: block;
+/* ThemeToggle icons — swapped by CSS keyed off [data-theme], so the
+   button renders identically on server and client. */
+.theme-toggle-moon { display: block; }
+.theme-toggle-sun { display: none; }
+[data-theme="dark"] .theme-toggle-moon { display: none; }
+[data-theme="dark"] .theme-toggle-sun { display: block; }
+
+/* ── Shared utilities ── */
+
+/* The display voice, as a class, for headings outside h1–h6. */
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
+  letter-spacing: var(--display-tracking);
+  line-height: var(--display-leading);
+  text-transform: var(--display-case);
+  text-wrap: balance;
 }
 
-.theme-toggle-sun {
-  display: none;
-}
-
-[data-theme="dark"] .theme-toggle-moon {
-  display: none;
-}
-
-[data-theme="dark"] .theme-toggle-sun {
-  display: block;
-}
-
-/* Muted-to-foreground hover, the standard treatment for secondary links
-   and icon buttons. Replaces per-element JS mouseenter/leave handlers. */
+/* Secondary links and icon buttons: muted until hovered. */
 .link-hover {
   color: var(--muted);
-  transition: color 0.15s;
+  transition: color var(--dur-fast) ease;
+}
+@media (hover: hover) {
+  .link-hover:hover { color: var(--fg); }
 }
 
-.link-hover:hover {
-  color: var(--fg);
+/* Inline text link with a drawn underline that thickens on hover. */
+.link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  transition: text-decoration-color var(--dur-fast) ease, text-decoration-thickness var(--dur-fast) ease;
+}
+@media (hover: hover) {
+  .link:hover {
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+  }
 }
 
-/* Global chip / tag */
+/* Small metadata chip (tech, tags). Sentence case, readable size. */
 .chip {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+  line-height: 1.3;
   color: var(--muted);
-  border: 1px solid var(--border-light);
-  padding: 0.2rem 0.6rem;
-  display: inline-block;
-}
-
-/* Section wrapper — applied per home section */
-.section-wrapper {
-  padding: 6rem clamp(1.5rem, 5vw, 4rem);
-  border-top: 1px solid var(--border);
-  width: 100%;
-}
-
-.section-num {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.border-rule {
-  width: 100%;
-  height: 1px;
-  background: var(--border);
-}
-
-/* Custom scrollbar styles */
-.scrollbar-thin {
-  scrollbar-width: thin;
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
   background: var(--bg-secondary);
-  border-radius: 3px;
+  border-radius: var(--radius-m);
+  padding: 0.22rem 0.55rem;
+  white-space: nowrap;
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: var(--border-light);
-  border-radius: 3px;
+/* Page frame: one pair of equal outer margins at every width. */
+.frame {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
+/* Section rhythm: space, not rules, separates sections. */
+.section-wrapper {
+  width: 100%;
+  padding-block: var(--space-9) 0;
+}
+
+.scrollbar-thin { scrollbar-width: thin; }
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Visually hidden but announced. */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

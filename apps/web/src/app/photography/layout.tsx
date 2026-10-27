@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import "./gallery.css";
 
 export const metadata: Metadata = {
   title: "Photography",

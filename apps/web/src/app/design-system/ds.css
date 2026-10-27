@@ -1,0 +1,163 @@
+/* /design-system — a reference you read top to bottom, with an index. */
+.ds { padding-top: calc(var(--nav-h) + var(--space-8)); }
+.ds code {
+  font-family: var(--font-code);
+  font-size: 0.84em;
+}
+.ds-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: end;
+  margin-bottom: var(--space-9);
+}
+.ds-title { font-size: clamp(3.25rem, 1.6rem + 7vw, 9rem); margin: 0; line-height: 0.86; }
+.ds-intro p { margin: 0 0 var(--space-5); font-size: var(--step-1); line-height: 1.45; color: var(--muted); }
+.ds-intro p code { color: var(--fg); }
+.ds-intro-row { display: flex; align-items: center; gap: 1rem; color: var(--muted); }
+
+.ds-layout {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+.ds-index {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--space-6));
+}
+.ds-index ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.2rem; }
+.ds-index a {
+  display: block;
+  padding: 0.3rem 0 0.3rem 0.85rem;
+  border-left: 2px solid var(--border-light);
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+}
+.ds-index a:hover { color: var(--fg); }
+.ds-index a[aria-current] { color: var(--fg); border-left-color: var(--accent); font-weight: 600; }
+
+.ds-section { padding-bottom: var(--space-9); }
+.ds-section .section-header-title { font-size: var(--step-5); }
+.ds-sub {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-stretch: normal;
+  letter-spacing: 0;
+  font-size: var(--step-1);
+  margin: var(--space-7) 0 var(--space-4);
+}
+.ds-muted { color: var(--muted); }
+
+.ds-rules { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-3); }
+.ds-rules li {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-l);
+  padding: 1.1rem 1.2rem;
+  font-size: var(--step-0);
+  line-height: 1.45;
+}
+
+.ds-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: var(--space-4); }
+.ds-swatch { margin: 0; }
+.ds-swatch-chip {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-l);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fg) 10%, transparent);
+}
+.ds-swatch figcaption { display: grid; gap: 0.1rem; padding-top: 0.6rem; font-size: 0.9rem; }
+.ds-swatch figcaption span { color: var(--muted); line-height: 1.35; }
+.ds-swatch figcaption code { color: var(--faint); font-size: 0.75rem; }
+
+.ds-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: stretch; }
+.ds-status { flex: 1 1 9rem; border-radius: var(--radius-l); padding: 1rem; display: grid; gap: 0.2rem; text-transform: capitalize; }
+.ds-status code { opacity: 0.8; text-transform: none; }
+.ds-chart {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: end;
+  gap: 6px;
+  height: 9rem;
+}
+.ds-chart div { border-radius: var(--radius-m) var(--radius-m) 0 0; }
+
+.ds-faces { display: grid; gap: var(--space-6); }
+.ds-face { padding-bottom: var(--space-6); border-bottom: 1px solid var(--border-light); }
+.ds-face-meta { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.92rem; }
+.ds-face-meta strong { color: var(--fg); }
+.ds-face-sample-display { font-size: var(--step-6); margin: 0; }
+.ds-face-sample { font-size: var(--step-2); line-height: 1.35; margin: 0; max-width: 40ch; }
+
+.ds-scale, .ds-space { list-style: none; margin: 0; padding: 0; }
+.ds-scale li, .ds-space li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) 11rem;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.35rem 0;
+}
+.ds-scale li > span { font-family: var(--font-display); font-weight: var(--display-weight); font-stretch: var(--display-stretch); letter-spacing: var(--display-tracking); line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-scale code, .ds-space code { color: var(--muted); }
+.ds-scale-val { text-align: right; color: var(--faint) !important; font-size: 0.72rem !important; }
+.ds-space li { align-items: center; }
+.ds-space li > span { display: block; height: 0.9rem; background: var(--accent); border-radius: 1px; }
+
+.ds-radii { margin-top: var(--space-6); }
+.ds-radii > div {
+  flex: 1 1 9rem;
+  min-height: 7rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-secondary);
+}
+.ds-radii > div span { color: var(--muted); font-size: 0.85rem; }
+.ds-radii .ds-float { background: var(--surface-raised); box-shadow: var(--shadow-float); border-radius: var(--radius-l); }
+
+.ds-eases { display: grid; gap: var(--space-4); margin-bottom: var(--space-6); }
+.ds-ease-track {
+  position: relative;
+  height: 2.75rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+.ds-ease-track span {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-m);
+  background: var(--accent);
+  transition: transform 900ms var(--ease);
+}
+.ds-ease:hover .ds-ease-track span { transform: translateX(calc(min(60rem, 70vw) - 3rem)); }
+.ds-ease p { margin: 0.45rem 0 0; font-size: 0.92rem; color: var(--muted); display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.ds-ease p strong { color: var(--fg); }
+.ds-ease p code { margin-left: auto; color: var(--faint); }
+
+.ds-specimen {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: center;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.ds-specimen-stack { grid-template-columns: 1fr; }
+.ds-specimen-meta code { font-weight: 700; color: var(--fg); }
+.ds-specimen-meta p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+.ds-specimen-demo { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.ds-specimen .section-header { margin-bottom: 0; }
+
+@media (max-width: 960px) {
+  .ds-head { grid-template-columns: 1fr; }
+  .ds-layout { grid-template-columns: 1fr; }
+  .ds-index { display: none; }
+  .ds-specimen { grid-template-columns: 1fr; }
+  .ds-scale li, .ds-space li { grid-template-columns: 6rem minmax(0, 1fr); }
+  .ds-scale-val { display: none; }
+}

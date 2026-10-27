@@ -2,263 +2,100 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "framer-motion";
-import { SlideTabs } from "@mtosity/design-system";
-import CategoryFilter from "@/components/blog/CategoryFilter";
-import type { BlogListItem, CategoryType } from "@/data/blogPosts";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { SiteNav, SiteFooter } from "@mtosity/design-system";
+import { categories, type BlogListItem, type CategoryType } from "@/data/blogPosts";
 
-const LottieAnimation = dynamic(
-  () => import("@/components/blog/LottieAnimation"),
-  {
-    ssr: false,
-    loading: () => (
-      <div style={{ width: 300, height: 300, background: "var(--bg-secondary)" }} />
-    ),
-  }
-);
+type Section = "All" | CategoryType;
+
+/* Some excerpts were stored with HTML entities (`brain&apos;s`). */
+const ENTITIES: Record<string, string> = { "&apos;": "\u2019", "&#39;": "\u2019", "&quot;": "\u201c", "&amp;": "&", "&nbsp;": " " };
+const decode = (s: string) => s.replace(/&(apos|#39|quot|amp|nbsp);/g, (m) => ENTITIES[m] ?? m);
 
 /**
- * The /blog index. Presentation only — the feed (hand-written posts merged with
- * PUBLISHED database posts, newest first) is assembled on the server by
- * `postSource.listBlogIndexItems()` and handed down as `posts`. Drafts never
- * reach this component.
+ * The /blog index, set like a newspaper section front: the newest post
+ * leads at size, the rest run down a column beside it. Presentation only —
+ * the feed (hand-written posts merged with PUBLISHED database posts, newest
+ * first) is assembled on the server by `postSource.listBlogIndexItems()`.
+ * Drafts never reach this component.
  */
 export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoryType>("Building");
+  const [section, setSection] = useState<Section>("All");
+  const reduce = useReducedMotion();
 
-  const filteredPosts = posts.filter(
-    (post) => post.category === selectedCategory
-  );
+  const visible = section === "All" ? posts : posts.filter((p) => p.category === section);
+  const [lead, ...rest] = visible;
+  const counts = Object.fromEntries(
+    categories.map((c) => [c, posts.filter((p) => p.category === c).length])
+  ) as Record<CategoryType, number>;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--fg)" }}>
-      <SlideTabs />
-
-      <div
-        style={{
-          maxWidth: "1152px",
-          margin: "0 auto",
-          padding: "0 1.5rem 4rem",
-          paddingTop: "calc(56px + 3rem)",
-        }}
-      >
-        <div className="blog-list-grid">
-          {/* Left column */}
-          <motion.div
-            style={{ display: "flex", flexDirection: "column" }}
-            initial={{ opacity: 0, x: -24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {/* Header */}
-            <div
-              style={{
-                borderBottom: "1px solid var(--border)",
-                paddingBottom: "2rem",
-                marginBottom: "2rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.2em",
-                    color: "var(--muted)",
-                  }}
-                >
-                  06 —
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "var(--fg)",
-                  }}
-                >
-                  WRITING
-                </span>
-              </div>
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.8125rem",
-                  color: "var(--muted)",
-                  letterSpacing: "0.03em",
-                }}
-              >
-                Leave some notes for the world.
-              </p>
-            </div>
-
-            <Link
-              href="/notes"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--fg)",
-                textDecoration: "none",
-                borderBottom: "1px solid var(--border-light)",
-                paddingBottom: "1px",
-                width: "fit-content",
-                display: "inline-block",
-                marginBottom: "2rem",
-              }}
-            >
-              Personal notes →
+    <>
+      <SiteNav />
+      <main id="main" className="front frame">
+        <header className="front-head">
+          <h1 className="front-title display">Writing</h1>
+          <p className="front-lede">
+            Leave some notes for the world.
+            <br />
+            <Link href="/notes" className="link">
+              Personal notes
             </Link>
+          </p>
+        </header>
 
-            {/* Lottie — hidden on mobile */}
-            <div className="blog-lottie-wrapper">
-              <LottieAnimation />
-            </div>
-          </motion.div>
+        <nav className="front-sections" aria-label="Sections">
+          {(["All", ...categories.filter((c) => counts[c] > 0)] as Section[]).map((c) => (
+            <button key={c} aria-pressed={section === c} onClick={() => setSection(c)}>
+              {c}
+              <span className="count">{c === "All" ? posts.length : counts[c as CategoryType]}</span>
+            </button>
+          ))}
+        </nav>
 
-          {/* Right column — post list */}
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            style={{ display: "flex", flexDirection: "column" }}
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            key={section}
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? undefined : { opacity: 0, y: -6 }}
+            transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
           >
-            <CategoryFilter
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-            />
-
-            <div className="scrollbar-thin" style={{ overflowY: "auto", flex: 1 }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedCategory}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.22, ease: "easeOut" }}
-                >
-                  {filteredPosts.map((post, index) => (
-                    <motion.article
-                      key={post.slug}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.35,
-                        delay: index * 0.06,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      style={{
-                        borderBottom:
-                          index !== filteredPosts.length - 1
-                            ? "1px solid var(--border-light)"
-                            : "none",
-                        padding: "1.75rem 0",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "baseline",
-                          justifyContent: "space-between",
-                          gap: "1rem",
-                          marginBottom: "0.6rem",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.65rem",
-                            letterSpacing: "0.12em",
-                            textTransform: "uppercase",
-                            color: "var(--muted)",
-                            border: "1px solid var(--border-light)",
-                            padding: "0.15rem 0.5rem",
-                          }}
-                        >
-                          {post.category}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.7rem",
-                            letterSpacing: "0.08em",
-                            color: "var(--muted)",
-                            flexShrink: 0,
-                          }}
-                        >
-                          {post.date}
-                        </span>
-                      </div>
-
-                      <h2
-                        style={{
-                          fontFamily: "var(--font-heading)",
-                          fontSize: "1.4rem",
-                          fontWeight: 600,
-                          lineHeight: 1.3,
-                          marginBottom: "0.6rem",
-                        }}
-                      >
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          style={{
-                            color: "var(--fg)",
-                            textDecoration: "none",
-                            transition: "opacity 0.15s",
-                          }}
-                          onMouseEnter={(e) =>
-                            ((e.currentTarget as HTMLElement).style.opacity = "0.6")
-                          }
-                          onMouseLeave={(e) =>
-                            ((e.currentTarget as HTMLElement).style.opacity = "1")
-                          }
-                        >
-                          {post.title}
-                        </Link>
-                      </h2>
-
-                      <p
-                        style={{
-                          fontSize: "0.9375rem",
-                          color: "var(--muted)",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {post.excerpt}
-                      </p>
-                    </motion.article>
-                  ))}
-
-                  {filteredPosts.length === 0 && (
-                    <p
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "0.75rem",
-                        color: "var(--muted)",
-                        padding: "3rem 0",
-                      }}
-                    >
-                      No posts in this category yet.
+            {!lead ? (
+              <p className="front-empty">Nothing in {section} yet.</p>
+            ) : (
+              <div className="front-grid">
+                <article className="front-lead">
+                  <Link href={`/blog/${lead.slug}`}>
+                    <h2 className="front-lead-title">{lead.title}</h2>
+                    <p className="front-lead-dek">{decode(lead.excerpt)}</p>
+                    <p className="front-meta">
+                      {lead.category} · {lead.date}
                     </p>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                  </Link>
+                </article>
+
+                {rest.length > 0 && (
+                  <ul className="front-list">
+                    {rest.map((post) => (
+                      <li key={post.slug} className="front-item">
+                        <Link href={`/blog/${post.slug}`}>
+                          <h3 className="front-item-title">{post.title}</h3>
+                          <p className="front-item-dek">{decode(post.excerpt)}</p>
+                          <p className="front-meta">
+                            {post.category} · {post.date}
+                          </p>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
           </motion.div>
-        </div>
-      </div>
-    </div>
+        </AnimatePresence>
+      </main>
+      <SiteFooter />
+    </>
   );
 }

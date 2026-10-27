@@ -22,6 +22,10 @@ export default async function DbPostArticle({ post }: { post: DbBlogPost }) {
   // these, so a key defined in both resolves to the hand-written one (§4).
   const anchors = await loadDbAnchors();
 
+  // ~230 words a minute for considered reading; tags stripped first.
+  const words = post.bodyHtml.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+  const readingMinutes = Math.max(1, Math.round(words / 230));
+
   return (
     <BlogLayout
       extraDefinitions={anchors.definitions}
@@ -31,6 +35,8 @@ export default async function DbPostArticle({ post }: { post: DbBlogPost }) {
       // date so the header is not blank while previewing.
       date={formatBlogDate(dbPostDate(post))}
       category={post.category}
+      dek={post.excerpt}
+      readingMinutes={readingMinutes}
     >
       {/* Rendered inside <article class="blog-article">, which is what
           BlogLayout scans for headings — the TOC therefore picks up the

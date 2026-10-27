@@ -2,13 +2,13 @@
    @mtosity/design-system — shadcn/ui bridge
 
    Drop-in theme for shadcn/ui (Tailwind v4) apps that want the
-   MTosity brutalist-editorial look (warm cream + black + lime).
+   current MTosity world (see world.css).
 
    Usage (after `@import "tailwindcss"`):
      @import "@mtosity/design-system/shadcn.css";
 
    This is SELF-CONTAINED — do NOT also import tokens.css in a shadcn
-   app, or the brand color utilities (bg-accent = lime) will collide
+   app, or the brand color utilities (bg-accent = the world accent) will collide
    with shadcn's accent (a hover surface). This file maps shadcn's
    semantic tokens onto the palette and ships the heading typography.
 
@@ -17,44 +17,23 @@
    ────────────────────────────────────────────────────────────── */
 
 @import "./system.css";
+@import "./world.css";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* ── Source palette (runtime CSS vars; flip per theme) ── */
+/* ── Source palette ──
+   The same world file the portfolio uses; the shadcn tokens below map
+   onto its roles. --font-mono stays a real monospace here. */
+
 :root {
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas,
-    "Liberation Mono", Menlo, monospace;
-
+  --font-mono: var(--font-code);
+  --shadow-brutal: none;
+  --shadow-brutal-lg: var(--shadow-float);
   color-scheme: light;
-
-  --bg: #f2efe8;
-  --bg-secondary: #e8e5dd;
-  --fg: #0d0d0d;
-  --accent: #bef264;
-  --accent-fg: #0d0d0d;
-  --accent-fg-muted: #3f3e38;
-  --border: #0d0d0d;
-  --border-light: #ccc8bd;
-  --muted: #666460;
-  --danger: #b00020;
-
-  --shadow-brutal: 4px 4px 0 var(--border);
-  --shadow-brutal-lg: 6px 6px 0 var(--border);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-
-  --bg: #14130f;
-  --bg-secondary: #1e1c17;
-  --fg: #f2efe8;
-  --accent: #bef264;
-  --accent-fg: #0d0d0d;
-  --accent-fg-muted: #3f3e38;
-  --border: #f2efe8;
-  --border-light: #3b3830;
-  --muted: #a5a097;
-  --danger: #f06a7e;
 }
 
 /* ── shadcn semantic tokens → palette ── */
@@ -68,7 +47,7 @@
   --color-popover: var(--bg-secondary);
   --color-popover-foreground: var(--fg);
 
-  /* Lime is the primary CTA — ink-on-lime text in both themes */
+  /* The world accent is the primary CTA */
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-fg);
 
@@ -78,7 +57,7 @@
   --color-muted: var(--bg-secondary);
   --color-muted-foreground: var(--muted);
 
-  /* shadcn "accent" = hover/active surface → subtle lime tint */
+  /* shadcn "accent" = hover/active surface → subtle accent tint */
   --color-accent: color-mix(in srgb, var(--accent) 16%, transparent);
   --color-accent-foreground: var(--fg);
 

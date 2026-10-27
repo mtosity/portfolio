@@ -17,180 +17,39 @@ export default function CodeView({
   isClosing,
   onClose,
 }: CodeViewProps) {
+  const blocks = [
+    { key: "wrong", label: "Wrong approach", tone: "error" as const, data: codeExample.wrongCode },
+    { key: "correct", label: "Correct approach", tone: "success" as const, data: codeExample.correctCode },
+    { key: "alt", label: "Alternative", tone: "default" as const, data: codeExample.alternativeCode },
+  ];
+
   return (
     <div
-      className={`${
+      className={`rail-panel ${
         isClosing
           ? "animate-definition-exit"
           : isTransitioning
           ? "animate-fade-blur-out"
           : "animate-slide-in-left"
       }`}
-      style={{ height: "100%", display: "flex", flexDirection: "column", overflow: "hidden" }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: "0.75rem",
-          flexShrink: 0,
-          gap: "0.5rem",
-        }}
-      >
-        <h3
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: "var(--fg)",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {codeExample.title}
-        </h3>
-        <button
-          onClick={onClose}
-          className="link-hover"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.65rem",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            flexShrink: 0,
-          }}
-        >
-          ← Back
+      <div className="rail-panel-head">
+        <h3 className="rail-panel-title">{codeExample.title}</h3>
+        <button onClick={onClose} className="rail-back">
+          Contents
         </button>
       </div>
+      <p className="rail-panel-lede">{codeExample.description}</p>
 
-      <div
-        style={{
-          borderTop: "1px solid var(--border-light)",
-          paddingTop: "0.75rem",
-          marginBottom: "1rem",
-          flexShrink: 0,
-        }}
-      >
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.75rem",
-            lineHeight: 1.6,
-            color: "var(--muted)",
-          }}
-        >
-          {codeExample.description}
-        </p>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", flex: 1, overflowY: "auto", minHeight: 0, paddingBottom: "3rem" }}>
-        {codeExample.wrongCode && (
-          <div>
-            <h4
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--def-red-text)",
-                marginBottom: "0.5rem",
-              }}
-            >
-              ✗ Wrong Approach
-            </h4>
-            <CodeBlock
-              code={codeExample.wrongCode.code}
-              language={codeExample.wrongCode.language}
-              variant="error"
-            />
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                lineHeight: 1.5,
-                color: "var(--muted)",
-                marginTop: "0.5rem",
-              }}
-            >
-              {codeExample.wrongCode.explanation}
-            </p>
-          </div>
-        )}
-
-        {codeExample.correctCode && (
-          <div>
-            <h4
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--def-green-text)",
-                marginBottom: "0.5rem",
-              }}
-            >
-              ✓ Correct Approach
-            </h4>
-            <CodeBlock
-              code={codeExample.correctCode.code}
-              language={codeExample.correctCode.language}
-              variant="success"
-            />
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                lineHeight: 1.5,
-                color: "var(--muted)",
-                marginTop: "0.5rem",
-              }}
-            >
-              {codeExample.correctCode.explanation}
-            </p>
-          </div>
-        )}
-
-        {codeExample.alternativeCode && (
-          <div>
-            <h4
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: "0.5rem",
-              }}
-            >
-              → Alternative
-            </h4>
-            <CodeBlock
-              code={codeExample.alternativeCode.code}
-              language={codeExample.alternativeCode.language}
-            />
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                lineHeight: 1.5,
-                color: "var(--muted)",
-                marginTop: "0.5rem",
-              }}
-            >
-              {codeExample.alternativeCode.explanation}
-            </p>
-          </div>
+      <div className="rail-panel-body">
+        {blocks.map(({ key, label, tone, data }) =>
+          data ? (
+            <div key={key} className="code-example">
+              <h4 className={`code-example-label code-example-${tone}`}>{label}</h4>
+              <CodeBlock code={data.code} language={data.language} variant={tone} />
+              <p className="code-example-note">{data.explanation}</p>
+            </div>
+          ) : null
         )}
       </div>
     </div>

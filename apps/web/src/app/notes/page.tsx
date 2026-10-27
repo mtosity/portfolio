@@ -485,7 +485,7 @@ export default function Notes() {
 
         /* ── Header ── */
         .board-header {
-          margin-top: 56px;
+          margin-top: var(--nav-h);
           padding: 2.5rem clamp(1.5rem, 5vw, 4rem) 1.5rem;
         }
         .board-header-label {

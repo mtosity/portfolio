@@ -38,6 +38,9 @@ const nextConfig = {
     ],
   },
   images: {
+    // Next 16 rejects any quality not listed here (400). 85 is the
+    // photography lightbox variant, 75 the default for everything else.
+    qualities: [75, 85],
     remotePatterns: [
       {
         protocol: "https",

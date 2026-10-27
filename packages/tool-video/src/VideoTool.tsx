@@ -319,7 +319,7 @@ export default function VideoToolPage() {
         style={{
           maxWidth: "960px",
           margin: "0 auto",
-          padding: "calc(56px + 3rem) clamp(1.5rem, 5vw, 4rem) 6rem",
+          padding: "calc(var(--nav-h) + 3rem) clamp(1.5rem, 5vw, 4rem) 6rem",
         }}
       >
         {/* Crumbs */}

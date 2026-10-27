@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { SlideTabs } from "@mtosity/design-system";
+import { SiteNav, SiteFooter } from "@mtosity/design-system";
 import {
   definitions,
   type Definition,
@@ -32,6 +32,9 @@ interface BlogLayoutProps {
    */
   extraDefinitions?: Record<string, Definition>;
   extraCodeExamples?: Record<string, CodeExample>;
+  /** The standfirst under the headline (the post's excerpt). */
+  dek?: string;
+  readingMinutes?: number;
 }
 
 interface Heading {
@@ -42,8 +45,6 @@ interface Heading {
 
 type SidebarMode = "toc" | "definition" | "code";
 
-const OFFSET = "calc(56px + 2.5rem)";
-const SIDEBAR_HEIGHT = "calc(100vh - 56px - 5rem)";
 
 function Sidebar({
   headings,
@@ -54,7 +55,6 @@ function Sidebar({
   isTransitioning,
   isClosing,
   activeHeadingId,
-  hideBackLink,
 }: {
   headings: Heading[];
   sidebarMode: SidebarMode;
@@ -64,192 +64,60 @@ function Sidebar({
   isTransitioning: boolean;
   isClosing: boolean;
   activeHeadingId: string;
-  hideBackLink?: boolean;
 }) {
   const { onClose } = useBlogInteraction();
 
-  return (
-    <div>
-      {!hideBackLink && (
-        <Link
-          href="/blog"
-          className="link-hover"
-          style={{
-            display: "inline-block",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.68rem",
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            marginBottom: "1rem",
-            borderBottom: "1px solid var(--border-light)",
-            paddingBottom: "1px",
-          }}
-        >
-          ← Back to Blog
-        </Link>
-      )}
-
-      {/* Definition cards used to carry hardcoded pastel hex, so this panel
-          pinned `theme-light-scope` whenever one was open — which meant a
-          reader in dark mode got a bright white panel next to a dark article.
-          The cards now use the --def-* tokens (tokens.css), which have dark
-          values, so the panel follows the theme like everything else. */}
+  if (sidebarMode === "definition") {
+    return (
       <div
-        style={{
-          background: "var(--bg-secondary)",
-          border: "1px solid var(--border-light)",
-          padding: "1.25rem",
-          height: SIDEBAR_HEIGHT,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-        }}
+        className={`rail-panel ${
+          isClosing
+            ? "animate-definition-exit"
+            : isTransitioning
+            ? "animate-fade-blur-out"
+            : "animate-slide-in-left"
+        }`}
       >
-        {sidebarMode === "definition" && (
-          <div
-            className={`${
-              isClosing
-                ? "animate-definition-exit"
-                : isTransitioning
-                ? "animate-fade-blur-out"
-                : "animate-slide-in-left"
-            }`}
-            style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "1rem",
-                gap: "0.5rem",
-                flexShrink: 0,
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "var(--fg)",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {currentDefinition?.title}
-              </h3>
-              <button
-                onClick={onClose}
-                className="link-hover"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  flexShrink: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.25rem",
-                }}
-              >
-                ← Back
-              </button>
-            </div>
-            <div
-              className="def-content"
-              style={{
-                borderTop: "1px solid var(--border-light)",
-                paddingTop: "1rem",
-                overflowY: "auto",
-                flex: 1,
-              }}
-            >
-              {currentDefinition?.content}
-            </div>
-          </div>
-        )}
-
-        {sidebarMode === "code" && currentCodeExample && (
-          <CodeView
-            codeExample={currentCodeExample}
-            isTransitioning={isTransitioning}
-            isClosing={isClosing}
-            onClose={onClose}
-          />
-        )}
-
-        {sidebarMode === "toc" && (
-          <div
-            className="animate-fade-in-smooth"
-            style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}
-          >
-            <h3
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: "1rem",
-                flexShrink: 0,
-                borderBottom: "1px solid var(--border-light)",
-                paddingBottom: "0.75rem",
-              }}
-            >
-              Contents
-            </h3>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0",
-                overflowY: "auto",
-                flex: 1,
-              }}
-            >
-              {headings.map((heading) => {
-                const isActive = heading.id === activeHeadingId;
-                return (
-                  <button
-                    key={heading.id}
-                    onClick={() => onScrollToHeading(heading.id)}
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      textAlign: "left",
-                      background: isActive ? "var(--bg)" : "transparent",
-                      border: "none",
-                      paddingTop: "0.25rem",
-                      paddingBottom: "0.25rem",
-                      paddingRight: "0.5rem",
-                      paddingLeft: heading.level > 2 ? "1.5rem" : "0.5rem",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.7rem",
-                      lineHeight: 1.5,
-                      color: isActive ? "var(--fg)" : "var(--muted)",
-                      cursor: "pointer",
-                      borderLeft: isActive ? "2px solid var(--fg)" : "2px solid transparent",
-                      transition: "color 0.15s",
-                      wordBreak: "break-word",
-                    }}
-                  >
-                    {heading.text}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-        )}
+        <div className="rail-panel-head">
+          <h3 className="rail-panel-title">{currentDefinition?.title}</h3>
+          <button onClick={onClose} className="rail-back">
+            Contents
+          </button>
+        </div>
+        <div className="rail-panel-body def-content">{currentDefinition?.content}</div>
       </div>
-    </div>
+    );
+  }
+
+  if (sidebarMode === "code" && currentCodeExample) {
+    return (
+      <CodeView
+        codeExample={currentCodeExample}
+        isTransitioning={isTransitioning}
+        isClosing={isClosing}
+        onClose={onClose}
+      />
+    );
+  }
+
+  if (headings.length === 0) return null;
+
+  return (
+    <nav className="rail-toc animate-fade-in-smooth" aria-label="In this article">
+      <h3 className="rail-toc-title">In this article</h3>
+      <ol>
+        {headings.map((heading) => (
+          <li key={heading.id} data-level={heading.level > 2 ? "sub" : undefined}>
+            <button
+              onClick={() => onScrollToHeading(heading.id)}
+              aria-current={heading.id === activeHeadingId ? "location" : undefined}
+            >
+              {heading.text}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }
 
@@ -260,8 +128,9 @@ export default function BlogLayout({
   children,
   extraDefinitions,
   extraCodeExamples,
+  dek,
+  readingMinutes,
 }: BlogLayoutProps) {
-  void category;
   // Static-file first, DB second (contract §4): spreading the static maps last
   // means a key present in both resolves to the hand-written entry.
   const resolvedDefinitions = extraDefinitions
@@ -281,7 +150,7 @@ export default function BlogLayout({
 
   // Auto-expand sidebar on desktop
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
+    const mq = window.matchMedia("(min-width: 1200px)");
     // One-time mount sync with the media query; the state is also toggled by
     // the user, so useSyncExternalStore does not fit here.
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -386,213 +255,89 @@ export default function BlogLayout({
     }, 300);
   };
 
+  const sidebarProps = {
+    headings,
+    sidebarMode,
+    currentDefinition,
+    currentCodeExample,
+    isTransitioning,
+    isClosing,
+    activeHeadingId,
+  };
+  const railOpen = sidebarMode !== "toc";
+
   return (
     <BlogProvider
       onInteract={handleDefinitionRequest}
       onCodeExampleInteract={handleCodeExampleRequest}
       onClose={handleBackToToc}
     >
-      <div style={{ minHeight: "100vh", background: "var(--bg)", color: "var(--fg)" }}>
-        <SlideTabs />
+      <SiteNav />
+      <main id="main" className="reading">
+        <div className="reading-grid frame">
+          <article className="blog-article">
+            <header className="article-head">
+              <h1 className="article-headline">{title}</h1>
+              {dek ? <p className="article-dek">{dek}</p> : null}
+              <p className="article-byline">
+                <span>
+                  By <Link href="/">Minh Tam Nguyen</Link>
+                </span>
+                {category ? (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{category}</span>
+                  </>
+                ) : null}
+                <span aria-hidden="true">·</span>
+                <time>{date}</time>
+                {readingMinutes ? (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{readingMinutes} min read</span>
+                  </>
+                ) : null}
+              </p>
+            </header>
+            <div className="article-body">{children}</div>
+            <footer className="article-end">
+              <Link href="/blog" className="link">
+                More writing
+              </Link>
+            </footer>
+          </article>
 
-        {/* Mobile TOC toggle button */}
-        <button
-          className="blog-mobile-toc-btn"
-          onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          aria-label={isSidebarCollapsed ? "Show table of contents" : "Hide table of contents"}
-        >
-          {isSidebarCollapsed ? "☰ TOC" : "✕ Close"}
-        </button>
-
-        {/* Mobile sidebar backdrop */}
-        <div
-          className={`blog-sidebar-overlay${!isSidebarCollapsed ? " open" : ""}`}
-          onClick={() => setIsSidebarCollapsed(true)}
-        />
-
-        {/* Mobile sidebar panel */}
-        <div className={`blog-sidebar-mobile${!isSidebarCollapsed ? " open" : ""}`}>
-          <Sidebar
-            headings={headings}
-            sidebarMode={sidebarMode}
-            currentDefinition={currentDefinition}
-            currentCodeExample={currentCodeExample}
-            onScrollToHeading={(id) => {
-              scrollToHeading(id);
-              setIsSidebarCollapsed(true);
-            }}
-            isTransitioning={isTransitioning}
-            isClosing={isClosing}
-            activeHeadingId={activeHeadingId}
-            hideBackLink
-          />
+          {/* Desktop rail: sticky beside the column */}
+          <aside className="reading-rail" aria-label="Article tools">
+            <Sidebar {...sidebarProps} onScrollToHeading={scrollToHeading} />
+          </aside>
         </div>
+      </main>
 
-        <div
-          style={{
-            maxWidth: "1280px",
-            margin: "0 auto",
-            padding: `${OFFSET} clamp(1.5rem, 4vw, 3rem) 6rem`,
+      {/* Phone / tablet: the rail becomes a bottom sheet */}
+      <button
+        className="reading-sheet-toggle"
+        onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        aria-expanded={!isSidebarCollapsed}
+        aria-controls="reading-sheet"
+      >
+        {isSidebarCollapsed ? (railOpen ? "Show note" : "Contents") : "Close"}
+      </button>
+      <div
+        className={`reading-sheet-scrim${!isSidebarCollapsed ? " is-open" : ""}`}
+        onClick={() => setIsSidebarCollapsed(true)}
+      />
+      <div id="reading-sheet" className={`reading-sheet${!isSidebarCollapsed ? " is-open" : ""}`}>
+        <Sidebar
+          {...sidebarProps}
+          onScrollToHeading={(id) => {
+            scrollToHeading(id);
+            setIsSidebarCollapsed(true);
           }}
-        >
-          <div className="blog-post-grid">
-            {/* Sidebar — desktop only (sticky) */}
-            <div className="blog-sidebar-desktop">
-              <Sidebar
-                headings={headings}
-                sidebarMode={sidebarMode}
-                currentDefinition={currentDefinition}
-                currentCodeExample={currentCodeExample}
-                onScrollToHeading={scrollToHeading}
-                isTransitioning={isTransitioning}
-                isClosing={isClosing}
-                activeHeadingId={activeHeadingId}
-              />
-            </div>
-
-            {/* Article */}
-            <div>
-              <article className="blog-article">
-                <header
-                  style={{
-                    marginBottom: "3rem",
-                    paddingBottom: "2rem",
-                    borderBottom: "1px solid var(--border)",
-                  }}
-                >
-                  <h1
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "clamp(1.75rem, 4vw, 3rem)",
-                      fontWeight: 700,
-                      lineHeight: 1.15,
-                      letterSpacing: "-0.02em",
-                      color: "var(--fg)",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {title}
-                  </h1>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.68rem",
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    {date}
-                  </p>
-                </header>
-                <div style={{ lineHeight: 1.85 }}>{children}</div>
-              </article>
-            </div>
-          </div>
-        </div>
+        />
       </div>
 
-      <style>{`
-        .blog-article h2 {
-          font-family: var(--font-heading);
-          font-size: 1.75rem;
-          font-weight: 700;
-          color: var(--fg);
-          margin: 2.75rem 0 1rem;
-          padding-bottom: 0.5rem;
-          border-bottom: 1px solid var(--border-light);
-          letter-spacing: -0.01em;
-          line-height: 1.25;
-        }
-        .blog-article h3 {
-          font-family: var(--font-heading);
-          font-size: 1.35rem;
-          font-weight: 600;
-          color: var(--fg);
-          margin: 2rem 0 0.75rem;
-          line-height: 1.3;
-        }
-        .blog-article h4 {
-          font-family: var(--font-mono);
-          font-size: 0.8rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: var(--muted);
-          margin: 1.75rem 0 0.5rem;
-        }
-        .blog-article p {
-          font-size: 1.0625rem;
-          color: var(--muted);
-          margin-bottom: 1.5em;
-          max-width: 68ch;
-        }
-        .blog-article a {
-          color: var(--fg);
-          text-decoration: none;
-          border-bottom: 1px solid var(--border-light);
-          transition: border-color 0.15s;
-        }
-        .blog-article a:hover {
-          border-bottom-color: var(--fg);
-        }
-        .blog-article code {
-          font-family: var(--font-mono);
-          font-size: 0.85em;
-          background: var(--bg-secondary);
-          border: 1px solid var(--border-light);
-          padding: 0.1em 0.4em;
-          color: var(--fg);
-        }
-        .blog-article pre {
-          background: var(--bg-secondary) !important;
-          color: var(--fg) !important;
-          border: 1px solid var(--border-light);
-          padding: 1.25rem 1.5rem;
-          overflow-x: auto;
-          margin: 1.75rem 0;
-          line-height: 1.6;
-        }
-        .blog-article pre code {
-          background: none !important;
-          border: none !important;
-          padding: 0 !important;
-          font-size: 0.875rem;
-        }
-        .blog-article blockquote {
-          border-left: 3px solid var(--border);
-          margin: 2rem 0;
-          padding: 0.25rem 0 0.25rem 1.5rem;
-          color: var(--muted);
-          font-style: italic;
-        }
-        .blog-article blockquote p { margin-bottom: 0; }
-        .blog-article ul, .blog-article ol {
-          padding-left: 1.5rem;
-          margin-bottom: 1.5em;
-          color: var(--muted);
-          max-width: 68ch;
-        }
-        .blog-article li { margin-bottom: 0.4em; font-size: 1.0625rem; }
-        .blog-article strong { color: var(--fg); font-weight: 600; }
-        .blog-article em { font-style: italic; }
-        .blog-article hr {
-          border: none;
-          border-top: 1px solid var(--border-light);
-          margin: 2.5rem 0;
-        }
-        .blog-article img {
-          max-width: 100%;
-          height: auto;
-          border: 1px solid var(--border-light);
-          display: block;
-          margin: 2rem 0;
-        }
-
-        /* Definition content */
-        .def-content li { color: var(--muted); font-size: 0.9rem; padding: 0.15em 0; }
-        .def-content strong { color: var(--fg); font-weight: 600; }
-      `}</style>
+      <SiteFooter />
     </BlogProvider>
   );
 }

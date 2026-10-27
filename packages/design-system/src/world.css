@@ -1,0 +1,80 @@
+/* ──────────────────────────────────────────────────────────────
+   WORLD — Base
+
+   The only file that changes between visual worlds. Every page reads
+   roles from tokens.css; this file gives the roles their values.
+
+   Base: a cool off-white ground, near-black ink, one red accent;
+   condensed Archivo for display, Source Serif 4 for reading.
+   Dark: warm black, paper-coloured ink, the same red, brighter.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Faces. The --font-world-* variables are set by next/font on <html>
+     (apps/web/src/app/fonts.ts). */
+  --font-display: var(--font-world-display), "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-ui: var(--font-world-display), "Helvetica Neue", Arial, sans-serif;
+  --font-text: var(--font-world-text), Georgia, "Times New Roman", serif;
+  --font-code: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Display voice: condensed and heavy. */
+  --display-weight: 800;
+  --display-stretch: 72%;
+  --display-tracking: -0.025em;
+  --display-leading: 0.9;
+  --display-case: none;
+
+  /* Shape: nearly square. */
+  --radius-s: 0px;
+  --radius-m: 2px;
+  --radius-l: 4px;
+
+  /* Light theme */
+  --bg: #f3f4f0;
+  --bg-secondary: #e6e7e2;
+  --surface-raised: #ffffff;
+  --fg: #12110f;
+  --muted: #55564f;
+  --faint: #8a8b83;
+  --accent: #d4261b;
+  --accent-hover: #b81d13;
+  --accent-fg: #fffaf6;
+  --accent-fg-muted: #ffd9d3;
+  --border: #12110f;
+  --border-light: #d4d5ce;
+  --danger: #b3140c;
+  --selection: #d4261b;
+  --selection-fg: #fffaf6;
+
+  /* Deep ink surface (code blocks, scrims), identical in both themes. */
+  --film: #15120f;
+  --film-ink: #ece6da;
+  --film-edge: #d9a441;
+
+  --shadow-float: 0 1px 2px rgb(18 17 15 / 0.08), 0 12px 32px -8px rgb(18 17 15 / 0.22);
+  --scrim: rgb(243 244 240 / 0.86);
+  --grain-opacity: 0.06;
+}
+
+[data-theme="dark"] {
+  /* Dark theme */
+  --bg: #110d0c;
+  --bg-secondary: #1b1513;
+  --surface-raised: #241c19;
+  --fg: #efe7dd;
+  --muted: #b1a197;
+  --faint: #7c6d64;
+  --accent: #ff4a3a;
+  --accent-hover: #ff6a5c;
+  --accent-fg: #160807;
+  --accent-fg-muted: #4a1410;
+  --border: #efe7dd;
+  --border-light: #382c27;
+  --danger: #ff6b61;
+  --selection: #ff4a3a;
+  --selection-fg: #160807;
+
+  --shadow-float: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -10px rgb(0 0 0 / 0.7);
+  --scrim: rgb(17 13 12 / 0.88);
+  --grain-opacity: 0.09;
+}

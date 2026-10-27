@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import "./reading.css";
 
 export const metadata: Metadata = {
   // `default` titles /blog itself; `template` suffixes the posts beneath it.

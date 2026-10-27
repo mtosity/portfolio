@@ -1,25 +1,16 @@
-"use client";
-import { SlideTabs } from "@mtosity/design-system";
-import { Hero } from "@/components/Hero";
-import { About } from "@/components/template/home/about/About";
-import { Experience } from "@/components/template/home/experience/Experience";
-import { Projects } from "@/components/template/home/projects/Projects";
-import styles from "../components/template/home/home.module.scss";
-import { Contact } from "@/components/template/home/contact/Contact";
+import { listGalleryImages } from "@mtosity/lib/gallery";
+import { Home } from "@/components/home/Home";
+import "@/components/home/home.css";
 
-export default function Home() {
-  return (
-    <div className="relative">
-      <SlideTabs />
-      <Hero />
-      <div className="flex flex-col items-center px-0">
-        <div className={styles.home}>
-          <About />
-          <Experience />
-          <Projects />
-          <Contact />
-        </div>
-      </div>
-    </div>
-  );
+// ISR: the light table shows recent photographs from the gallery.
+export const revalidate = 300;
+
+export default async function HomePage() {
+  let photos: { id: string; src: string }[] = [];
+  try {
+    photos = (await listGalleryImages()).slice(0, 12).map((p) => ({ id: p.id, src: p.src }));
+  } catch {
+    // No blob access (local without a token): the table shows only projects.
+  }
+  return <Home photos={photos} />;
 }

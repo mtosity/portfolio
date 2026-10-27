@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import React, {
   useState,
@@ -8,7 +8,7 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { SlideTabs } from "@mtosity/design-system";
+import { SiteNav, SiteFooter } from "@mtosity/design-system";
 import type { GalleryImage } from "@mtosity/lib/gallery";
 
 type Photo = GalleryImage;
@@ -20,13 +20,40 @@ const useIsomorphicLayoutEffect =
 // Mirror of next.config deviceSizes — used to predict the lightbox variant URL
 // so it can be preloaded on hover, before the user clicks.
 const DEVICE_SIZES = [640, 750, 828, 1080, 1200, 1920, 2048, 3840];
-const LIGHTBOX_CSS_WIDTH = 896; // 56rem modal cap
+const LIGHTBOX_CSS_WIDTH = 1400; // lightbox frame cap
 const LIGHTBOX_QUALITY = 85;
 
 function lightboxVariantUrl(src: string) {
   const target = LIGHTBOX_CSS_WIDTH * Math.min(window.devicePixelRatio || 1, 4);
   const w = DEVICE_SIZES.find((s) => s >= target) ?? DEVICE_SIZES[DEVICE_SIZES.length - 1];
   return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${LIGHTBOX_QUALITY}`;
+}
+
+const GAP = 6;
+const PAGE_MAX = 1440;
+
+/* Mirrors --gutter in tokens.css: clamp(1rem, 0.4rem + 2.6vw, 2.5rem). */
+function gutterFor(width: number) {
+  return Math.min(40, Math.max(16, 6.4 + width * 0.026));
+}
+
+function containerWidthFor(width: number) {
+  return Math.min(width, PAGE_MAX) - 2 * gutterFor(width);
+}
+
+/* Camera filenames carry the capture time (IMG20260604172417 → 4 June
+   2026). Used for captions and alt text when the upload has no title. */
+function takenOn(photo: Photo): string | null {
+  const m = photo.src.match(/IMG_?(\d{4})(\d{2})(\d{2})/);
+  if (!m) return null;
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  if (Number.isNaN(d.getTime()) || d.getFullYear() < 2000) return null;
+  return d.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function altFor(photo: Photo) {
+  const when = takenOn(photo);
+  return when ? `Photograph taken ${when}` : "Photograph";
 }
 
 export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
@@ -121,40 +148,16 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
       let currentRowAspectSum = 0;
 
       const getResponsiveSettings = () => {
-        if (windowWidth < 640)
-          return {
-            targetRowWidth: windowWidth - 32,
-            maxImagesPerRow: 1,
-            targetRowHeight: 400,
-          };
-        if (windowWidth < 768)
-          return {
-            targetRowWidth: windowWidth - 48,
-            maxImagesPerRow: 2,
-            targetRowHeight: 300,
-          };
-        if (windowWidth < 1024)
-          return {
-            targetRowWidth: windowWidth - 64,
-            maxImagesPerRow: 3,
-            targetRowHeight: 280,
-          };
-        if (windowWidth < 1280)
-          return {
-            targetRowWidth: windowWidth - 80,
-            maxImagesPerRow: 4,
-            targetRowHeight: 300,
-          };
-        return {
-          targetRowWidth: 1200,
-          maxImagesPerRow: 5,
-          targetRowHeight: 300,
-        };
+        const targetRowWidth = containerWidthFor(windowWidth);
+        if (windowWidth < 640) return { targetRowWidth, maxImagesPerRow: 1, targetRowHeight: 420 };
+        if (windowWidth < 1024) return { targetRowWidth, maxImagesPerRow: 2, targetRowHeight: 320 };
+        if (windowWidth < 1280) return { targetRowWidth, maxImagesPerRow: 3, targetRowHeight: 340 };
+        return { targetRowWidth, maxImagesPerRow: 4, targetRowHeight: 380 };
       };
 
       const { targetRowWidth, maxImagesPerRow, targetRowHeight } =
         getResponsiveSettings();
-      const gap = 4;
+      const gap = GAP;
 
       photos.forEach((photo, index) => {
         const { aspectRatio } = dimsFor(photo);
@@ -191,278 +194,206 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
     [photos, createRows],
   );
 
+  const reduce = useReducedMotion();
+  const hero = React.useMemo(
+    () => photos.find((p) => p.width && p.height && p.width / p.height > 1.25) ?? photos[0],
+    [photos],
+  );
+  const index = selectedPhoto ? photos.findIndex((p) => p.id === selectedPhoto.photo.id) : -1;
+
+  const step = useCallback(
+    (dir: 1 | -1) => {
+      if (index < 0) return;
+      const next = photos[(index + dir + photos.length) % photos.length];
+      if (!next) return;
+      setLightboxLoaded(false);
+      setSelectedPhoto({ photo: next, thumbSrc: null });
+    },
+    [index, photos],
+  );
+
+  // Lightbox keys: Esc closes, arrows walk the roll. Scroll stays locked.
+  useEffect(() => {
+    if (!selectedPhoto) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedPhoto(null);
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
+    document.addEventListener("keydown", onKey);
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = "";
+    };
+  }, [selectedPhoto, step]);
+
+  const containerWidth = containerWidthFor(windowWidth);
+
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--bg)",
-        color: "var(--fg)",
-      }}
-    >
-      <SlideTabs />
+    <>
+      <SiteNav overlay />
+      <main id="main" className="gallery">
+        {/* First screen: one photograph, edge to edge, with the line. */}
+        <section className="gallery-hero" aria-labelledby="gallery-title">
+          {hero && (
+            <Image
+              src={hero.src}
+              alt={altFor(hero)}
+              fill
+              priority
+              sizes="100vw"
+              quality={80}
+              className="gallery-hero-img"
+            />
+          )}
+          <div className="gallery-hero-scrim" aria-hidden />
+          <div className="gallery-grain" aria-hidden />
+          <div className="gallery-hero-copy frame">
+            <h1 id="gallery-title" className="gallery-title display">
+              Shoot the adjective,
+              <br />
+              not the noun.
+            </h1>
+            <p className="gallery-count">
+              Photography · {photos.length} frames
+            </p>
+          </div>
+        </section>
 
-      {/* Page header */}
-      <div
-        style={{
-          marginTop: "56px",
-          borderBottom: "1px solid var(--border)",
-          padding: "3rem clamp(1.5rem, 5vw, 4rem) 2.5rem",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "1rem",
-            marginBottom: "1.75rem",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--muted)",
-            }}
-          >
-            05 —
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--fg)",
-            }}
-          >
-            PHOTOGRAPHY
-          </span>
-        </div>
-
-        <motion.p
-          style={{
-            fontFamily: "var(--font-heading)",
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 400,
-            fontStyle: "italic",
-            lineHeight: 1.15,
-            letterSpacing: "-0.01em",
-            color: "var(--fg)",
-            maxWidth: "720px",
-            textAlign: "center",
-            margin: "0 auto",
-          }}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        >
-          "Shoot the adjective,
-          <br />
-          not the noun."
-        </motion.p>
-      </div>
-
-      {/* Gallery grid */}
-      <motion.div
-        style={{ padding: "1rem clamp(1rem, 3vw, 2rem) 4rem" }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <section className="gallery-roll frame" aria-label="All photographs">
           {photoRows.map((row, rowIndex) => {
             const totalAspectRatio = row.reduce(
               (sum, photo) => sum + dimsFor(photo).aspectRatio,
               0,
             );
-
-            const getContainerWidth = () => {
-              if (windowWidth < 640) return windowWidth - 32;
-              if (windowWidth < 768) return windowWidth - 48;
-              if (windowWidth < 1024) return windowWidth - 64;
-              if (windowWidth < 1280) return windowWidth - 80;
-              return 1200;
-            };
-
-            const containerWidth = getContainerWidth();
-            const gapTotal = (row.length - 1) * 4;
+            const gapTotal = (row.length - 1) * GAP;
             const availableWidth = containerWidth - gapTotal;
             const rowHeight = availableWidth / totalAspectRatio;
 
             return (
-              <div
-                key={rowIndex}
-                style={{
-                  display: "flex",
-                  gap: "4px",
-                  marginBottom: "4px",
-                }}
-              >
+              <div key={rowIndex} className="gallery-row">
                 {row.map((photo) => {
                   const { aspectRatio } = dimsFor(photo);
-
                   // Pixel width is only an estimate for the `sizes` hint; the
-                  // rendered width is a percentage of the row (proportional to
-                  // aspect ratio) so the grid always fits its container —
-                  // including the pre-hydration paint where the server's
-                  // 1200px grouping renders on a narrow phone.
-                  const imageWidth =
-                    row.length === 1
-                      ? availableWidth
-                      : rowHeight * aspectRatio;
+                  // rendered width is a share of the row so it always fits,
+                  // including the pre-hydration paint at the server's width.
+                  const imageWidth = row.length === 1 ? availableWidth : rowHeight * aspectRatio;
 
                   return (
-                    <div
+                    <button
                       key={photo.id}
+                      type="button"
+                      className="gallery-tile"
                       onClick={(e) => openLightbox(photo, e.currentTarget)}
                       onMouseEnter={() => preloadLightbox(photo)}
+                      onFocus={() => preloadLightbox(photo)}
+                      aria-label={`Open ${altFor(photo).toLowerCase()}`}
                       style={{
-                        width: `calc((100% - ${gapTotal}px) * ${
-                          aspectRatio / totalAspectRatio
-                        })`,
+                        width: `calc((100% - ${gapTotal}px) * ${aspectRatio / totalAspectRatio})`,
                         aspectRatio: `${aspectRatio}`,
-                        flexShrink: 0,
-                        cursor: "pointer",
-                        position: "relative",
-                        overflow: "hidden",
-                        background: "var(--bg-secondary)",
                       }}
                     >
                       <Image
                         src={photo.src}
-                        alt={photo.alt}
+                        alt=""
                         fill
                         sizes={`${Math.ceil(imageWidth)}px`}
-                        priority={rowIndex < 2}
-                        style={{
-                          objectFit: "cover",
-                          objectPosition: "center",
-                          transition: "transform 0.3s ease",
-                        }}
-                        onMouseEnter={(e) =>
-                          ((e.currentTarget as HTMLElement).style.transform =
-                            "scale(1.03)")
-                        }
-                        onMouseLeave={(e) =>
-                          ((e.currentTarget as HTMLElement).style.transform =
-                            "scale(1)")
-                        }
+                        priority={rowIndex < 1}
                         onLoad={
                           photo.width
                             ? undefined
-                            : (e) =>
-                                queueDimension(
-                                  photo.id,
-                                  e.currentTarget as HTMLImageElement,
-                                )
+                            : (e) => queueDimension(photo.id, e.currentTarget as HTMLImageElement)
                         }
                       />
-                    </div>
+                    </button>
                   );
                 })}
               </div>
             );
           })}
-        </div>
-      </motion.div>
+        </section>
+      </main>
+      <SiteFooter />
 
-      {/* Lightbox modal */}
-      {selectedPhoto && (
-        <motion.div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "color-mix(in srgb, var(--bg) 92%, transparent)",
-            backdropFilter: "blur(8px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 200,
-            padding: "1rem",
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => setSelectedPhoto(null)}
-        >
+      <AnimatePresence>
+        {selectedPhoto && (
           <motion.div
-            style={{
-              position: "relative",
-              maxWidth: "56rem",
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            initial={{ scale: 0.92, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.25 }}
-            onClick={(e) => e.stopPropagation()}
+            key="lightbox"
+            className="lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={altFor(selectedPhoto.photo)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            onClick={() => setSelectedPhoto(null)}
           >
-            <div style={{ position: "relative", width: "100%" }}>
-              {/* The grid thumbnail is already in cache — show it instantly
-                  (slightly blurred) while the full-quality variant streams in. */}
-              {selectedPhoto.thumbSrc && !lightboxLoaded && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={selectedPhoto.thumbSrc}
-                  alt=""
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    filter: "blur(6px)",
-                    border: "1px solid var(--border-light)",
-                  }}
-                />
-              )}
-              <Image
-                src={selectedPhoto.photo.src}
-                alt={selectedPhoto.photo.alt}
-                width={dimsFor(selectedPhoto.photo).width}
-                height={dimsFor(selectedPhoto.photo).height}
-                sizes="(max-width: 980px) 92vw, 896px"
-                quality={LIGHTBOX_QUALITY}
-                priority
-                onLoad={() => setLightboxLoaded(true)}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  maxHeight: "85vh",
-                  objectFit: "contain",
-                  border: "1px solid var(--border-light)",
-                  position: "relative",
-                }}
-              />
+            <div className="lightbox-bar" onClick={(e) => e.stopPropagation()}>
+              <span className="lightbox-count">
+                {index + 1} / {photos.length}
+              </span>
+              <span className="lightbox-date">{takenOn(selectedPhoto.photo) ?? ""}</span>
+              <button className="lightbox-close" onClick={() => setSelectedPhoto(null)} autoFocus>
+                Close
+              </button>
             </div>
+
+            <motion.div
+              key={selectedPhoto.photo.id}
+              className="lightbox-stage"
+              initial={reduce ? false : { opacity: 0, scale: 0.985 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <div
+                className="lightbox-frame"
+                style={{ aspectRatio: `${dimsFor(selectedPhoto.photo).aspectRatio}` }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* The grid thumbnail is already cached — show it at once,
+                    softened, while the full-quality variant streams in. */}
+                {selectedPhoto.thumbSrc && !lightboxLoaded && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={selectedPhoto.thumbSrc} alt="" aria-hidden className="lightbox-thumb" />
+                )}
+                <Image
+                  src={selectedPhoto.photo.src}
+                  alt={altFor(selectedPhoto.photo)}
+                  fill
+                  sizes="(max-width: 980px) 96vw, 1400px"
+                  quality={LIGHTBOX_QUALITY}
+                  priority
+                  onLoad={() => setLightboxLoaded(true)}
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+            </motion.div>
+
             <button
-              onClick={() => setSelectedPhoto(null)}
-              style={{
-                position: "absolute",
-                top: "-2.5rem",
-                right: 0,
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "var(--fg)",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                padding: "0.25rem 0",
+              className="lightbox-step lightbox-prev"
+              aria-label="Previous photograph"
+              onClick={(e) => {
+                e.stopPropagation();
+                step(-1);
               }}
             >
-              Close ✕
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <button
+              className="lightbox-step lightbox-next"
+              aria-label="Next photograph"
+              onClick={(e) => {
+                e.stopPropagation();
+                step(1);
+              }}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
             </button>
           </motion.div>
-        </motion.div>
-      )}
-    </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

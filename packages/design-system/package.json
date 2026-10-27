@@ -1,7 +1,7 @@
 {
   "name": "@mtosity/design-system",
-  "version": "0.6.0",
-  "description": "MTosity design tokens and brutalist UI primitives (warm cream + black + lime).",
+  "version": "1.0.0",
+  "description": "MTosity design tokens and UI primitives. One file (world.css) sets the visual world; everything else reads roles.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,7 +24,9 @@
     "./shadcn.css": "./src/shadcn.css",
     "./system.css": "./src/system.css",
     "./styles": "./src/tokens.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./world.css": "./src/world.css",
+    "./ui.css": "./src/ui.css"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

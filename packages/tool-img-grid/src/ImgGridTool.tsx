@@ -28,8 +28,8 @@ export default function ImgGridPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         style={{
-          paddingTop: "calc(56px + 1.5rem)",
-          padding: "calc(56px + 1.25rem) clamp(1.25rem, 4vw, 2rem) 1.25rem",
+          paddingTop: "calc(var(--nav-h) + 1.5rem)",
+          padding: "calc(var(--nav-h) + 1.25rem) clamp(1.25rem, 4vw, 2rem) 1.25rem",
           borderBottom: "1px solid var(--border)",
           display: "flex",
           flexDirection: "column",
@@ -128,7 +128,7 @@ export default function ImgGridPage() {
         style={{
           display: "flex",
           flex: 1,
-          minHeight: "calc(100vh - 56px - 110px)",
+          minHeight: "calc(100vh - var(--nav-h) - 110px)",
           overflow: "hidden",
         }}
         className="ig-workspace"
