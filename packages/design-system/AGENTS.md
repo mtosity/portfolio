@@ -18,15 +18,15 @@ not go stale. The contract:
   following, update the matching catalogue in `DesignSystemShowcase.tsx`:
   | You changed… | Update in `DesignSystemShowcase.tsx` |
   |---|---|
-  | a core palette var (`tokens.css`) | `CORE` |
-  | a status color / surface (`system.css`) | `STATUS` / `SURFACES` |
+  | a palette role (`world.css` / `tokens.css`) | `CORE` |
+  | a status color (`system.css`) | `STATUS` |
   | the chart palette (`system.css`) | `CHART` |
-  | a font token (`tokens.css`) | `FONTS` |
-  | a shadow token | the "Shadows" section |
-  | a `.tag` / `.ds-card` / `.ds-table` / `.chip` rule | the relevant section |
-  | a component exported from `index.ts` | add a `<ComponentRow>` |
+  | a face, or the world itself | `world.ts` (`WORLD.faces`, `rules`) |
+  | the type / space scale | `STEPS` / `SPACE` |
+  | an easing or duration | `EASES` / `DURATIONS` |
+  | a component exported from `index.ts` | add a `<Specimen>` |
 
-  New color vars must also be added to `ALL_VARS` so their resolved value shows.
+  `ALL_VARS` is derived from these lists, so resolved values show automatically.
 
 ## Releasing
 
@@ -43,6 +43,6 @@ not go stale. The contract:
 - Tailwind v4, CSS-first. `tokens.css` imports `system.css`; `shadcn.css` is the
   shadcn bridge and also imports `system.css`. Shadcn apps import `shadcn.css`
   only (not `tokens.css`).
-- The lime accent is identical in both themes; only bg/fg/border swap via
-  `[data-theme="dark"]`. Brutalist shadows follow `--border`, so they adapt.
+- A visual world is `world.css` + `world.ts` (+ the app's `fonts.ts`).
+  Roles never change name between worlds; only values do.
 - Keep `DESIGN.md` (repo root) in sync for any visual/token change too.

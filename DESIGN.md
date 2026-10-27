@@ -1,331 +1,167 @@
-# DESIGN.md — mtosity.com Portfolio
+# DESIGN.md — mtosity.com
 
-Comprehensive design reference for the portfolio site. Every visual decision — colors, type, spacing, animation, layout — documented in one place.
-
----
-
-## Design Philosophy
-
-**Neo-brutalist editorial.** The site pairs a warm, organic cream background with stark black typography and bold lime-green accents. Typography is the hero — large serif headings, clean sans-serif body text, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
+The canonical design reference. The rendered, always-current version is
+`/design-system`, which reads every token live from the page.
 
 ---
 
-## Color Palette
+## How the system is built
 
-Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tailwind v4
-`@theme static` block (exposing utilities like `bg-accent`, `text-muted`) plus plain
-`:root` CSS variables consumed by SCSS modules and inline styles.
+`@mtosity/design-system` v1 separates **what a role is** from **what it
+looks like**:
 
-| Token               | Value                        | Usage                                  |
-|----------------------|------------------------------|----------------------------------------|
-| `--bg`              | `#f2efe8` (warm cream)       | Page background                        |
-| `--bg-secondary`    | `#e8e5dd` (darker cream)     | Cards, sidebar, code blocks            |
-| `--fg`              | `#0d0d0d` (near-black)       | Primary text, headings, links          |
-| `--accent`          | `#bef264` (lime green)       | Project row hover, brand highlight     |
-| `--border`          | `#0d0d0d`                    | Section dividers, strong borders       |
-| `--border-light`    | `#ccc8bd`                    | Subtle separators, photo borders       |
-| `--muted`           | `#666460`                    | Secondary text, labels, dates          |
-| `--accent-fg`       | `#0d0d0d`                    | Ink on lime — text/borders on accent surfaces (same in dark) |
-| `--accent-fg-muted` | `#3f3e38`                    | Secondary ink on lime (same in dark)   |
-| `--danger`          | `#b00020` (dark: `#f06a7e`)  | Errors, destructive actions            |
-| `--shadow-brutal`   | `4px 4px 0 var(--border)`    | Brutalist offset shadow                |
-| `--shadow-brutal-lg`| `6px 6px 0 var(--border)`    | Larger offset shadow (hover/emphasis)  |
-| `--font-heading`    | Crimson Text + serif fallbacks | Use instead of spelling out the chain; the next/font variables live on `<html>` so this alias resolves |
-| `--bg-opaque`       | `rgba(242, 239, 232, 0.25)`  | Glassmorphic heading bar (legacy)      |
-| `--background-dark` | `#d8d4cc`                    | Legacy sidebar background              |
-| `--brand`           | `#bef264`                    | Alias for accent (legacy sidebar)      |
+| File | Holds | Changes when |
+|---|---|---|
+| `packages/design-system/src/tokens.css` | Roles, fluid type scale, space, layout, motion, browser surfaces (selection, focus, caret, scrollbar), legacy aliases | Rarely — the contract |
+| `packages/design-system/src/world.css` | One visual world: faces, display voice, radii, light + dark palettes | The world changes |
+| `packages/design-system/src/world.ts` | The world's name, summary, faces and rules for `/design-system` | With world.css |
+| `apps/web/src/app/fonts.ts` | The world's two `next/font` faces (`--font-world-display`, `--font-world-text`) and browser chrome colours | With world.css |
+| `packages/design-system/src/system.css` | Status colours, chart palette, `.tag`, `.ds-card`, `.ds-table`, `.ds-select`, `.ds-toggle`, `.ds-audio`, `.ds-button` | Component changes |
+| `packages/design-system/src/ui.css` | Site chrome: nav, footer, section header, dialog | Component changes |
 
-### Dark Theme
+Every page reads roles; swapping a world is swapping `world.css`,
+`world.ts` and `fonts.ts`, plus the home page's scene.
 
-Activated by `data-theme="dark"` on `<html>`. The palette mirrors light — bg/fg
-swap to warm near-black + cream, the lime accent is shared:
+Dark theme: `[data-theme="dark"]` on `<html>`, applied before paint by the
+inline script in `apps/web/src/app/layout.tsx`. Light is the default.
 
-| Token            | Dark value             |
-|------------------|------------------------|
-| `--bg`           | `#14130f`              |
-| `--bg-secondary` | `#1e1c17`              |
-| `--fg`           | `#f2efe8`              |
-| `--accent`       | `#bef264` (unchanged)  |
-| `--border`       | `#f2efe8`              |
-| `--border-light` | `#3b3830`              |
-| `--muted`        | `#a5a097`              |
+## The world: Desk Diorama
 
-Mechanics (all in `tokens.css` unless noted):
+A small clay model of the desk this site is built at, lit by a window in
+the day and by the desk lamp at night.
 
-- `[data-theme="dark"]` overrides the `:root` vars, the Tailwind `--color-*`
-  vars, and the legacy aliases; it also flips `color-scheme`.
-- `@custom-variant dark` remaps Tailwind's `dark:` variant from
-  `prefers-color-scheme` to `[data-theme="dark"]`.
-- An inline no-flash script in `apps/web/src/app/layout.tsx` applies the saved
-  theme before first paint. **Light is the default** — dark applies only when
-  the visitor explicitly chose it (`localStorage.theme === "dark"`); the OS
-  preference is ignored. `<html>` has `suppressHydrationWarning`.
-- `ThemeToggle` (design system) sits in the `SlideTabs` nav; the sun/moon icons
-  swap via pure CSS (`.theme-toggle-*` rules), so the button is hydration-safe.
-- `.theme-light-scope` re-establishes the light palette inside a subtree — used
-  by the blog sidebar while a definition card (fixed pastel backgrounds) is
-  open. Sticky notes on `/notes` and dark code blocks are self-contained and
-  need no scoping.
-- Theme-dependent translucent overlays use
-  `color-mix(in srgb, var(--bg) N%, transparent)` (photography lightbox,
-  project modal) instead of hard-coded cream rgba.
-- Anything sitting on a lime surface uses `--accent-fg` / `--accent-fg-muted`
-  ("ink on lime", near-black in both themes), never `--fg`. Hover rows
-  (projects, tools, admin dashboard actions) re-point `--fg`/`--muted`/
-  `--border-light` to these inside the `:hover` rule so children pop without
-  per-element overrides.
+- **Palette (light / dark):** ground `#f4eee5` / `#1c1b22`, surface
+  `#ebe3d6` / `#25242d`, raised `#fffaf3` / `#2e2d37`, ink `#2b2a33` /
+  `#f1ebe2`, muted `#5f5a63` / `#b4acb3`, accent coral `#ff6b4a` /
+  `#ff7a5c` (ink-on-coral text `#24171a`), field mint `#cfe7da` /
+  `#22312b` with field ink `#1f3a2f` / `#d3eee0`.
+- **Faces:** Bricolage Grotesque (display at 88% width, 700, -0.035em;
+  UI at normal width) and Literata (reading, optical sizes).
+- **Shape:** radii 6 / 10 / 18px; buttons are pills (`--button-radius`).
+- **Rules:** coral is the one action; mint is a field (the Projects
+  section sits on it), never a highlight; every object on the desk goes
+  somewhere real; the lamp is the theme switch.
 
-### Notes Page — Sticky Note Colors
+## Roles (tokens.css + world.css)
 
-8-color pastel palette cycling per card:
+| Role | Use |
+|---|---|
+| `--bg` | Page ground |
+| `--bg-secondary` | A step in tone: cards, rows, footer, inline code |
+| `--surface-raised` | What floats: menus, dialogs, sheets, labels |
+| `--fg` | Running text and headings (body text is never grey) |
+| `--muted` | Secondary text, ≥ 4.5:1 on ground |
+| `--faint` | Counts, disabled text |
+| `--accent` / `--accent-hover` / `--accent-fg` | The one action and its text |
+| `--border-light` | Hairlines — tables and reading rules only |
+| `--danger` | Destructive actions |
+| `--field` / `--field-fg` | A section-sized field of colour (world-specific) |
+| `--film` / `--film-ink` | Deep surface for code blocks and scrims, both themes |
+| `--shadow-float` | Only on things that float |
 
-| Name     | Background | Border    |
-|----------|-----------|-----------|
-| Yellow   | `#fff9c4` | `#f9e44c` |
-| Pink     | `#f8bbd0` | `#e57fa2` |
-| Blue     | `#bbdefb` | `#7eb8e4` |
-| Green    | `#c8e6c9` | `#81c784` |
-| Lavender | `#e1bee7` | `#ba8ec4` |
-| Peach    | `#ffe0b2` | `#e6a95c` |
-| Cyan     | `#b2ebf2` | `#6cc9d6` |
-| Purple   | `#d1c4e9` | `#9e8ec4` |
+Status (`--positive`, `--negative`, `--warning`, `--info` + `-surface`) and
+`--chart-1…8` live in `system.css` and are world-independent.
 
-### Blog Definition Callouts — `--def-*`
+**Face aliases.** `--font-heading` → display, `--font-sans` → UI,
+`--font-serif` → text, and `--font-mono` → **the UI face** (v0 used a
+monospace costume for labels; 289 inline uses now restyle for free). Real
+code uses `--font-code`. Tailwind's `font-mono` utility maps to code.
 
-The definition sidebar renders pastel callout cards inside each definition.
-Twelve hues, each a `{bg, border, text}` triad, themed via `--def-<hue>-<role>`.
+**Legacy aliases** (`--shadow-brutal` = none, `--shadow-brutal-lg` =
+float, `--background`, `--brand`, …) keep the tools and admin compiling.
 
-| Hue     | Light bg / border / text          | Dark bg / border / text           |
-|---------|-----------------------------------|-----------------------------------|
-| green   | `#f0fdf4` `#86efac` `#2d7a4f`     | `#0a2216` `#2d7a4f` `#86efac`     |
-| blue    | `#eff6ff` `#93c5fd` `#2563eb`     | `#0c1a2e` `#2563eb` `#93c5fd`     |
-| purple  | `#faf5ff` `#d8b4fe` `#7c3aed`     | `#1a0f2e` `#7c3aed` `#d8b4fe`     |
-| red     | `#fef2f2` `#fca5a5` `#c0392b`     | `#2a0f0f` `#c0392b` `#fca5a5`     |
-| gray    | `#f9fafb` `#d1d5db` `#374151`     | `#1a1916` `#4a4740` `#d1d5db`     |
-| amber   | `#fefce8` `#fde68a` `#b45309`     | `#2a1f08` `#b45309` `#fde68a`     |
-| teal    | `#f0fdfa` `#5eead4` `#0f766e`     | `#062420` `#0f766e` `#5eead4`     |
-| orange  | `#fff7ed` `#fdba74` `#c2410c`     | `#2a1608` `#c2410c` `#fdba74`     |
-| indigo  | `#eef2ff` `#a5b4fc` `#4f46e5`     | `#12142e` `#4f46e5` `#a5b4fc`     |
-| pink    | `#fdf2f8` `#f9a8d4` `#be185d`     | `#2a0f1c` `#be185d` `#f9a8d4`     |
-| yellow  | `#fffbeb` `#fcd34d` `#a16207`     | `#2a2208` `#a16207` `#fcd34d`     |
-| emerald | `#ecfdf5` `#6ee7b7` `#047857`     | `#06231a` `#047857` `#6ee7b7`     |
+## Type
 
-In dark mode the background drops to a deep hue-tinted tone that sits on
-`--bg-secondary`, the border takes the light-mode *text* colour and the text
-takes the light-mode *border* colour — so each card keeps its hue identity
-while meeting contrast on a dark panel.
+Fluid scale `--step--2 … --step-6` (360px → 1440px). Reading uses
+`--read-size` (17–20px) at `--read-leading` 1.62 and a 36–40rem measure.
+`.display` applies the world's display voice to any element. Headings
+are balanced (`text-wrap: balance`), paragraphs `pretty`.
 
-**Why these are tokens.** They used to be hardcoded hex inside
-`components/blog/definitions.tsx` (225 literals), which could not follow the
-theme — so `BlogLayout` pinned the whole sidebar to `.theme-light-scope`
-whenever a definition was open and a dark-mode reader got a bright white panel
-beside a dark article. Never reintroduce a raw hex there; add a `--def-*` token.
+## Space, layout, motion
 
----
+- `--gutter` clamp(16px → 40px) is the one pair of outer margins;
+  `.frame` applies it with `--page-max` 1440px.
+- Sections are separated by `--space-9` (80–160px), never by rules.
+- `--nav-h` 64px. The nav tucks away while reading down and returns on
+  scroll up; over full-bleed first screens it is transparent
+  (`<SiteNav overlay />`).
+- Easing: `--ease-out` cubic-bezier(0.23,1,0.32,1) for anything answering
+  input; `--ease-in-out` for on-screen moves; `--ease-drawer` for sheets.
+  Durations: press 140ms, fast 180ms, base 280ms, slow 640ms. All drop to
+  0 under `prefers-reduced-motion`.
+- Buttons press to 0.97; nothing bounces.
 
-## Typography
+## Components
 
-Three Google Fonts loaded via `next/font/google` with CSS variable binding:
+- **SiteNav** — wordmark (confetti easter egg kept), Work · Writing ·
+  Photos · Tools · System, theme toggle; active link underlined in the
+  accent; phones get a full-height sheet of large links. `SlideTabs` is
+  an alias.
+- **SiteFooter** — the name at full width, ways to reach me, pages.
+- **Button** — `accent` (the one primary action), `ink`, `quiet`; renders
+  a Link for internal hrefs. `AccentButton` wraps `accent`.
+- **SectionHeader** — the section's name in the display voice, optional
+  lede and aside. No numbers, no eyebrow.
+- **Reveal** — rises 20px once, on first view; visible without script.
+- **Tag, Select, Toggle, AudioPlayer, ConfirmDialog, ThemeToggle** — see
+  `/design-system`.
 
-| Font           | CSS Variable             | Role                                       |
-|----------------|--------------------------|---------------------------------------------|
-| **Inter**      | `--font-inter`           | Body text, paragraphs, general UI           |
-| **Crimson Text** | `--font-crimson-text`  | Display headings (h1–h6), blog titles, hero name, contact CTA |
-| **Lora**       | `--font-lora`            | Serif alternate (available via `--font-serif`) |
+## Pages
 
-### Monospace Stack
-```
-ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace
-```
-Used for: nav labels, section numbers, chips/tags, dates, code blocks, project metadata.
+### Home (`/`)
+`SiteNav overlay` → world hero → About → Projects (`#work`) → Experience →
+Contact → footer. Content lives in `apps/web/src/components/home/data.tsx`
+and is shared by every world.
 
-### Type Scale
+- **Hero (Desk Diorama):** three.js scene (`components/home/hero/desk.ts`):
+  laptop → projects (screen cycles real screenshots), notebook → writing,
+  camera → photos (flash on hover), toolbox → tools, plant → notes, Baymax
+  → about (follows the pointer, breathes, waves on hover), mug → email,
+  lamp → theme. Drag turns the model with momentum. The same doors render
+  as plain links under the model (keyboard + no-WebGL path). The loop runs
+  only while on screen and visible.
+- **About:** portrait slightly askew (straightens on hover), the about
+  copy, skills as two plain lists.
+- **Projects:** the five post-2020 projects pinned by hand on a 12-column
+  wall (different spans, sub-degree tilts, staggered drops); the 2020
+  projects as a list. Each opens a bottom sheet with the project notes and
+  links. Images fall back to the title if they fail to load.
+- **Experience:** company in the display voice, role, dates (current job
+  marked "here now"), bullets as a list.
+- **Contact:** "LET'S WORK TOGETHER." at full width; email with a copy
+  button whose confirmation lingers ~1.8s.
 
-| Element                | Font           | Size                         | Weight | Spacing         | Transform  |
-|------------------------|----------------|------------------------------|--------|-----------------|------------|
-| Hero name              | Crimson Text   | `clamp(3.5rem, 9vw, 11rem)` | 700    | `-0.03em`       | —          |
-| Contact CTA            | Crimson Text   | `clamp(3rem, 7vw, 6rem)`    | 700    | `-0.02em`       | —          |
-| Blog post h1           | Crimson Text   | `clamp(1.75rem, 4vw, 3rem)` | 700    | `-0.02em`       | —          |
-| Photography tagline    | Crimson Text   | `clamp(2rem, 5vw, 3.5rem)`  | 400 *italic* | `-0.01em` | —          |
-| Blog h2                | Crimson Text   | `1.75rem`                    | 700    | `-0.01em`       | —          |
-| Blog h3                | Crimson Text   | `1.35rem`                    | 600    | —               | —          |
-| Body text              | Inter          | `1.0625rem` (17px)           | 400    | —               | —          |
-| Body line-height       | —              | `1.7` (about), `1.85` (blog)| —      | —               | —          |
-| Nav links              | Monospace      | `0.75rem`                    | 400    | `0.1em`         | uppercase  |
-| Section header label   | Monospace      | `0.75rem`                    | 700    | `0.2em`         | uppercase  |
-| Chip / tag             | Monospace      | `0.7rem`                     | 400    | `0.08em`        | uppercase  |
-| Meta bar / ticker      | Monospace      | `0.7rem`                     | 400    | `0.18em`        | uppercase  |
-| Photo close button     | Monospace      | `0.75rem`                    | 400    | `0.1em`         | uppercase  |
-| Sticky note date       | Monospace      | `0.6rem`                     | 400    | `0.12em`        | uppercase  |
+### Writing (`/blog`, `/blog/[slug]`) — `app/blog/reading.css`
+Newspaper idiom. Index: a section front — huge title, sections (All +
+non-empty categories with counts), the newest post leads in serif at
+size, the rest run down a column. Article: centred serif column, headline
+in the text face at weight, standfirst (the excerpt), byline (author ·
+category · date · reading time), drop cap, rules allowed on this surface
+only. A sticky rail beside the column holds the TOC ("In this article")
+and swaps to definition / code panels; below 1200px it becomes a bottom
+sheet behind a "Contents" pill. Anchor terms are whole-word buttons with a
+dotted accent underline and a marker highlight when active. Code sits on
+`--film` in both themes.
 
-### Global Heading Rules (h1–h6)
+### Photography (`/photography`) — `app/photography/gallery.css`
+First screen: one landscape photograph edge to edge with film grain and
+"Shoot the adjective, not the noun." set large; frame count beside it.
+Justified grid with 6px gutters at the page frame; hovering one picture
+quietly dims the others. Lightbox: near-black, arrow keys and buttons walk
+the roll, capture date (from the camera filename) and position shown.
 
-```css
-font-family: var(--font-crimson-text), "Crimson Text", Georgia, serif;
-font-weight: 600;
-line-height: 1.3;
-letter-spacing: -0.015em;
-```
+### Tools (`/tools`) — `app/tools/tools.css`
+One generous row per tool on a surface step: drawn icon, title, tagline,
+description, status · year · tags; hover fills the icon with the accent.
+Tool pages keep their v0 structure and restyle through the tokens.
 
-- **h1**: weight 700, `2.5rem`, spacing `-0.025em`
-- **h2**: `2rem`
-- **h3**: `1.5rem`
+### Design system (`/design-system`) — `app/design-system/ds.css`
+Sticky index; sections World, Colour, Type, Space & shape, Motion (hover a
+row to run its curve), Components (every export, live).
 
----
-
-## Spacing & Layout
-
-### Global Rhythm
-
-- **Nav height**: `56px` (fixed top)
-- **Section padding**: `6rem` vertical, `clamp(1.5rem, 5vw, 4rem)` horizontal
-- **Max content width**: `1400px` (home), `1280px` (blog post), `1200px` (photography), `1152px` (blog list)
-- **Section separator**: `1px solid var(--border)` top border via `.section-wrapper`
-
-### Section Numbering
-
-Each section header follows the pattern: `{num} — {TITLE}` using the `SectionHeader` component.
-
-| Section       | Number |
-|---------------|--------|
-| About         | 01     |
-| Experience    | 02     |
-| Projects      | 03     |
-| Contact       | 04     |
-| Photography   | 05     |
-| Notes / Blog  | 06     |
-| Tools         | 07     |
-
----
-
-## Component Design Details
-
-### Navigation (`SlideTabs`)
-
-- **Fixed** top bar, `56px` height, cream background with bottom border
-- **Logo**: "MTOSITY" in monospace bold, `0.875rem`, `0.15em` letter-spacing, uppercase
-- **Logo interaction**: Clicking fires confetti (tsparticles) and navigates home
-- **Desktop links**: `About`, `Photos`, `Writing`, `Tools` — monospace 0.75rem, muted color, hover → fg
-- **Mobile**: Hamburger icon (3 horizontal lines SVG / X close), dropdown overlay
-- **Links**: `{ label: "About", href: "/" }, { label: "Photos", href: "/photography" }, { label: "Writing", href: "/blog" }, { label: "Tools", href: "/tools" }`
-
-### Hero Section
-
-- **Full viewport** height, flex column, border-bottom
-- **Dot grid texture**: `radial-gradient(circle, var(--border-light) 1px, transparent 1px)` at `28px × 28px`, 45% opacity
-- **Top meta bar**: "Software Engineer" left, "United States" right — monospace, 0.75rem, muted
-- **Name display**: "MINH TAM" and "NGUYEN" on two lines, Crimson Text, `clamp(3.5rem, 9vw, 11rem)`
-  - Each line clip-reveals from below (`y: "105%"` → `y: 0`) with 1.1s duration
-  - On scroll: "MINH TAM" drifts left (parallax −150px), "NGUYEN" drifts right (+150px) via `useSpring`
-- **Divider lines**: Horizontal 1px rules that scale from left/right respectively
-- **Marquee ticker**: Skills text scrolling left continuously at 28s loop, monospace 0.7rem
-- **Description**: Word-by-word stagger animation (0.055s between words), Inter 1.0625rem, maxWidth 480px
-- **Profile photo** (desktop only, `md:` breakpoint):
-  - `clamp(160px, 17vw, 260px)` wide, 1px border, `6px 6px 0` hard offset shadow
-  - Parallax: rises independently (−100px) on scroll
-- **Bottom bar**: "mtosity.com · 2026" left, "Scroll ↓" right with bouncing arrow animation (1.2s infinite easeInOut)
-- **Fade out**: Entire content fades from opacity 1 → 0 between 50%–85% scroll progress
-
-### About Section
-
-- **Two-column grid**: `1fr 280px`, collapses at 900px
-- **Text**: Reveal-wrapped paragraphs, Inter 1.0625rem, line-height 1.7
-- **Links row**: "Links" label (monospace) + social icons (MyLinks component)
-- **Stats sidebar**: Two groups — "Use at work" and "Use for fun"
-  - Heading: monospace 0.75rem uppercase muted
-  - Skill chips: flex-wrap grid, `.chip` class (monospace 0.7rem, border, uppercase)
-
-### Experience Section
-
-- **Timeline items**: Each item has top border-bottom rule (light), last item has none
-- **Layout per item**:
-  - **Heading row**: Company name (monospace bold 0.875rem uppercase, optionally linked) | Date range (monospace 0.75rem muted, right-aligned)
-  - **Position**: 1rem italic muted
-  - **Divider**: 1px light rule
-  - **Description**: Pre-line formatted text, 1rem, lh 1.7
-  - **Tech chips**: Flex-wrap, same `.chip` styling
-- **All content Reveal-wrapped**: fade-up + scale animation
-
-### Projects Section
-
-- **List layout**: Flex column, each row has bottom border (light)
-- **Clip-path wipe reveal**: Rows use alternating horizontal wipe — odd from left (`inset(0 100% 0 0)` → `inset(0 0% 0 0%)`), even from right
-  - Duration 0.8s, ease `[0.65, 0, 0.35, 1]`
-  - Triggered when 40% in viewport (`useInView`)
-- **Staggered inner content**: After the wipe, child elements animate independently:
-  - Number slides in from opposite side (delay 0.3s)
-  - Title row fades up (delay 0.4s)
-  - Description fades up (delay 0.5s)
-  - Links fade in (delay 0.6s)
-- **Hover**: Entire row background → `var(--accent)` (lime green)
-- **Row structure**: `{num} | TITLE · tech | [year]` on top, description below, GitHub ↗ / Live ↗ links
-- **Modal**: ReactDOM portal with blurred cream backdrop (`rgba(242, 239, 232, 0.85)`, `blur(8px)`)
-  - Card: 1px border, cream bg, `4px 4px 0` hard offset shadow, max-width 700px
-  - Entrance: slides up from `y: 100` with opacity fade
-  - Content: project image, title, tech tags, description, footer links
-
-### Contact Section
-
-- **Large serif CTA**: "LET'S WORK TOGETHER." in Crimson Text, `clamp(3rem, 7vw, 6rem)`, bold
-- **Contact links**: Stacked vertically — email, LinkedIn, GitHub — each as monospace `1rem` with bottom border that darkens on hover
-- **Reveal-wrapped**: Standard fade-up animation
-
----
-
-## Page-Level Design
-
-### Home Page (`/`)
-
-`SlideTabs` → `Hero` → `About` (01) → `Experience` (02) → `Projects` (03) → `Contact` (04)
-
-All content sections sit inside a max-width `1400px` container.
-
-### Blog Index (`/blog`)
-
-- **Two-column layout**: `2fr 3fr` grid above `1024px`, stacked on mobile
-- **Left column**: Section header, "Personal notes →" link, Lottie animation (hidden on mobile)
-- **Right column**: Category filter tabs + post list
-- **Category filter**: Horizontal tab bar — monospace 0.7rem uppercase, active tab gets `2px solid var(--fg)` bottom border
-- **Post cards**: Staggered fade-up (0.06s per card), category swap uses AnimatePresence exit/enter
-- **Post card structure**: Category chip | Date (monospace) → Title (Crimson Text 1.4rem) → Excerpt (0.9375rem muted)
-- **Categories**: Building, Living, Money, Tiếng Việt
-
-### Blog Post (`/blog/[slug]`)
-
-- **Two-column layout**: `1fr 1fr` grid above 1024px
-- **Sidebar** (left, sticky at `56px + 2.5rem`):
-  - Background: `var(--bg-secondary)`, 1px light border
-  - Three modes: **TOC** (auto-extracted headings with active indicator), **Definition** (inline definition panel), **Code** (code example viewer)
-  - Active heading: left 2px border + dark text
-  - Mode transitions: fade/blur/slide animations
-  - "← Back to Blog" link at top
-- **Mobile sidebar**: Fixed right panel, slides in from right (`translateX(100%)` → `0`), 90vw width, with dark overlay backdrop
-- **Mobile TOC button**: Fixed bottom-right, dark bg, monospace 0.65rem uppercase
-- **Article typography**: See type scale above. Inline code gets `bg-secondary` + light border. Pre blocks: `bg-secondary`, 1px border, no rounded corners. Blockquotes: 3px left border. Images: 1px light border.
-- **Max prose width**: `68ch` for paragraphs and lists
-
-### Photography (`/photography`)
-
-- **Header**: Centered section label + italic serif quote ("Shoot the adjective, not the noun.")
-- **Justified grid**: Custom row-based layout algorithm
-  - Aspect ratios come from a precomputed dimensions manifest (`gallery-meta/manifest.json` in Blob, built by `pnpm --filter @mtosity/web build-gallery-manifest`) so rows are stable from first paint — no reflow as images load
-  - Fills rows to target width with 4px gaps
-  - Responsive images per row: 1 (mobile) → 5 (desktop)
-- **Data**: server component with ISR (`revalidate = 300`) passes photos to the client grid — no fetch spinner
-- **Images**: `next/image` with per-tile `sizes` (Vercel image optimization — tiles are ~50 KB AVIF/WebP instead of 6–21 MB originals); native lazy loading, first two rows `priority`
-- **Image hover**: `scale(1.03)` with 0.3s ease transition; hover also preloads the lightbox-size variant
-- **Lightbox modal**: Blurred cream backdrop (`rgba(242, 239, 232, 0.92)`, `blur(8px)`), image scales up from 0.92, "Close ✕" button in monospace. Opens instantly with the cached grid thumbnail (blurred 6px) as an underlay while the full-quality variant (q85, ~896px CSS width) streams in
-- **Manifest upkeep**: admin uploads measure dimensions client-side (EXIF-aware `createImageBitmap`) and merge them via `POST /api/admin/gallery/manifest`; deletes prune the entry. Bulk backfill: `pnpm --filter @mtosity/web build-gallery-manifest`
-
-### Tools (`/tools`)
-
-- **Header**: Section pattern `07 — TOOLS` with horizontal rule and `{n} ITEMS` count chip on the right
-- **Headline**: Crimson Text `clamp(2.5rem, 6vw, 4.75rem)` with italic muted "Built to be useful." accent; followed by an Inter 1.0625rem muted lede (max-width 52ch)
-- **Tool list**: Vertical list of rows with bottom border (light); each row is a `Link` to `/tools/<slug>`
-- **Row layout**: `auto 1fr auto` grid → number (mono 0.75rem muted) | content block | arrow `→`
-- **Row content**: Title (Crimson Text `clamp(1.5rem, 3.5vw, 2.25rem)` 700) + status chip (`● LIVE` / `◐ BETA` / `○ WIP` · year, mono 0.65rem muted), description (1rem muted, max 62ch), tag chips (same `.chip` styling)
-- **Row entrance**: Clip-path wipe from left (`inset(0 100% 0 0)` → `inset(0 0% 0 0)`), 0.8s, ease `[0.65, 0, 0.35, 1]`, staggered 0.08s per row
-- **Row hover**: Background → `var(--accent)` (lime), `padding-left` slides from `1rem` → `1.5rem`, arrow translates `+8px` — all 0.3s ease
+> The tool sections below record each tool's structure, written in v0.
+> Colours now come from the world tokens (lime → `--accent`, offset
+> shadows → none, mono labels → the UI face).
 
 ### Tool — Image Grid (`/tools/img-grid`)
 
@@ -426,290 +262,44 @@ All content sections sit inside a max-width `1400px` container.
 
 ---
 
-## Animation Catalog
 
-All animations use Framer Motion unless noted as CSS keyframes.
+## Blog definition callouts
 
-### Framer Motion Animations
 
-| Name | Properties | Duration | Easing | Trigger |
-|------|-----------|----------|--------|---------|
-| **Reveal** (global utility) | `opacity 0→1, y 60→0, scale 0.95→1` | 0.7s | `[0.22, 1, 0.36, 1]` | 20% in viewport, once |
-| **Hero name clip-reveal** | `y "105%"→0, opacity 0→1` | 1.1s | `[0.16, 1, 0.3, 1]` | Mount |
-| **Hero name parallax** | `x ±150px` on scroll | Spring (stiffness 60, damping 20) | Spring | Scroll |
-| **Hero photo parallax** | `y -100px` on scroll | Spring (stiffness 50, damping 18) | Spring | Scroll |
-| **Hero content fade-out** | `opacity 1→0` at 50%–85% scroll | Scroll-linked | Linear | Scroll |
-| **Hero description stagger** | `opacity 0→1, y 8→0` per word | 0.4s, 0.055s stagger | `[0.16, 1, 0.3, 1]` | Mount, delayed 1.15s |
-| **Hero line draw** | `scaleX 0→1` from left/right origin | 0.7s | `[0.16, 1, 0.3, 1]` | Mount |
-| **Marquee ticker** | `x "0%"→"-50%"` infinite loop | 28s | Linear | Mount |
-| **Scroll arrow bounce** | `y [0, 5, 0]` | 1.2s infinite | easeInOut | Mount |
-| **Project wipe reveal** | `clipPath inset(0 100% 0 0)→inset(0)` | 0.8s | `[0.65, 0, 0.35, 1]` | 40% in viewport, once |
-| **Project inner stagger** | Various fade/slide | 0.4–0.5s, delays 0.3–0.6s | `[0.22, 1, 0.36, 1]` | 40% in viewport |
-| **Project modal entrance** | `y 100→0, opacity 0→1` | Default | Default | Mount |
-| **Blog post stagger** | `opacity 0→1, y 16→0` per card | 0.35s, 0.06s stagger | `[0.22, 1, 0.36, 1]` | Mount |
-| **Blog category swap** | Exit: `opacity 0, y -8`. Enter: `opacity 0→1, y 12→0` | 0.22s | easeOut | Category change |
-| **Photo lightbox modal** | `scale 0.92→1, opacity 0→1` | 0.25s | Default | Click |
-| **Sticky note entrance** | `opacity 0→1, y 30→0, rotate` | 0.35s, 0.03s stagger (max 0.6s) | Default | Mount |
-| **Sticky note hover** | `scale 1.04, rotate 0, y -6, shadow deepens` | 0.2s | Default | Hover |
-| **Note modal backdrop** | `opacity 0→1` | 0.2s | Default | Mount |
-| **Note modal card** | `opacity 0→1, scale 0.25→1, y -80→0, rotate srcRotation*3→0` | Spring (stiffness 320, damping 26, mass 0.85) | Spring | Mount |
+The definition sidebar renders pastel callout cards inside each definition.
+Twelve hues, each a `{bg, border, text}` triad, themed via `--def-<hue>-<role>`.
 
-### CSS Keyframe Animations
+| Hue     | Light bg / border / text          | Dark bg / border / text           |
+|---------|-----------------------------------|-----------------------------------|
+| green   | `#f0fdf4` `#86efac` `#2d7a4f`     | `#0a2216` `#2d7a4f` `#86efac`     |
+| blue    | `#eff6ff` `#93c5fd` `#2563eb`     | `#0c1a2e` `#2563eb` `#93c5fd`     |
+| purple  | `#faf5ff` `#d8b4fe` `#7c3aed`     | `#1a0f2e` `#7c3aed` `#d8b4fe`     |
+| red     | `#fef2f2` `#fca5a5` `#c0392b`     | `#2a0f0f` `#c0392b` `#fca5a5`     |
+| gray    | `#f9fafb` `#d1d5db` `#374151`     | `#1a1916` `#4a4740` `#d1d5db`     |
+| amber   | `#fefce8` `#fde68a` `#b45309`     | `#2a1f08` `#b45309` `#fde68a`     |
+| teal    | `#f0fdfa` `#5eead4` `#0f766e`     | `#062420` `#0f766e` `#5eead4`     |
+| orange  | `#fff7ed` `#fdba74` `#c2410c`     | `#2a1608` `#c2410c` `#fdba74`     |
+| indigo  | `#eef2ff` `#a5b4fc` `#4f46e5`     | `#12142e` `#4f46e5` `#a5b4fc`     |
+| pink    | `#fdf2f8` `#f9a8d4` `#be185d`     | `#2a0f1c` `#be185d` `#f9a8d4`     |
+| yellow  | `#fffbeb` `#fcd34d` `#a16207`     | `#2a2208` `#a16207` `#fcd34d`     |
+| emerald | `#ecfdf5` `#6ee7b7` `#047857`     | `#06231a` `#047857` `#6ee7b7`     |
 
-| Name | Effect | Duration |
-|------|--------|----------|
-| `expand-pill` | `scaleX(0)→scaleX(1)` from right origin | 300ms ease-in-out |
-| `collapse-pill` | `scaleX(1)→scaleX(0)` from right origin | 300ms ease-in-out |
-| `fade-in` | `opacity 0→1` | 500ms ease-out |
-| `fade-blur-out` | `opacity 1→0, blur 0→4px` | 250ms ease-in |
-| `fade-in-smooth` | `opacity 0→1, translateY 8→0` | 400ms ease-out |
-| `definition-exit` | `opacity 1→0, blur 0→6px, translateX 0→-20px` | 300ms ease-in |
-| `pulse-placeholder` | `opacity 0.4↔0.6` | 1.6s infinite ease-in-out |
-| **Loading spinner** | `rotate 0→360` | 1s infinite linear |
+In dark mode the background drops to a deep hue-tinted tone that sits on
+`--bg-secondary`, the border takes the light-mode *text* colour and the text
+takes the light-mode *border* colour — so each card keeps its hue identity
+while meeting contrast on a dark panel.
 
-### Micro-Interactions
-
-- **Nav link hover**: `color: var(--muted) → var(--fg)`, 0.15s transition
-- **Blog title hover**: `opacity → 0.6`, 0.15s transition
-- **Contact link hover**: `border-color: var(--border-light) → var(--fg)`, 0.15s transition
-- **Project link hover**: Same border-color transition
-- **Photo hover**: `transform: scale(1.03)`, 0.3s ease
-- **Close button hover**: `color: var(--muted) → var(--fg)`, 0.15s transition
+**Why these are tokens.** They used to be hardcoded hex inside
+`components/blog/definitions.tsx` (225 literals), which could not follow the
+theme — so `BlogLayout` pinned the whole sidebar to `.theme-light-scope`
+whenever a definition was open and a dark-mode reader got a bright white panel
+beside a dark article. Never reintroduce a raw hex there; add a `--def-*` token.
 
 ---
 
-## Responsive Breakpoints
 
-| Width    | Effect                                                        |
-|----------|---------------------------------------------------------------|
-| `480px`  | Notes CSS grid → 1 column                                    |
-| `640px`  | Photo grid → 1 image/row                                     |
-| `768px`  | Photo grid → 2/row; mobile nav triggers; hero photo hidden   |
-| `800px`  | Notes CSS grid → 2 columns                                   |
-| `900px`  | About section collapses to single column                      |
-| `1023px` | Blog sidebar → mobile slide-in; TOC button appears; Lottie hidden |
-| `1024px` | Blog layouts → two-column grid; photo grid → 3–4/row         |
-| `1200px` | Notes CSS grid → 3 columns; photo grid → max 5/row           |
-| `1280px` | Photo grid → 1200px max container                             |
+## Technology
 
----
-
-## Modals & Overlays
-
-All modals share these traits:
-- **Backdrop**: Blurred, semi-transparent cream or dark overlay
-- **Card**: Cream bg, light border, no rounded corners (or minimal 2–4px)
-- **Close**: Top-right button, monospace styled, ESC key support on notes
-- **Scroll lock**: `body.style.overflowY = "hidden"` when open
-- **Animation**: Scale-up + fade-in on open, reverse on close
-
-| Modal | Backdrop | Card Shadow | Max Width |
-|-------|----------|-------------|-----------|
-| Project | `rgba(242, 239, 232, 0.85)` + `blur(8px)` | `4px 4px 0 var(--border)` | 700px |
-| Photo lightbox | `rgba(242, 239, 232, 0.92)` + `blur(8px)` | None | 56rem |
-| Note | `rgba(13,13,13,0.55)` + `blur(6px)` | `8px 16px 48px rgba(0,0,0,0.32)` + inset glow | 620px |
-
----
-
-## UI Primitives
-
-### AccentButton (design system)
-
-The lime CTA: mono uppercase, ink-on-lime text, `1px` accent-fg border,
-framer-motion scale on hover/tap. `href` renders a Next Link, `disabled`
-drops to the muted surface, `shadow` adds `--shadow-brutal`. Size tweaks go
-through `style`. Used by the tools (img-grid export, instagram fetch /
-transcript) and admin (save note, new note).
-
-### ConfirmDialog (design system)
-
-Themed confirm modal (backdrop blur, pop-in card, Escape/Enter keys, busy
-state). Destructive confirm button uses `--danger` with `--bg` text.
-
-### Muted link hover (`.link-hover`)
-
-`color: var(--muted)` → `var(--fg)` on hover with a 0.15s transition. Use
-the class instead of JS mouseenter/leave handlers. An active/pinned state
-can override `color` inline (inline beats the class).
-
-### useIsMobile / useMediaQuery (design system)
-
-`useSyncExternalStore`-based media query hooks; SSR renders the `false`
-branch. `useIsMobile()` defaults to `< 768px`.
-
-### Chip / Tag (`.chip`)
-```css
-font-family: var(--font-mono);
-font-size: 0.7rem;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-color: var(--muted);
-border: 1px solid var(--border-light);
-padding: 0.2rem 0.6rem;
-```
-
-### Section Header
-Pattern: `{number} — {TITLE}` followed by a horizontal rule line.
-```
-┌─────────────────────────────────────────────┐
-│ 01 —  ABOUT ─────────────────────────────── │
-└─────────────────────────────────────────────┘
-```
-All mono, 0.75rem, #number muted / title bold fg, with flex-1 line fill.
-
-### Links
-Monospace, 0.7rem, uppercase, underline = `1px solid var(--border-light)` that darkens to `var(--fg)` on hover. Arrow suffix: ↗ or →.
-
-### Scrollbar (`.scrollbar-thin`)
-- Width: 6px
-- Track: `var(--bg-secondary)`
-- Thumb: `var(--border-light)`, hover → `var(--muted)`
-
----
-
-## System Layer — Status, Tags, Cards, Charts
-
-`packages/design-system/src/system.css` is a shared layer imported by both
-`tokens.css` (portfolio) and `shadcn.css` (shadcn consumers like thestockie),
-so every app gets the same status vocabulary.
-
-### Status colors
-
-Semantic tokens, theme-adaptive: the **text** shade darkens in light and
-brightens in dark; **surfaces/borders** are translucent `color-mix` tints that
-read on both cream and warm-black.
-
-| Tone       | Light text | Dark text  | Utilities                                                 |
-| ---------- | ---------- | ---------- | --------------------------------------------------------- |
-| `positive` | `#15803d`  | `#4ade80`  | `text-positive` · `bg-positive-surface` · `ring-positive` |
-| `negative` | `#b91c1c`  | `#f87171`  | `text-negative` · `bg-negative-surface` · `ring-negative` |
-| `warning`  | `#b45309`  | `#fbbf24`  | `text-warning` · `bg-warning-surface` · `ring-warning`    |
-| `info`     | `#1d4ed8`  | `#60a5fa`  | `text-info` · `bg-info-surface` · `ring-info`             |
-
-`.stat-up` / `.stat-down` are shorthand text colors for numeric deltas.
-
-### Tags
-
-`.tag` + a tone class — mono, uppercase, tinted surface + ring:
-
-```html
-<span class="tag tag-positive">Buy</span>
-<span class="tag tag-strong-negative">Strong Sell</span>
-```
-
-Tones: `tag-positive`, `tag-negative`, `tag-warning`, `tag-info`,
-`tag-neutral`, plus denser `tag-strong-positive` / `tag-strong-negative`.
-Also a React component: `import { Tag } from "@mtosity/design-system"` →
-`<Tag tone="positive">Buy</Tag>`.
-
-### Cards & tables
-
-- `.ds-card` — `--bg-secondary` surface, `--border-light` border, 4px radius.
-  Add `.ds-card-interactive` for a hover that drops the brutalist offset shadow.
-- `.ds-table` — full-width, mono uppercase `<th>`, `--border-light` row rules,
-  `--bg-secondary` row hover.
-
-### Chart palette
-
-Eight distinct, theme-tuned hues exposed as `--color-chart-1..8` (use
-`text-chart-3`, `fill-chart-2`, or `var(--chart-2)` directly). Brighter variants
-apply automatically under `[data-theme="dark"]`.
-
----
-
-## Technology Stack
-
-| Layer | Tool |
-|-------|------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS + Sass modules + CSS custom properties |
-| Animation | Framer Motion 11 + CSS keyframes |
-| Fonts | `next/font/google` (Inter, Crimson Text, Lora) |
-| Lottie | `lottie-react` + `@lottiefiles/react-lottie-player` |
-| Icons | `react-icons` |
-| Code highlighting | Prism.js (custom light theme overrides) |
-| Analytics | Vercel Analytics |
-| Image hosting | Vercel Blob (photography) |
-| Confetti | tsparticles confetti CDN |
-| Package manager | pnpm |
-
----
-
-## Code Syntax Highlighting (Prism.js Overrides)
-
-Custom light-mode palette tuned to the cream background:
-
-| Token | Color |
-|-------|-------|
-| Comments | `#8a847a` italic |
-| Tags / constants | `#a83232` (muted red) |
-| Numbers / booleans | `#a05c1a` (amber) |
-| Strings / chars | `#3a7a4a` (forest green) |
-| Operators / URLs | `#2a5fa8` (blue) |
-| Functions / classes | `#6b3a9a` (purple) |
-| Keywords | `#a8294a` (magenta) bold |
-| Punctuation | `#2e2b27` (dark) |
-
-### Sidebar Code Blocks (Dark Theme — `CodeBlock` component)
-
-The blog sidebar's **CodeView** panel uses a separate dark-themed `CodeBlock` component with its own color scheme, distinct from the light-themed inline article code:
-
-| Property | Value |
-|----------|-------|
-| Background | `#2a2836` (dark purple-gray) |
-| Border | `1px solid #3a384a` |
-| Font size | `0.78rem` |
-| Line height | `1.6` |
-| Syntax colors | Inherited from `prismjs/themes/prism-tomorrow.css` (dark theme base) |
-
-**Variant borders** (left accent):
-
-| Variant | Left border |
-|---------|-------------|
-| `error` (✗ Wrong Approach) | `3px solid #fca5a5` (light red), label color `#b91c1c` |
-| `success` (✓ Correct Approach) | `3px solid #86efac` (light green), label color `#166534` |
-| `default` / `alternative` (→ Alternative) | `1px solid #3a384a`, label color `var(--muted)` |
-
-> **Two code themes coexist**: Article body `<pre>` uses the light cream theme (`var(--bg-secondary)` + custom token overrides). Sidebar `CodeBlock` uses the dark theme (`#2a2836` + prism-tomorrow defaults). The globals.css overrides target `code[class*="language-"]` broadly but the `CodeBlock` component's inline `background: transparent` and dark wrapper visually override them.
-
----
-
-## File Organization
-
-Turborepo + pnpm workspace. The Next.js app composes packages; visual building
-blocks live in `@mtosity/design-system`.
-
-```
-apps/
-└── web/                          ← The Next.js app (only Vercel deployment)
-    └── src/
-        ├── app/
-        │   ├── globals.css       ← Tailwind v4 entry, keyframes, blog/global rules
-        │   ├── layout.tsx        ← Font loading, meta, body class
-        │   ├── page.tsx          ← Home page composition
-        │   ├── blog/             ← Blog index + dynamic post routes
-        │   ├── notes/page.tsx    ← Sticky notes page (inline styles)
-        │   ├── photography/      ← Photo gallery (inline styles)
-        │   ├── tools/            ← Tools index + thin re-export pages per tool
-        │   ├── admin/            ← Thin re-export pages from @mtosity/admin
-        │   └── api/              ← Thin re-export route files (handlers in packages)
-        ├── components/
-        │   ├── Hero.tsx          ← Full-screen hero with parallax
-        │   ├── blog/             ← BlogLayout, CategoryFilter, CodeView, etc.
-        │   └── template/
-        │       ├── home/         ← About, Experience, Projects, Contact + SCSS
-        │       └── nav/          ← SideBar, Heading + SCSS
-        └── data/                 ← blogPosts.ts, tools.ts registries
-
-packages/
-├── design-system/                ← tokens.css (@theme) + SlideTabs, Reveal,
-│                                   SectionHeader, OutlineButton, StandardButton
-├── lib/                          ← constants (SITE_URL), db, notes, rate-limit, jsonld
-├── admin/                        ← NextAuth config, admin pages, admin API handlers
-├── whisper/                      ← Shared WASM Whisper worker implementation
-├── tool-speech-to-text/          ← /tools/speech-to-text page component
-├── tool-img-grid/                ← /tools/img-grid page + canvas components
-├── tool-instagram/               ← /tools/instagram page, yt-dlp + URL libs, API handlers
-└── typescript-config/            ← Shared tsconfig bases + ambient declarations
-```
+Next.js 16 (App Router), React 19, TypeScript, Tailwind v4 (CSS-first),
+Framer Motion 12, three.js 0.180 (home scene only, dynamically imported),
+`next/font/google`, Prism, Vercel Analytics, Vercel Blob.
