@@ -283,8 +283,10 @@ a {
 @media (min-width: 1024px) {
   .blog-post-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 4rem;
+    /* Contents/notes rail beside one reading column at a fixed measure. */
+    grid-template-columns: minmax(15rem, 21rem) minmax(0, var(--measure));
+    justify-content: center;
+    gap: clamp(3rem, 5vw, 5rem);
     align-items: start;
   }
 }
@@ -397,8 +399,9 @@ a {
     max-width: calc(100vw - 3rem);
   }
 
-  .blog-article h2 {
-    font-size: 1.4rem;
+  .blog-article {
+    max-width: var(--measure);
+    margin-inline: auto;
   }
 }
 

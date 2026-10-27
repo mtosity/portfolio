@@ -43,6 +43,6 @@ not go stale. The contract:
 - Tailwind v4, CSS-first. `tokens.css` imports `system.css`; `shadcn.css` is the
   shadcn bridge and also imports `system.css`. Shadcn apps import `shadcn.css`
   only (not `tokens.css`).
-- The violet accent (#8b5cf6, chart-5) is identical in both themes; bg/fg/border swap via
+- The violet accent (#7b46f2) is identical in both themes; bg/fg/border swap via
   `[data-theme="dark"]`. Brutalist shadows follow `--border`, so they adapt.
 - Keep `DESIGN.md` (repo root) in sync for any visual/token change too.

@@ -6,7 +6,7 @@ Comprehensive design reference for the portfolio site. Every visual decision —
 
 ## Design Philosophy
 
-**Neo-brutalist editorial, in Desk Diorama colours.** The site pairs a warm paper background with plum-charcoal ink and a single violet accent (the paper, ink and faces of the Desk Diorama redesign, PR #111; the accent is `--chart-5`). Typography is the hero — large, slightly squeezed Bricolage Grotesque headings, the same face for body text, Literata for italics, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
+**Neo-brutalist editorial, in Desk Diorama colours.** The site pairs a warm paper background with plum-charcoal ink and a single violet accent (the paper, ink and faces of the Desk Diorama redesign, PR #111). Typography is the hero — large, slightly squeezed Bricolage Grotesque headings, the same face for body text, Literata for italics, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
 
 ---
 
@@ -21,11 +21,11 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 | `--bg`              | `#f4eee5` (warm paper)       | Page background                        |
 | `--bg-secondary`    | `#ebe3d6` (darker paper)     | Cards, sidebar, code blocks            |
 | `--fg`              | `#2b2a33` (plum-charcoal)    | Primary text, headings, links          |
-| `--accent`          | `#8b5cf6` (violet, = `--chart-5`) | Project row hover, brand highlight. Mostly a fill, with white ink on top |
+| `--accent`          | `#7b46f2` (violet)           | Project row hover, brand highlight. Mostly a fill, with white ink on top |
 | `--border`          | `#2b2a33`                    | Section dividers, strong borders       |
 | `--border-light`    | `#ddd3c4`                    | Subtle separators, photo borders       |
 | `--muted`           | `#5f5a63`                    | Secondary text, labels, dates          |
-| `--accent-fg`       | `#ffffff`                    | Ink on violet — text/borders on accent surfaces (same in dark). 4.2:1 on the violet, so keep ink on accent ≥ 14px bold or ≥ 18px |
+| `--accent-fg`       | `#ffffff`                    | Ink on violet — text/borders on accent surfaces (same in dark). 5.2:1 on the violet (AA at any size) |
 | `--accent-fg-muted` | `#efe9ff`                    | Secondary ink on violet (same in dark) |
 | `--danger`          | `#c2321b` (dark: `#ff7d66`)  | Errors, destructive actions            |
 | `--shadow-brutal`   | `4px 4px 0 var(--border)`    | Brutalist offset shadow                |
@@ -33,7 +33,7 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 | `--font-heading`    | Bricolage Grotesque + sans fallbacks | Use instead of spelling out the chain; the next/font variables live on `<html>` so this alias resolves |
 | `--bg-opaque`       | `rgba(244, 238, 229, 0.25)`  | Glassmorphic heading bar (legacy)      |
 | `--background-dark` | `#e0d6c6`                    | Legacy sidebar background              |
-| `--brand`           | `#8b5cf6`                    | Alias for accent (legacy sidebar)      |
+| `--brand`           | `#7b46f2`                    | Alias for accent (legacy sidebar)      |
 
 ### Dark Theme
 
@@ -45,7 +45,7 @@ swap to plum near-black + paper, and the violet accent is shared:
 | `--bg`           | `#1c1b22`              |
 | `--bg-secondary` | `#25242d`              |
 | `--fg`           | `#f1ebe2`              |
-| `--accent`       | `#8b5cf6` (unchanged)  |
+| `--accent`       | `#7b46f2` (unchanged)  |
 | `--border`       | `#f1ebe2`              |
 | `--border-light` | `#3a3843`              |
 | `--muted`        | `#b4acb3`              |
@@ -144,12 +144,13 @@ Used for: nav labels, section numbers, chips/tags, dates, code blocks, project m
 |------------------------|----------------|------------------------------|--------|-----------------|------------|
 | Hero name              | Bricolage Grotesque   | `clamp(3.5rem, 9vw, 11rem)` | 700    | `-0.03em`       | —          |
 | Contact CTA            | Bricolage Grotesque   | `clamp(3rem, 7vw, 6rem)`    | 700    | `-0.02em`       | —          |
-| Blog post h1           | Bricolage Grotesque   | `clamp(1.75rem, 4vw, 3rem)` | 700    | `-0.02em`       | —          |
+| Blog post h1           | Literata       | `clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem)` | 700 | `-0.018em` | —   |
 | Photography tagline    | Literata       | `clamp(2rem, 5vw, 3.5rem)`  | 400 *italic* | `-0.01em` | —          |
-| Blog h2                | Bricolage Grotesque   | `1.75rem`                    | 700    | `-0.01em`       | —          |
-| Blog h3                | Bricolage Grotesque   | `1.35rem`                    | 600    | —               | —          |
+| Blog h2                | Literata       | `1.55em` of body             | 700    | `-0.012em`      | —          |
+| Blog h3                | Literata       | `1.2em` of body              | 700    | `-0.006em`      | —          |
+| Blog body              | Literata       | `--read-size` = `clamp(1.0625rem, 1rem + 0.3vw, 1.25rem)` | 400 | — | — |
 | Body text              | Bricolage      | `1.0625rem` (17px)           | 400    | —               | —          |
-| Body line-height       | —              | `1.7` (about), `1.85` (blog)| —      | —               | —          |
+| Body line-height       | —              | `1.7` (about), `1.62` (blog, `--read-leading`)| —      | —               | —          |
 | Nav links              | Monospace      | `0.75rem`                    | 400    | `0.1em`         | uppercase  |
 | Section header label   | Monospace      | `0.75rem`                    | 700    | `0.2em`         | uppercase  |
 | Chip / tag             | Monospace      | `0.7rem`                     | 400    | `0.08em`        | uppercase  |
@@ -292,7 +293,7 @@ All content sections sit inside a max-width `1400px` container.
 
 ### Blog Post (`/blog/[slug]`)
 
-- **Two-column layout**: `1fr 1fr` grid above 1024px
+- **Two-column layout** above 1024px: a `minmax(15rem, 21rem)` contents/notes rail beside one reading column at `--measure` (`40rem`), centred, gap `clamp(3rem, 5vw, 5rem)`. Below 1024px the column centres at the same measure
 - **Sidebar** (left, sticky at `56px + 2.5rem`):
   - Background: `var(--bg-secondary)`, 1px light border
   - Three modes: **TOC** (auto-extracted headings with active indicator), **Definition** (inline definition panel), **Code** (code example viewer)
@@ -301,8 +302,8 @@ All content sections sit inside a max-width `1400px` container.
   - "← Back to Blog" link at top
 - **Mobile sidebar**: Fixed right panel, slides in from right (`translateX(100%)` → `0`), 90vw width, with dark overlay backdrop
 - **Mobile TOC button**: Fixed bottom-right, dark bg, monospace 0.65rem uppercase
-- **Article typography**: See type scale above. Inline code gets `bg-secondary` + light border. Pre blocks: `bg-secondary`, 1px border, no rounded corners. Blockquotes: 3px left border. Images: 1px light border.
-- **Max prose width**: `68ch` for paragraphs and lists
+- **Article typography** (ported from #111's reading page): headline, h2 and h3 in Literata 700; body in Literata at `--read-size` / `--read-leading`, full-strength `--fg` (not muted); paragraph and list spacing `1.1em`; h2 `2.2em 0 0.6em`, h3 `1.9em 0 0.45em`; date in the sans at `0.95rem` muted. Links underline in a 70% accent tint and thicken on hover. Inline code gets `bg-secondary` + light border. Pre blocks: `bg-secondary`, 1px border, `0.85rem` / `1.65`. Blockquotes: `1.2em` italic with a short 3px accent bar above. `<hr>` renders as a centred `· · ·`. Images: 1px light border.
+- **Max prose width**: the column itself (`--measure`, `40rem`, ~65 characters)
 
 ### Photography (`/photography`)
 

@@ -19,7 +19,7 @@
   --color-bg: #f4eee5;
   --color-bg-secondary: #ebe3d6;
   --color-fg: #2b2a33;
-  --color-accent: #8b5cf6;
+  --color-accent: #7b46f2;
   --color-accent-fg: #ffffff;
   --color-border: #2b2a33;
   --color-border-light: #ddd3c4;
@@ -45,7 +45,7 @@
   --bg: #f4eee5;
   --bg-secondary: #ebe3d6;
   --fg: #2b2a33;
-  --accent: #8b5cf6;
+  --accent: #7b46f2;
   --border: #2b2a33;
   --border-light: #ddd3c4;
   --muted: #5f5a63;
@@ -59,6 +59,12 @@
   /* Errors / destructive actions — readable on both themes */
   --danger: #c2321b;
 
+  /* Reading — blog post body. Grows a little with the viewport so a
+     long read never sits below 17px; the column holds ~65 characters. */
+  --read-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --read-leading: 1.62;
+  --measure: 40rem;
+
   /* Brutalist offset shadows (follow --border, so they adapt per theme) */
   --shadow-brutal: 4px 4px 0 var(--border);
   --shadow-brutal-lg: 6px 6px 0 var(--border);
@@ -69,7 +75,7 @@
   --background-light: #ebe3d6;
   --background-dark: #e0d6c6;
   --text: #2b2a33;
-  --brand: #8b5cf6;
+  --brand: #7b46f2;
 
   /* ── Blog definition callouts ──────────────────────────────────────────
      The definition sidebar renders pastel callout cards. Those colours used
@@ -102,7 +108,7 @@
   --bg: #1c1b22;
   --bg-secondary: #25242d;
   --fg: #f1ebe2;
-  --accent: #8b5cf6;
+  --accent: #7b46f2;
   --border: #f1ebe2;
   --border-light: #3a3843;
   --muted: #b4acb3;
@@ -111,7 +117,7 @@
   --color-bg: #1c1b22;
   --color-bg-secondary: #25242d;
   --color-fg: #f1ebe2;
-  --color-accent: #8b5cf6;
+  --color-accent: #7b46f2;
   --color-border: #f1ebe2;
   --color-border-light: #3a3843;
   --color-muted: #b4acb3;
@@ -122,7 +128,7 @@
   --background-light: #25242d;
   --background-dark: #2e2d37;
   --text: #f1ebe2;
-  --brand: #8b5cf6;
+  --brand: #7b46f2;
 
   /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
      tone that sits on --bg-secondary, borders take the old text colour and
@@ -154,7 +160,7 @@
   --bg: #f4eee5;
   --bg-secondary: #ebe3d6;
   --fg: #2b2a33;
-  --accent: #8b5cf6;
+  --accent: #7b46f2;
   --border: #2b2a33;
   --border-light: #ddd3c4;
   --muted: #5f5a63;
@@ -164,7 +170,7 @@
   --color-bg: #f4eee5;
   --color-bg-secondary: #ebe3d6;
   --color-fg: #2b2a33;
-  --color-accent: #8b5cf6;
+  --color-accent: #7b46f2;
   --color-border: #2b2a33;
   --color-border-light: #ddd3c4;
   --color-muted: #5f5a63;
@@ -175,7 +181,7 @@
   --background-light: #ebe3d6;
   --background-dark: #e0d6c6;
   --text: #2b2a33;
-  --brand: #8b5cf6;
+  --brand: #7b46f2;
 }
 
 /* ThemeToggle icons — visibility is pure CSS keyed off [data-theme],
