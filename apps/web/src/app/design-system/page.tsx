@@ -5,7 +5,7 @@ import { DesignSystemShowcase } from "./DesignSystemShowcase";
 export const metadata: Metadata = {
   title: "Design System",
   description:
-    "Living reference for @mtosity/design-system — tokens, colors, typography, shadows, and components in the warm-paper + coral look.",
+    "Living reference for @mtosity/design-system — tokens, colors, typography, shadows, and components in the warm-paper + violet look.",
 };
 
 export default function DesignSystemPage() {

@@ -477,7 +477,7 @@ export default function Notes() {
         .notes-page {
           min-height: 100vh;
           background:
-            radial-gradient(circle at 20% 35%, rgba(255, 107, 74, 0.07) 0%, transparent 50%),
+            radial-gradient(circle at 20% 35%, rgba(139, 92, 246, 0.07) 0%, transparent 50%),
             radial-gradient(circle at 80% 70%, rgba(190, 170, 255, 0.06) 0%, transparent 50%),
             var(--bg);
           color: var(--fg);

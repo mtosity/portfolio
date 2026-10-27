@@ -6,7 +6,7 @@ Comprehensive design reference for the portfolio site. Every visual decision —
 
 ## Design Philosophy
 
-**Neo-brutalist editorial, in Desk Diorama colours.** The site pairs a warm paper background with plum-charcoal ink and a single coral accent (the palette and faces of the Desk Diorama redesign, PR #111). Typography is the hero — large, slightly squeezed Bricolage Grotesque headings, the same face for body text, Literata for italics, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
+**Neo-brutalist editorial, in Desk Diorama colours.** The site pairs a warm paper background with plum-charcoal ink and a single violet accent (the paper, ink and faces of the Desk Diorama redesign, PR #111; the accent is `--chart-5`). Typography is the hero — large, slightly squeezed Bricolage Grotesque headings, the same face for body text, Literata for italics, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
 
 ---
 
@@ -21,31 +21,31 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 | `--bg`              | `#f4eee5` (warm paper)       | Page background                        |
 | `--bg-secondary`    | `#ebe3d6` (darker paper)     | Cards, sidebar, code blocks            |
 | `--fg`              | `#2b2a33` (plum-charcoal)    | Primary text, headings, links          |
-| `--accent`          | `#ff6b4a` (coral)            | Project row hover, brand highlight. A fill, never body text — it is too light for text on paper |
+| `--accent`          | `#8b5cf6` (violet, = `--chart-5`) | Project row hover, brand highlight. Mostly a fill, with white ink on top |
 | `--border`          | `#2b2a33`                    | Section dividers, strong borders       |
 | `--border-light`    | `#ddd3c4`                    | Subtle separators, photo borders       |
 | `--muted`           | `#5f5a63`                    | Secondary text, labels, dates          |
-| `--accent-fg`       | `#24171a`                    | Ink on coral — text/borders on accent surfaces (same in dark) |
-| `--accent-fg-muted` | `#5a2a20`                    | Secondary ink on coral (same in dark)  |
+| `--accent-fg`       | `#ffffff`                    | Ink on violet — text/borders on accent surfaces (same in dark). 4.2:1 on the violet, so keep ink on accent ≥ 14px bold or ≥ 18px |
+| `--accent-fg-muted` | `#efe9ff`                    | Secondary ink on violet (same in dark) |
 | `--danger`          | `#c2321b` (dark: `#ff7d66`)  | Errors, destructive actions            |
 | `--shadow-brutal`   | `4px 4px 0 var(--border)`    | Brutalist offset shadow                |
 | `--shadow-brutal-lg`| `6px 6px 0 var(--border)`    | Larger offset shadow (hover/emphasis)  |
 | `--font-heading`    | Bricolage Grotesque + sans fallbacks | Use instead of spelling out the chain; the next/font variables live on `<html>` so this alias resolves |
 | `--bg-opaque`       | `rgba(244, 238, 229, 0.25)`  | Glassmorphic heading bar (legacy)      |
 | `--background-dark` | `#e0d6c6`                    | Legacy sidebar background              |
-| `--brand`           | `#ff6b4a`                    | Alias for accent (legacy sidebar)      |
+| `--brand`           | `#8b5cf6`                    | Alias for accent (legacy sidebar)      |
 
 ### Dark Theme
 
 Activated by `data-theme="dark"` on `<html>`. The palette mirrors light — bg/fg
-swap to plum near-black + paper, and the coral lifts a touch so it holds on the dark ground:
+swap to plum near-black + paper, and the violet accent is shared:
 
 | Token            | Dark value             |
 |------------------|------------------------|
 | `--bg`           | `#1c1b22`              |
 | `--bg-secondary` | `#25242d`              |
 | `--fg`           | `#f1ebe2`              |
-| `--accent`       | `#ff7a5c`              |
+| `--accent`       | `#8b5cf6` (unchanged)  |
 | `--border`       | `#f1ebe2`              |
 | `--border-light` | `#3a3843`              |
 | `--muted`        | `#b4acb3`              |
@@ -69,8 +69,8 @@ Mechanics (all in `tokens.css` unless noted):
 - Theme-dependent translucent overlays use
   `color-mix(in srgb, var(--bg) N%, transparent)` (photography lightbox,
   project modal) instead of hard-coded cream rgba.
-- Anything sitting on a coral surface uses `--accent-fg` / `--accent-fg-muted`
-  ("ink on coral", near-black in both themes), never `--fg`. Hover rows
+- Anything sitting on a violet surface uses `--accent-fg` / `--accent-fg-muted`
+  ("ink on violet", white in both themes), never `--fg`. Hover rows
   (projects, tools, admin dashboard actions) re-point `--fg`/`--muted`/
   `--border-light` to these inside the `:hover` rule so children pop without
   per-element overrides.
@@ -257,7 +257,7 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
   - Title row fades up (delay 0.4s)
   - Description fades up (delay 0.5s)
   - Links fade in (delay 0.6s)
-- **Hover**: Entire row background → `var(--accent)` (coral)
+- **Hover**: Entire row background → `var(--accent)` (violet)
 - **Row structure**: `{num} | TITLE · tech | [year]` on top, description below, GitHub ↗ / Live ↗ links
 - **Modal**: ReactDOM portal with blurred cream backdrop (`rgba(242, 239, 232, 0.85)`, `blur(8px)`)
   - Card: 1px border, cream bg, `4px 4px 0` hard offset shadow, max-width 700px
@@ -325,7 +325,7 @@ All content sections sit inside a max-width `1400px` container.
 - **Row layout**: `auto 1fr auto` grid → number (mono 0.75rem muted) | content block | arrow `→`
 - **Row content**: Title (Bricolage Grotesque `clamp(1.5rem, 3.5vw, 2.25rem)` 700) + status chip (`● LIVE` / `◐ BETA` / `○ WIP` · year, mono 0.65rem muted), description (1rem muted, max 62ch), tag chips (same `.chip` styling)
 - **Row entrance**: Clip-path wipe from left (`inset(0 100% 0 0)` → `inset(0 0% 0 0)`), 0.8s, ease `[0.65, 0, 0.35, 1]`, staggered 0.08s per row
-- **Row hover**: Background → `var(--accent)` (coral), `padding-left` slides from `1rem` → `1.5rem`, arrow translates `+8px` — all 0.3s ease
+- **Row hover**: Background → `var(--accent)` (violet), `padding-left` slides from `1rem` → `1.5rem`, arrow translates `+8px` — all 0.3s ease
 
 ### Tool — Image Grid (`/tools/img-grid`)
 
@@ -333,18 +333,18 @@ All content sections sit inside a max-width `1400px` container.
 - **Title row**: "Image *grid.*" (Bricolage Grotesque `clamp(1.85rem, 4.5vw, 2.75rem)` 700, italic muted accent) + a mono tagline on the right ("Drop images → choose a layout → pan / zoom each tile → export PNG.")
 - **Sidebar (`288px`, cream)**: Each control wrapped in a `Section` with mono 0.65rem 700 uppercase muted label
   - **Layout (mode)**: Connected pill row — `Grid` / `Row` / `Column`. `Row` stacks images as equal horizontal rows (top→bottom), `Column` places them as equal vertical columns (left→right); both divide the fixed-aspect canvas among an unbounded number of images. `Grid` is the original fixed preset layouts. Switching modes clears loaded images.
-  - **Image count / Aspect ratio / Gap / Export size**: Connected pill row (no gap; 1px outer border, internal 1px dividers). Active segment fills coral, inactive segments hover to `var(--bg-secondary)` and `var(--fg)` text. Image count and the Grid presets are hidden in stack modes
+  - **Image count / Aspect ratio / Gap / Export size**: Connected pill row (no gap; 1px outer border, internal 1px dividers). Active segment fills violet, inactive segments hover to `var(--bg-secondary)` and `var(--fg)` text. Image count and the Grid presets are hidden in stack modes
   - **Aspect ratio**: The same 5 fixed ratios in every mode (shared `aspectRatio` state) — it bounds the whole canvas/container, and grid presets or stack divisions lay images out inside it
-  - **Grid presets**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/coral rectangles inside; active card border + bg flip to coral (grid mode only)
+  - **Grid presets**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/violet rectangles inside; active card border + bg flip to violet (grid mode only)
   - **Radius**: Native range slider, accent `var(--fg)`, label shows live px
   - **Background**: Inline color picker chip (28×28, 1px black border) + mono uppercase hex readout in a bordered strip
-  - **Export button** (sticks to bottom via `margin-top: auto`): Mono 0.78rem 700 uppercase. Coral + 4px hard offset shadow when ready, gray + no shadow when blocked. Hover lifts via `translate(-2px, -2px)` with the shadow growing to `6px 6px`. Disabled label shows remaining count: `Fill 2 more`
+  - **Export button** (sticks to bottom via `margin-top: auto`): Mono 0.78rem 700 uppercase. Violet + 4px hard offset shadow when ready, gray + no shadow when blocked. Hover lifts via `translate(-2px, -2px)` with the shadow growing to `6px 6px`. Disabled label shows remaining count: `Fill 2 more`
 - **Canvas pane**: `var(--bg-secondary)` background with a left 1px black rule. Centers a fixed-aspect canvas with `8px 8px 0 var(--border)` hard-offset shadow. Canvas dimensions recompute via `ResizeObserver` whenever the aspect ratio changes (200ms transition on width/height)
 - **Stack modes (`Row` / `Column`)**: Reuse the same grid canvas and export path — they just generate the layout `blocks` dynamically (`stackBlocks` in `useImageCombiner`): N filled images plus one trailing empty "add" tile divide the fixed-aspect canvas into `N+1` equal columns (Row) / rows (Column). Dropping into the trailing tile fills it and spawns a fresh one (infinite stacking, slots stay dense); Remove compacts the strip. Each tile cover-crops its image with the same drag-to-pan / scroll-to-zoom as grid blocks. Export divides the canvas into `N` equal cells (the add-tile is preview-only) and bakes in each tile's scale/offset
 - **Image block**:
   - Empty state: cream-secondary fill with a 1px dashed border-light outline; centered `+` icon and mono "CLICK OR DROP" label
   - Hover (empty): outline upgrades to dashed black
-  - Hover (filled): outline upgrades to 2px solid coral
+  - Hover (filled): outline upgrades to 2px solid violet
   - Drag-over: outline becomes 2px dashed black
   - Filled: image positioned via `cover` math identical to `useImageCombiner.exportImage` so preview matches export pixel-for-pixel
   - Hover overlay (filled): semi-opaque dark veil (`rgba(13,13,13,0.35)`) with two button rows — `Replace` / `Remove` (mono uppercase, 1px black borders; Remove tinted muted-red) and zoom controls `[−] NNN% [+]` (28px square buttons)
@@ -363,18 +363,18 @@ All content sections sit inside a max-width `1400px` container.
 - **Title**: "Instagram reels, *extracted.*" — Bricolage Grotesque `clamp(2.5rem, 6vw, 4.5rem)` with italic muted accent
 - **URL form**: Mono uppercase label "REEL URL", then a flex strip on `var(--bg-secondary)` with 1px black border + `4px 4px 0` shadow:
   - Mono input (transparent, no border, 0.9rem)
-  - Coral "→ FETCH" submit button (mono 0.75rem 700, 1px black border) — disables to `var(--border-light)` while loading and shows a spinner; otherwise scale 1.02 / 0.98 hover/tap
+  - Violet "→ FETCH" submit button (mono 0.75rem 700, 1px black border) — disables to `var(--border-light)` while loading and shows a spinner; otherwise scale 1.02 / 0.98 hover/tap
   - Footnote line beneath: "Supports /reel/, /reels/, /p/ and /tv/ links · public posts only"
 - **Error banner**: 1px red border + `3px solid #a83232` left rule on `var(--bg-secondary)` carrying server message in mono
 - **Info card**: Two-column grid (`160px 1fr`, collapses below 600px). Left: 9:16 thumbnail with light border. Right:
   - Uploader handle (mono 0.65rem uppercase muted)
   - Title (Bricolage Grotesque 1.4rem, 3-line clamp)
   - Meta chips: duration · `WxH` (mono 0.65rem chips)
-  - Action row: `Download MP4` primary action (cream bg, black border, mono 0.72rem 700) + `Get transcript` accent action (coral bg, black border)
+  - Action row: `Download MP4` primary action (cream bg, black border, mono 0.72rem 700) + `Get transcript` accent action (violet bg, black border)
   - Card has 1px black border + `6px 6px 0` shadow
 - **Stage progress**: While transcribing, four-step ordered list with `StageDot` glyphs:
   - Pending: hollow square (light border)
-  - Active: coral square with pulsing opacity (1 ↔ 0.3, 1.2s)
+  - Active: violet square with pulsing opacity (1 ↔ 0.3, 1.2s)
   - Done: solid muted square
   - Steps: `Downloading audio`, `Decoding audio`, `Loading Whisper model` (with `— NN%` while shards download), `Transcribing`
 - **Transcript section**: Header strip `TRANSCRIPT — [Copy] [.txt] [.srt]` (small bordered mono pill buttons), then a Bricolage Grotesque 1.0625rem block on `var(--bg-secondary)` with light border, line-height 1.75, whitespace preserved
@@ -391,8 +391,8 @@ All content sections sit inside a max-width `1400px` container.
   - 1px black border on `var(--bg-secondary)` with `6px 6px 0` hard offset shadow
   - Top meta strip: animated status dot + phase label (left), `MM:SS` elapsed timer (right) — both mono 0.7rem uppercase muted
   - **Mic button** (150×150 wrapper, 88px circular button visually):
-    - Idle: coral background, black 1px border, mic SVG icon, `6px 6px 0` shadow
-    - Recording: black background with stop-square in coral, gentle scale pulse (1 ↔ 1.04, 1.4s loop), three concentric ring waves expanding outward (1.6s, 0.45s stagger)
+    - Idle: violet background, black 1px border, mic SVG icon, `6px 6px 0` shadow
+    - Recording: black background with stop-square in violet, gentle scale pulse (1 ↔ 1.04, 1.4s loop), three concentric ring waves expanding outward (1.6s, 0.45s stagger)
     - Hover/tap: scale 1.04 / 0.96 spring
   - **Waveform**: 28-bar live FFT visualizer (3px wide bars, 56px tall) — driven by `AnalyserNode.getByteFrequencyData`, animates each bar's `height` per frame; idle bars are static gray
   - **Status line**: Mono 0.75rem uppercase, errors switch to muted red (`#a83232`)
@@ -405,7 +405,7 @@ All content sections sit inside a max-width `1400px` container.
 ### Notes (`/notes`)
 
 - **Data source**: Fetches from `/api/notes` (Leaflet JSON Feed); images/links rewritten to `LEAFLET_BASE`
-- **Background**: Subtle radial gradients — coral-tinted at top-left, lavender-tinted at bottom-right over cream
+- **Background**: Subtle radial gradients — violet-tinted at top-left, lavender-tinted at bottom-right over cream
 - **Grid**: CSS Grid, `repeat(4, 1fr)`, `align-items: start`, `gap: 1.25rem` (4 cols → 3 → 2 → 1)
 - **Sticky notes**:
   - Pastel background (8-color rotation), 3px left border in darker shade, `border-radius: 2px`
@@ -515,7 +515,7 @@ All modals share these traits:
 
 ### AccentButton (design system)
 
-The coral CTA: mono uppercase, ink-on-coral text, `1px` accent-fg border,
+The violet CTA: mono uppercase, ink-on-violet text, `1px` accent-fg border,
 framer-motion scale on hover/tap. `href` renders a Next Link, `disabled`
 drops to the muted surface, `shadow` adds `--shadow-brutal`. Size tweaks go
 through `style`. Used by the tools (img-grid export, instagram fetch /

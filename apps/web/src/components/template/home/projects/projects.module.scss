@@ -15,8 +15,8 @@
     border-top: 1px solid var(--border-light);
   }
 
-  /* The row turns coral on hover (inline style); re-point the text vars at
-     ink-on-coral so children stay high-contrast in both themes. */
+  /* The row turns violet on hover (inline style); re-point the text vars at
+     ink-on-violet so children stay high-contrast in both themes. */
   &:hover {
     --fg: var(--accent-fg);
     --muted: var(--accent-fg-muted);

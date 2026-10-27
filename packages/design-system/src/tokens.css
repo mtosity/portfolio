@@ -1,6 +1,6 @@
 /* ──────────────────────────────────────────────────────────────
-   MTosity design tokens — warm paper + plum-charcoal + coral
-   Dark theme: plum near-black + paper + a slightly lifted coral, activated
+   MTosity design tokens — warm paper + plum-charcoal + violet
+   Dark theme: plum near-black + paper + the same violet, activated
    via [data-theme="dark"] on <html> (see ThemeToggle + the inline
    no-flash script in the web app's root layout).
    Canonical reference: DESIGN.md at the repo root.
@@ -19,8 +19,8 @@
   --color-bg: #f4eee5;
   --color-bg-secondary: #ebe3d6;
   --color-fg: #2b2a33;
-  --color-accent: #ff6b4a;
-  --color-accent-fg: #24171a;
+  --color-accent: #8b5cf6;
+  --color-accent-fg: #ffffff;
   --color-border: #2b2a33;
   --color-border-light: #ddd3c4;
   --color-muted: #5f5a63;
@@ -45,16 +45,16 @@
   --bg: #f4eee5;
   --bg-secondary: #ebe3d6;
   --fg: #2b2a33;
-  --accent: #ff6b4a;
+  --accent: #8b5cf6;
   --border: #2b2a33;
   --border-light: #ddd3c4;
   --muted: #5f5a63;
 
-  /* Ink on coral — text/borders sitting on an accent surface. The coral
-     only lifts slightly in dark, so these stay near-black everywhere (no
-     dark override needed). */
-  --accent-fg: #24171a;
-  --accent-fg-muted: #5a2a20;
+  /* Ink on violet — text/borders sitting on an accent surface. The violet
+     is identical in both themes, so these stay white everywhere (no dark
+     override needed). */
+  --accent-fg: #ffffff;
+  --accent-fg-muted: #efe9ff;
 
   /* Errors / destructive actions — readable on both themes */
   --danger: #c2321b;
@@ -69,7 +69,7 @@
   --background-light: #ebe3d6;
   --background-dark: #e0d6c6;
   --text: #2b2a33;
-  --brand: #ff6b4a;
+  --brand: #8b5cf6;
 
   /* ── Blog definition callouts ──────────────────────────────────────────
      The definition sidebar renders pastel callout cards. Those colours used
@@ -94,7 +94,7 @@
 
 /* ── Dark theme ──
    Mirrors the light palette: bg/fg swap to plum near-black + paper,
-   the coral lifts a touch so it holds up on the dark ground. Overrides both the runtime vars and the
+   the violet accent is shared. Overrides both the runtime vars and the
    Tailwind @theme vars (utilities compile to var(--color-*)). */
 [data-theme="dark"] {
   color-scheme: dark;
@@ -102,7 +102,7 @@
   --bg: #1c1b22;
   --bg-secondary: #25242d;
   --fg: #f1ebe2;
-  --accent: #ff7a5c;
+  --accent: #8b5cf6;
   --border: #f1ebe2;
   --border-light: #3a3843;
   --muted: #b4acb3;
@@ -111,7 +111,7 @@
   --color-bg: #1c1b22;
   --color-bg-secondary: #25242d;
   --color-fg: #f1ebe2;
-  --color-accent: #ff7a5c;
+  --color-accent: #8b5cf6;
   --color-border: #f1ebe2;
   --color-border-light: #3a3843;
   --color-muted: #b4acb3;
@@ -122,7 +122,7 @@
   --background-light: #25242d;
   --background-dark: #2e2d37;
   --text: #f1ebe2;
-  --brand: #ff7a5c;
+  --brand: #8b5cf6;
 
   /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
      tone that sits on --bg-secondary, borders take the old text colour and
@@ -154,7 +154,7 @@
   --bg: #f4eee5;
   --bg-secondary: #ebe3d6;
   --fg: #2b2a33;
-  --accent: #ff6b4a;
+  --accent: #8b5cf6;
   --border: #2b2a33;
   --border-light: #ddd3c4;
   --muted: #5f5a63;
@@ -164,7 +164,7 @@
   --color-bg: #f4eee5;
   --color-bg-secondary: #ebe3d6;
   --color-fg: #2b2a33;
-  --color-accent: #ff6b4a;
+  --color-accent: #8b5cf6;
   --color-border: #2b2a33;
   --color-border-light: #ddd3c4;
   --color-muted: #5f5a63;
@@ -175,7 +175,7 @@
   --background-light: #ebe3d6;
   --background-dark: #e0d6c6;
   --text: #2b2a33;
-  --brand: #ff6b4a;
+  --brand: #8b5cf6;
 }
 
 /* ThemeToggle icons — visibility is pure CSS keyed off [data-theme],

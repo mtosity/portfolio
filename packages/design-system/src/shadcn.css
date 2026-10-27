@@ -2,13 +2,13 @@
    @mtosity/design-system — shadcn/ui bridge
 
    Drop-in theme for shadcn/ui (Tailwind v4) apps that want the
-   MTosity look (warm paper + plum-charcoal + coral).
+   MTosity look (warm paper + plum-charcoal + violet).
 
    Usage (after `@import "tailwindcss"`):
      @import "@mtosity/design-system/shadcn.css";
 
    This is SELF-CONTAINED — do NOT also import tokens.css in a shadcn
-   app, or the brand color utilities (bg-accent = coral) will collide
+   app, or the brand color utilities (bg-accent = violet) will collide
    with shadcn's accent (a hover surface). This file maps shadcn's
    semantic tokens onto the palette and ships the heading typography.
 
@@ -30,9 +30,9 @@
   --bg: #f4eee5;
   --bg-secondary: #ebe3d6;
   --fg: #2b2a33;
-  --accent: #ff6b4a;
-  --accent-fg: #24171a;
-  --accent-fg-muted: #5a2a20;
+  --accent: #8b5cf6;
+  --accent-fg: #ffffff;
+  --accent-fg-muted: #efe9ff;
   --border: #2b2a33;
   --border-light: #ddd3c4;
   --muted: #5f5a63;
@@ -48,9 +48,9 @@
   --bg: #1c1b22;
   --bg-secondary: #25242d;
   --fg: #f1ebe2;
-  --accent: #ff7a5c;
-  --accent-fg: #24171a;
-  --accent-fg-muted: #5a2a20;
+  --accent: #8b5cf6;
+  --accent-fg: #ffffff;
+  --accent-fg-muted: #efe9ff;
   --border: #f1ebe2;
   --border-light: #3a3843;
   --muted: #b4acb3;
@@ -68,7 +68,7 @@
   --color-popover: var(--bg-secondary);
   --color-popover-foreground: var(--fg);
 
-  /* Coral is the primary CTA — ink-on-coral text in both themes */
+  /* Violet is the primary CTA — white ink-on-violet text in both themes */
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-fg);
 
@@ -78,7 +78,7 @@
   --color-muted: var(--bg-secondary);
   --color-muted-foreground: var(--muted);
 
-  /* shadcn "accent" = hover/active surface → subtle coral tint */
+  /* shadcn "accent" = hover/active surface → subtle violet tint */
   --color-accent: color-mix(in srgb, var(--accent) 16%, transparent);
   --color-accent-foreground: var(--fg);
 
