@@ -17,7 +17,7 @@ export const About = () => (
     </div>
 
     <div className="about-copy">
-      <SectionHeader title="About" />
+      <SectionHeader title="A bit about me" />
       <Reveal>
         <p className="about-lead">
           Howdy! I&apos;m Minh Tam Nguyen, a software engineer based in the United States.

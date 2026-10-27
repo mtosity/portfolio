@@ -11,7 +11,7 @@ const points = (text: string) =>
 
 export const Experience = () => (
   <section id="experience" className="home-section frame experience">
-    <SectionHeader title="Experience" />
+    <SectionHeader title="Where I’ve worked" />
     <ol className="exp-list">
       {experience.map((job) => {
         const lines = points(job.description);
@@ -29,7 +29,10 @@ export const Experience = () => (
                   )}
                 </h3>
                 <p className="exp-role">{job.position}</p>
-                <p className="exp-time">{job.time}</p>
+                <p className="exp-time">
+                  {job.time}
+                  {/Present/.test(job.time) && <span className="exp-now">here now</span>}
+                </p>
               </div>
             </Reveal>
             <Reveal delay={0.08}>
