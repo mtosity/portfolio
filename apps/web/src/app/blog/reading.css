@@ -563,3 +563,5 @@
   .front-lede { text-align: left; }
   .front-grid { grid-template-columns: 1fr; }
 }
+.article-end { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.article-end p { margin: 0; font-family: var(--font-text); font-style: italic; color: var(--muted); }

@@ -39,6 +39,7 @@ export default function ImgGridPage() {
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <Link
             href="/tools"
+            className="tool-back"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "0.7rem",
@@ -52,30 +53,6 @@ export default function ImgGridPage() {
           >
             ← All tools
           </Link>
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
-              color: "var(--muted)",
-              textTransform: "uppercase",
-            }}
-          >
-            07.03 — TOOL
-          </span>
-          <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
-              color: "var(--muted)",
-              textTransform: "uppercase",
-            }}
-            className="ig-stack-label"
-          >
-            CANVAS · 100% CLIENT-SIDE
-          </span>
         </div>
 
         <div
@@ -98,9 +75,7 @@ export default function ImgGridPage() {
             }}
           >
             Image{" "}
-            <span style={{ fontStyle: "italic", color: "var(--muted)" }}>
-              grid.
-            </span>
+            grid.
           </h1>
           <p
             style={{

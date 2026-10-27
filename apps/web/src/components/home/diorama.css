@@ -158,3 +158,20 @@
   color: var(--muted);
 }
 @media (max-width: 860px) { .hero-aside { display: none; } }
+
+.hero-still {
+  position: absolute;
+  right: 12%;
+  top: 50%;
+  width: clamp(200px, 26vw, 360px);
+  translate: 0 -50%;
+  rotate: 2deg;
+  padding: 1.25rem;
+  background: var(--surface-raised);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-float);
+}
+.hero-still img { display: block; width: 100%; height: auto; }
+@media (max-width: 860px) {
+  .hero-still { right: auto; left: 50%; top: auto; bottom: 7rem; translate: -50% 0; width: 52vw; }
+}

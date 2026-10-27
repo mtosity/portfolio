@@ -301,8 +301,9 @@ export default function BlogLayout({
             </header>
             <div className="article-body">{children}</div>
             <footer className="article-end">
+              <p>Thanks for reading.</p>
               <Link href="/blog" className="link">
-                More writing
+                Keep reading
               </Link>
             </footer>
           </article>
@@ -321,7 +322,7 @@ export default function BlogLayout({
         aria-expanded={!isSidebarCollapsed}
         aria-controls="reading-sheet"
       >
-        {isSidebarCollapsed ? (railOpen ? "Show note" : "Contents") : "Close"}
+        {isSidebarCollapsed ? (railOpen ? "Show note" : "Contents") : "Done"}
       </button>
       <div
         className={`reading-sheet-scrim${!isSidebarCollapsed ? " is-open" : ""}`}

@@ -47,7 +47,7 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
         <nav className="front-sections" aria-label="Sections">
           {(["All", ...categories.filter((c) => counts[c] > 0)] as Section[]).map((c) => (
             <button key={c} aria-pressed={section === c} onClick={() => setSection(c)}>
-              {c}
+              {c === "All" ? "Everything" : c}
               <span className="count">{c === "All" ? posts.length : counts[c as CategoryType]}</span>
             </button>
           ))}
@@ -62,7 +62,7 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
             transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
           >
             {!lead ? (
-              <p className="front-empty">Nothing in {section} yet.</p>
+              <p className="front-empty">Nothing in {section} yet — soon, hopefully.</p>
             ) : (
               <div className="front-grid">
                 <article className="front-lead">

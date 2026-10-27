@@ -256,7 +256,7 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
               not the noun.
             </h1>
             <p className="gallery-count">
-              Photography · {photos.length} frames
+              {photos.length} photos so far
             </p>
           </div>
         </section>

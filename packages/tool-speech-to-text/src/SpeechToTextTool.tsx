@@ -265,6 +265,7 @@ export default function SpeechToTextPage() {
         >
           <Link
             href="/tools"
+            className="tool-back"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "0.7rem",
@@ -278,41 +279,6 @@ export default function SpeechToTextPage() {
           >
             ← All tools
           </Link>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "1rem",
-              marginTop: "1.5rem",
-              paddingBottom: "1rem",
-              borderBottom: "1px solid var(--border)",
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
-              }}
-            >
-              07.01 — TOOL
-            </span>
-            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
-              }}
-            >
-              ON-DEVICE · WHISPER-BASE.EN
-            </span>
-          </div>
         </motion.div>
 
         {/* Title */}
@@ -329,7 +295,7 @@ export default function SpeechToTextPage() {
             margin: "2.5rem 0 1rem",
           }}
         >
-          Speech <span style={{ fontStyle: "italic", color: "var(--muted)" }}>to</span> text.
+          Speech to text.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 16 }}

@@ -1,8 +1,9 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
-import { Button } from "@mtosity/design-system";
+import { Button, switchTheme } from "@mtosity/design-system";
 import { HERO_LINE, projects } from "../data";
 import type { DeskKey, DeskTarget } from "./desk";
 
@@ -22,16 +23,6 @@ const DOORS: { key: DeskKey; label: string; href: string }[] = [
   { key: "plant", label: "Notes", href: "/notes" },
   { key: "baymax", label: "About", href: "#about" },
 ];
-
-function toggleTheme() {
-  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  try {
-    localStorage.setItem("theme", next);
-  } catch {
-    // Storage blocked: the switch still applies for this visit.
-  }
-}
 
 /* First screen: the name and what I do beside a small clay model of
    the desk it all happens at. The model is the page's one live thing. */
@@ -62,8 +53,8 @@ export const Hero = (_props: { photos: HeroPhoto[] }) => {
             screens: projects.filter((p) => p.imgSrc.startsWith("/")).map((p) => p.imgSrc),
             reducedMotion: !!reduce,
             onHover: setTarget,
-            onSelect: (k) => {
-              if (k === "lamp") return toggleTheme();
+            onSelect: (k, at) => {
+              if (k === "lamp") return switchTheme(at);
               if (k === "mug") return void (window.location.href = "mailto:mtosity@gmail.com");
               const door = DOORS.find((d) => d.key === k);
               if (!door) return;
@@ -90,6 +81,12 @@ export const Hero = (_props: { photos: HeroPhoto[] }) => {
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-stage" data-ready={ready || undefined} data-failed={failed || undefined}>
         {!failed && <canvas ref={canvasRef} className="hero-canvas" aria-hidden="true" />}
+        {failed && (
+          // No WebGL: the portrait stands in for the desk.
+          <div className="hero-still" aria-hidden="true">
+            <Image src="/mt.png" alt="" width={400} height={500} priority />
+          </div>
+        )}
         <div ref={labelRef} className="hero-label" data-show={target ? true : undefined} aria-hidden="true">
           {target && (
             <>

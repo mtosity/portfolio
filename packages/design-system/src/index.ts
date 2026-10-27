@@ -3,7 +3,7 @@ export { SiteFooter } from "./components/SiteFooter";
 export { Button, type ButtonVariant } from "./components/Button";
 export { AccentButton } from "./components/AccentButton";
 export { Tag, type TagTone } from "./components/Tag";
-export { ThemeToggle } from "./components/ThemeToggle";
+export { ThemeToggle, switchTheme } from "./components/ThemeToggle";
 export { ConfirmDialog } from "./components/ConfirmDialog";
 export { Reveal } from "./components/Reveal";
 export { SectionHeader } from "./components/SectionHeader";

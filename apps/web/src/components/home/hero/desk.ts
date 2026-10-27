@@ -28,7 +28,8 @@ export interface DeskOptions {
   screens: string[];
   reducedMotion: boolean;
   onHover: (target: DeskTarget | null) => void;
-  onSelect: (key: DeskKey) => void;
+  /** `at` is the click position in viewport pixels. */
+  onSelect: (key: DeskKey, at: { x: number; y: number }) => void;
   onReady: () => void;
 }
 
@@ -413,6 +414,8 @@ export function createDesk(opts: DeskOptions) {
   let night = isDark() ? 1 : 0;
   let nightTarget = night;
   let flashT = -1;
+  let pressed: DeskKey | null = null;
+  let pressedAt = 0;
   let running = false;
   let raf = 0;
   const born = performance.now();
@@ -495,7 +498,15 @@ export function createDesk(opts: DeskOptions) {
       const k = pick(e.clientX, e.clientY);
       if (k) {
         if (k === "camera") flashT = 0;
-        opts.onSelect(k);
+        const at = { x: e.clientX, y: e.clientY };
+        if (k === "lamp") {
+          opts.onSelect(k, at);
+        } else {
+          // A small press — the object dips — and a beat before leaving.
+          pressed = k;
+          pressedAt = performance.now();
+          window.setTimeout(() => opts.onSelect(k, at), reducedMotion ? 0 : 260);
+        }
       }
     }
     canvas.style.cursor = hovered ? "pointer" : "grab";
@@ -534,8 +545,14 @@ export function createDesk(opts: DeskOptions) {
       const fall = 1 - Math.pow(1 - t, 3);
       const squash = t < 1 ? Math.sin(t * Math.PI) * 0.06 : 0;
       u.lift += ((g.userData.key === hovered || g.userData.key === focused ? 1 : 0) - u.lift) * k(12);
-      g.position.y = u.home + (1 - fall) * 2.4 + u.lift * 0.18;
-      g.scale.set(1 + squash * 0.5, 1 - squash, 1 + squash * 0.5);
+      // Pressed: dips and squashes for a moment, then springs back.
+      const pt = pressed === u.key ? (now - pressedAt) / 1000 : 1;
+      const press = pt < 0.45 ? Math.sin(Math.min(pt / 0.45, 1) * Math.PI) : 0;
+      if (pt >= 0.45 && pressed === u.key) pressed = null;
+      if (press > 0) moving = true;
+      g.position.y = u.home + (1 - fall) * 2.4 + u.lift * 0.18 - press * 0.12;
+      const sq = squash + press * 0.07;
+      g.scale.set(1 + sq * 0.5, 1 - sq, 1 + sq * 0.5);
       g.visible = t > 0;
       if (t < 1) moving = true;
     }

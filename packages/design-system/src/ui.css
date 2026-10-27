@@ -259,3 +259,32 @@
 }
 .ds-dialog-actions { display: flex; justify-content: flex-end; gap: 0.6rem; }
 .ds-dialog .ds-button-danger { --_bg: var(--danger); --_fg: var(--accent-fg); }
+
+/* ── Theme switch ── */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  transition: background var(--dur-fast) ease, transform var(--dur-press) var(--ease-out), color var(--dur-fast) ease;
+}
+.theme-toggle:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
+.theme-toggle:active { transform: scale(0.9) rotate(-12deg); }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-reveal 620ms var(--ease-in-out);
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 100%) var(--vt-y, 0)); }
+  to { clip-path: circle(150vmax at var(--vt-x, 100%) var(--vt-y, 0)); }
+}

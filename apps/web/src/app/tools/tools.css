@@ -97,3 +97,26 @@
   .tool-row { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
   .tool-open { display: none; }
 }
+
+/* ── Tool pages ──
+   The tools were written with v0's tracked-caps labels inline. Inside a
+   tool page those read as shouting; set them in sentence case at a size
+   people can read, without touching each tool's markup. */
+.tool-page [style*="text-transform:uppercase"] {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+.tool-page [style*="font-size:0.6"],
+.tool-page [style*="font-size:0.7"] {
+  font-size: 0.86rem !important;
+}
+.tool-back {
+  display: inline-block;
+  font-size: 0.95rem !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  border: none !important;
+  color: var(--muted) !important;
+  transition: color var(--dur-fast) ease, transform var(--dur-base) var(--ease-out);
+}
+.tool-back:hover { color: var(--fg) !important; transform: translateX(-3px); }

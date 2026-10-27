@@ -76,7 +76,7 @@ function ToolRow({
           </p>
         </div>
         <span className="tool-open" aria-hidden="true">
-          Open
+          Try it
           <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
         </span>
       </Link>
