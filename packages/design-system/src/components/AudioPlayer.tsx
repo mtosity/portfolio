@@ -8,7 +8,7 @@ function fmtTime(s: number): string {
   return `${m}:${sec.toString().padStart(2, "0")}`;
 }
 
-/* Brutalist MP3 / audio player. A compact horizontal control: lime play/pause,
+/* Brutalist MP3 / audio player. A compact horizontal control: coral play/pause,
    optional title, an accent-colored seek bar (keyboard-operable native range),
    and a current/duration time read-out. Wraps a single hidden <audio>.
    Controlled-free: pass `src`; optionally `title`, `autoLoad`, and `onPlay`. */

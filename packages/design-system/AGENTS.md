@@ -43,6 +43,6 @@ not go stale. The contract:
 - Tailwind v4, CSS-first. `tokens.css` imports `system.css`; `shadcn.css` is the
   shadcn bridge and also imports `system.css`. Shadcn apps import `shadcn.css`
   only (not `tokens.css`).
-- The lime accent is identical in both themes; only bg/fg/border swap via
+- The coral accent lifts slightly in dark (#ff6b4a → #ff7a5c); bg/fg/border swap via
   `[data-theme="dark"]`. Brutalist shadows follow `--border`, so they adapt.
 - Keep `DESIGN.md` (repo root) in sync for any visual/token change too.

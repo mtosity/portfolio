@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 /* Brutalist switch. Controlled (`checked`) or uncontrolled (`defaultChecked`).
    Renders a button[role="switch"] so it's keyboard-operable (Space/Enter) and
-   announced correctly. Style via `.ds-toggle` (system.css); the lime "on" state
+   announced correctly. Style via `.ds-toggle` (system.css); the coral "on" state
    is keyed off `aria-checked`. */
 export const Toggle = ({
   checked,

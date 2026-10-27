@@ -255,7 +255,7 @@ function ToolRow({
         .tool-row:hover {
           background: var(--accent);
           padding-left: 1.5rem !important;
-          /* Ink-on-lime: children read their colors from these vars */
+          /* Ink-on-coral: children read their colors from these vars */
           --fg: var(--accent-fg);
           --muted: var(--accent-fg-muted);
           --border-light: var(--accent-fg-muted);
@@ -264,9 +264,9 @@ function ToolRow({
           transform: translateX(8px);
         }
         .tool-row:hover .tool-thumb {
-          /* Cream chip on lime — constant across themes (matches light --bg).
+          /* Paper chip on coral — constant across themes (matches light --bg).
              !important: the chip sets background/border inline. */
-          background: #f2efe8 !important;
+          background: #f4eee5 !important;
           border-color: var(--fg) !important;
         }
         .tool-row:hover .tool-thumb svg {

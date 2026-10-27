@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const MotionLink = motion.create(Link);
 
-/* The lime CTA: mono uppercase ink-on-lime, used for primary actions
+/* The coral CTA: mono uppercase ink-on-coral, used for primary actions
    across the tools and admin. Renders a button, or a Next.js Link when
    `href` is given. While disabled/busy it drops to the muted surface.
    Size tweaks (fontSize, padding, …) go through `style`. */

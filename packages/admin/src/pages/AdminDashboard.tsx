@@ -177,12 +177,12 @@ export default async function Dashboard() {
         }
         .dash-action:hover {
           background: var(--accent);
-          /* Ink-on-lime so text/borders pop in both themes; --bg keeps the
-             plus chip a cream square on the lime surface. */
+          /* Ink-on-coral so text/borders pop in both themes; --bg keeps the
+             plus chip a paper square on the coral surface. */
           --fg: var(--accent-fg);
           --muted: var(--accent-fg-muted);
           --border: var(--accent-fg);
-          --bg: #f2efe8;
+          --bg: #f4eee5;
         }
         .dash-action:active { transform: translateY(1px); }
         .dash-action-plus {

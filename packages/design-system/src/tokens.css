@@ -1,6 +1,6 @@
 /* ──────────────────────────────────────────────────────────────
-   MTosity design tokens — warm cream + black + lime
-   Dark theme: warm near-black + cream + the same lime, activated
+   MTosity design tokens — warm paper + plum-charcoal + coral
+   Dark theme: plum near-black + paper + a slightly lifted coral, activated
    via [data-theme="dark"] on <html> (see ThemeToggle + the inline
    no-flash script in the web app's root layout).
    Canonical reference: DESIGN.md at the repo root.
@@ -16,58 +16,60 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme static {
-  --color-bg: #f2efe8;
-  --color-bg-secondary: #e8e5dd;
-  --color-fg: #0d0d0d;
-  --color-accent: #bef264;
-  --color-accent-fg: #0d0d0d;
-  --color-border: #0d0d0d;
-  --color-border-light: #ccc8bd;
-  --color-muted: #666460;
-  --color-danger: #b00020;
+  --color-bg: #f4eee5;
+  --color-bg-secondary: #ebe3d6;
+  --color-fg: #2b2a33;
+  --color-accent: #ff6b4a;
+  --color-accent-fg: #24171a;
+  --color-border: #2b2a33;
+  --color-border-light: #ddd3c4;
+  --color-muted: #5f5a63;
+  --color-danger: #c2321b;
 
-  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lora);
+  --font-heading: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-sans: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-serif: var(--font-literata), Georgia, serif;
 }
 
 :root {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lora);
+  --font-sans: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-serif: var(--font-literata), Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-heading: var(--font-crimson-text), "Crimson Text", Georgia, serif;
+  --font-heading: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
+  /* Bricolage has a width axis; headings set a little squeezed. */
+  --heading-stretch: 88%;
 
   color-scheme: light;
 
   /* Core palette */
-  --bg: #f2efe8;
-  --bg-secondary: #e8e5dd;
-  --fg: #0d0d0d;
-  --accent: #bef264;
-  --border: #0d0d0d;
-  --border-light: #ccc8bd;
-  --muted: #666460;
+  --bg: #f4eee5;
+  --bg-secondary: #ebe3d6;
+  --fg: #2b2a33;
+  --accent: #ff6b4a;
+  --border: #2b2a33;
+  --border-light: #ddd3c4;
+  --muted: #5f5a63;
 
-  /* Ink on lime — text/borders sitting on an accent surface. The lime is
-     identical in both themes, so these stay near-black everywhere (no
+  /* Ink on coral — text/borders sitting on an accent surface. The coral
+     only lifts slightly in dark, so these stay near-black everywhere (no
      dark override needed). */
-  --accent-fg: #0d0d0d;
-  --accent-fg-muted: #3f3e38;
+  --accent-fg: #24171a;
+  --accent-fg-muted: #5a2a20;
 
   /* Errors / destructive actions — readable on both themes */
-  --danger: #b00020;
+  --danger: #c2321b;
 
   /* Brutalist offset shadows (follow --border, so they adapt per theme) */
   --shadow-brutal: 4px 4px 0 var(--border);
   --shadow-brutal-lg: 6px 6px 0 var(--border);
 
   /* Legacy aliases (kept for backward compat with existing components) */
-  --background: #f2efe8;
-  --bg-opaque: rgba(242, 239, 232, 0.25);
-  --background-light: #e8e5dd;
-  --background-dark: #d8d4cc;
-  --text: #0d0d0d;
-  --brand: #bef264;
+  --background: #f4eee5;
+  --bg-opaque: rgba(244, 238, 229, 0.25);
+  --background-light: #ebe3d6;
+  --background-dark: #e0d6c6;
+  --text: #2b2a33;
+  --brand: #ff6b4a;
 
   /* ── Blog definition callouts ──────────────────────────────────────────
      The definition sidebar renders pastel callout cards. Those colours used
@@ -91,36 +93,36 @@
 }
 
 /* ── Dark theme ──
-   Mirrors the light palette: bg/fg swap to warm near-black + cream,
-   the lime accent is shared. Overrides both the runtime vars and the
+   Mirrors the light palette: bg/fg swap to plum near-black + paper,
+   the coral lifts a touch so it holds up on the dark ground. Overrides both the runtime vars and the
    Tailwind @theme vars (utilities compile to var(--color-*)). */
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #14130f;
-  --bg-secondary: #1e1c17;
-  --fg: #f2efe8;
-  --accent: #bef264;
-  --border: #f2efe8;
-  --border-light: #3b3830;
-  --muted: #a5a097;
-  --danger: #f06a7e;
+  --bg: #1c1b22;
+  --bg-secondary: #25242d;
+  --fg: #f1ebe2;
+  --accent: #ff7a5c;
+  --border: #f1ebe2;
+  --border-light: #3a3843;
+  --muted: #b4acb3;
+  --danger: #ff7d66;
 
-  --color-bg: #14130f;
-  --color-bg-secondary: #1e1c17;
-  --color-fg: #f2efe8;
-  --color-accent: #bef264;
-  --color-border: #f2efe8;
-  --color-border-light: #3b3830;
-  --color-muted: #a5a097;
-  --color-danger: #f06a7e;
+  --color-bg: #1c1b22;
+  --color-bg-secondary: #25242d;
+  --color-fg: #f1ebe2;
+  --color-accent: #ff7a5c;
+  --color-border: #f1ebe2;
+  --color-border-light: #3a3843;
+  --color-muted: #b4acb3;
+  --color-danger: #ff7d66;
 
-  --background: #14130f;
-  --bg-opaque: rgba(20, 19, 15, 0.25);
-  --background-light: #1e1c17;
-  --background-dark: #2a2720;
-  --text: #f2efe8;
-  --brand: #bef264;
+  --background: #1c1b22;
+  --bg-opaque: rgba(28, 27, 34, 0.25);
+  --background-light: #25242d;
+  --background-dark: #2e2d37;
+  --text: #f1ebe2;
+  --brand: #ff7a5c;
 
   /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
      tone that sits on --bg-secondary, borders take the old text colour and
@@ -149,31 +151,31 @@
   color-scheme: light;
   color: var(--fg);
 
-  --bg: #f2efe8;
-  --bg-secondary: #e8e5dd;
-  --fg: #0d0d0d;
-  --accent: #bef264;
-  --border: #0d0d0d;
-  --border-light: #ccc8bd;
-  --muted: #666460;
-  --danger: #b00020;
+  --bg: #f4eee5;
+  --bg-secondary: #ebe3d6;
+  --fg: #2b2a33;
+  --accent: #ff6b4a;
+  --border: #2b2a33;
+  --border-light: #ddd3c4;
+  --muted: #5f5a63;
+  --danger: #c2321b;
 
 
-  --color-bg: #f2efe8;
-  --color-bg-secondary: #e8e5dd;
-  --color-fg: #0d0d0d;
-  --color-accent: #bef264;
-  --color-border: #0d0d0d;
-  --color-border-light: #ccc8bd;
-  --color-muted: #666460;
-  --color-danger: #b00020;
+  --color-bg: #f4eee5;
+  --color-bg-secondary: #ebe3d6;
+  --color-fg: #2b2a33;
+  --color-accent: #ff6b4a;
+  --color-border: #2b2a33;
+  --color-border-light: #ddd3c4;
+  --color-muted: #5f5a63;
+  --color-danger: #c2321b;
 
-  --background: #f2efe8;
-  --bg-opaque: rgba(242, 239, 232, 0.25);
-  --background-light: #e8e5dd;
-  --background-dark: #d8d4cc;
-  --text: #0d0d0d;
-  --brand: #bef264;
+  --background: #f4eee5;
+  --bg-opaque: rgba(244, 238, 229, 0.25);
+  --background-light: #ebe3d6;
+  --background-dark: #e0d6c6;
+  --text: #2b2a33;
+  --brand: #ff6b4a;
 }
 
 /* ThemeToggle icons — visibility is pure CSS keyed off [data-theme],

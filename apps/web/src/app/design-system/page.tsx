@@ -5,7 +5,7 @@ import { DesignSystemShowcase } from "./DesignSystemShowcase";
 export const metadata: Metadata = {
   title: "Design System",
   description:
-    "Living reference for @mtosity/design-system — tokens, colors, typography, shadows, and components in the neo-brutalist warm-cream + lime aesthetic.",
+    "Living reference for @mtosity/design-system — tokens, colors, typography, shadows, and components in the warm-paper + coral look.",
 };
 
 export default function DesignSystemPage() {

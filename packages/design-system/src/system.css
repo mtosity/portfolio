@@ -199,7 +199,7 @@
 
 /* ── Select ──
    Custom listbox (the native <select> popup can't be themed). Brutalist
-   trigger + a fully styled dropdown: hard border, offset shadow, lime hover.
+   trigger + a fully styled dropdown: hard border, offset shadow, coral hover.
    Theme-adaptive via the border/bg/accent tokens. */
 .ds-select {
   position: relative;
@@ -294,7 +294,7 @@
 
 /* ── Toggle / switch ──
    Rectangular brutalist switch: hard border + square thumb. Off = surface +
-   ink thumb; on = lime track + ink-on-lime thumb. */
+   ink thumb; on = coral track + ink-on-coral thumb. */
 .ds-toggle {
   position: relative;
   display: inline-block;
@@ -341,7 +341,7 @@
 }
 
 /* ── Audio player ──
-   Brutalist compact audio control: lime play/pause, an accent-filled seek bar
+   Brutalist compact audio control: coral play/pause, an accent-filled seek bar
    (native range, keyboard-operable), and a time read-out. Theme-adaptive via
    the border/bg/accent tokens. */
 .ds-audio {

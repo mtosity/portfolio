@@ -6,7 +6,7 @@ Comprehensive design reference for the portfolio site. Every visual decision —
 
 ## Design Philosophy
 
-**Neo-brutalist editorial.** The site pairs a warm, organic cream background with stark black typography and bold lime-green accents. Typography is the hero — large serif headings, clean sans-serif body text, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
+**Neo-brutalist editorial, in Desk Diorama colours.** The site pairs a warm paper background with plum-charcoal ink and a single coral accent (the palette and faces of the Desk Diorama redesign, PR #111). Typography is the hero — large, slightly squeezed Bricolage Grotesque headings, the same face for body text, Literata for italics, and monospaced labels create a layered editorial hierarchy. Borders are sharp (no rounded corners on primary elements), shadows use hard offsets, and whitespace is generous. Motion is purposeful: scroll-triggered reveals, parallax, and staggered entrances reward exploration without feeling gimmicky.
 
 ---
 
@@ -18,37 +18,37 @@ Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tail
 
 | Token               | Value                        | Usage                                  |
 |----------------------|------------------------------|----------------------------------------|
-| `--bg`              | `#f2efe8` (warm cream)       | Page background                        |
-| `--bg-secondary`    | `#e8e5dd` (darker cream)     | Cards, sidebar, code blocks            |
-| `--fg`              | `#0d0d0d` (near-black)       | Primary text, headings, links          |
-| `--accent`          | `#bef264` (lime green)       | Project row hover, brand highlight     |
-| `--border`          | `#0d0d0d`                    | Section dividers, strong borders       |
-| `--border-light`    | `#ccc8bd`                    | Subtle separators, photo borders       |
-| `--muted`           | `#666460`                    | Secondary text, labels, dates          |
-| `--accent-fg`       | `#0d0d0d`                    | Ink on lime — text/borders on accent surfaces (same in dark) |
-| `--accent-fg-muted` | `#3f3e38`                    | Secondary ink on lime (same in dark)   |
-| `--danger`          | `#b00020` (dark: `#f06a7e`)  | Errors, destructive actions            |
+| `--bg`              | `#f4eee5` (warm paper)       | Page background                        |
+| `--bg-secondary`    | `#ebe3d6` (darker paper)     | Cards, sidebar, code blocks            |
+| `--fg`              | `#2b2a33` (plum-charcoal)    | Primary text, headings, links          |
+| `--accent`          | `#ff6b4a` (coral)            | Project row hover, brand highlight. A fill, never body text — it is too light for text on paper |
+| `--border`          | `#2b2a33`                    | Section dividers, strong borders       |
+| `--border-light`    | `#ddd3c4`                    | Subtle separators, photo borders       |
+| `--muted`           | `#5f5a63`                    | Secondary text, labels, dates          |
+| `--accent-fg`       | `#24171a`                    | Ink on coral — text/borders on accent surfaces (same in dark) |
+| `--accent-fg-muted` | `#5a2a20`                    | Secondary ink on coral (same in dark)  |
+| `--danger`          | `#c2321b` (dark: `#ff7d66`)  | Errors, destructive actions            |
 | `--shadow-brutal`   | `4px 4px 0 var(--border)`    | Brutalist offset shadow                |
 | `--shadow-brutal-lg`| `6px 6px 0 var(--border)`    | Larger offset shadow (hover/emphasis)  |
-| `--font-heading`    | Crimson Text + serif fallbacks | Use instead of spelling out the chain; the next/font variables live on `<html>` so this alias resolves |
-| `--bg-opaque`       | `rgba(242, 239, 232, 0.25)`  | Glassmorphic heading bar (legacy)      |
-| `--background-dark` | `#d8d4cc`                    | Legacy sidebar background              |
-| `--brand`           | `#bef264`                    | Alias for accent (legacy sidebar)      |
+| `--font-heading`    | Bricolage Grotesque + sans fallbacks | Use instead of spelling out the chain; the next/font variables live on `<html>` so this alias resolves |
+| `--bg-opaque`       | `rgba(244, 238, 229, 0.25)`  | Glassmorphic heading bar (legacy)      |
+| `--background-dark` | `#e0d6c6`                    | Legacy sidebar background              |
+| `--brand`           | `#ff6b4a`                    | Alias for accent (legacy sidebar)      |
 
 ### Dark Theme
 
 Activated by `data-theme="dark"` on `<html>`. The palette mirrors light — bg/fg
-swap to warm near-black + cream, the lime accent is shared:
+swap to plum near-black + paper, and the coral lifts a touch so it holds on the dark ground:
 
 | Token            | Dark value             |
 |------------------|------------------------|
-| `--bg`           | `#14130f`              |
-| `--bg-secondary` | `#1e1c17`              |
-| `--fg`           | `#f2efe8`              |
-| `--accent`       | `#bef264` (unchanged)  |
-| `--border`       | `#f2efe8`              |
-| `--border-light` | `#3b3830`              |
-| `--muted`        | `#a5a097`              |
+| `--bg`           | `#1c1b22`              |
+| `--bg-secondary` | `#25242d`              |
+| `--fg`           | `#f1ebe2`              |
+| `--accent`       | `#ff7a5c`              |
+| `--border`       | `#f1ebe2`              |
+| `--border-light` | `#3a3843`              |
+| `--muted`        | `#b4acb3`              |
 
 Mechanics (all in `tokens.css` unless noted):
 
@@ -69,8 +69,8 @@ Mechanics (all in `tokens.css` unless noted):
 - Theme-dependent translucent overlays use
   `color-mix(in srgb, var(--bg) N%, transparent)` (photography lightbox,
   project modal) instead of hard-coded cream rgba.
-- Anything sitting on a lime surface uses `--accent-fg` / `--accent-fg-muted`
-  ("ink on lime", near-black in both themes), never `--fg`. Hover rows
+- Anything sitting on a coral surface uses `--accent-fg` / `--accent-fg-muted`
+  ("ink on coral", near-black in both themes), never `--fg`. Hover rows
   (projects, tools, admin dashboard actions) re-point `--fg`/`--muted`/
   `--border-light` to these inside the `:hover` rule so children pop without
   per-element overrides.
@@ -125,13 +125,12 @@ beside a dark article. Never reintroduce a raw hex there; add a `--def-*` token.
 
 ## Typography
 
-Three Google Fonts loaded via `next/font/google` with CSS variable binding:
+Two Google Fonts loaded via `next/font/google` with CSS variable binding:
 
 | Font           | CSS Variable             | Role                                       |
 |----------------|--------------------------|---------------------------------------------|
-| **Inter**      | `--font-inter`           | Body text, paragraphs, general UI           |
-| **Crimson Text** | `--font-crimson-text`  | Display headings (h1–h6), blog titles, hero name, contact CTA |
-| **Lora**       | `--font-lora`            | Serif alternate (available via `--font-serif`) |
+| **Bricolage Grotesque** | `--font-bricolage` | Display headings (h1–h6), body text, general UI — `--font-heading` and `--font-sans`. Loaded with its `wdth` + `opsz` axes; headings set at `font-stretch: 88%` (`--heading-stretch`) |
+| **Literata**   | `--font-literata`        | `--font-serif`: italics and long-form serif. Bricolage has no italic, so an italic word inside a heading switches to Literata italic (rule in `globals.css`) instead of a slanted grotesk |
 
 ### Monospace Stack
 ```
@@ -143,13 +142,13 @@ Used for: nav labels, section numbers, chips/tags, dates, code blocks, project m
 
 | Element                | Font           | Size                         | Weight | Spacing         | Transform  |
 |------------------------|----------------|------------------------------|--------|-----------------|------------|
-| Hero name              | Crimson Text   | `clamp(3.5rem, 9vw, 11rem)` | 700    | `-0.03em`       | —          |
-| Contact CTA            | Crimson Text   | `clamp(3rem, 7vw, 6rem)`    | 700    | `-0.02em`       | —          |
-| Blog post h1           | Crimson Text   | `clamp(1.75rem, 4vw, 3rem)` | 700    | `-0.02em`       | —          |
-| Photography tagline    | Crimson Text   | `clamp(2rem, 5vw, 3.5rem)`  | 400 *italic* | `-0.01em` | —          |
-| Blog h2                | Crimson Text   | `1.75rem`                    | 700    | `-0.01em`       | —          |
-| Blog h3                | Crimson Text   | `1.35rem`                    | 600    | —               | —          |
-| Body text              | Inter          | `1.0625rem` (17px)           | 400    | —               | —          |
+| Hero name              | Bricolage Grotesque   | `clamp(3.5rem, 9vw, 11rem)` | 700    | `-0.03em`       | —          |
+| Contact CTA            | Bricolage Grotesque   | `clamp(3rem, 7vw, 6rem)`    | 700    | `-0.02em`       | —          |
+| Blog post h1           | Bricolage Grotesque   | `clamp(1.75rem, 4vw, 3rem)` | 700    | `-0.02em`       | —          |
+| Photography tagline    | Literata       | `clamp(2rem, 5vw, 3.5rem)`  | 400 *italic* | `-0.01em` | —          |
+| Blog h2                | Bricolage Grotesque   | `1.75rem`                    | 700    | `-0.01em`       | —          |
+| Blog h3                | Bricolage Grotesque   | `1.35rem`                    | 600    | —               | —          |
+| Body text              | Bricolage      | `1.0625rem` (17px)           | 400    | —               | —          |
 | Body line-height       | —              | `1.7` (about), `1.85` (blog)| —      | —               | —          |
 | Nav links              | Monospace      | `0.75rem`                    | 400    | `0.1em`         | uppercase  |
 | Section header label   | Monospace      | `0.75rem`                    | 700    | `0.2em`         | uppercase  |
@@ -161,13 +160,14 @@ Used for: nav labels, section numbers, chips/tags, dates, code blocks, project m
 ### Global Heading Rules (h1–h6)
 
 ```css
-font-family: var(--font-crimson-text), "Crimson Text", Georgia, serif;
+font-family: var(--font-heading);
 font-weight: 600;
+font-stretch: var(--heading-stretch); /* 88% */
 line-height: 1.3;
-letter-spacing: -0.015em;
+letter-spacing: -0.02em;
 ```
 
-- **h1**: weight 700, `2.5rem`, spacing `-0.025em`
+- **h1**: weight 700, `2.5rem`, spacing `-0.035em`
 - **h2**: `2rem`
 - **h3**: `1.5rem`
 
@@ -214,12 +214,12 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
 - **Full viewport** height, flex column, border-bottom
 - **Dot grid texture**: `radial-gradient(circle, var(--border-light) 1px, transparent 1px)` at `28px × 28px`, 45% opacity
 - **Top meta bar**: "Software Engineer" left, "United States" right — monospace, 0.75rem, muted
-- **Name display**: "MINH TAM" and "NGUYEN" on two lines, Crimson Text, `clamp(3.5rem, 9vw, 11rem)`
+- **Name display**: "MINH TAM" and "NGUYEN" on two lines, Bricolage Grotesque, `clamp(3.5rem, 9vw, 11rem)`
   - Each line clip-reveals from below (`y: "105%"` → `y: 0`) with 1.1s duration
   - On scroll: "MINH TAM" drifts left (parallax −150px), "NGUYEN" drifts right (+150px) via `useSpring`
 - **Divider lines**: Horizontal 1px rules that scale from left/right respectively
 - **Marquee ticker**: Skills text scrolling left continuously at 28s loop, monospace 0.7rem
-- **Description**: Word-by-word stagger animation (0.055s between words), Inter 1.0625rem, maxWidth 480px
+- **Description**: Word-by-word stagger animation (0.055s between words), Bricolage Grotesque 1.0625rem, maxWidth 480px
 - **Profile photo** (desktop only, `md:` breakpoint):
   - `clamp(160px, 17vw, 260px)` wide, 1px border, `6px 6px 0` hard offset shadow
   - Parallax: rises independently (−100px) on scroll
@@ -229,7 +229,7 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
 ### About Section
 
 - **Two-column grid**: `1fr 280px`, collapses at 900px
-- **Text**: Reveal-wrapped paragraphs, Inter 1.0625rem, line-height 1.7
+- **Text**: Reveal-wrapped paragraphs, Bricolage Grotesque 1.0625rem, line-height 1.7
 - **Links row**: "Links" label (monospace) + social icons (MyLinks component)
 - **Stats sidebar**: Two groups — "Use at work" and "Use for fun"
   - Heading: monospace 0.75rem uppercase muted
@@ -257,7 +257,7 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
   - Title row fades up (delay 0.4s)
   - Description fades up (delay 0.5s)
   - Links fade in (delay 0.6s)
-- **Hover**: Entire row background → `var(--accent)` (lime green)
+- **Hover**: Entire row background → `var(--accent)` (coral)
 - **Row structure**: `{num} | TITLE · tech | [year]` on top, description below, GitHub ↗ / Live ↗ links
 - **Modal**: ReactDOM portal with blurred cream backdrop (`rgba(242, 239, 232, 0.85)`, `blur(8px)`)
   - Card: 1px border, cream bg, `4px 4px 0` hard offset shadow, max-width 700px
@@ -266,7 +266,7 @@ Each section header follows the pattern: `{num} — {TITLE}` using the `SectionH
 
 ### Contact Section
 
-- **Large serif CTA**: "LET'S WORK TOGETHER." in Crimson Text, `clamp(3rem, 7vw, 6rem)`, bold
+- **Large serif CTA**: "LET'S WORK TOGETHER." in Bricolage Grotesque, `clamp(3rem, 7vw, 6rem)`, bold
 - **Contact links**: Stacked vertically — email, LinkedIn, GitHub — each as monospace `1rem` with bottom border that darkens on hover
 - **Reveal-wrapped**: Standard fade-up animation
 
@@ -287,7 +287,7 @@ All content sections sit inside a max-width `1400px` container.
 - **Right column**: Category filter tabs + post list
 - **Category filter**: Horizontal tab bar — monospace 0.7rem uppercase, active tab gets `2px solid var(--fg)` bottom border
 - **Post cards**: Staggered fade-up (0.06s per card), category swap uses AnimatePresence exit/enter
-- **Post card structure**: Category chip | Date (monospace) → Title (Crimson Text 1.4rem) → Excerpt (0.9375rem muted)
+- **Post card structure**: Category chip | Date (monospace) → Title (Bricolage Grotesque 1.4rem) → Excerpt (0.9375rem muted)
 - **Categories**: Building, Living, Money, Tiếng Việt
 
 ### Blog Post (`/blog/[slug]`)
@@ -320,31 +320,31 @@ All content sections sit inside a max-width `1400px` container.
 ### Tools (`/tools`)
 
 - **Header**: Section pattern `07 — TOOLS` with horizontal rule and `{n} ITEMS` count chip on the right
-- **Headline**: Crimson Text `clamp(2.5rem, 6vw, 4.75rem)` with italic muted "Built to be useful." accent; followed by an Inter 1.0625rem muted lede (max-width 52ch)
+- **Headline**: Bricolage Grotesque `clamp(2.5rem, 6vw, 4.75rem)` with italic muted "Built to be useful." accent; followed by an Bricolage Grotesque 1.0625rem muted lede (max-width 52ch)
 - **Tool list**: Vertical list of rows with bottom border (light); each row is a `Link` to `/tools/<slug>`
 - **Row layout**: `auto 1fr auto` grid → number (mono 0.75rem muted) | content block | arrow `→`
-- **Row content**: Title (Crimson Text `clamp(1.5rem, 3.5vw, 2.25rem)` 700) + status chip (`● LIVE` / `◐ BETA` / `○ WIP` · year, mono 0.65rem muted), description (1rem muted, max 62ch), tag chips (same `.chip` styling)
+- **Row content**: Title (Bricolage Grotesque `clamp(1.5rem, 3.5vw, 2.25rem)` 700) + status chip (`● LIVE` / `◐ BETA` / `○ WIP` · year, mono 0.65rem muted), description (1rem muted, max 62ch), tag chips (same `.chip` styling)
 - **Row entrance**: Clip-path wipe from left (`inset(0 100% 0 0)` → `inset(0 0% 0 0)`), 0.8s, ease `[0.65, 0, 0.35, 1]`, staggered 0.08s per row
-- **Row hover**: Background → `var(--accent)` (lime), `padding-left` slides from `1rem` → `1.5rem`, arrow translates `+8px` — all 0.3s ease
+- **Row hover**: Background → `var(--accent)` (coral), `padding-left` slides from `1rem` → `1.5rem`, arrow translates `+8px` — all 0.3s ease
 
 ### Tool — Image Grid (`/tools/img-grid`)
 
 - **Layout**: Full-bleed two-column workspace (288px sidebar + flex canvas), with a thin top header strip carrying the crumbs (`← All tools`, `07.03 — TOOL`, `CANVAS · 100% CLIENT-SIDE`) and the title row
-- **Title row**: "Image *grid.*" (Crimson Text `clamp(1.85rem, 4.5vw, 2.75rem)` 700, italic muted accent) + a mono tagline on the right ("Drop images → choose a layout → pan / zoom each tile → export PNG.")
+- **Title row**: "Image *grid.*" (Bricolage Grotesque `clamp(1.85rem, 4.5vw, 2.75rem)` 700, italic muted accent) + a mono tagline on the right ("Drop images → choose a layout → pan / zoom each tile → export PNG.")
 - **Sidebar (`288px`, cream)**: Each control wrapped in a `Section` with mono 0.65rem 700 uppercase muted label
   - **Layout (mode)**: Connected pill row — `Grid` / `Row` / `Column`. `Row` stacks images as equal horizontal rows (top→bottom), `Column` places them as equal vertical columns (left→right); both divide the fixed-aspect canvas among an unbounded number of images. `Grid` is the original fixed preset layouts. Switching modes clears loaded images.
-  - **Image count / Aspect ratio / Gap / Export size**: Connected pill row (no gap; 1px outer border, internal 1px dividers). Active segment fills lime, inactive segments hover to `var(--bg-secondary)` and `var(--fg)` text. Image count and the Grid presets are hidden in stack modes
+  - **Image count / Aspect ratio / Gap / Export size**: Connected pill row (no gap; 1px outer border, internal 1px dividers). Active segment fills coral, inactive segments hover to `var(--bg-secondary)` and `var(--fg)` text. Image count and the Grid presets are hidden in stack modes
   - **Aspect ratio**: The same 5 fixed ratios in every mode (shared `aspectRatio` state) — it bounds the whole canvas/container, and grid presets or stack divisions lay images out inside it
-  - **Grid presets**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/lime rectangles inside; active card border + bg flip to lime (grid mode only)
+  - **Grid presets**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/coral rectangles inside; active card border + bg flip to coral (grid mode only)
   - **Radius**: Native range slider, accent `var(--fg)`, label shows live px
   - **Background**: Inline color picker chip (28×28, 1px black border) + mono uppercase hex readout in a bordered strip
-  - **Export button** (sticks to bottom via `margin-top: auto`): Mono 0.78rem 700 uppercase. Lime + 4px hard offset shadow when ready, gray + no shadow when blocked. Hover lifts via `translate(-2px, -2px)` with the shadow growing to `6px 6px`. Disabled label shows remaining count: `Fill 2 more`
+  - **Export button** (sticks to bottom via `margin-top: auto`): Mono 0.78rem 700 uppercase. Coral + 4px hard offset shadow when ready, gray + no shadow when blocked. Hover lifts via `translate(-2px, -2px)` with the shadow growing to `6px 6px`. Disabled label shows remaining count: `Fill 2 more`
 - **Canvas pane**: `var(--bg-secondary)` background with a left 1px black rule. Centers a fixed-aspect canvas with `8px 8px 0 var(--border)` hard-offset shadow. Canvas dimensions recompute via `ResizeObserver` whenever the aspect ratio changes (200ms transition on width/height)
 - **Stack modes (`Row` / `Column`)**: Reuse the same grid canvas and export path — they just generate the layout `blocks` dynamically (`stackBlocks` in `useImageCombiner`): N filled images plus one trailing empty "add" tile divide the fixed-aspect canvas into `N+1` equal columns (Row) / rows (Column). Dropping into the trailing tile fills it and spawns a fresh one (infinite stacking, slots stay dense); Remove compacts the strip. Each tile cover-crops its image with the same drag-to-pan / scroll-to-zoom as grid blocks. Export divides the canvas into `N` equal cells (the add-tile is preview-only) and bakes in each tile's scale/offset
 - **Image block**:
   - Empty state: cream-secondary fill with a 1px dashed border-light outline; centered `+` icon and mono "CLICK OR DROP" label
   - Hover (empty): outline upgrades to dashed black
-  - Hover (filled): outline upgrades to 2px solid lime
+  - Hover (filled): outline upgrades to 2px solid coral
   - Drag-over: outline becomes 2px dashed black
   - Filled: image positioned via `cover` math identical to `useImageCombiner.exportImage` so preview matches export pixel-for-pixel
   - Hover overlay (filled): semi-opaque dark veil (`rgba(13,13,13,0.35)`) with two button rows — `Replace` / `Remove` (mono uppercase, 1px black borders; Remove tinted muted-red) and zoom controls `[−] NNN% [+]` (28px square buttons)
@@ -360,24 +360,24 @@ All content sections sit inside a max-width `1400px` container.
 ### Tool — Instagram Reel Extractor (`/tools/instagram`)
 
 - **Crumbs**: `← All tools` link, then sub-section header `07.02 — TOOL` left, `YT-DLP · WHISPER · WASM` right
-- **Title**: "Instagram reels, *extracted.*" — Crimson Text `clamp(2.5rem, 6vw, 4.5rem)` with italic muted accent
+- **Title**: "Instagram reels, *extracted.*" — Bricolage Grotesque `clamp(2.5rem, 6vw, 4.5rem)` with italic muted accent
 - **URL form**: Mono uppercase label "REEL URL", then a flex strip on `var(--bg-secondary)` with 1px black border + `4px 4px 0` shadow:
   - Mono input (transparent, no border, 0.9rem)
-  - Lime "→ FETCH" submit button (mono 0.75rem 700, 1px black border) — disables to `var(--border-light)` while loading and shows a spinner; otherwise scale 1.02 / 0.98 hover/tap
+  - Coral "→ FETCH" submit button (mono 0.75rem 700, 1px black border) — disables to `var(--border-light)` while loading and shows a spinner; otherwise scale 1.02 / 0.98 hover/tap
   - Footnote line beneath: "Supports /reel/, /reels/, /p/ and /tv/ links · public posts only"
 - **Error banner**: 1px red border + `3px solid #a83232` left rule on `var(--bg-secondary)` carrying server message in mono
 - **Info card**: Two-column grid (`160px 1fr`, collapses below 600px). Left: 9:16 thumbnail with light border. Right:
   - Uploader handle (mono 0.65rem uppercase muted)
-  - Title (Crimson Text 1.4rem, 3-line clamp)
+  - Title (Bricolage Grotesque 1.4rem, 3-line clamp)
   - Meta chips: duration · `WxH` (mono 0.65rem chips)
-  - Action row: `Download MP4` primary action (cream bg, black border, mono 0.72rem 700) + `Get transcript` accent action (lime bg, black border)
+  - Action row: `Download MP4` primary action (cream bg, black border, mono 0.72rem 700) + `Get transcript` accent action (coral bg, black border)
   - Card has 1px black border + `6px 6px 0` shadow
 - **Stage progress**: While transcribing, four-step ordered list with `StageDot` glyphs:
   - Pending: hollow square (light border)
-  - Active: lime square with pulsing opacity (1 ↔ 0.3, 1.2s)
+  - Active: coral square with pulsing opacity (1 ↔ 0.3, 1.2s)
   - Done: solid muted square
   - Steps: `Downloading audio`, `Decoding audio`, `Loading Whisper model` (with `— NN%` while shards download), `Transcribing`
-- **Transcript section**: Header strip `TRANSCRIPT — [Copy] [.txt] [.srt]` (small bordered mono pill buttons), then a Crimson Text 1.0625rem block on `var(--bg-secondary)` with light border, line-height 1.75, whitespace preserved
+- **Transcript section**: Header strip `TRANSCRIPT — [Copy] [.txt] [.srt]` (small bordered mono pill buttons), then a Bricolage Grotesque 1.0625rem block on `var(--bg-secondary)` with light border, line-height 1.75, whitespace preserved
 - **Footnote row**: DOWNLOADER / TRANSCRIPTION / STORAGE labels and values
 - **Server pipeline**: `/api/instagram/info` (POST, yt-dlp `--dump-single-json`), `/api/instagram/audio` (GET, `bestaudio[ext=m4a]/bestaudio` streamed inline as `audio/mp4`), `/api/instagram/download` (GET, `mp4/best` streamed as attachment). All run on `nodejs` runtime, gated by `checkRateLimit` (10/h sliding window via Upstash; no-op locally). yt-dlp binary resolved from `./bin/`; `next.config.mjs` declares `outputFileTracingIncludes` for each route so the binary is bundled into the serverless function on Vercel.
 - **Client pipeline**: Audio fetched from `/api/instagram/audio` → `AudioContext({ sampleRate: 16000 }).decodeAudioData` (resamples) → mono downmix → dynamic-import of `@huggingface/transformers` → `pipeline("automatic-speech-recognition", "onnx-community/whisper-base.en", { dtype: { encoder_model: "fp32", decoder_model_merged: "q4" }, device: "wasm" })` with `chunk_length_s: 30`, `stride_length_s: 5`, `return_timestamps: true` for SRT export.
@@ -386,18 +386,18 @@ All content sections sit inside a max-width `1400px` container.
 
 - **Crumbs**: `← All tools` link (mono 0.7rem uppercase, light underline)
 - **Sub-section header**: `07.01 — TOOL` left, `ON-DEVICE · WHISPER-BASE.EN` right, with horizontal rule between
-- **Title**: "Speech *to* text." — Crimson Text `clamp(2.5rem, 6vw, 4.5rem)` with italic muted "to"
+- **Title**: "Speech *to* text." — Bricolage Grotesque `clamp(2.5rem, 6vw, 4.5rem)` with italic muted "to"
 - **Recorder card**:
   - 1px black border on `var(--bg-secondary)` with `6px 6px 0` hard offset shadow
   - Top meta strip: animated status dot + phase label (left), `MM:SS` elapsed timer (right) — both mono 0.7rem uppercase muted
   - **Mic button** (150×150 wrapper, 88px circular button visually):
-    - Idle: lime background, black 1px border, mic SVG icon, `6px 6px 0` shadow
-    - Recording: black background with stop-square in lime, gentle scale pulse (1 ↔ 1.04, 1.4s loop), three concentric ring waves expanding outward (1.6s, 0.45s stagger)
+    - Idle: coral background, black 1px border, mic SVG icon, `6px 6px 0` shadow
+    - Recording: black background with stop-square in coral, gentle scale pulse (1 ↔ 1.04, 1.4s loop), three concentric ring waves expanding outward (1.6s, 0.45s stagger)
     - Hover/tap: scale 1.04 / 0.96 spring
   - **Waveform**: 28-bar live FFT visualizer (3px wide bars, 56px tall) — driven by `AnalyserNode.getByteFrequencyData`, animates each bar's `height` per frame; idle bars are static gray
   - **Status line**: Mono 0.75rem uppercase, errors switch to muted red (`#a83232`)
   - **Loading bar**: 3px tall, fills `var(--fg)` over `var(--border-light)` track (only during model download)
-- **Transcript panel**: Crimson Text 1.0625rem on `var(--bg)`, light border, 180px min-height. Empty state: italic muted "Your words will land here." Filled state fades up (0.3s)
+- **Transcript panel**: Bricolage Grotesque 1.0625rem on `var(--bg)`, light border, 180px min-height. Empty state: italic muted "Your words will land here." Filled state fades up (0.3s)
 - **Transcript actions**: Mono pill buttons (Copy / Clear) with border-color hover transition; Copy briefly swaps to "Copied"
 - **Footnotes row**: Auto-fit grid (220px min) — three labeled facts: MODEL, RUNTIME, PRIVACY (mono 0.65rem labels, mono 0.8rem values)
 - **Stack**: `@huggingface/transformers` v4 + `onnx-community/whisper-base.en` (q8 quantization, WASM device); `MediaRecorder` (audio/webm;codecs=opus) → `AudioContext.decodeAudioData` at 16kHz → Float32 mono → Whisper pipeline. Lazy-loaded on mount via dynamic import
@@ -405,7 +405,7 @@ All content sections sit inside a max-width `1400px` container.
 ### Notes (`/notes`)
 
 - **Data source**: Fetches from `/api/notes` (Leaflet JSON Feed); images/links rewritten to `LEAFLET_BASE`
-- **Background**: Subtle radial gradients — lime-tinted at top-left, lavender-tinted at bottom-right over cream
+- **Background**: Subtle radial gradients — coral-tinted at top-left, lavender-tinted at bottom-right over cream
 - **Grid**: CSS Grid, `repeat(4, 1fr)`, `align-items: start`, `gap: 1.25rem` (4 cols → 3 → 2 → 1)
 - **Sticky notes**:
   - Pastel background (8-color rotation), 3px left border in darker shade, `border-radius: 2px`
@@ -413,7 +413,7 @@ All content sections sit inside a max-width `1400px` container.
   - Faux tape strip at top (40×12px, white translucent, `rgba(255,255,255,0.55)`)
   - Box shadow: `2px 3px 12px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06)`
   - Hover: scale 1.04, straightens to 0°, lifts up 6px, shadow → `0 12px 32px rgba(0,0,0,0.18)`
-  - Content: Date (mono 0.6rem) → Title (Crimson Text 1.1rem) → Preview (0.78rem, 4-line clamp)
+  - Content: Date (mono 0.6rem) → Title (Bricolage Grotesque 1.1rem) → Preview (0.78rem, 4-line clamp)
 - **Note modal**:
   - Backdrop: `rgba(13,13,13,0.55)` + `blur(6px)`; click backdrop to close, ESC key supported
   - Card: note's pastel bg, `border-left: 5px solid` note border color, `border-radius: 1px`, max-width 620px, max-height 84vh
@@ -515,7 +515,7 @@ All modals share these traits:
 
 ### AccentButton (design system)
 
-The lime CTA: mono uppercase, ink-on-lime text, `1px` accent-fg border,
+The coral CTA: mono uppercase, ink-on-coral text, `1px` accent-fg border,
 framer-motion scale on hover/tap. `href` renders a Next Link, `disabled`
 drops to the muted surface, `shadow` adds `--shadow-brutal`. Size tweaks go
 through `style`. Used by the tools (img-grid export, instagram fetch /
@@ -625,7 +625,7 @@ apply automatically under `[data-theme="dark"]`.
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS + Sass modules + CSS custom properties |
 | Animation | Framer Motion 11 + CSS keyframes |
-| Fonts | `next/font/google` (Inter, Crimson Text, Lora) |
+| Fonts | `next/font/google` (Bricolage Grotesque, Literata) |
 | Lottie | `lottie-react` + `@lottiefiles/react-lottie-player` |
 | Icons | `react-icons` |
 | Code highlighting | Prism.js (custom light theme overrides) |
