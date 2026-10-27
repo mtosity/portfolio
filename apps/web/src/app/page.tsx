@@ -1,6 +1,7 @@
 import { listGalleryImages } from "@mtosity/lib/gallery";
 import { Home } from "@/components/home/Home";
 import "@/components/home/home.css";
+import "@/components/home/diorama.css";
 
 // ISR: the light table shows recent photographs from the gallery.
 export const revalidate = 300;

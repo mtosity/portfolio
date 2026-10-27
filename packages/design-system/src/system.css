@@ -358,7 +358,7 @@
   color: var(--_fg);
   background: var(--_bg);
   border: 1px solid transparent;
-  border-radius: var(--radius-m, 4px);
+  border-radius: var(--button-radius, var(--radius-m, 4px));
   text-decoration: none;
   cursor: pointer;
   user-select: none;

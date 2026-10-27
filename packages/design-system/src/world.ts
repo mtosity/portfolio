@@ -1,19 +1,19 @@
 /* Describes the active visual world for the /design-system page.
    Lives beside world.css; the two are swapped together. */
 export const WORLD = {
-  name: "Base",
+  name: "Desk Diorama",
   summary:
-    "The shared foundation every world starts from: a cool off-white ground, near-black ink and a single red accent. Condensed display type, a serif for long reading.",
+    "A small clay model of the desk this site is built at: Baymax beside the laptop, a camera, a notebook, a mug, a lamp. Every object on it is a door into the site, and the lamp really does switch the lights off.",
   faces: [
-    { role: "Display", token: "--font-display", name: "Archivo, condensed 72%, 800", sample: "Shoot the adjective" },
-    { role: "Text", token: "--font-text", name: "Source Serif 4, optical sizes", sample: "Leave some notes for the world. Long reading is set in a serif at twenty pixels, about sixty-five characters to the line." },
-    { role: "Interface", token: "--font-ui", name: "Archivo, normal width", sample: "Labels, buttons, captions and navigation." },
-    { role: "Code", token: "--font-code", name: "System monospace", sample: "const post = await getPost(slug);" },
+    { role: "Display", token: "--font-display", name: "Bricolage Grotesque, 88% width, 700", sample: "Built at this desk" },
+    { role: "Text", token: "--font-text", name: "Literata, optical sizes", sample: "Leave some notes for the world. Long reading is set in a serif at twenty pixels, about sixty-five characters to the line." },
+    { role: "Interface", token: "--font-ui", name: "Bricolage Grotesque, normal width", sample: "Labels, buttons, captions and navigation." },
+    { role: "Code", token: "--font-code", name: "System monospace", sample: "baymax.scan({ pain: 0 });" },
   ],
   rules: [
-    "One ground, one ink, one accent; the accent marks the action.",
-    "Surfaces step in tone; lines are for tables and reading rules only.",
-    "Nothing at rest casts a shadow; only what floats (menus, dialogs, sheets) does.",
-    "Every picture is real work or a real photograph.",
+    "Clay, not chrome: soft corners, matte surfaces, buttons are pills.",
+    "Coral is the notebook cover: the one action. Mint is the model's base: a field, never a highlight.",
+    "Every object on the desk goes somewhere real; nothing is set dressing.",
+    "Day is window light, night is the lamp. The theme switch is the lamp.",
   ],
 } as const;

@@ -1,80 +1,86 @@
 /* ──────────────────────────────────────────────────────────────
-   WORLD — Base
+   WORLD — Desk Diorama
 
    The only file that changes between visual worlds. Every page reads
    roles from tokens.css; this file gives the roles their values.
 
-   Base: a cool off-white ground, near-black ink, one red accent;
-   condensed Archivo for display, Source Serif 4 for reading.
-   Dark: warm black, paper-coloured ink, the same red, brighter.
+   A small clay model of the desk this site is built at, lit by a
+   window in the day and by the desk lamp at night. Warm paper ground,
+   plum-charcoal ink, one coral (the notebook cover), one mint (the
+   plant, the base of the model) used as a field, never as an accent.
    ────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Faces. The --font-world-* variables are set by next/font on <html>
-     (apps/web/src/app/fonts.ts). */
-  --font-display: var(--font-world-display), "Arial Narrow", "Helvetica Neue", sans-serif;
-  --font-ui: var(--font-world-display), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-world-display), "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-ui: var(--font-world-display), "Avenir Next", "Helvetica Neue", sans-serif;
   --font-text: var(--font-world-text), Georgia, "Times New Roman", serif;
   --font-code: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Display voice: condensed and heavy. */
-  --display-weight: 800;
-  --display-stretch: 72%;
-  --display-tracking: -0.025em;
-  --display-leading: 0.9;
+  /* Display voice: rounded, a little squeezed, set tight. */
+  --display-weight: 700;
+  --display-stretch: 88%;
+  --display-tracking: -0.035em;
+  --display-leading: 0.92;
   --display-case: none;
 
-  /* Shape: nearly square. */
-  --radius-s: 0px;
-  --radius-m: 2px;
-  --radius-l: 4px;
+  /* Shape: clay, so everything is softened. Buttons are pills. */
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 18px;
+  --button-radius: 999px;
 
-  /* Light theme */
-  --bg: #f3f4f0;
-  --bg-secondary: #e6e7e2;
-  --surface-raised: #ffffff;
-  --fg: #12110f;
-  --muted: #55564f;
-  --faint: #8a8b83;
-  --accent: #d4261b;
-  --accent-hover: #b81d13;
-  --accent-fg: #fffaf6;
-  --accent-fg-muted: #ffd9d3;
-  --border: #12110f;
-  --border-light: #d4d5ce;
-  --danger: #b3140c;
-  --selection: #d4261b;
-  --selection-fg: #fffaf6;
+  /* Daylight */
+  --bg: #f4eee5;
+  --bg-secondary: #ebe3d6;
+  --surface-raised: #fffaf3;
+  --fg: #2b2a33;
+  --muted: #5f5a63;
+  --faint: #938c93;
+  --accent: #ff6b4a;
+  --accent-hover: #ff8366;
+  --accent-fg: #24171a;
+  --accent-fg-muted: #5a2a20;
+  --border: #2b2a33;
+  --border-light: #ddd3c4;
+  --danger: #c2321b;
+  --selection: #ff6b4a;
+  --selection-fg: #24171a;
+  --field: #cfe7da;
+  --field-fg: #1f3a2f;
 
-  /* Deep ink surface (code blocks, scrims), identical in both themes. */
-  --film: #15120f;
-  --film-ink: #ece6da;
-  --film-edge: #d9a441;
+  --film: #26252d;
+  --film-ink: #f1ebe2;
+  --film-edge: #ffb199;
 
-  --shadow-float: 0 1px 2px rgb(18 17 15 / 0.08), 0 12px 32px -8px rgb(18 17 15 / 0.22);
-  --scrim: rgb(243 244 240 / 0.86);
-  --grain-opacity: 0.06;
+  --shadow-float: 0 2px 4px rgb(43 42 51 / 0.06), 0 18px 40px -12px rgb(43 42 51 / 0.28);
+  --scrim: rgb(244 238 229 / 0.86);
+  --grain-opacity: 0.05;
 }
 
 [data-theme="dark"] {
-  /* Dark theme */
-  --bg: #110d0c;
-  --bg-secondary: #1b1513;
-  --surface-raised: #241c19;
-  --fg: #efe7dd;
-  --muted: #b1a197;
-  --faint: #7c6d64;
-  --accent: #ff4a3a;
-  --accent-hover: #ff6a5c;
-  --accent-fg: #160807;
-  --accent-fg-muted: #4a1410;
-  --border: #efe7dd;
-  --border-light: #382c27;
-  --danger: #ff6b61;
-  --selection: #ff4a3a;
-  --selection-fg: #160807;
+  /* Night: the desk lamp is on */
+  --bg: #1c1b22;
+  --bg-secondary: #25242d;
+  --surface-raised: #2e2d37;
+  --fg: #f1ebe2;
+  --muted: #b4acb3;
+  --faint: #7e7884;
+  --accent: #ff7a5c;
+  --accent-hover: #ff9478;
+  --accent-fg: #24171a;
+  --accent-fg-muted: #5a2a20;
+  --border: #f1ebe2;
+  --border-light: #3a3843;
+  --danger: #ff7d66;
+  --selection: #ff7a5c;
+  --selection-fg: #24171a;
+  --field: #22312b;
+  --field-fg: #d3eee0;
 
-  --shadow-float: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -10px rgb(0 0 0 / 0.7);
-  --scrim: rgb(17 13 12 / 0.88);
-  --grain-opacity: 0.09;
+  --film: #121117;
+  --film-ink: #f1ebe2;
+
+  --shadow-float: 0 2px 4px rgb(0 0 0 / 0.4), 0 20px 44px -12px rgb(0 0 0 / 0.75);
+  --scrim: rgb(28 27 34 / 0.88);
+  --grain-opacity: 0.07;
 }
