@@ -71,22 +71,8 @@ function Sidebar({
   return (
     <div>
       {!hideBackLink && (
-        <Link
-          href="/blog"
-          className="link-hover"
-          style={{
-            display: "inline-block",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.68rem",
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            marginBottom: "1rem",
-            borderBottom: "1px solid var(--border-light)",
-            paddingBottom: "1px",
-          }}
-        >
-          ← Back to Blog
+        <Link href="/blog" className="rail-backlink">
+          ← Back to blog
         </Link>
       )}
 
@@ -117,60 +103,13 @@ function Sidebar({
             }`}
             style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "1rem",
-                gap: "0.5rem",
-                flexShrink: 0,
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "var(--fg)",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {currentDefinition?.title}
-              </h3>
-              <button
-                onClick={onClose}
-                className="link-hover"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  flexShrink: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.25rem",
-                }}
-              >
-                ← Back
+            <div className="rail-panel-head">
+              <h3 className="rail-panel-title">{currentDefinition?.title}</h3>
+              <button onClick={onClose} className="rail-back">
+                Back
               </button>
             </div>
-            <div
-              className="def-content"
-              style={{
-                borderTop: "1px solid var(--border-light)",
-                paddingTop: "1rem",
-                overflowY: "auto",
-                flex: 1,
-              }}
-            >
+            <div className="def-content rail-panel-scroll">
               {currentDefinition?.content}
             </div>
           </div>
@@ -190,56 +129,16 @@ function Sidebar({
             className="animate-fade-in-smooth"
             style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}
           >
-            <h3
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: "1rem",
-                flexShrink: 0,
-                borderBottom: "1px solid var(--border-light)",
-                paddingBottom: "0.75rem",
-              }}
-            >
-              Contents
-            </h3>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0",
-                overflowY: "auto",
-                flex: 1,
-              }}
-            >
+            <h3 className="rail-toc-title">Contents</h3>
+            <nav className="rail-toc">
               {headings.map((heading) => {
                 const isActive = heading.id === activeHeadingId;
                 return (
                   <button
                     key={heading.id}
                     onClick={() => onScrollToHeading(heading.id)}
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      textAlign: "left",
-                      background: isActive ? "var(--bg)" : "transparent",
-                      border: "none",
-                      paddingTop: "0.25rem",
-                      paddingBottom: "0.25rem",
-                      paddingRight: "0.5rem",
-                      paddingLeft: heading.level > 2 ? "1.5rem" : "0.5rem",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.7rem",
-                      lineHeight: 1.5,
-                      color: isActive ? "var(--fg)" : "var(--muted)",
-                      cursor: "pointer",
-                      borderLeft: isActive ? "2px solid var(--fg)" : "2px solid transparent",
-                      transition: "color 0.15s",
-                      wordBreak: "break-word",
-                    }}
+                    aria-current={isActive ? "location" : undefined}
+                    data-level={heading.level > 2 ? "sub" : undefined}
                   >
                     {heading.text}
                   </button>
@@ -453,39 +352,11 @@ export default function BlogLayout({
             {/* Article */}
             <div>
               <article className="blog-article">
-                <header
-                  style={{
-                    marginBottom: "3rem",
-                    paddingBottom: "2rem",
-                    borderBottom: "1px solid var(--border)",
-                  }}
-                >
-                  <h1
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "clamp(1.75rem, 4vw, 3rem)",
-                      fontWeight: 700,
-                      lineHeight: 1.15,
-                      letterSpacing: "-0.02em",
-                      color: "var(--fg)",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {title}
-                  </h1>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.68rem",
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    {date}
-                  </p>
+                <header className="article-head">
+                  <h1 className="article-headline">{title}</h1>
+                  <p className="article-date">{date}</p>
                 </header>
-                <div style={{ lineHeight: 1.85 }}>{children}</div>
+                <div className="article-body">{children}</div>
               </article>
             </div>
           </div>
@@ -493,105 +364,275 @@ export default function BlogLayout({
       </div>
 
       <style>{`
-        .blog-article h2 {
-          font-family: var(--font-heading);
-          font-size: 1.75rem;
-          font-weight: 700;
-          color: var(--fg);
-          margin: 2.75rem 0 1rem;
-          padding-bottom: 0.5rem;
+        /* Reading typography — a newspaper-style serif column: Literata
+           at --read-size / --read-leading, full-strength ink, headings
+           in the same serif so the page reads as one voice. */
+        .article-head {
+          padding-bottom: 2rem;
+          margin-bottom: 2.5rem;
           border-bottom: 1px solid var(--border-light);
-          letter-spacing: -0.01em;
-          line-height: 1.25;
+        }
+        .article-headline {
+          font-family: var(--font-serif);
+          font-weight: 700;
+          font-stretch: normal;
+          font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem);
+          line-height: 1.06;
+          letter-spacing: -0.018em;
+          font-optical-sizing: auto;
+          color: var(--fg);
+          margin: 0;
+        }
+        .article-date {
+          margin: 1.25rem 0 0;
+          font-family: var(--font-sans);
+          font-size: 0.95rem;
+          color: var(--muted);
+          font-variant-numeric: tabular-nums;
+        }
+        .article-body {
+          font-family: var(--font-serif);
+          font-size: var(--read-size);
+          line-height: var(--read-leading);
+          color: var(--fg);
+          font-optical-sizing: auto;
+          hanging-punctuation: first;
+        }
+        .blog-article .article-body p { margin: 0 0 1.1em; }
+        .blog-article h2 {
+          font-family: var(--font-serif);
+          font-weight: 700;
+          font-stretch: normal;
+          font-size: 1.55em;
+          line-height: 1.15;
+          letter-spacing: -0.012em;
+          color: var(--fg);
+          margin: 2.2em 0 0.6em;
         }
         .blog-article h3 {
-          font-family: var(--font-heading);
-          font-size: 1.35rem;
-          font-weight: 600;
+          font-family: var(--font-serif);
+          font-weight: 700;
+          font-stretch: normal;
+          font-size: 1.2em;
+          line-height: 1.25;
+          letter-spacing: -0.006em;
           color: var(--fg);
-          margin: 2rem 0 0.75rem;
-          line-height: 1.3;
+          margin: 1.9em 0 0.45em;
         }
         .blog-article h4 {
-          font-family: var(--font-mono);
-          font-size: 0.8rem;
+          font-family: var(--font-sans);
           font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: var(--muted);
-          margin: 1.75rem 0 0.5rem;
-        }
-        .blog-article p {
-          font-size: 1.0625rem;
-          color: var(--muted);
-          margin-bottom: 1.5em;
-          max-width: 68ch;
-        }
-        .blog-article a {
-          color: var(--fg);
-          text-decoration: none;
-          border-bottom: 1px solid var(--border-light);
-          transition: border-color 0.15s;
-        }
-        .blog-article a:hover {
-          border-bottom-color: var(--fg);
-        }
-        .blog-article code {
-          font-family: var(--font-mono);
+          font-stretch: normal;
           font-size: 0.85em;
+          letter-spacing: 0;
+          color: var(--fg);
+          margin: 1.6em 0 0.35em;
+        }
+        .blog-article .article-body a {
+          color: inherit;
+          text-decoration: underline;
+          text-decoration-thickness: 1px;
+          text-underline-offset: 0.2em;
+          text-decoration-color: color-mix(in srgb, var(--accent) 70%, transparent);
+          transition: text-decoration-thickness 0.15s ease;
+        }
+        .blog-article .article-body a:hover { text-decoration-thickness: 2px; }
+        .blog-article :not(pre) > code {
+          font-family: var(--font-mono);
+          font-size: 0.84em;
           background: var(--bg-secondary);
           border: 1px solid var(--border-light);
-          padding: 0.1em 0.4em;
+          padding: 0.12em 0.36em;
           color: var(--fg);
         }
         .blog-article pre {
           background: var(--bg-secondary) !important;
           color: var(--fg) !important;
           border: 1px solid var(--border-light);
-          padding: 1.25rem 1.5rem;
+          padding: 1.15rem 1.35rem;
           overflow-x: auto;
-          margin: 1.75rem 0;
-          line-height: 1.6;
+          margin: 1.8em 0;
+          font-size: 0.85rem;
+          line-height: 1.65;
         }
         .blog-article pre code {
           background: none !important;
           border: none !important;
           padding: 0 !important;
-          font-size: 0.875rem;
+          font-size: inherit;
         }
         .blog-article blockquote {
-          border-left: 3px solid var(--border);
-          margin: 2rem 0;
-          padding: 0.25rem 0 0.25rem 1.5rem;
-          color: var(--muted);
+          margin: 1.8em 0;
+          padding: 0;
+          font-size: 1.2em;
+          line-height: 1.4;
           font-style: italic;
+          color: var(--fg);
         }
-        .blog-article blockquote p { margin-bottom: 0; }
-        .blog-article ul, .blog-article ol {
-          padding-left: 1.5rem;
-          margin-bottom: 1.5em;
-          color: var(--muted);
-          max-width: 68ch;
+        .blog-article blockquote::before {
+          content: "";
+          display: block;
+          width: 2.5rem;
+          height: 3px;
+          background: var(--accent);
+          margin-bottom: 0.8rem;
         }
-        .blog-article li { margin-bottom: 0.4em; font-size: 1.0625rem; }
-        .blog-article strong { color: var(--fg); font-weight: 600; }
+        .blog-article blockquote p { margin: 0; }
+        .blog-article ul, .blog-article ol { padding-left: 1.25em; margin: 0 0 1.1em; }
+        .blog-article li { margin-bottom: 0.35em; padding-left: 0.2em; }
+        .blog-article li::marker { color: var(--muted); }
+        .blog-article strong { color: var(--fg); font-weight: 700; }
         .blog-article em { font-style: italic; }
         .blog-article hr {
           border: none;
-          border-top: 1px solid var(--border-light);
-          margin: 2.5rem 0;
+          text-align: center;
+          margin: 2.5em 0;
+        }
+        .blog-article hr::before {
+          content: "· · ·";
+          color: var(--muted);
+          letter-spacing: 0.6em;
         }
         .blog-article img {
           max-width: 100%;
           height: auto;
           border: 1px solid var(--border-light);
           display: block;
-          margin: 2rem 0;
+          margin: 2em 0;
+        }
+        .blog-article figcaption {
+          font-family: var(--font-sans);
+          font-size: 0.85rem;
+          color: var(--muted);
+          margin-top: 0.6rem;
         }
 
-        /* Definition content */
+        /* ── Rail: contents, definitions, code examples ──
+           Same sans and sizes as #111's reading rail, in the panel's
+           existing box. */
+        .rail-backlink {
+          display: inline-block;
+          margin-bottom: 1rem;
+          font-family: var(--font-sans);
+          font-size: 0.92rem;
+          color: var(--muted);
+          text-decoration: none;
+          transition: color 0.15s ease;
+        }
+        .rail-backlink:hover { color: var(--fg); }
+        .rail-toc-title,
+        .rail-panel-title {
+          font-family: var(--font-sans);
+          font-size: 0.95rem;
+          font-weight: 700;
+          font-stretch: normal;
+          letter-spacing: 0;
+          line-height: 1.25;
+          color: var(--fg);
+          margin: 0;
+        }
+        .rail-toc-title {
+          flex-shrink: 0;
+          padding-bottom: 0.75rem;
+          margin-bottom: 0.75rem;
+          border-bottom: 1px solid var(--border-light);
+        }
+        .rail-toc { display: flex; flex-direction: column; overflow-y: auto; flex: 1; }
+        .rail-toc button {
+          display: block;
+          width: 100%;
+          text-align: left;
+          background: none;
+          border: none;
+          border-left: 2px solid transparent;
+          padding: 0.38rem 0.5rem 0.38rem 0.9rem;
+          font-family: var(--font-sans);
+          font-size: 0.92rem;
+          line-height: 1.35;
+          color: var(--muted);
+          cursor: pointer;
+          overflow-wrap: anywhere;
+          transition: color 0.15s ease, border-color 0.15s ease;
+        }
+        .rail-toc button[data-level="sub"] { padding-left: 1.8rem; }
+        .rail-toc button:hover { color: var(--fg); }
+        .rail-toc button[aria-current] { color: var(--fg); border-left-color: var(--accent); }
+
+        .rail-panel-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 0.75rem;
+          flex-shrink: 0;
+          padding-bottom: 0.75rem;
+          border-bottom: 1px solid var(--border-light);
+        }
+        .rail-panel-title { font-size: 1.15rem; }
+        .rail-back {
+          flex-shrink: 0;
+          font-family: var(--font-sans);
+          font-size: 0.88rem;
+          color: var(--muted);
+          background: none;
+          border: none;
+          padding: 0.2rem 0;
+          cursor: pointer;
+          transition: color 0.15s ease;
+        }
+        .rail-back::before { content: "← "; }
+        .rail-back:hover { color: var(--fg); }
+        .rail-panel-scroll { overflow-y: auto; flex: 1; min-height: 0; padding-top: 1rem; }
+        .rail-panel-lede {
+          font-family: var(--font-sans);
+          font-size: 0.92rem;
+          line-height: 1.5;
+          color: var(--muted);
+          margin: 0.75rem 0 1rem;
+          flex-shrink: 0;
+        }
+        .rail-panel-body {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+          flex: 1;
+          overflow-y: auto;
+          min-height: 0;
+          padding-bottom: 3rem;
+        }
+
+        /* Definitions (definitions.tsx + DB rows) carry inline mono label
+           styles; normalise them to the rail's sans. Code keeps mono. */
+        .def-content { font-family: var(--font-sans); font-size: 0.92rem; line-height: 1.55; }
+        .def-content p { color: var(--fg) !important; font-size: 0.92rem !important; line-height: 1.55 !important; }
         .def-content li { color: var(--muted); font-size: 0.9rem; padding: 0.15em 0; }
         .def-content strong { color: var(--fg); font-weight: 600; }
+        .def-content h4 {
+          font-family: var(--font-sans) !important;
+          font-size: 0.85rem !important;
+          font-weight: 700 !important;
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+          font-stretch: normal;
+        }
+        .def-content code { font-family: var(--font-mono) !important; }
+
+        .code-example-label {
+          font-family: var(--font-sans);
+          font-size: 0.85rem;
+          font-weight: 700;
+          letter-spacing: 0;
+          margin: 0 0 0.45rem;
+        }
+        .code-example-error { color: var(--def-red-text); }
+        .code-example-success { color: var(--def-green-text); }
+        .code-example-default { color: var(--muted); }
+        .code-example-note {
+          font-family: var(--font-sans);
+          font-size: 0.86rem;
+          line-height: 1.5;
+          color: var(--muted);
+          margin: 0.5rem 0 0;
+        }
       `}</style>
     </BlogProvider>
   );

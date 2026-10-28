@@ -25,7 +25,7 @@ const CORE: { v: string; label: string }[] = [
   { v: "--bg", label: "Background" },
   { v: "--bg-secondary", label: "Surface" },
   { v: "--fg", label: "Foreground" },
-  { v: "--accent", label: "Accent / lime" },
+  { v: "--accent", label: "Accent / violet" },
   { v: "--accent-fg", label: "Ink on accent" },
   { v: "--border", label: "Border" },
   { v: "--border-light", label: "Border · light" },
@@ -50,9 +50,9 @@ const SURFACES: { v: string; label: string }[] = [
 const CHART = Array.from({ length: 8 }, (_, i) => `--chart-${i + 1}`);
 
 const FONTS: { v: string; label: string; sample: string }[] = [
-  { v: "--font-heading", label: "Heading · serif", sample: "Typography is the hero." },
-  { v: "--font-serif", label: "Serif · body", sample: "Editorial, readable long-form." },
-  { v: "--font-sans", label: "Sans · UI", sample: "Clean interface copy and labels." },
+  { v: "--font-heading", label: "Heading · Bricolage Grotesque", sample: "Typography is the hero." },
+  { v: "--font-serif", label: "Serif · Literata", sample: "Editorial, readable long-form." },
+  { v: "--font-sans", label: "Sans · Bricolage Grotesque", sample: "Clean interface copy and labels." },
   { v: "--font-mono", label: "Mono · labels", sample: "01 — TOKENS / v0.0.0" },
 ];
 
@@ -127,7 +127,7 @@ export function DesignSystemShowcase({
           <p style={{ marginTop: "1.5rem", fontSize: "1.0625rem", lineHeight: 1.7, color: "var(--muted)", maxWidth: "56ch" }}>
             A living reference for{" "}
             <code style={{ fontFamily: mono, fontSize: "0.9em", color: "var(--fg)" }}>{name}</code>{" "}
-            — the warm-cream + black + lime, neo-brutalist system shared across
+            — the warm-paper + plum-charcoal + violet system shared across
             my projects. Flip the theme (top right) to see every token adapt.
           </p>
         </motion.header>
@@ -143,7 +143,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Colors ── */}
-        <Section num="02" title="Core palette" subtitle="Swap bg/fg + borders per theme; the lime accent is constant.">
+        <Section num="02" title="Core palette" subtitle="Swap bg/fg + borders per theme; the violet accent is constant.">
           <Grid min={150}>
             {CORE.map((t) => (
               <Swatch key={t.v} {...t} value={resolved[t.v]} />
@@ -302,7 +302,7 @@ export function DesignSystemShowcase({
         {/* ── Components ── */}
         <Section num="11" title="Components">
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            <ComponentRow label="<Select />" note="Brutalist select with a fully styled dropdown — accessible listbox, lime-highlighted options.">
+            <ComponentRow label="<Select />" note="Brutalist select with a fully styled dropdown — accessible listbox, violet-highlighted options.">
               <Select
                 defaultValue="medium"
                 aria-label="Demo select"
@@ -314,7 +314,7 @@ export function DesignSystemShowcase({
               />
             </ComponentRow>
 
-            <ComponentRow label="<Toggle />" note="Switch (button[role=switch]) — lime on-state, keyboard-operable.">
+            <ComponentRow label="<Toggle />" note="Switch (button[role=switch]) — violet on-state, keyboard-operable.">
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <Toggle defaultChecked aria-label="Demo toggle on" />
                 <Toggle aria-label="Demo toggle off" />
@@ -323,7 +323,7 @@ export function DesignSystemShowcase({
               </div>
             </ComponentRow>
 
-            <ComponentRow label="<AudioPlayer />" note="Brutalist MP3 player — lime play/pause, accent seek bar (keyboard-operable), time read-out. For voice/audio samples.">
+            <ComponentRow label="<AudioPlayer />" note="Brutalist MP3 player — violet play/pause, accent seek bar (keyboard-operable), time read-out. For voice/audio samples.">
               <AudioPlayer
                 src="/samples/demo-voice.mp3"
                 title="Aria — sample voice"

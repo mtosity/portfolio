@@ -19,7 +19,7 @@ export const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  // Name parallax: MINH TAM drifts left, NGUYEN drifts right
+  // Name parallax: Minh Tam drifts left, Nguyen drifts right
   const line1XRaw = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const line2XRaw = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const line1X = useSpring(line1XRaw, { stiffness: 60, damping: 20 });
@@ -118,7 +118,7 @@ export const Hero = () => {
                 userSelect: "none",
               }}
             >
-              {/* MINH TAM — clip reveal, drifts left */}
+              {/* Minh Tam — clip reveal, drifts left */}
               <div style={{ overflow: "hidden" }}>
                 <motion.div
                   style={{ x: line1X, display: "block" }}
@@ -126,19 +126,21 @@ export const Hero = () => {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 1.1, delay: 0.3, ease }}
                 >
-                  MINH TAM
+                  Minh Tam
                 </motion.div>
               </div>
 
-              {/* NGUYEN — clip reveal, drifts right */}
-              <div style={{ overflow: "hidden" }}>
+              {/* Nguyen — clip reveal, drifts right. The mask is padded so
+                  the g and y descenders aren't cut off; the negative margin
+                  keeps the line spacing unchanged. */}
+              <div style={{ overflow: "hidden", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
                 <motion.div
                   style={{ x: line2X, display: "block" }}
                   initial={{ y: "105%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 1.1, delay: 0.52, ease }}
                 >
-                  NGUYEN
+                  Nguyen
                 </motion.div>
               </div>
             </div>

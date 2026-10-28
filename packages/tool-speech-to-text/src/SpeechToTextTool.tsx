@@ -596,7 +596,7 @@ export default function SpeechToTextPage() {
                   style={{
                     color: "var(--muted)",
                     fontStyle: "italic",
-                    fontFamily: "var(--font-heading)",
+                    fontFamily: "var(--font-serif)",
                   }}
                 >
                   Your words will land here.

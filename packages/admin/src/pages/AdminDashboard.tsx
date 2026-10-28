@@ -177,13 +177,13 @@ export default async function Dashboard() {
         }
         .dash-action:hover {
           background: var(--accent);
-          /* Ink-on-lime so text/borders pop in both themes; --bg keeps the
-             plus chip a cream square on the lime surface. */
+          /* Ink-on-violet so text/borders pop in both themes. */
           --fg: var(--accent-fg);
           --muted: var(--accent-fg-muted);
           --border: var(--accent-fg);
-          --bg: #f2efe8;
         }
+        /* The plus chip turns white with a violet plus. */
+        .dash-action:hover .dash-action-plus { background: var(--accent-fg); color: var(--accent); }
         .dash-action:active { transform: translateY(1px); }
         .dash-action-plus {
           font-size: 1.6rem; line-height: 1; font-weight: 300;

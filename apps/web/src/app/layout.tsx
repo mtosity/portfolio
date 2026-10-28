@@ -1,28 +1,25 @@
 import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Crimson_Text, Lora } from "next/font/google";
+import { Bricolage_Grotesque, Literata } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { safeJsonLd } from "@mtosity/lib/jsonld";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+/* Bricolage Grotesque for headings and UI (width + optical axes, so
+   headings can set a little squeezed), Literata for long reading. */
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  axes: ["wdth", "opsz"],
   display: "swap",
 });
 
-const crimsonText = Crimson_Text({
-  variable: "--font-crimson-text",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
-
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const literata = Literata({
+  variable: "--font-literata",
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  axes: ["opsz"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -69,7 +66,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f2efe8",
+  themeColor: "#f4eee5",
 };
 
 /* Runs before first paint so the saved theme applies without a flash.
@@ -106,7 +103,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${crimsonText.variable} ${lora.variable}`}
+      className={`${bricolage.variable} ${literata.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
