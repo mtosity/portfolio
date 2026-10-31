@@ -16,8 +16,9 @@ export const MyLinks = () => {
           href="https://www.linkedin.com/in/mtosity/"
           target="_blank"
           rel="nofollow"
+          aria-label="LinkedIn"
         >
-          <AiFillLinkedin size="2.4rem" />
+          <AiFillLinkedin size="1.6rem" />
         </Link>
       </motion.span>
 
@@ -26,8 +27,8 @@ export const MyLinks = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Link href="https://github.com/mtosity" target="_blank" rel="nofollow">
-          <AiFillGithub size="2.4rem" />
+        <Link href="https://github.com/mtosity" target="_blank" rel="nofollow" aria-label="GitHub">
+          <AiFillGithub size="1.6rem" />
         </Link>
       </motion.span>
 
@@ -41,7 +42,7 @@ export const MyLinks = () => {
           target="_blank"
           rel="nofollow"
         >
-          <AiFillInstagram size="2.4rem" />
+          <AiFillInstagram size="1.6rem" />
         </Link>
       </motion.span> */}
 
@@ -51,7 +52,7 @@ export const MyLinks = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         <Link href="https://www.youtube.com/@aluckyfinsenpai2622" target="_blank" rel="nofollow">
-          <AiFillYoutube size="2.4rem" />
+          <AiFillYoutube size="1.6rem" />
         </Link>
       </motion.span> */}
     </div>

@@ -170,32 +170,32 @@ export default async function Dashboard() {
           display: flex; align-items: center; gap: 0.9rem;
           padding: 1.1rem 1.25rem;
           border: 1px solid var(--border);
-          border-radius: 4px;
+          border-radius: var(--radius-sm);
           background: var(--bg-secondary);
           text-decoration: none; color: var(--fg);
           transition: background 0.15s, transform 0.1s;
         }
         .dash-action:hover {
           background: var(--accent);
-          /* Ink-on-violet so text/borders pop in both themes. */
+          /* Ink-on-blue so text/borders pop in both themes. */
           --fg: var(--accent-fg);
           --muted: var(--accent-fg-muted);
           --border: var(--accent-fg);
         }
-        /* The plus chip turns white with a violet plus. */
+        /* The plus chip turns white with a blue plus. */
         .dash-action:hover .dash-action-plus { background: var(--accent-fg); color: var(--accent); }
         .dash-action:active { transform: translateY(1px); }
         .dash-action-plus {
           font-size: 1.6rem; line-height: 1; font-weight: 300;
           width: 38px; height: 38px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
-          border: 1px solid var(--border); border-radius: 3px; background: var(--bg);
+          border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg);
         }
         .dash-action-title {
-          display: block; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
+          display: block; font-family: var(--font-sans); font-size: 0.82rem; font-weight: 700;
         }
         .dash-action-sub {
-          display: block; font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); margin-top: 2px;
+          display: block; font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); margin-top: 2px;
         }
         .dash-cols {
           display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
@@ -210,11 +210,11 @@ export default async function Dashboard() {
           margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;
         }
         .dash-h2 {
-          font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.15em; margin: 0; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
+ margin: 0; color: var(--fg);
         }
         .dash-viewall {
-          font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); text-decoration: none;
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); text-decoration: none;
         }
         .dash-viewall:hover { color: var(--fg); }
         .dash-list { list-style: none; margin: 0; padding: 0; }
@@ -223,7 +223,7 @@ export default async function Dashboard() {
           border-bottom: 1px solid var(--border-light);
         }
         .dash-row-date {
-          font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+          font-family: var(--font-sans); font-size: 0.75rem;
           color: var(--muted); width: 86px; flex-shrink: 0;
         }
         .dash-row-title {
@@ -233,21 +233,21 @@ export default async function Dashboard() {
         }
         .dash-row-title:hover { color: var(--muted); }
         .dash-draft {
-          font-family: var(--font-mono); font-size: 0.54rem; text-transform: uppercase;
-          letter-spacing: 0.1em; color: var(--muted);
-          border: 1px solid var(--border-light); border-radius: 2px; padding: 0.1rem 0.35rem;
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted);
+          border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.1rem 0.35rem;
         }
         .dash-photos {
           display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
         }
         .dash-photo {
-          position: relative; aspect-ratio: 1 / 1; border-radius: 3px; overflow: hidden;
+          position: relative; aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden;
           border: 1px solid var(--border-light); background: var(--bg-secondary);
           display: block;
         }
         .dash-photo:hover { opacity: 0.85; }
         .dash-empty, .dash-error {
-          font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); margin: 0.5rem 0;
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); margin: 0.5rem 0;
         }
         .dash-error { color: var(--danger); }
       `}</style>

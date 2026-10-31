@@ -310,11 +310,6 @@ export default function BlogEditor({ post }: { post?: EditorBlogPost }) {
               onClick={() => save(true)}
               disabled={saving}
               style={{
-                borderRadius: 2,
-                padding: "0.5rem 1.1rem",
-                fontSize: "0.75rem",
-                letterSpacing: 0,
-                textTransform: "none",
               }}
             >
               Publish
@@ -333,11 +328,6 @@ export default function BlogEditor({ post }: { post?: EditorBlogPost }) {
               onClick={() => save(true)}
               disabled={saving}
               style={{
-                borderRadius: 2,
-                padding: "0.5rem 1.1rem",
-                fontSize: "0.75rem",
-                letterSpacing: 0,
-                textTransform: "none",
               }}
             >
               {saving ? "Saving…" : "Save changes"}
@@ -361,17 +351,17 @@ export default function BlogEditor({ post }: { post?: EditorBlogPost }) {
         .blog-editor { display: flex; flex-direction: column; gap: 1rem; }
         .blog-editor-header { display: flex; align-items: center; gap: 0.6rem; }
         .blog-editor-kicker {
-          font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase;
-          letter-spacing: 0.15em; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted);
         }
         .blog-editor-status {
-          font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase;
-          letter-spacing: 0.1em; color: var(--muted);
-          border: 1px solid var(--border-light); border-radius: 2px; padding: 0.15rem 0.4rem;
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted);
+          border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.15rem 0.4rem;
         }
         .blog-editor-status.is-live { color: var(--accent-fg); background: var(--accent); border-color: var(--accent-fg); }
         .blog-editor-view, .blog-editor-link {
-          font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); text-decoration: underline;
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); text-decoration: underline;
         }
         .blog-editor-view:hover, .blog-editor-link:hover { color: var(--fg); }
         .blog-editor-title {
@@ -387,40 +377,40 @@ export default function BlogEditor({ post }: { post?: EditorBlogPost }) {
         @media (max-width: 640px) { .blog-editor-meta { grid-template-columns: 1fr; } }
         .blog-editor-field { display: flex; flex-direction: column; gap: 0.35rem; }
         .blog-editor-field > span {
-          font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
-          letter-spacing: 0.12em; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted);
         }
         .blog-editor-cover-row { display: flex; gap: 0.4rem; }
         .blog-editor-cover-row input, .blog-editor-excerpt, .blog-editor-input {
           flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-light);
-          border-radius: 2px; padding: 0.5rem 0.6rem; color: var(--fg);
-          font-family: var(--font-mono); font-size: 0.78rem; outline: none; width: 100%;
+          border-radius: var(--radius-sm); padding: 0.5rem 0.6rem; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.78rem; outline: none; width: 100%;
           resize: vertical;
         }
         .blog-editor-cover-row input:focus, .blog-editor-excerpt:focus,
         .blog-editor-input:focus { border-color: var(--fg); }
         .blog-editor-cover-preview {
-          position: relative; width: 100%; aspect-ratio: 3 / 1; border-radius: 3px;
+          position: relative; width: 100%; aspect-ratio: 3 / 1; border-radius: var(--radius-sm);
           overflow: hidden; border: 1px solid var(--border-light); background: var(--bg-secondary);
         }
         .blog-editor-hint {
-          font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted);
           line-height: 1.6; margin: 0;
         }
         .blog-editor-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
         .blog-editor-error {
-          font-family: var(--font-mono); font-size: 0.72rem; color: var(--danger); line-height: 1.5;
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--danger); line-height: 1.5;
         }
         .blog-editor-secondary {
           background: transparent; color: var(--fg); border: 1px solid var(--border);
-          border-radius: 2px; padding: 0.5rem 0.9rem; font-family: var(--font-mono);
+          border-radius: var(--radius-sm); padding: 0.5rem 0.9rem; font-family: var(--font-sans);
           font-size: 0.75rem; cursor: pointer; white-space: nowrap;
         }
         .blog-editor-secondary:disabled { opacity: 0.6; cursor: default; }
         .blog-editor-delete {
           background: transparent; color: var(--danger); border: 1px solid var(--danger);
-          border-radius: 2px; padding: 0.4rem 0.8rem; font-family: var(--font-mono);
-          font-size: 0.72rem; cursor: pointer;
+          border-radius: var(--radius-sm); padding: 0.4rem 0.8rem; font-family: var(--font-sans);
+          font-size: 0.75rem; cursor: pointer;
         }
         .blog-editor-delete:disabled { opacity: 0.6; cursor: default; }
       `}</style>

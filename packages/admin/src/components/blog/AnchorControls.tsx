@@ -327,7 +327,7 @@ function AnchorPickerDialog({
         }
         .anchor-card {
           width: 100%; max-width: 520px; max-height: 85vh; overflow-y: auto;
-          background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+          background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
           box-shadow: 8px 12px 40px rgba(0,0,0,0.3); padding: 1.5rem;
           display: flex; flex-direction: column; gap: 0.85rem;
         }
@@ -337,58 +337,58 @@ function AnchorPickerDialog({
         }
         .anchor-field { display: flex; flex-direction: column; gap: 0.3rem; }
         .anchor-field > span {
-          font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
-          letter-spacing: 0.12em; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted);
         }
         .anchor-field input, .anchor-manual-row input {
           background: var(--bg-secondary); border: 1px solid var(--border-light);
-          border-radius: 2px; padding: 0.5rem 0.6rem; color: var(--fg);
-          font-family: var(--font-mono); font-size: 0.8rem; outline: none; width: 100%;
+          border-radius: var(--radius-sm); padding: 0.5rem 0.6rem; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.8rem; outline: none; width: 100%;
         }
         .anchor-field input:focus, .anchor-manual-row input:focus { border-color: var(--fg); }
         .anchor-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
         .anchor-option {
           width: 100%; text-align: left; cursor: pointer;
           background: var(--bg-secondary); border: 1px solid var(--border-light);
-          border-radius: 3px; padding: 0.55rem 0.7rem; color: var(--fg);
+          border-radius: var(--radius-sm); padding: 0.55rem 0.7rem; color: var(--fg);
           display: flex; flex-direction: column; gap: 0.15rem;
         }
         .anchor-option:hover:not(:disabled) { border-color: var(--fg); }
         .anchor-option:disabled { opacity: 0.5; cursor: not-allowed; }
         .anchor-option.is-current { border-color: var(--fg); }
         .anchor-option-key {
-          font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
         }
         .anchor-option-title { font-family: var(--font-heading); font-size: 0.9rem; }
         .anchor-option-sub {
-          font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted);
           overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
         .anchor-note {
-          font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted);
           line-height: 1.6; margin: 0;
         }
         .anchor-error { color: var(--danger); }
         .anchor-manual { border-top: 1px solid var(--border-light); padding-top: 0.6rem; }
         .anchor-manual summary {
-          font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); cursor: pointer;
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); cursor: pointer;
         }
         .anchor-manual-row { display: flex; gap: 0.4rem; margin: 0.5rem 0 0.4rem; }
         .anchor-actions { display: flex; align-items: center; gap: 0.5rem; }
         .anchor-primary {
           background: var(--fg); color: var(--bg); border: 1px solid var(--fg);
-          border-radius: 2px; padding: 0.5rem 0.8rem; font-family: var(--font-mono);
-          font-size: 0.72rem; cursor: pointer; white-space: nowrap;
+          border-radius: var(--radius-sm); padding: 0.5rem 0.8rem; font-family: var(--font-sans);
+          font-size: 0.75rem; cursor: pointer; white-space: nowrap;
         }
         .anchor-primary:disabled { opacity: 0.5; cursor: not-allowed; }
         .anchor-secondary {
           background: transparent; color: var(--fg); border: 1px solid var(--border-light);
-          border-radius: 2px; padding: 0.45rem 0.8rem; font-family: var(--font-mono);
-          font-size: 0.72rem; cursor: pointer;
+          border-radius: var(--radius-sm); padding: 0.45rem 0.8rem; font-family: var(--font-sans);
+          font-size: 0.75rem; cursor: pointer;
         }
         .anchor-linkish {
           background: none; border: none; padding: 0; cursor: pointer;
-          font-family: var(--font-mono); font-size: 0.7rem; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--fg);
           text-decoration: underline;
         }
       `}</style>

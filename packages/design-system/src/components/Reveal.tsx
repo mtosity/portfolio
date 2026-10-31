@@ -16,13 +16,11 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
   return (
     <div ref={ref} style={{ width }}>
       <motion.div
-        initial={{ opacity: 0, y: 60, scale: 0.95 }}
-        animate={
-          isInView
-            ? { opacity: 1, y: 0, scale: 1 }
-            : { opacity: 0, y: 60, scale: 0.95 }
-        }
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+        // A critically damped spring: settles without overshoot, like a
+        // UIKit view coming to rest.
+        transition={{ type: "spring", stiffness: 140, damping: 24, mass: 1 }}
       >
         {children}
       </motion.div>

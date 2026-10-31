@@ -10,9 +10,9 @@ export const Contact = () => {
       <div className={styles.contactWrapper}>
         <Reveal width="100%">
           <h2 className={styles.contactTitle}>
-            LET&apos;S WORK
+            Let&apos;s work
             <br />
-            TOGETHER.
+            <em>together.</em>
           </h2>
         </Reveal>
         <Reveal width="100%">
@@ -21,7 +21,8 @@ export const Contact = () => {
               href="mailto:mtosity@gmail.com"
               className={styles.contactLink}
             >
-              mtosity@gmail.com ↗
+              <span>mtosity@gmail.com</span>
+              <span aria-hidden className={styles.arrow}>↗</span>
             </Link>
             <Link
               href="https://www.linkedin.com/in/mtosity/"
@@ -29,7 +30,8 @@ export const Contact = () => {
               rel="nofollow"
               className={styles.contactLink}
             >
-              LinkedIn ↗
+              <span>LinkedIn</span>
+              <span aria-hidden className={styles.arrow}>↗</span>
             </Link>
             <Link
               href="https://github.com/mtosity"
@@ -37,7 +39,8 @@ export const Contact = () => {
               rel="nofollow"
               className={styles.contactLink}
             >
-              GitHub ↗
+              <span>GitHub</span>
+              <span aria-hidden className={styles.arrow}>↗</span>
             </Link>
           </div>
         </Reveal>

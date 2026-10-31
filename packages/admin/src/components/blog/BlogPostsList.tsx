@@ -79,12 +79,12 @@ export default function BlogPostsList({ posts }: { posts: BlogPostSummary[] }) {
         .blog-section { margin-bottom: 2.25rem; }
         .blog-section-head {
           display: flex; align-items: baseline; gap: 0.5rem;
-          font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
+ color: var(--fg);
           margin: 0 0 0.6rem; padding-bottom: 0.5rem;
           border-bottom: 1px solid var(--border);
         }
-        .blog-section-head span { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; }
+        .blog-section-head span { color: var(--muted); font-weight: 400; }
         .blog-list { list-style: none; margin: 0; padding: 0; }
         .blog-list.is-draft .blog-row { background: var(--bg-secondary); }
         .blog-row {
@@ -93,7 +93,7 @@ export default function BlogPostsList({ posts }: { posts: BlogPostSummary[] }) {
           border-bottom: 1px solid var(--border-light);
         }
         .blog-row-date {
-          font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+          font-family: var(--font-sans); font-size: 0.75rem;
           color: var(--muted); width: 100px; flex-shrink: 0;
         }
         .blog-row-title {
@@ -103,21 +103,21 @@ export default function BlogPostsList({ posts }: { posts: BlogPostSummary[] }) {
         }
         .blog-row-title:hover { color: var(--muted); }
         .blog-row-cat {
-          font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase;
-          letter-spacing: 0.1em; color: var(--muted); white-space: nowrap;
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted); white-space: nowrap;
         }
         .blog-row-draft {
-          font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase;
-          letter-spacing: 0.1em; color: var(--danger);
-          border: 1px solid var(--danger); border-radius: 2px; padding: 0.12rem 0.38rem;
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--danger);
+          border: 1px solid var(--danger); border-radius: var(--radius-sm); padding: 0.12rem 0.38rem;
         }
         .blog-row-view {
-          font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted);
           text-decoration: none; white-space: nowrap;
         }
         .blog-row-view:hover { color: var(--fg); text-decoration: underline; }
         .blog-empty {
-          font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin: 0.5rem 0;
+          font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); margin: 0.5rem 0;
         }
         @media (max-width: 620px) {
           .blog-row { flex-wrap: wrap; gap: 0.4rem 0.6rem; }

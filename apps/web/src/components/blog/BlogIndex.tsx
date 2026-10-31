@@ -71,49 +71,42 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.2em",
-                    color: "var(--muted)",
+                    fontSize: "0.8125rem",
+                    color: "var(--accent-text)",
                   }}
                 >
                   06 —
                 </span>
                 <span
                   style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.75rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.8125rem",
+                    fontWeight: 600,
                     color: "var(--fg)",
                   }}
                 >
-                  WRITING
+                  Writing
                 </span>
               </div>
-              <p
+              <h1
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.8125rem",
-                  color: "var(--muted)",
-                  letterSpacing: "0.03em",
+                  fontSize: "clamp(2.25rem, 4vw, 3.25rem)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.04em",
+                  margin: "1.25rem 0 0",
+                  maxWidth: "14ch",
                 }}
               >
                 Leave some notes for the world.
-              </p>
+              </h1>
             </div>
 
             <Link
               href="/notes"
+              className="link-tint"
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--fg)",
-                textDecoration: "none",
-                borderBottom: "1px solid var(--border-light)",
-                paddingBottom: "1px",
+                fontSize: "0.9375rem",
+                fontWeight: 500,
                 width: "fit-content",
                 display: "inline-block",
                 marginBottom: "2rem",
@@ -176,25 +169,13 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
                           marginBottom: "0.6rem",
                         }}
                       >
+                        <span className="tag tag-neutral">{post.category}</span>
                         <span
                           style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.65rem",
-                            letterSpacing: "0.12em",
-                            textTransform: "uppercase",
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "0.8125rem",
                             color: "var(--muted)",
-                            border: "1px solid var(--border-light)",
-                            padding: "0.15rem 0.5rem",
-                          }}
-                        >
-                          {post.category}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: "0.7rem",
-                            letterSpacing: "0.08em",
-                            color: "var(--muted)",
+                            fontVariantNumeric: "tabular-nums",
                             flexShrink: 0,
                           }}
                         >
@@ -204,26 +185,15 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
 
                       <h2
                         style={{
-                          fontFamily: "var(--font-heading)",
-                          fontSize: "1.4rem",
-                          fontWeight: 600,
-                          lineHeight: 1.3,
-                          marginBottom: "0.6rem",
+                          fontSize: "clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem)",
+                          lineHeight: 1.18,
+                          letterSpacing: "-0.03em",
+                          margin: "0 0 0.5rem",
                         }}
                       >
                         <Link
                           href={`/blog/${post.slug}`}
-                          style={{
-                            color: "var(--fg)",
-                            textDecoration: "none",
-                            transition: "opacity 0.15s",
-                          }}
-                          onMouseEnter={(e) =>
-                            ((e.currentTarget as HTMLElement).style.opacity = "0.6")
-                          }
-                          onMouseLeave={(e) =>
-                            ((e.currentTarget as HTMLElement).style.opacity = "1")
-                          }
+                          className="blog-index-title"
                         >
                           {post.title}
                         </Link>
@@ -244,8 +214,8 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
                   {filteredPosts.length === 0 && (
                     <p
                       style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "0.75rem",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.9375rem",
                         color: "var(--muted)",
                         padding: "3rem 0",
                       }}
@@ -259,6 +229,10 @@ export default function BlogIndex({ posts }: { posts: BlogListItem[] }) {
           </motion.div>
         </div>
       </div>
+      <style>{`
+        .blog-index-title { color: var(--fg); text-decoration: none; transition: color var(--duration-fast) var(--ease-out); }
+        .blog-index-title:hover { color: var(--accent-text); }
+      `}</style>
     </div>
   );
 }

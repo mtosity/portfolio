@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 
 const TICKER_CONTENT =
-  "SOFTWARE ENGINEER\u00A0\u00A0·\u00A0\u00A0FULL STACK\u00A0\u00A0·\u00A0\u00A0WEB PERFORMANCE\u00A0\u00A0·\u00A0\u00A0DESIGN SYSTEMS\u00A0\u00A0·\u00A0\u00A0REACT\u00A0\u00A0·\u00A0\u00A0GOLANG\u00A0\u00A0·\u00A0\u00A0OPEN SOURCE\u00A0\u00A0·\u00A0\u00A0";
+  "Software Engineer\u00A0\u00A0·\u00A0\u00A0Full Stack\u00A0\u00A0·\u00A0\u00A0Web Performance\u00A0\u00A0·\u00A0\u00A0Design Systems\u00A0\u00A0·\u00A0\u00A0React\u00A0\u00A0·\u00A0\u00A0Golang\u00A0\u00A0·\u00A0\u00A0Open Source\u00A0\u00A0·\u00A0\u00A0";
 
 const DESC =
   "Building things for the web. Specializing in performance, design systems, and full-stack engineering.";
@@ -39,22 +39,20 @@ export const Hero = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        borderBottom: "1px solid var(--border)",
         paddingTop: "56px",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Dot grid texture */}
+      {/* A soft blue light behind the portrait — the only colour in
+          the hero, so the name stays the loudest thing on screen. */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage:
-            "radial-gradient(circle, var(--border-light) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-          opacity: 0.45,
+          background:
+            "radial-gradient(60% 55% at 78% 45%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -71,12 +69,9 @@ export const Hero = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "0.875rem clamp(1.5rem, 5vw, 4rem)",
-          borderBottom: "1px solid var(--border-light)",
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.75rem",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
+          padding: "1rem clamp(1.25rem, 5vw, 4rem)",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.8125rem",
           color: "var(--muted)",
         }}
       >
@@ -91,7 +86,7 @@ export const Hero = () => {
           position: "relative",
           zIndex: 1,
           opacity: contentOpacity,
-          padding: "3rem clamp(1.5rem, 5vw, 4rem)",
+          padding: "3rem clamp(1.25rem, 5vw, 4rem)",
           display: "flex",
           alignItems: "center",
         }}
@@ -110,10 +105,11 @@ export const Hero = () => {
             <div
               style={{
                 fontFamily: "var(--font-heading)",
+                fontStretch: "var(--heading-stretch)",
                 fontSize: "clamp(3.5rem, 9vw, 11rem)",
                 fontWeight: 700,
-                lineHeight: 0.9,
-                letterSpacing: "-0.03em",
+                lineHeight: 0.92,
+                letterSpacing: "-0.045em",
                 color: "var(--fg)",
                 userSelect: "none",
               }}
@@ -163,7 +159,15 @@ export const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 1.05 }}
-              style={{ overflow: "hidden", padding: "0.55rem 0" }}
+              style={{
+                overflow: "hidden",
+                padding: "0.7rem 0",
+                // Fade the ticker in and out at the edges instead of hard-cutting it
+                maskImage:
+                  "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+              }}
             >
               <motion.div
                 animate={{ x: ["0%", "-50%"] }}
@@ -176,11 +180,10 @@ export const Hero = () => {
                 style={{
                   display: "flex",
                   whiteSpace: "nowrap",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.18em",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 500,
                   color: "var(--muted)",
-                  textTransform: "uppercase",
                 }}
               >
                 <span>{TICKER_CONTENT.repeat(4)}</span>
@@ -204,11 +207,13 @@ export const Hero = () => {
             {/* Description — word-by-word stagger */}
             <p
               style={{
-                fontFamily: "var(--font-inter)",
-                fontSize: "1.0625rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "clamp(1.1875rem, 1rem + 0.6vw, 1.5rem)",
+                fontWeight: 500,
+                letterSpacing: "-0.015em",
                 color: "var(--muted)",
-                maxWidth: "480px",
-                lineHeight: 1.6,
+                maxWidth: "30ch",
+                lineHeight: 1.35,
               }}
             >
               {DESC.split(" ").map((word, i) => (
@@ -244,8 +249,8 @@ export const Hero = () => {
                   width: "clamp(160px, 17vw, 260px)",
                   height: "auto",
                   display: "block",
-                  border: "1px solid var(--border)",
-                  boxShadow: "6px 6px 0 var(--border-light)",
+                  borderRadius: "var(--radius-xl)",
+                  boxShadow: "var(--shadow-lg)",
                 }}
               />
               {/* Name caption under photo */}
@@ -254,11 +259,10 @@ export const Hero = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 1.1 }}
                 style={{
-                  marginTop: "0.6rem",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
+                  marginTop: "0.85rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.8125rem",
+                  textAlign: "center",
                   color: "var(--muted)",
                 }}
               >
@@ -280,12 +284,9 @@ export const Hero = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "0.875rem clamp(1.5rem, 5vw, 4rem)",
-          borderTop: "1px solid var(--border-light)",
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.75rem",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
+          padding: "1rem clamp(1.25rem, 5vw, 4rem)",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.8125rem",
           color: "var(--muted)",
         }}
       >

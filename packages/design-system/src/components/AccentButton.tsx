@@ -5,9 +5,10 @@ import { motion } from "framer-motion";
 
 const MotionLink = motion.create(Link);
 
-/* The violet CTA: mono uppercase ink-on-violet, used for primary actions
-   across the tools and admin. Renders a button, or a Next.js Link when
-   `href` is given. While disabled/busy it drops to the muted surface.
+/* The blue CTA — a filled capsule in the HIG "prominent" style, for the
+   one most likely action in a view. Renders a button, or a Next.js Link
+   when `href` is given. While disabled/busy it drops to the gray fill.
+   `shadow` adds a soft lift for buttons floating over busy content.
    Size tweaks (fontSize, padding, …) go through `style`. */
 export const AccentButton = ({
   children,
@@ -29,28 +30,34 @@ export const AccentButton = ({
   title?: string;
 }) => {
   const base: React.CSSProperties = {
-    fontFamily: "var(--font-mono)",
-    fontSize: "0.74rem",
-    letterSpacing: "0.14em",
-    textTransform: "uppercase",
-    fontWeight: 700,
-    color: disabled ? "var(--fg)" : "var(--accent-fg)",
-    background: disabled ? "var(--border-light)" : "var(--accent)",
-    border: `1px solid ${disabled ? "var(--border)" : "var(--accent-fg)"}`,
-    padding: "0.7rem 1.1rem",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.9375rem",
+    fontWeight: 600,
+    letterSpacing: "-0.01em",
+    lineHeight: 1.2,
+    color: disabled ? "var(--muted)" : "var(--accent-fg)",
+    background: disabled ? "var(--fill-strong)" : "var(--accent)",
+    border: "none",
+    borderRadius: "var(--radius-full)",
+    minHeight: "var(--hit)",
+    padding: "0.65rem 1.25rem",
     cursor: disabled ? "not-allowed" : "pointer",
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "0.5rem",
+    gap: "0.45rem",
     textDecoration: "none",
-    boxShadow: shadow && !disabled ? "var(--shadow-brutal)" : "none",
+    boxShadow: shadow && !disabled ? "var(--shadow-md)" : "none",
     ...style,
   };
 
   const interaction = disabled
     ? {}
-    : { whileHover: { scale: 1.02 }, whileTap: { scale: 0.97 } };
+    : {
+        whileHover: { filter: "brightness(1.08)" },
+        whileTap: { scale: 0.96 },
+        transition: { type: "spring", stiffness: 600, damping: 32 },
+      } as const;
 
   if (href && !disabled) {
     return (

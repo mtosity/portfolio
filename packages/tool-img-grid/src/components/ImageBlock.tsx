@@ -327,12 +327,11 @@ export default function ImageBlock({
               </SquareBtn>
               <span
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.7rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.75rem",
                   color: "#fff",
                   minWidth: "3.2rem",
                   textAlign: "center",
-                  letterSpacing: "0.08em",
                 }}
               >
                 {Math.round((image.scale || 1) * 100)}%
@@ -378,10 +377,8 @@ export default function ImageBlock({
           </svg>
           <span
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
             }}
           >
             Click or drop
@@ -412,15 +409,16 @@ function OverlayBtn({
     <button
       onClick={onClick}
       style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.65rem",
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
+        fontFamily: "var(--font-sans)",
+        fontSize: "0.75rem",
         fontWeight: 700,
-        background: tone === "danger" ? "rgba(168, 50, 50, 0.85)" : "var(--bg)",
+        background: tone === "danger" ? "var(--danger)" : "var(--material-thick)",
+        backdropFilter: "var(--material-blur)",
         color: tone === "danger" ? "#fff" : "var(--fg)",
-        border: "1px solid var(--border)",
-        padding: "0.4rem 0.7rem",
+        border: "none",
+        borderRadius: 9999,
+        boxShadow: "var(--shadow-sm)",
+        padding: "0.4rem 0.8rem",
         cursor: "pointer",
       }}
     >
@@ -442,11 +440,14 @@ function SquareBtn({
       style={{
         width: 28,
         height: 28,
-        fontFamily: "var(--font-mono)",
+        fontFamily: "var(--font-sans)",
         fontSize: "1rem",
-        background: "var(--bg)",
+        background: "var(--material-thick)",
+        backdropFilter: "var(--material-blur)",
         color: "var(--fg)",
-        border: "1px solid var(--border)",
+        border: "none",
+        borderRadius: 9999,
+        boxShadow: "var(--shadow-sm)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",

@@ -22,10 +22,10 @@ export const ExperienceItem = ({
 }: Props) => {
   const titleContent = link ? (
     <a className={styles.title} href={link} rel="noreferrer" target="_blank">
-      {title.toUpperCase()}
+      {title}
     </a>
   ) : (
-    <span className={styles.title}>{title.toUpperCase()}</span>
+    <span className={styles.title}>{title}</span>
   );
 
   return (

@@ -178,7 +178,7 @@ export default function AdminPhotography() {
           Photography
         </h1>
         <span style={{ flex: 1 }} />
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--muted)" }}>
+        <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "var(--muted)" }}>
           {items.length} photo{items.length === 1 ? "" : "s"}
         </span>
       </div>
@@ -199,11 +199,11 @@ export default function AdminPhotography() {
         style={{
           border: `2px dashed ${dragOver ? "var(--fg)" : "var(--border-light)"}`,
           background: dragOver ? "var(--bg-secondary)" : "transparent",
-          borderRadius: 4,
+          borderRadius: "var(--radius-sm)",
           padding: "2rem",
           textAlign: "center",
           cursor: "pointer",
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--font-sans)",
           fontSize: "0.8rem",
           color: "var(--muted)",
           marginBottom: "1.5rem",
@@ -227,8 +227,8 @@ export default function AdminPhotography() {
             <li
               key={i}
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.72rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.75rem",
                 color: u.status === "failed" ? "var(--danger)" : "var(--muted)",
                 padding: "0.2rem 0",
               }}
@@ -240,11 +240,11 @@ export default function AdminPhotography() {
       )}
 
       {error && (
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--danger)" }}>{error}</p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "var(--danger)" }}>{error}</p>
       )}
 
       {loading ? (
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", color: "var(--muted)" }}>Loading…</p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "var(--muted)" }}>Loading…</p>
       ) : (
         <div
           style={{
@@ -260,7 +260,7 @@ export default function AdminPhotography() {
                 position: "relative",
                 aspectRatio: "1 / 1",
                 border: "1px solid var(--border-light)",
-                borderRadius: 3,
+                borderRadius: "var(--radius-sm)",
                 overflow: "hidden",
                 background: "var(--bg-secondary)",
               }}
@@ -283,7 +283,7 @@ export default function AdminPhotography() {
                   right: 6,
                   width: 24,
                   height: 24,
-                  borderRadius: 2,
+                  borderRadius: "var(--radius-sm)",
                   border: "none",
                   background: "rgba(13,13,13,0.7)",
                   color: "#fff",
@@ -303,8 +303,8 @@ export default function AdminPhotography() {
                   padding: "2px 6px",
                   background: "rgba(13,13,13,0.6)",
                   color: "#fff",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.58rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.75rem",
                 }}
               >
                 {formatSize(it.size)}
@@ -322,8 +322,8 @@ export default function AdminPhotography() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.7rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             marginTop: "1rem",
           }}

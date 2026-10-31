@@ -1,33 +1,25 @@
 .sectionHeader {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .num {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-text);
 }
 
 .title {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-stretch: var(--heading-stretch);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   color: var(--fg);
-  flex-shrink: 0;
-}
-
-.line {
-  flex: 1;
-  height: 1px;
-  background: var(--border-light);
 }

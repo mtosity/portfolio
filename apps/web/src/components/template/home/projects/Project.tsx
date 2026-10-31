@@ -100,9 +100,9 @@ export const Project = ({
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <span className={styles.projectTitle}>{title.toUpperCase()}</span>
+              <span className={styles.projectTitle}>{title}</span>
               <span className={styles.projectTech}>{tech.join(" · ")}</span>
-              {year && <span className={styles.projectYear}>[{year}]</span>}
+              {year && <span className={styles.projectYear}>{year}</span>}
             </motion.div>
 
             {/* Description fades up with more delay */}

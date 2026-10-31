@@ -22,7 +22,8 @@ not go stale. The contract:
   | a status color / surface (`system.css`) | `STATUS` / `SURFACES` |
   | the chart palette (`system.css`) | `CHART` |
   | a font token (`tokens.css`) | `FONTS` |
-  | a shadow token | the "Shadows" section |
+  | a shadow / radius token | the "Shape & depth" section |
+  | the type scale (`--text-*`) | `TYPE_SCALE` |
   | a `.tag` / `.ds-card` / `.ds-table` / `.chip` rule | the relevant section |
   | a component exported from `index.ts` | add a `<ComponentRow>` |
 
@@ -43,6 +44,11 @@ not go stale. The contract:
 - Tailwind v4, CSS-first. `tokens.css` imports `system.css`; `shadcn.css` is the
   shadcn bridge and also imports `system.css`. Shadcn apps import `shadcn.css`
   only (not `tokens.css`).
-- The violet accent (#7b46f2) is identical in both themes; bg/fg/border swap via
-  `[data-theme="dark"]`. Brutalist shadows follow `--border`, so they adapt.
+- The look follows Apple's HIG (system palette, SF type, capsules, grouped
+  lists, glass nav, springs). The blue fill (#0071e3, apple.com's button blue) is identical in both
+  themes; use `--accent-text` (not `--accent`) for violet text so it holds
+  4.5:1 on black. bg/fg/separators swap via `[data-theme="dark"]`; every new
+  colour also needs a `prefers-contrast: more` value.
+- `--font-mono` is for code and index numerals only — UI labels use
+  `--font-sans`, sentence case, no letter-spacing.
 - Keep `DESIGN.md` (repo root) in sync for any visual/token change too.

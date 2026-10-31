@@ -26,7 +26,7 @@ export default function EditBlogPostPage({
     return (
       <p
         style={{
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--font-sans)",
           fontSize: "0.78rem",
           color: "var(--danger)",
           lineHeight: 1.6,
@@ -44,7 +44,7 @@ export default function EditBlogPostPage({
     return (
       <p
         style={{
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--font-sans)",
           fontSize: "0.8rem",
           color: "var(--muted)",
         }}

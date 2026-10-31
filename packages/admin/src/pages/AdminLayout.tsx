@@ -24,11 +24,9 @@ export default async function AdminLayout({
         <Link
           href="/admin"
           style={{
-            fontFamily: "var(--font-mono)",
+            fontFamily: "var(--font-sans)",
             fontSize: "0.78rem",
             fontWeight: 700,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
             color: "var(--fg)",
             textDecoration: "none",
           }}
@@ -38,8 +36,8 @@ export default async function AdminLayout({
         <Link
           href="/admin/notes"
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             textDecoration: "none",
           }}
@@ -49,8 +47,8 @@ export default async function AdminLayout({
         <Link
           href="/admin/blog"
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             textDecoration: "none",
           }}
@@ -60,8 +58,8 @@ export default async function AdminLayout({
         <Link
           href="/admin/photography"
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             textDecoration: "none",
           }}
@@ -71,8 +69,8 @@ export default async function AdminLayout({
         <Link
           href="/"
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             textDecoration: "none",
           }}
@@ -83,8 +81,8 @@ export default async function AdminLayout({
         {login && (
           <span
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.72rem",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
             }}
           >
@@ -102,10 +100,10 @@ export default async function AdminLayout({
             style={{
               background: "transparent",
               border: "1px solid var(--border-light)",
-              borderRadius: 2,
+              borderRadius: "var(--radius-sm)",
               padding: "0.35rem 0.7rem",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--fg)",
               cursor: "pointer",
             }}

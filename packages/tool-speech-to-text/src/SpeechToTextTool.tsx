@@ -266,14 +266,11 @@ export default function SpeechToTextPage() {
           <Link
             href="/tools"
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--muted)",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
+              fontWeight: 500,
+              color: "var(--accent-text)",
               textDecoration: "none",
-              borderBottom: "1px solid var(--border-light)",
-              paddingBottom: "1px",
             }}
           >
             ← All tools
@@ -292,25 +289,21 @@ export default function SpeechToTextPage() {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
+                fontSize: "0.8125rem",
+                color: "var(--accent-text)",
               }}
             >
-              07.01 — TOOL
+              07.01 — Tool
             </span>
-            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+            <div style={{ flex: 1 }} />
             <span
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.75rem",
                 color: "var(--muted)",
-                textTransform: "uppercase",
               }}
             >
-              ON-DEVICE · WHISPER-BASE.EN
+              On-device · whisper-base.en
             </span>
           </div>
         </motion.div>
@@ -356,11 +349,10 @@ export default function SpeechToTextPage() {
           transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           style={{
             marginTop: "3rem",
-            border: "1px solid var(--border)",
             background: "var(--bg-secondary)",
+            borderRadius: "var(--radius-xl)",
             padding: "clamp(1.5rem, 4vw, 2.5rem)",
             position: "relative",
-            boxShadow: "var(--shadow-brutal-lg)",
           }}
         >
           {/* Top meta */}
@@ -369,10 +361,8 @@ export default function SpeechToTextPage() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
               marginBottom: "1.75rem",
             }}
@@ -441,16 +431,16 @@ export default function SpeechToTextPage() {
                   width: "100%",
                   height: "100%",
                   borderRadius: "50%",
-                  border: "1px solid var(--border)",
-                  background: isRecording ? "var(--fg)" : "var(--accent)",
+                  border: "none",
+                  background: isRecording ? "var(--danger)" : "var(--accent)",
                   cursor: isBusy ? "not-allowed" : "pointer",
                   opacity: isBusy ? 0.55 : 1,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   boxShadow: isRecording
-                    ? "0 0 0 4px var(--bg-secondary), var(--shadow-brutal-lg)"
-                    : "var(--shadow-brutal-lg)",
+                    ? "0 0 0 4px var(--bg-secondary), var(--shadow-lg)"
+                    : "var(--shadow-lg)",
                   transition: "background 0.2s, box-shadow 0.2s",
                 }}
               >
@@ -460,7 +450,7 @@ export default function SpeechToTextPage() {
                       width: 26,
                       height: 26,
                       background: "var(--accent)",
-                      borderRadius: 2,
+                      borderRadius: "var(--radius-sm)",
                     }}
                   />
                 ) : (
@@ -489,10 +479,8 @@ export default function SpeechToTextPage() {
             {/* Status */}
             <p
               style={{
-                fontFamily: "var(--font-mono)",
+                fontFamily: "var(--font-sans)",
                 fontSize: "0.75rem",
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
                 color: phase === "error" ? "#a83232" : "var(--muted)",
                 textAlign: "center",
                 margin: 0,
@@ -507,8 +495,9 @@ export default function SpeechToTextPage() {
               <div
                 style={{
                   width: "min(420px, 90%)",
-                  height: 3,
-                  background: "var(--border-light)",
+                  height: 4,
+                  borderRadius: 9999,
+                  background: "var(--fill-strong)",
                   position: "relative",
                   overflow: "hidden",
                 }}
@@ -516,7 +505,7 @@ export default function SpeechToTextPage() {
                 <motion.div
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  style={{ height: "100%", background: "var(--fg)" }}
+                  style={{ height: "100%", borderRadius: 9999, background: "var(--accent)" }}
                 />
               </div>
             )}
@@ -540,14 +529,12 @@ export default function SpeechToTextPage() {
           >
             <span
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.2em",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.75rem",
                 fontWeight: 700,
-                textTransform: "uppercase",
               }}
             >
-              TRANSCRIPT
+              Transcript
             </span>
             <div style={{ flex: 1, height: 1, background: "var(--border-light)" }} />
             <div style={{ display: "flex", gap: "0.5rem" }}>
@@ -566,6 +553,7 @@ export default function SpeechToTextPage() {
           <div
             style={{
               border: "1px solid var(--border-light)",
+              borderRadius: "var(--radius-md)",
               background: "var(--bg)",
               minHeight: "180px",
               padding: "1.5rem 1.75rem",
@@ -620,9 +608,9 @@ export default function SpeechToTextPage() {
             gap: "1.5rem",
           }}
         >
-          <Footnote label="MODEL" value="whisper-base.en · q8" />
-          <Footnote label="RUNTIME" value="WebAssembly · transformers.js" />
-          <Footnote label="PRIVACY" value="No audio leaves your device" />
+          <Footnote label="Model" value="whisper-base.en · q8" />
+          <Footnote label="Runtime" value="WebAssembly · transformers.js" />
+          <Footnote label="Privacy" value="No audio leaves your device" />
         </motion.div>
       </main>
     </div>
@@ -704,13 +692,12 @@ function ActionBtn({
       onClick={onClick}
       disabled={disabled}
       style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.7rem",
-        letterSpacing: "0.12em",
-        textTransform: "uppercase",
+        fontFamily: "var(--font-sans)",
+        fontSize: "0.75rem",
         color: "var(--fg)",
         background: "transparent",
         border: "1px solid var(--border-light)",
+        borderRadius: "var(--radius-md)",
         padding: "0.4rem 0.85rem",
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.4 : 1,
@@ -736,10 +723,8 @@ function Footnote({ label, value }: { label: string; value: string }) {
     <div>
       <div
         style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.65rem",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           color: "var(--muted)",
           marginBottom: "0.35rem",
         }}
@@ -748,7 +733,7 @@ function Footnote({ label, value }: { label: string; value: string }) {
       </div>
       <div
         style={{
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--font-sans)",
           fontSize: "0.8rem",
           color: "var(--fg)",
         }}

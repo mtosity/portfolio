@@ -1,13 +1,23 @@
 import { SITE_URL } from "@mtosity/lib/constants";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Bricolage_Grotesque, Literata } from "next/font/google";
+import { Bricolage_Grotesque, Inter, Literata } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { safeJsonLd } from "@mtosity/lib/jsonld";
+import { MotionProvider } from "@/components/MotionProvider";
 
-/* Bricolage Grotesque for headings and UI (width + optical axes, so
-   headings can set a little squeezed), Literata for long reading. */
+/* UI and body text use the system face — SF Pro on Apple devices. Inter
+   stands in elsewhere; preload is off so Apple devices never fetch it.
+   Bricolage Grotesque (width + optical axes) is the brand face for display
+   text; Literata is the italic aside inside a headline. */
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  display: "swap",
+  preload: false,
+});
+
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin", "latin-ext", "vietnamese"],
@@ -66,14 +76,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4eee5",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
-/* Runs before first paint so the saved theme applies without a flash.
-   Light is the default — dark only when explicitly chosen via the toggle.
+/* Runs before first paint so the theme applies without a flash. Follows
+   the OS appearance (and keeps following it live) until someone picks a
+   theme with the toggle, which is then remembered.
    Server-rendered inline script — not subject to the client-render
    script-tag limitation. */
-const themeInitScript = `(function(){var t="light";try{if(localStorage.getItem("theme")==="dark")t="dark"}catch(e){}document.documentElement.dataset.theme=t})()`;
+const themeInitScript = `(function(){var d=document.documentElement,m=window.matchMedia("(prefers-color-scheme: dark)");function s(){var t;try{t=localStorage.getItem("theme")}catch(e){}d.dataset.theme=t==="dark"||t==="light"?t:m.matches?"dark":"light"}s();try{m.addEventListener("change",s)}catch(e){}})()`;
 
 const personJsonLd = {
   "@context": "https://schema.org",
@@ -103,7 +117,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${literata.variable}`}
+      className={`${inter.variable} ${bricolage.variable} ${literata.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
@@ -114,7 +128,7 @@ export default function RootLayout({
       </head>
 
       <body className="antialiased" id="root">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
         {/* Legacy Gatsby-era cleanup: unregister old service workers + caches. */}
         <Script src="/sw.js" strategy="afterInteractive" />

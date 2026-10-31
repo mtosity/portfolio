@@ -6,12 +6,14 @@ interface Props {
   num?: string;
 }
 
+/* Section title: the index numeral in blue SF Mono, then a large
+   display title in the brand face. The numbers mark the order of the
+   home page's sections, so they stay. */
 export const SectionHeader = ({ title, num = "01" }: Props) => {
   return (
     <div className={styles.sectionHeader}>
-      <span className={styles.num}>{num} —</span>
-      <h3 className={styles.title}>{title.toUpperCase()}</h3>
-      <div className={styles.line} />
+      <span className={styles.num}>{num}</span>
+      <h2 className={styles.title}>{title}</h2>
     </div>
   );
 };

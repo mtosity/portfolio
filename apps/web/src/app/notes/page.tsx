@@ -44,7 +44,7 @@ const STICKY_COLORS = [
   { bg: "#e1bee7", border: "#ba8ec4" }, // lavender
   { bg: "#ffe0b2", border: "#e6a95c" }, // peach
   { bg: "#b2ebf2", border: "#6cc9d6" }, // cyan
-  { bg: "#d1c4e9", border: "#9e8ec4" }, // purple
+  { bg: "#d1c4e9", border: "#9e8ec4" }, // blue
 ];
 
 // Deterministic pseudo-random rotation per index
@@ -314,7 +314,7 @@ function LoadingBoard() {
               height: "0.6rem",
               width: "60%",
               background: "rgba(0,0,0,0.08)",
-              borderRadius: 3,
+              borderRadius: "var(--radius-sm)",
               marginBottom: "0.75rem",
             }}
           />
@@ -323,7 +323,7 @@ function LoadingBoard() {
               height: "1rem",
               width: "80%",
               background: "rgba(0,0,0,0.1)",
-              borderRadius: 3,
+              borderRadius: "var(--radius-sm)",
               marginBottom: "0.5rem",
             }}
           />
@@ -332,7 +332,7 @@ function LoadingBoard() {
               height: "0.7rem",
               width: "90%",
               background: "rgba(0,0,0,0.06)",
-              borderRadius: 3,
+              borderRadius: "var(--radius-sm)",
             }}
           />
         </div>
@@ -412,7 +412,7 @@ export default function Notes() {
       <div className="board-header">
         <div className="board-header-label">
           <span className="board-header-num">06 —</span>
-          <span className="board-header-title">NOTES</span>
+          <span className="board-header-title">Notes</span>
         </div>
         <p className="board-header-desc">
           Leave these notes to the world ~ some are mine, some passed through me
@@ -477,7 +477,7 @@ export default function Notes() {
         .notes-page {
           min-height: 100vh;
           background:
-            radial-gradient(circle at 20% 35%, rgba(139, 92, 246, 0.07) 0%, transparent 50%),
+            radial-gradient(circle at 20% 35%, rgba(0, 113, 227, 0.06) 0%, transparent 50%),
             radial-gradient(circle at 80% 70%, rgba(190, 170, 255, 0.06) 0%, transparent 50%),
             var(--bg);
           color: var(--fg);
@@ -496,23 +496,18 @@ export default function Notes() {
         }
         .board-header-num {
           font-family: var(--font-mono);
-          font-size: 0.75rem;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: var(--muted);
+          font-size: 0.8125rem;
+          color: var(--accent-text);
         }
         .board-header-title {
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
-          font-weight: 700;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
+          font-family: var(--font-sans);
+          font-size: 0.8125rem;
+          font-weight: 600;
           color: var(--fg);
         }
         .board-header-desc {
-          font-family: var(--font-mono);
-          font-size: 0.8125rem;
-          letter-spacing: 0.03em;
+          font-family: var(--font-sans);
+          font-size: 1.0625rem;
           color: var(--muted);
           max-width: 480px;
         }
@@ -532,7 +527,7 @@ export default function Notes() {
         @media (max-width: 480px)  { .board-grid { grid-template-columns: 1fr; } }
 
         .board-error {
-          font-family: var(--font-mono);
+          font-family: var(--font-sans);
           font-size: 0.75rem;
           color: var(--muted);
           padding: 4rem 0;
@@ -549,7 +544,7 @@ export default function Notes() {
           background: var(--note-bg);
           border: none;
           border-left: 3px solid var(--note-border, #ccc);
-          border-radius: 2px;
+          border-radius: var(--radius-sm);
           box-shadow: 2px 3px 12px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
           cursor: pointer;
           position: relative;
@@ -577,10 +572,8 @@ export default function Notes() {
         }
 
         .sticky-date {
-          font-family: var(--font-mono);
-          font-size: 0.6rem;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
+          font-family: var(--font-sans);
+          font-size: 0.75rem;
           color: rgba(0,0,0,0.4);
           margin-bottom: 0.5rem;
         }
@@ -680,10 +673,8 @@ export default function Notes() {
         .note-modal-nav-btn {
           background: none;
           border: none;
-          font-family: var(--font-mono);
-          font-size: 0.6rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+          font-family: var(--font-sans);
+          font-size: 0.75rem;
           color: rgba(0,0,0,0.4);
           cursor: pointer;
           padding: 0.25rem 0;
@@ -731,10 +722,8 @@ export default function Notes() {
 
         .note-modal-date {
           display: block;
-          font-family: var(--font-mono);
-          font-size: 0.62rem;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
+          font-family: var(--font-sans);
+          font-size: 0.75rem;
           color: rgba(0,0,0,0.4);
           margin-bottom: 0.5rem;
         }
@@ -762,15 +751,13 @@ export default function Notes() {
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          font-family: var(--font-mono);
-          font-size: 0.68rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+          font-family: var(--font-sans);
+          font-size: 0.75rem;
           color: rgba(0,0,0,0.55);
           background: rgba(0,0,0,0.04);
           border: 1px solid rgba(0,0,0,0.12);
           border-bottom: 1px solid rgba(0,0,0,0.12);
-          border-radius: 2px;
+          border-radius: var(--radius-sm);
           padding: 0.25rem 0.55rem;
           margin: 0.5rem 0;
           transition: color 0.15s, background 0.15s, border-color 0.15s;
@@ -788,7 +775,7 @@ export default function Notes() {
           margin: 1.25em 0 0.5em;
         }
         .note-content blockquote.instagram-media { display: none; }
-        .note-content img { max-width: 100%; height: auto; display: block; margin: 1em 0; border: 1px solid rgba(0,0,0,0.12); border-radius: 2px; }
+        .note-content img { max-width: 100%; height: auto; display: block; margin: 1em 0; border: 1px solid rgba(0,0,0,0.12); border-radius: var(--radius-sm); }
       `}</style>
     </div>
   );
