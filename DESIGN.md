@@ -437,7 +437,7 @@ All content sections sit inside a max-width `1400px` container.
   - Faux tape strip at top (40×12px, white translucent, `rgba(255,255,255,0.55)`)
   - Box shadow: `2px 3px 12px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06)`
   - Hover: scale 1.04, straightens to 0°, lifts up 6px, shadow → `0 12px 32px rgba(0,0,0,0.18)`
-  - Content: Date (mono 0.6rem) → Title (Bricolage Grotesque 1.1rem) → Preview (0.78rem, 4-line clamp)
+  - Content: Date (SF 0.75rem) → Title (Bricolage Grotesque 1.1rem) → Preview (0.78rem, 4-line clamp)
 - **Note modal**:
   - Backdrop: `rgba(13,13,13,0.55)` + `blur(6px)`; click backdrop to close, ESC key supported
   - Card: note's pastel bg, `border-left: 5px solid` note border color, `border-radius: 1px`, max-width 620px, max-height 84vh
@@ -458,7 +458,7 @@ All animations use Framer Motion unless noted as CSS keyframes.
 
 | Name | Properties | Duration | Easing | Trigger |
 |------|-----------|----------|--------|---------|
-| **Reveal** (global utility) | `opacity 0→1, y 60→0, scale 0.95→1` | 0.7s | `[0.22, 1, 0.36, 1]` | 20% in viewport, once |
+| **Reveal** (global utility) | `opacity 0→1, y 24→0` | spring (stiffness 140, damping 24) | critically damped | 20% in viewport, once |
 | **Hero name clip-reveal** | `y "105%"→0, opacity 0→1` | 1.1s | `[0.16, 1, 0.3, 1]` | Mount |
 | **Hero name parallax** | `x ±150px` on scroll | Spring (stiffness 60, damping 20) | Spring | Scroll |
 | **Hero photo parallax** | `y -100px` on scroll | Spring (stiffness 50, damping 18) | Spring | Scroll |
