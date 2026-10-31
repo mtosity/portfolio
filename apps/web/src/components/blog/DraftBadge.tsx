@@ -24,11 +24,9 @@ export default function DraftBadge() {
     >
       <span
         style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.62rem",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           fontWeight: 700,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
           color: "var(--bg)",
           background: "var(--fg)",
           padding: "0.2rem 0.5rem",
@@ -39,8 +37,8 @@ export default function DraftBadge() {
       </span>
       <span
         style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.72rem",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           lineHeight: 1.5,
           color: "var(--muted)",
         }}

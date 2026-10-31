@@ -3,21 +3,27 @@
   border: none;
   cursor: pointer;
 
-  padding: 1.2rem 2.4rem;
+  min-height: var(--hit);
+  padding: 0.7rem 1.4rem;
 
   background: var(--accent);
   color: var(--accent-fg);
-  font-size: var(--text-sm);
-  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
 
   position: relative;
   z-index: 20;
 
-  overflow: hidden;
-
-  transition: 0.2s opacity;
+  transition: filter var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .standardButton:hover {
-  opacity: 0.9;
+  filter: brightness(1.08);
+}
+
+.standardButton:active {
+  transform: scale(0.96);
 }

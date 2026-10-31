@@ -9,9 +9,11 @@
 }
 
 .aboutText {
-  margin-bottom: 1.5rem;
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  display: block;
+  max-width: 38rem;
+  margin-bottom: 1.4rem;
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  line-height: 1.6;
   color: var(--fg);
 }
 
@@ -23,9 +25,8 @@
 }
 
 .linksLabel {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--muted);
 }

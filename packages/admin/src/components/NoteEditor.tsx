@@ -143,11 +143,6 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
           onClick={save}
           disabled={saving}
           style={{
-            borderRadius: 2,
-            padding: "0.5rem 1.1rem",
-            fontSize: "0.75rem",
-            letterSpacing: 0,
-            textTransform: "none",
           }}
         >
           {saving ? "Saving…" : isEdit ? "Save changes" : "Create note"}
@@ -178,18 +173,18 @@ export default function NoteEditor({ note }: { note?: EditorNote }) {
         .note-editor-actions { display: flex; align-items: center; gap: 0.75rem; }
         .note-editor-publish {
           display: inline-flex; align-items: center; gap: 0.4rem;
-          font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); cursor: pointer;
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); cursor: pointer;
         }
-        .note-editor-error { font-family: var(--font-mono); font-size: 0.72rem; color: var(--danger); }
+        .note-editor-error { font-family: var(--font-sans); font-size: 0.75rem; color: var(--danger); }
         .note-editor-delete {
           background: transparent; color: var(--danger); border: 1px solid var(--danger);
-          border-radius: 2px; padding: 0.5rem 0.9rem; font-family: var(--font-mono);
+          border-radius: var(--radius-sm); padding: 0.5rem 0.9rem; font-family: var(--font-sans);
           font-size: 0.75rem; cursor: pointer;
         }
         .note-editor-delete:disabled { opacity: 0.6; cursor: default; }
         .note-editor-cancel {
           background: transparent; color: var(--fg); border: 1px solid var(--border);
-          border-radius: 2px; padding: 0.5rem 0.9rem; font-family: var(--font-mono);
+          border-radius: var(--radius-sm); padding: 0.5rem 0.9rem; font-family: var(--font-sans);
           font-size: 0.75rem; cursor: pointer;
         }
         .note-editor-cancel:disabled { opacity: 0.6; cursor: default; }

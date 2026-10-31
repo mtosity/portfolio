@@ -44,10 +44,10 @@ export function toolbarButtonStyle(active: boolean): React.CSSProperties {
     background: active ? "var(--fg)" : "transparent",
     color: active ? "var(--bg)" : "var(--fg)",
     border: "1px solid var(--border)",
-    borderRadius: 2,
+    borderRadius: "var(--radius-sm)",
     padding: "0.3rem 0.55rem",
-    fontFamily: "var(--font-mono)",
-    fontSize: "0.72rem",
+    fontFamily: "var(--font-sans)",
+    fontSize: "0.75rem",
     cursor: "pointer",
     lineHeight: 1,
   };
@@ -199,11 +199,11 @@ export function RichTextStyles({ anchors = false }: { anchors?: boolean }) {
     <style>{`
       .rte-toolbar {
         display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center;
-        padding: 0.5rem; border: 1px solid var(--border-light); border-radius: 3px;
+        padding: 0.5rem; border: 1px solid var(--border-light); border-radius: var(--radius-sm);
         background: var(--bg-secondary);
       }
       .rte-surface {
-        border: 1px solid var(--border-light); border-radius: 3px;
+        border: 1px solid var(--border-light); border-radius: var(--radius-sm);
         background: var(--bg); min-height: var(--rte-min-height, 320px);
       }
       .rte-prose {
@@ -218,12 +218,12 @@ export function RichTextStyles({ anchors = false }: { anchors?: boolean }) {
       .rte-prose blockquote {
         border-left: 3px solid var(--border); margin: 1em 0; padding-left: 1rem; color: var(--muted);
       }
-      .rte-prose img { max-width: 100%; height: auto; border-radius: 2px; margin: 0.75em 0; }
+      .rte-prose img { max-width: 100%; height: auto; border-radius: var(--radius-sm); margin: 0.75em 0; }
       .rte-prose a { color: var(--fg); text-decoration: underline; }
       .rte-prose ul, .rte-prose ol { padding-left: 1.4rem; margin: 0 0 0.9em; }
       .rte-prose pre {
         background: var(--bg-secondary); border: 1px solid var(--border-light);
-        border-radius: 3px; padding: 0.8rem 1rem; overflow-x: auto;
+        border-radius: var(--radius-sm); padding: 0.8rem 1rem; overflow-x: auto;
         font-family: var(--font-mono); font-size: 0.82rem; margin: 0 0 0.9em;
       }
       .rte-prose code { font-family: var(--font-mono); font-size: 0.86em; }
@@ -238,7 +238,7 @@ export function RichTextStyles({ anchors = false }: { anchors?: boolean }) {
       /* Anchors: obvious in the editor, but the saved HTML carries no class —
          these hang off the same data attributes the renderer reads. */
       .rte-prose span[data-anchor] {
-        border-radius: 3px; padding: 0 0.2em;
+        border-radius: var(--radius-sm); padding: 0 0.2em;
         font-weight: 500; cursor: text;
         box-decoration-break: clone; -webkit-box-decoration-break: clone;
       }

@@ -93,8 +93,8 @@ export default function Sidebar({
         <Section title="Stack">
           <p
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.68rem",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               lineHeight: 1.6,
               letterSpacing: "0.04em",
               color: "var(--muted)",
@@ -167,7 +167,7 @@ export default function Sidebar({
           onChange={(e) => setBorderRadius(Number(e.target.value))}
           style={{
             width: "100%",
-            accentColor: "var(--fg)",
+            accentColor: "var(--accent)",
           }}
         />
       </Section>
@@ -178,7 +178,8 @@ export default function Sidebar({
             display: "flex",
             gap: 10,
             alignItems: "center",
-            border: "1px solid var(--border-light)",
+            background: "var(--fill)",
+            borderRadius: "var(--radius-sm)",
             padding: "0.5rem 0.6rem",
           }}
         >
@@ -190,6 +191,7 @@ export default function Sidebar({
               width: 28,
               height: 28,
               border: "1px solid var(--border)",
+              borderRadius: "var(--radius-md)",
               padding: 0,
               cursor: "pointer",
               background: "transparent",
@@ -197,11 +199,9 @@ export default function Sidebar({
           />
           <span
             style={{
-              fontFamily: "var(--font-mono)",
+              fontFamily: "var(--font-sans)",
               fontSize: "0.75rem",
-              letterSpacing: "0.08em",
               color: "var(--fg)",
-              textTransform: "uppercase",
             }}
           >
             {bgColor}
@@ -226,9 +226,6 @@ export default function Sidebar({
         shadow
         style={{
           marginTop: "auto",
-          fontSize: "0.78rem",
-          letterSpacing: "0.18em",
-          padding: "0.95rem",
         }}
       >
         {isStack
@@ -254,10 +251,8 @@ function Section({
     <div>
       <h3
         style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.65rem",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           color: "var(--muted)",
           fontWeight: 700,
           marginBottom: "0.6rem",
@@ -281,13 +276,17 @@ function Pills<T extends string | number>({
 }) {
   return (
     <div
+      // Segmented control: a capsule track on the system fill, the
+      // selection on a raised white thumb.
       style={{
         display: "flex",
-        gap: 0,
-        border: "1px solid var(--border-light)",
+        gap: 2,
+        padding: 2,
+        borderRadius: 9999,
+        background: "var(--fill)",
       }}
     >
-      {options.map((o, i) => {
+      {options.map((o) => {
         const active = o.value === activeValue;
         return (
           <button
@@ -295,30 +294,18 @@ function Pills<T extends string | number>({
             onClick={() => onChange(o.value)}
             style={{
               flex: 1,
-              padding: "0.55rem 0.4rem",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              fontWeight: 700,
-              color: active ? "var(--accent-fg)" : "var(--muted)",
-              background: active ? "var(--accent)" : "transparent",
+              minHeight: 30,
+              padding: "0.35rem 0.4rem",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.8125rem",
+              fontWeight: active ? 600 : 500,
+              color: "var(--fg)",
+              background: active ? "var(--bg)" : "transparent",
+              boxShadow: active ? "0 3px 8px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.04)" : "none",
               border: "none",
-              borderLeft: i === 0 ? "none" : "1px solid var(--border-light)",
+              borderRadius: 9999,
               cursor: "pointer",
-              transition: "background 0.15s, color 0.15s",
-            }}
-            onMouseEnter={(e) => {
-              if (!active) {
-                (e.currentTarget as HTMLElement).style.color = "var(--fg)";
-                (e.currentTarget as HTMLElement).style.background = "var(--bg-secondary)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!active) {
-                (e.currentTarget as HTMLElement).style.color = "var(--muted)";
-                (e.currentTarget as HTMLElement).style.background = "transparent";
-              }
+              transition: "background 0.2s, box-shadow 0.2s",
             }}
           >
             {o.label}

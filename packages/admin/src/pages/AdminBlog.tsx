@@ -44,8 +44,8 @@ export default function AdminBlog() {
         </h1>
         <span
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
           }}
         >
@@ -55,8 +55,8 @@ export default function AdminBlog() {
         <a
           href="/admin/blog/definitions"
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.72rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             textDecoration: "underline",
           }}
@@ -65,12 +65,6 @@ export default function AdminBlog() {
         </a>
         <AccentButton
           href="/admin/blog/new"
-          style={{
-            borderRadius: 2,
-            padding: "0.5rem 1rem",
-            letterSpacing: 0,
-            textTransform: "none",
-          }}
         >
           + New post
         </AccentButton>
@@ -79,7 +73,7 @@ export default function AdminBlog() {
       {error && (
         <p
           style={{
-            fontFamily: "var(--font-mono)",
+            fontFamily: "var(--font-sans)",
             fontSize: "0.78rem",
             color: "var(--danger)",
             lineHeight: 1.6,
@@ -92,7 +86,7 @@ export default function AdminBlog() {
       {loading && !error && (
         <p
           style={{
-            fontFamily: "var(--font-mono)",
+            fontFamily: "var(--font-sans)",
             fontSize: "0.8rem",
             color: "var(--muted)",
           }}
@@ -104,7 +98,7 @@ export default function AdminBlog() {
       {!loading && !error && posts.length === 0 && (
         <p
           style={{
-            fontFamily: "var(--font-mono)",
+            fontFamily: "var(--font-sans)",
             fontSize: "0.8rem",
             color: "var(--muted)",
           }}

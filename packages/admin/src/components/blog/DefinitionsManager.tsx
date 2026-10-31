@@ -72,7 +72,7 @@ export default function DefinitionsManager() {
         .defs-head { display: flex; align-items: baseline; gap: 1rem; }
         .defs-h1 { font-family: var(--font-heading); font-size: 2rem; font-weight: 600; margin: 0; }
         .defs-intro {
-          font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted);
           line-height: 1.7; margin: 0; max-width: 60ch;
         }
         .defs-intro code {
@@ -83,8 +83,8 @@ export default function DefinitionsManager() {
         .defs-tab {
           background: transparent; border: none; border-bottom: 2px solid transparent;
           padding: 0.5rem 0.2rem; margin-right: 0.9rem; cursor: pointer;
-          font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
+ color: var(--muted);
         }
         .defs-tab.is-active { color: var(--fg); border-bottom-color: var(--fg); }
         .defs-panel { display: flex; flex-direction: column; gap: 1rem; }
@@ -94,7 +94,7 @@ export default function DefinitionsManager() {
           border-bottom: 1px solid var(--border-light);
         }
         .defs-row-key {
-          font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700;
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
           color: var(--fg); width: 200px; flex-shrink: 0;
           overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
@@ -104,28 +104,28 @@ export default function DefinitionsManager() {
         }
         .defs-btn {
           background: transparent; color: var(--fg); border: 1px solid var(--border);
-          border-radius: 2px; padding: 0.35rem 0.7rem; font-family: var(--font-mono);
-          font-size: 0.7rem; cursor: pointer; white-space: nowrap;
+          border-radius: var(--radius-sm); padding: 0.35rem 0.7rem; font-family: var(--font-sans);
+          font-size: 0.75rem; cursor: pointer; white-space: nowrap;
         }
         .defs-btn:disabled { opacity: 0.55; cursor: default; }
         .defs-btn-danger { color: var(--danger); border-color: var(--danger); }
         .defs-form {
           display: flex; flex-direction: column; gap: 0.8rem;
-          border: 1px solid var(--border); border-radius: 4px;
+          border: 1px solid var(--border); border-radius: var(--radius-sm);
           background: var(--bg-secondary); padding: 1.1rem 1.2rem;
         }
         .defs-form-head {
           display: flex; align-items: baseline; gap: 0.6rem;
-          font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.14em; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
+ color: var(--fg);
         }
         .defs-field { display: flex; flex-direction: column; gap: 0.3rem; }
         .defs-field > span {
-          font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase;
-          letter-spacing: 0.12em; color: var(--muted);
+          font-family: var(--font-sans); font-size: 0.75rem;
+ color: var(--muted);
         }
         .defs-field input, .defs-field textarea {
-          background: var(--bg); border: 1px solid var(--border-light); border-radius: 2px;
+          background: var(--bg); border: 1px solid var(--border-light); border-radius: var(--radius-sm);
           padding: 0.5rem 0.6rem; color: var(--fg); font-family: var(--font-mono);
           font-size: 0.78rem; outline: none; width: 100%; resize: vertical;
         }
@@ -134,18 +134,18 @@ export default function DefinitionsManager() {
         .defs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
         @media (max-width: 640px) { .defs-grid { grid-template-columns: 1fr; } }
         .defs-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
-        .defs-error { font-family: var(--font-mono); font-size: 0.72rem; color: var(--danger); }
-        .defs-note { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); margin: 0; line-height: 1.6; }
+        .defs-error { font-family: var(--font-sans); font-size: 0.75rem; color: var(--danger); }
+        .defs-note { font-family: var(--font-sans); font-size: 0.75rem; color: var(--muted); margin: 0; line-height: 1.6; }
         .defs-snippet {
-          border: 1px solid var(--border-light); border-radius: 3px; padding: 0.8rem;
+          border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.8rem;
           display: flex; flex-direction: column; gap: 0.6rem; background: var(--bg);
         }
         .defs-snippet-head {
           display: flex; align-items: center; gap: 0.5rem;
-          font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.12em; color: var(--fg);
+          font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
+ color: var(--fg);
         }
-        .defs-snippet textarea { font-size: 0.74rem; line-height: 1.5; }
+        .defs-snippet textarea { font-size: 0.75rem; line-height: 1.5; }
       `}</style>
     </div>
   );
@@ -278,11 +278,6 @@ function DefinitionsPanel() {
         <AccentButton
           onClick={openNew}
           style={{
-            borderRadius: 2,
-            padding: "0.5rem 1rem",
-            fontSize: "0.72rem",
-            letterSpacing: 0,
-            textTransform: "none",
           }}
         >
           + New definition
@@ -342,11 +337,6 @@ function DefinitionsPanel() {
               onClick={save}
               disabled={saving}
               style={{
-                borderRadius: 2,
-                padding: "0.5rem 1rem",
-                fontSize: "0.72rem",
-                letterSpacing: 0,
-                textTransform: "none",
               }}
             >
               {saving ? "Saving…" : editing ? "Save changes" : "Create"}
@@ -550,11 +540,6 @@ function CodeExamplesPanel() {
         <AccentButton
           onClick={openNew}
           style={{
-            borderRadius: 2,
-            padding: "0.5rem 1rem",
-            fontSize: "0.72rem",
-            letterSpacing: 0,
-            textTransform: "none",
           }}
         >
           + New code example
@@ -621,11 +606,6 @@ function CodeExamplesPanel() {
               onClick={save}
               disabled={saving}
               style={{
-                borderRadius: 2,
-                padding: "0.5rem 1rem",
-                fontSize: "0.72rem",
-                letterSpacing: 0,
-                textTransform: "none",
               }}
             >
               {saving ? "Saving…" : editing ? "Save changes" : "Create"}

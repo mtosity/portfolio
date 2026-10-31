@@ -331,14 +331,11 @@ export default function VideoToolPage() {
           <Link
             href="/tools"
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--muted)",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
+              fontWeight: 500,
+              color: "var(--accent-text)",
               textDecoration: "none",
-              borderBottom: "1px solid var(--border-light)",
-              paddingBottom: "1px",
             }}
           >
             ← All tools
@@ -357,25 +354,21 @@ export default function VideoToolPage() {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
+                fontSize: "0.8125rem",
+                color: "var(--accent-text)",
               }}
             >
-              07.02 — TOOL
+              07.02 — Tool
             </span>
-            <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+            <div style={{ flex: 1 }} />
             <span
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.75rem",
                 color: "var(--muted)",
-                textTransform: "uppercase",
               }}
             >
-              YT-DLP · WHISPER · WASM
+              yt-dlp · Whisper · WASM
             </span>
           </div>
         </motion.div>
@@ -427,10 +420,8 @@ export default function VideoToolPage() {
         >
           <label
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
               display: "block",
               marginBottom: "0.6rem",
@@ -444,9 +435,10 @@ export default function VideoToolPage() {
               gap: "0.75rem",
               flexWrap: "wrap",
               border: "1px solid var(--border)",
-              background: "var(--bg-secondary)",
-              padding: "0.5rem",
-              boxShadow: "var(--shadow-brutal)",
+              borderRadius: "var(--radius-lg)",
+              background: "var(--bg)",
+              padding: "0.375rem",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <input
@@ -462,7 +454,7 @@ export default function VideoToolPage() {
                 border: "none",
                 outline: "none",
                 padding: "0.85rem 1rem",
-                fontFamily: "var(--font-mono)",
+                fontFamily: "var(--font-sans)",
                 fontSize: "0.9rem",
                 color: "var(--fg)",
               }}
@@ -470,11 +462,6 @@ export default function VideoToolPage() {
             <AccentButton
               type="submit"
               disabled={fetching || !url}
-              style={{
-                fontSize: "0.75rem",
-                letterSpacing: "0.15em",
-                padding: "0.85rem 1.5rem",
-              }}
             >
               {fetching ? <Spinner /> : <span>→</span>}
               Fetch
@@ -483,10 +470,8 @@ export default function VideoToolPage() {
           <p
             style={{
               marginTop: "0.65rem",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
             }}
           >
@@ -510,7 +495,7 @@ export default function VideoToolPage() {
                 borderLeft: "3px solid #a83232",
                 background: "var(--bg-secondary)",
                 color: "#a83232",
-                fontFamily: "var(--font-mono)",
+                fontFamily: "var(--font-sans)",
                 fontSize: "0.78rem",
                 lineHeight: 1.6,
                 padding: "0.85rem 1rem",
@@ -534,10 +519,9 @@ export default function VideoToolPage() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               style={{
                 marginTop: "2rem",
-                border: "1px solid var(--border)",
                 background: "var(--bg-secondary)",
+                borderRadius: "var(--radius-xl)",
                 padding: "clamp(1.25rem, 3vw, 1.75rem)",
-                boxShadow: "var(--shadow-brutal-lg)",
                 display: "grid",
                 gridTemplateColumns: "minmax(0, 160px) 1fr",
                 gap: "clamp(1rem, 3vw, 1.75rem)",
@@ -551,6 +535,7 @@ export default function VideoToolPage() {
                     width: "100%",
                     aspectRatio: "9/16",
                     border: "1px solid var(--border-light)",
+                    borderRadius: "var(--radius-md)",
                     background: "var(--bg)",
                     overflow: "hidden",
                     position: "relative",
@@ -575,6 +560,7 @@ export default function VideoToolPage() {
                     width: "100%",
                     aspectRatio: "9/16",
                     border: "1px solid var(--border-light)",
+                    borderRadius: "var(--radius-md)",
                     background: "var(--bg)",
                   }}
                 />
@@ -584,10 +570,8 @@ export default function VideoToolPage() {
                 {info.uploader && (
                   <div
                     style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "0.65rem",
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.75rem",
                       color: "var(--muted)",
                       marginBottom: "0.5rem",
                     }}
@@ -617,17 +601,17 @@ export default function VideoToolPage() {
                     display: "flex",
                     flexWrap: "wrap",
                     gap: "0.5rem",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.75rem",
                     color: "var(--muted)",
                   }}
                 >
                   {info.duration != null && (
                     <span
                       style={{
-                        border: "1px solid var(--border-light)",
+                        border: "none",
+                        borderRadius: 9999,
+                        background: "var(--fill)",
                         padding: "0.18rem 0.55rem",
                       }}
                     >
@@ -637,7 +621,9 @@ export default function VideoToolPage() {
                   {info.width && info.height && (
                     <span
                       style={{
-                        border: "1px solid var(--border-light)",
+                        border: "none",
+                        borderRadius: 9999,
+                        background: "var(--fill)",
                         padding: "0.18rem 0.55rem",
                       }}
                     >
@@ -661,7 +647,7 @@ export default function VideoToolPage() {
                   <AccentButton
                     onClick={handleTranscribe}
                     disabled={transcribing}
-                    style={{ fontSize: "0.72rem", padding: "0.7rem 1rem" }}
+                    style={{ padding: "0.6rem 1.1rem" }}
                   >
                     {transcribing ? <Spinner /> : <FileIcon />}
                     Get transcript
@@ -698,10 +684,8 @@ export default function VideoToolPage() {
                               display: "flex",
                               alignItems: "center",
                               gap: "0.6rem",
-                              fontFamily: "var(--font-mono)",
-                              fontSize: "0.7rem",
-                              letterSpacing: "0.1em",
-                              textTransform: "uppercase",
+                              fontFamily: "var(--font-sans)",
+                              fontSize: "0.75rem",
                               color:
                                 state === "pending"
                                   ? "var(--border-light)"
@@ -763,14 +747,12 @@ export default function VideoToolPage() {
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.2em",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.75rem",
                     fontWeight: 700,
-                    textTransform: "uppercase",
                   }}
                 >
-                  TRANSCRIPT
+                  Transcript
                 </span>
                 <div
                   style={{
@@ -829,9 +811,8 @@ export default function VideoToolPage() {
                     transition={{ duration: 0.3 }}
                     style={{
                       marginBottom: "1.25rem",
-                      border: "1px solid var(--border)",
-                      borderLeft: "3px solid var(--accent)",
-                      background: "var(--bg-secondary)",
+                      background: "var(--accent-soft)",
+                      borderRadius: "var(--radius-md)",
                       padding: "1rem 1.25rem",
                     }}
                   >
@@ -841,10 +822,8 @@ export default function VideoToolPage() {
                         alignItems: "center",
                         gap: "0.5rem",
                         marginBottom: "0.6rem",
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "0.62rem",
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.75rem",
                         color: "var(--muted)",
                       }}
                     >
@@ -858,7 +837,7 @@ export default function VideoToolPage() {
                       <p
                         style={{
                           margin: 0,
-                          fontFamily: "var(--font-mono)",
+                          fontFamily: "var(--font-sans)",
                           fontSize: "0.78rem",
                           lineHeight: 1.6,
                           color: "#a83232",
@@ -885,9 +864,8 @@ export default function VideoToolPage() {
                       <p
                         style={{
                           margin: 0,
-                          fontFamily: "var(--font-mono)",
+                          fontFamily: "var(--font-sans)",
                           fontSize: "0.75rem",
-                          letterSpacing: "0.08em",
                           color: "var(--muted)",
                         }}
                       >
@@ -903,6 +881,7 @@ export default function VideoToolPage() {
               <div
                 style={{
                   border: "1px solid var(--border-light)",
+                  borderRadius: "var(--radius-md)",
                   background: "var(--bg-secondary)",
                   padding: "1.5rem 1.75rem",
                   fontSize: "1.0625rem",
@@ -933,9 +912,9 @@ export default function VideoToolPage() {
             gap: "1.5rem",
           }}
         >
-          <Footnote label="DOWNLOADER" value="yt-dlp · server-side" />
-          <Footnote label="TRANSCRIPTION" value="whisper-base.en · WASM" />
-          <Footnote label="STORAGE" value="None — nothing persisted" />
+          <Footnote label="Downloader" value="yt-dlp · server-side" />
+          <Footnote label="Transcription" value="whisper-base.en · WASM" />
+          <Footnote label="Storage" value="None — nothing persisted" />
         </motion.div>
       </main>
     </div>
@@ -960,15 +939,15 @@ function PrimaryAction({
       whileHover={!disabled ? { scale: 1.02 } : {}}
       whileTap={!disabled ? { scale: 0.97 } : {}}
       style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.72rem",
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        fontWeight: 700,
-        color: "var(--fg)",
-        background: "var(--bg)",
-        border: "1px solid var(--border)",
-        padding: "0.7rem 1rem",
+        fontFamily: "var(--font-sans)",
+        fontSize: "0.9375rem",
+        fontWeight: 600,
+        color: "var(--accent-text)",
+        background: "var(--accent-soft)",
+        border: "none",
+        borderRadius: 9999,
+        minHeight: "var(--hit)",
+        padding: "0.6rem 1.1rem",
         cursor: disabled ? "not-allowed" : "pointer",
         display: "inline-flex",
         alignItems: "center",
@@ -994,13 +973,12 @@ function SmallBtn({
       onClick={onClick}
       disabled={disabled}
       style={{
-        fontFamily: "var(--font-mono)",
-        fontSize: "0.65rem",
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
+        fontFamily: "var(--font-sans)",
+        fontSize: "0.75rem",
         color: "var(--fg)",
         background: "transparent",
         border: "1px solid var(--border-light)",
+        borderRadius: "var(--radius-md)",
         padding: "0.35rem 0.7rem",
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.55 : 1,
@@ -1026,10 +1004,8 @@ function Footnote({ label, value }: { label: string; value: string }) {
     <div>
       <div
         style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.65rem",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           color: "var(--muted)",
           marginBottom: "0.35rem",
         }}
@@ -1038,7 +1014,7 @@ function Footnote({ label, value }: { label: string; value: string }) {
       </div>
       <div
         style={{
-          fontFamily: "var(--font-mono)",
+          fontFamily: "var(--font-sans)",
           fontSize: "0.8rem",
           color: "var(--fg)",
         }}
@@ -1084,6 +1060,7 @@ function StageDot({ state }: { state: "done" | "active" | "pending" }) {
         width: 12,
         height: 12,
         border: "1px solid var(--border-light)",
+        borderRadius: "var(--radius-md)",
         background: "transparent",
         display: "inline-block",
       }}

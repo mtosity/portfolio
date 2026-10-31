@@ -40,14 +40,11 @@ export default function ImgGridPage() {
           <Link
             href="/tools"
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--muted)",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
+              fontWeight: 500,
+              color: "var(--accent-text)",
               textDecoration: "none",
-              borderBottom: "1px solid var(--border-light)",
-              paddingBottom: "1px",
             }}
           >
             ← All tools
@@ -55,26 +52,22 @@ export default function ImgGridPage() {
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
-              color: "var(--muted)",
-              textTransform: "uppercase",
+              fontSize: "0.8125rem",
+              color: "var(--accent-text)",
             }}
           >
-            07.03 — TOOL
+            07.03 — Tool
           </span>
-          <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+          <div style={{ flex: 1 }} />
           <span
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
-              textTransform: "uppercase",
             }}
             className="ig-stack-label"
           >
-            CANVAS · 100% CLIENT-SIDE
+            Canvas · 100% client-side
           </span>
         </div>
 
@@ -104,9 +97,8 @@ export default function ImgGridPage() {
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.72rem",
-              letterSpacing: "0.1em",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
               maxWidth: "60ch",
               margin: 0,

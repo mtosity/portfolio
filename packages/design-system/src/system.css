@@ -1,61 +1,63 @@
 /* ──────────────────────────────────────────────────────────────
    @mtosity/design-system — shared system layer
 
-   Status colors, tags, cards, tables, and the chart palette. Imported
-   by both tokens.css and shadcn.css, so every consuming app gets them.
+   Status colors, tags, cards, tables, controls and the chart palette.
+   Imported by both tokens.css and shadcn.css, so every consuming app
+   gets them.
 
-   Theme-adaptive via [data-theme="dark"]. Status TEXT uses a darker
-   shade in light and a brighter one in dark; SURFACES/borders use
-   translucent tints (color-mix) so they read on both the cream and
-   warm-black backgrounds without per-theme overrides.
+   Apple HIG flavoured: status hues are Apple's system colours, using
+   the accessible (increased-contrast) step for TEXT in light so it holds
+   4.5:1, and the standard dark step in dark. SURFACES are translucent
+   tints (color-mix) so they read on white, #f5f5f7, black and #1c1c1e
+   without per-theme overrides.
    ────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Semantic status — readable text on the light (cream) background */
-  --positive: #15803d; /* green-700 */
-  --negative: #b91c1c; /* red-700   */
-  --warning: #b45309; /* amber-700 */
-  --info: #1d4ed8; /* blue-700  */
+  /* Semantic status — readable text on the light background */
+  --positive: #1d7a35; /* accessible green, 5.4:1 */
+  --negative: #d70015; /* accessible red,   5.4:1 */
+  --warning: #c93400; /* accessible orange, 5.3:1 */
+  --info: #0066cc; /* apple.com link blue, 5.6:1 */
 
   /* Translucent surfaces + borders (work on both themes) */
-  --positive-surface: color-mix(in srgb, #22c55e 14%, transparent);
-  --positive-surface-strong: color-mix(in srgb, #22c55e 22%, transparent);
-  --positive-border: color-mix(in srgb, #22c55e 38%, transparent);
-  --negative-surface: color-mix(in srgb, #ef4444 14%, transparent);
-  --negative-surface-strong: color-mix(in srgb, #ef4444 22%, transparent);
-  --negative-border: color-mix(in srgb, #ef4444 38%, transparent);
-  --warning-surface: color-mix(in srgb, #f59e0b 16%, transparent);
-  --warning-surface-strong: color-mix(in srgb, #f59e0b 24%, transparent);
-  --warning-border: color-mix(in srgb, #f59e0b 40%, transparent);
-  --info-surface: color-mix(in srgb, #3b82f6 14%, transparent);
-  --info-border: color-mix(in srgb, #3b82f6 38%, transparent);
+  --positive-surface: color-mix(in srgb, #34c759 14%, transparent);
+  --positive-surface-strong: color-mix(in srgb, #34c759 24%, transparent);
+  --positive-border: color-mix(in srgb, #34c759 34%, transparent);
+  --negative-surface: color-mix(in srgb, #ff3b30 12%, transparent);
+  --negative-surface-strong: color-mix(in srgb, #ff3b30 22%, transparent);
+  --negative-border: color-mix(in srgb, #ff3b30 34%, transparent);
+  --warning-surface: color-mix(in srgb, #ff9500 14%, transparent);
+  --warning-surface-strong: color-mix(in srgb, #ff9500 24%, transparent);
+  --warning-border: color-mix(in srgb, #ff9500 36%, transparent);
+  --info-surface: color-mix(in srgb, #007aff 12%, transparent);
+  --info-border: color-mix(in srgb, #007aff 32%, transparent);
 
-  /* Chart palette — distinct + legible on the cream background */
-  --chart-1: #84cc16; /* lime   */
-  --chart-2: #0ea5e9; /* sky    */
-  --chart-3: #f59e0b; /* amber  */
-  --chart-4: #ec4899; /* pink   */
-  --chart-5: #8b5cf6; /* violet */
-  --chart-6: #14b8a6; /* teal   */
-  --chart-7: #f97316; /* orange */
-  --chart-8: #64748b; /* slate  */
+  /* Chart palette — Apple system colours (light) */
+  --chart-1: #34c759; /* green  */
+  --chart-2: #007aff; /* blue   */
+  --chart-3: #ff9500; /* orange */
+  --chart-4: #ff2d55; /* pink   */
+  --chart-5: #af52de; /* purple — the brand tint */
+  --chart-6: #30b0c7; /* teal   */
+  --chart-7: #ff3b30; /* red    */
+  --chart-8: #8e8e93; /* gray   */
 }
 
 [data-theme="dark"] {
-  --positive: #4ade80; /* green-400 */
-  --negative: #f87171; /* red-400   */
-  --warning: #fbbf24; /* amber-400 */
-  --info: #60a5fa; /* blue-400  */
+  --positive: #30d158;
+  --negative: #ff453a;
+  --warning: #ff9f0a;
+  --info: #409cff;
 
-  /* Brighter chart hues for the warm-black background */
-  --chart-1: #a3e635;
-  --chart-2: #38bdf8;
-  --chart-3: #fbbf24;
-  --chart-4: #f472b6;
-  --chart-5: #a78bfa;
-  --chart-6: #2dd4bf;
-  --chart-7: #fb923c;
-  --chart-8: #94a3b8;
+  /* Apple system colours (dark) */
+  --chart-1: #30d158;
+  --chart-2: #0a84ff;
+  --chart-3: #ff9f0a;
+  --chart-4: #ff375f;
+  --chart-5: #bf5af2;
+  --chart-6: #40c8e0;
+  --chart-7: #ff453a;
+  --chart-8: #98989d;
 }
 
 /* Expose as Tailwind utilities: text-positive, bg-negative-surface,
@@ -81,53 +83,46 @@
 }
 
 /* ── Tag / status pill ──
-   Mono uppercase, tinted surface + ring, colored text. Compose a tone:
-   <span class="tag tag-positive">BUY</span> */
+   A capsule: tinted surface, coloured text, system font. Compose a tone:
+   <span class="tag tag-positive">Buy</span> */
 .tag {
   display: inline-flex;
   align-items: center;
   gap: 0.3em;
   border: 1px solid transparent;
-  border-radius: 3px;
-  padding: 0.12rem 0.45rem;
+  border-radius: 9999px;
+  padding: 0.14rem 0.6rem;
   font-family: var(
-    --font-mono,
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    monospace
+    --font-sans,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif
   );
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 1.45;
-  text-transform: uppercase;
+  line-height: 1.4;
   white-space: nowrap;
 }
 .tag-positive {
   color: var(--positive);
   background: var(--positive-surface);
-  border-color: var(--positive-border);
 }
 .tag-negative {
   color: var(--negative);
   background: var(--negative-surface);
-  border-color: var(--negative-border);
 }
 .tag-warning {
   color: var(--warning);
   background: var(--warning-surface);
-  border-color: var(--warning-border);
 }
 .tag-info {
   color: var(--info);
   background: var(--info-surface);
-  border-color: var(--info-border);
 }
 .tag-neutral {
   color: var(--muted);
-  background: var(--bg-secondary);
-  border-color: var(--border-light);
+  background: var(--fill, rgba(120, 120, 128, 0.12));
 }
 .tag-strong-positive {
   color: var(--positive);
@@ -143,50 +138,46 @@
 }
 
 /* ── Card ──
-   Default card chrome is brutalist: a strong (theme-adaptive) border + hard
-   offset shadow, shown directly. `--border` is near-black on light and
-   near-white on dark, so the card lifts off either background. Add
-   `.ds-card-interactive` for a hover lift. */
+   A rounded surface on the secondary background, no outline. Add
+   `.ds-card-interactive` for a gentle lift on hover. */
 .ds-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1rem;
-  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg, 18px);
+  padding: 1.25rem;
 }
 .ds-card-interactive {
   transition:
-    box-shadow 0.15s,
-    transform 0.15s;
+    box-shadow 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+    transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .ds-card-interactive:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-brutal-lg, 6px 6px 0 var(--border));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 14px rgba(0, 0, 0, 0.08));
 }
 
 /* ── Table ── */
 .ds-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
 }
 .ds-table th {
-  padding: 0.5rem 0.75rem;
+  padding: 0.55rem 0.75rem;
   text-align: left;
-  font-family: var(--font-mono, ui-monospace, Menlo, monospace);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--muted);
   border-bottom: 1px solid var(--border);
 }
 .ds-table td {
-  padding: 0.5rem 0.75rem;
+  padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--border-light);
+  font-variant-numeric: tabular-nums;
 }
 .ds-table tbody tr:hover {
-  background: var(--bg-secondary);
+  background: var(--fill, var(--bg-secondary));
 }
 
 /* ── Numeric deltas ── */
@@ -198,9 +189,9 @@
 }
 
 /* ── Select ──
-   Custom listbox (the native <select> popup can't be themed). Brutalist
-   trigger + a fully styled dropdown: hard border, offset shadow, violet hover.
-   Theme-adaptive via the border/bg/accent tokens. */
+   A pop-up button in the macOS sense (the native <select> popup can't be
+   themed): a rounded field with an up/down chevron, and a menu on the
+   thick material with a purple highlight on the active row. */
 .ds-select {
   position: relative;
   display: inline-flex;
@@ -211,25 +202,27 @@
   justify-content: space-between;
   gap: 0.5rem;
   min-width: 9rem;
+  min-height: var(--hit, 28px);
   font-family: var(--font-sans, inherit);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.4;
   text-align: left;
   color: var(--fg);
-  background: var(--bg-secondary);
+  background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: var(--shadow-sm, none);
+  padding: 0.4rem 0.7rem;
   cursor: pointer;
   transition:
-    box-shadow 0.15s,
-    transform 0.15s;
+    border-color 0.16s,
+    box-shadow 0.16s;
 }
 .ds-select-trigger:focus-visible,
 .ds-select-trigger[aria-expanded="true"] {
   outline: none;
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft, rgba(154, 63, 209, 0.12));
 }
 .ds-select-trigger:disabled {
   opacity: 0.5;
@@ -243,7 +236,7 @@
   height: 0.8rem;
   flex-shrink: 0;
   color: var(--muted);
-  transition: transform 0.15s;
+  transition: transform 0.16s;
 }
 .ds-select-trigger[aria-expanded="true"] .ds-select-chevron {
   transform: rotate(180deg);
@@ -251,28 +244,30 @@
 
 .ds-select-menu {
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% + 6px);
   left: 0;
   z-index: 50;
   min-width: 100%;
   max-height: 16rem;
   overflow-y: auto;
   margin: 0;
-  padding: 0.25rem;
+  padding: 5px;
   list-style: none;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+  background: var(--material-thick, var(--bg-secondary));
+  -webkit-backdrop-filter: var(--material-blur, none);
+  backdrop-filter: var(--material-blur, none);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-lg, 0 18px 50px rgba(0, 0, 0, 0.14));
 }
 .ds-select-option {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.4rem 0.55rem;
-  border-radius: 3px;
-  font-size: 0.875rem;
+  padding: 0.38rem 0.6rem;
+  border-radius: var(--radius-xs, 6px);
+  font-size: 0.9375rem;
   white-space: nowrap;
   color: var(--fg);
   cursor: pointer;
@@ -289,31 +284,24 @@
   cursor: not-allowed;
 }
 .ds-select-check {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 /* ── Toggle / switch ──
-   Rectangular brutalist switch: hard border + square thumb. Off = surface +
-   ink thumb; on = violet track + ink-on-violet thumb. */
+   The iOS switch: a 51×31 capsule track, white knob with a soft shadow,
+   purple when on. */
 .ds-toggle {
   position: relative;
   display: inline-block;
-  width: 2.6rem;
-  height: 1.5rem;
+  flex-shrink: 0;
+  width: 51px;
+  height: 31px;
   padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  background: var(--bg-secondary);
+  border: none;
+  border-radius: 9999px;
+  background: var(--fill-strong, rgba(120, 120, 128, 0.2));
   cursor: pointer;
-  transition:
-    background 0.18s,
-    box-shadow 0.15s,
-    transform 0.15s;
-}
-.ds-toggle:focus-visible {
-  outline: none;
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
+  transition: background 0.25s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .ds-toggle:disabled {
   opacity: 0.5;
@@ -323,76 +311,67 @@
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 1.05rem;
-  height: 1.05rem;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  background: var(--fg);
-  transition:
-    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.18s;
+  width: 27px;
+  height: 27px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.15),
+    0 3px 1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .ds-toggle[aria-checked="true"] {
   background: var(--accent);
 }
 .ds-toggle[aria-checked="true"] .ds-toggle-thumb {
-  background: var(--accent-fg);
-  transform: translateX(1.1rem);
+  transform: translateX(20px);
 }
 
 /* ── Audio player ──
-   Brutalist compact audio control: violet play/pause, an accent-filled seek bar
-   (native range, keyboard-operable), and a time read-out. Theme-adaptive via
-   the border/bg/accent tokens. */
+   A compact now-playing capsule: round purple play button, a thin
+   scrubber and tabular time. */
 .ds-audio {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.75rem;
   min-width: 18rem;
   max-width: 100%;
   font-family: var(--font-sans, inherit);
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  box-shadow: var(--shadow-brutal, 4px 4px 0 var(--border));
-  padding: 0.5rem 0.7rem;
+  border-radius: 9999px;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
 }
 .ds-audio-btn {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.25rem;
+  height: 2.25rem;
   color: var(--accent-fg);
   background: var(--accent);
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  border: none;
+  border-radius: 9999px;
   cursor: pointer;
-  transition:
-    box-shadow 0.15s,
-    transform 0.15s;
+  transition: transform 0.16s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .ds-audio-btn svg {
   width: 0.95rem;
   height: 0.95rem;
   fill: currentColor;
 }
-.ds-audio-btn:hover,
-.ds-audio-btn:focus-visible {
-  outline: none;
-  transform: translate(-1px, -1px);
-  box-shadow: var(--shadow-brutal, 3px 3px 0 var(--border));
+.ds-audio-btn:active {
+  transform: scale(0.94);
 }
 .ds-audio-body {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.2rem;
   flex: 1 1 auto;
   min-width: 0;
 }
 .ds-audio-title {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--fg);
   white-space: nowrap;
@@ -409,35 +388,83 @@
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 6px;
-  margin: 0.25rem 0;
-  border-radius: 999px;
+  height: 4px;
+  margin: 0.3rem 0;
+  border-radius: 9999px;
   background: linear-gradient(
     to right,
     var(--accent) var(--ds-audio-pct, 0%),
-    var(--border-light) var(--ds-audio-pct, 0%)
+    var(--fill-strong, var(--border-light)) var(--ds-audio-pct, 0%)
   );
   cursor: pointer;
 }
 .ds-audio-seek::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: var(--accent);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 .ds-audio-seek::-moz-range-thumb {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
+  border: none;
   border-radius: 50%;
-  background: var(--accent);
-  border: 1px solid var(--border);
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 .ds-audio-seek:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 3px solid var(--accent-soft, rgba(154, 63, 209, 0.3));
   outline-offset: 3px;
+}
+
+/* ── Segmented control ──
+   Capsule track on the system fill; the selected segment sits on a raised
+   white thumb (elevated gray in dark). */
+.ds-segmented {
+  display: inline-flex;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px;
+  gap: 2px;
+  background: var(--fill, rgba(120, 120, 128, 0.12));
+  border-radius: 9999px;
+}
+.ds-segmented-item {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 30px;
+  padding: 0 0.95rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--fg);
+  background: none;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+.ds-segmented-item[aria-checked="true"] {
+  font-weight: 600;
+}
+.ds-segmented-item:not([aria-checked="true"]):hover {
+  color: var(--muted);
+}
+.ds-segmented-thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--bg);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.12),
+    0 1px 1px rgba(0, 0, 0, 0.04);
+}
+[data-theme="dark"] .ds-segmented-thumb {
+  background: #636366;
 }

@@ -1,81 +1,164 @@
 /* ──────────────────────────────────────────────────────────────
-   MTosity design tokens — warm paper + plum-charcoal + violet
-   Dark theme: plum near-black + paper + the same violet, activated
-   via [data-theme="dark"] on <html> (see ThemeToggle + the inline
-   no-flash script in the web app's root layout).
+   MTosity design tokens — Apple HIG system palette + purple tint
+   Light: white / #f5f5f7 grouped surfaces, #1d1d1f label.
+   Dark: true black / #1c1c1e elevated surfaces, #f5f5f7 label.
+   The theme follows the OS until someone picks one with the toggle;
+   it is applied via [data-theme] on <html> (see ThemeToggle + the
+   inline no-flash script in the web app's root layout).
    Canonical reference: DESIGN.md at the repo root.
    ────────────────────────────────────────────────────────────── */
 
 /* Tailwind v4 theme — exposes the palette as native utilities
    (bg-accent, text-muted, border-border-light, font-heading, …).
    `static` forces emission even before any utility uses them. */
-/* Make Tailwind's dark: variant follow the theme switch instead of the
-   OS preference. */
 @import "./system.css";
 
+/* Make Tailwind's dark: variant follow the theme switch instead of the
+   OS preference. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme static {
-  --color-bg: #f4eee5;
-  --color-bg-secondary: #ebe3d6;
-  --color-fg: #2b2a33;
-  --color-accent: #7b46f2;
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f5f5f7;
+  --color-fg: #1d1d1f;
+  --color-accent: #9a3fd1;
   --color-accent-fg: #ffffff;
-  --color-border: #2b2a33;
-  --color-border-light: #ddd3c4;
-  --color-muted: #5f5a63;
-  --color-danger: #c2321b;
+  --color-border: #d2d2d7;
+  --color-border-light: #e8e8ed;
+  --color-muted: #6e6e73;
+  --color-danger: #d70015;
 
-  --font-heading: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
-  --font-sans: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
-  --font-serif: var(--font-literata), Georgia, serif;
+  /* SF on Apple devices, Inter everywhere else (loaded with preload off,
+     so Macs and iPhones never download it). */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-bricolage), -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-literata), "New York", ui-serif, Georgia, serif;
+  --font-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Apple text styles (iOS Large/default sizes). Utilities: text-footnote,
+     text-subhead, text-body, text-title-2, … */
+  --text-caption-2: 0.6875rem;
+  --text-caption-2--line-height: 1.18;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.33;
+  --text-footnote: 0.8125rem;
+  --text-footnote--line-height: 1.38;
+  --text-subhead: 0.9375rem;
+  --text-subhead--line-height: 1.33;
+  --text-callout: 1rem;
+  --text-callout--line-height: 1.31;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.47;
+  --text-title-3: 1.25rem;
+  --text-title-3--line-height: 1.25;
+  --text-title-2: 1.375rem;
+  --text-title-2--line-height: 1.27;
+  --text-title-1: 1.75rem;
+  --text-title-1--line-height: 1.21;
+  --text-large-title: 2.125rem;
+  --text-large-title--line-height: 1.2;
+
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
 }
 
 :root {
-  --font-sans: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
-  --font-serif: var(--font-literata), Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  --font-heading: var(--font-bricolage), "Avenir Next", "Helvetica Neue", sans-serif;
-  /* Bricolage has a width axis; headings set a little squeezed. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Bricolage Grotesque is the brand face: display text only (hero, page
+     and section titles). HIG › Branding: custom font for headlines,
+     system font for body copy and captions. */
+  --font-heading: var(--font-bricolage), -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter), system-ui, sans-serif;
+  /* Literata is the italic aside inside a headline — never body copy. */
+  --font-serif: var(--font-literata), "New York", ui-serif, Georgia, serif;
+  /* Code and index numerals only. UI labels use --font-sans. */
+  --font-mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* Bricolage has a width axis; display text sets a little squeezed. */
   --heading-stretch: 88%;
 
   color-scheme: light;
 
-  /* Core palette */
-  --bg: #f4eee5;
-  --bg-secondary: #ebe3d6;
-  --fg: #2b2a33;
-  --accent: #7b46f2;
-  --border: #2b2a33;
-  --border-light: #ddd3c4;
-  --muted: #5f5a63;
+  /* Core palette — Apple's system values, sampled from apple.com / iOS.
+     The tint is Apple's system purple, a step deeper so white text on
+     it holds 5.2:1. Contrast on --bg: fg 16.8:1, muted 5.1:1,
+     accent-text 6.0:1. */
+  --bg: #ffffff;
+  --bg-secondary: #f5f5f7;
+  --bg-tertiary: #e8e8ed;
+  --fg: #1d1d1f;
+  --accent: #9a3fd1;
+  --border: #d2d2d7;
+  --border-light: #e8e8ed;
+  --muted: #6e6e73;
 
-  /* Ink on violet — text/borders sitting on an accent surface. The violet
-     is identical in both themes, so these stay white everywhere (no dark
-     override needed). */
+  /* Purple as text (links, tinted labels): Apple's accessible purple in
+     light, its dark-appearance purple in dark. */
+  --accent-text: #8944ab;
+  /* Tinted surface — selected rows, focus halos, tinted buttons. */
+  --accent-soft: color-mix(in srgb, #9a3fd1 12%, transparent);
+
+  /* Ink on purple — text/borders sitting on an accent surface. The purple
+     fill is identical in both themes (white on it is 5.2:1), so these
+     stay white everywhere. */
   --accent-fg: #ffffff;
-  --accent-fg-muted: #efe9ff;
+  --accent-fg-muted: #f7eefc;
 
-  /* Errors / destructive actions — readable on both themes */
-  --danger: #c2321b;
+  /* System fills: translucent grays for chips, tracks and secondary
+     buttons, so they read on any surface (systemFill family). */
+  --fill: rgba(120, 120, 128, 0.12);
+  --fill-strong: rgba(120, 120, 128, 0.2);
+
+  /* Errors / destructive actions — Apple's accessible red, 5.4:1 */
+  --danger: #d70015;
+
+  /* Materials — the navigation layer floats over content as a glass bar.
+     Only chrome uses these; content surfaces stay opaque. */
+  --material-bar: rgba(255, 255, 255, 0.72);
+  --material-thick: rgba(250, 250, 252, 0.86);
+  --material-blur: saturate(180%) blur(20px);
+
+  /* Elevation — soft, ambient shadows instead of hard offsets */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 18px 50px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  /* Corner radii — controls 8, rows 12, cards 18, sheets 28, capsules */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Motion — iOS's sheet curve and two durations. Springs live in
+     framer-motion (see Reveal). */
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 160ms;
+  --duration: 320ms;
+
+  /* Hit targets: 44px on touch, 28px with a pointer (HIG › Accessibility) */
+  --hit: 28px;
 
   /* Reading — blog post body. Grows a little with the viewport so a
      long read never sits below 17px; the column holds ~65 characters. */
   --read-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
-  --read-leading: 1.62;
+  --read-leading: 1.6;
   --measure: 40rem;
 
-  /* Brutalist offset shadows (follow --border, so they adapt per theme) */
-  --shadow-brutal: 4px 4px 0 var(--border);
-  --shadow-brutal-lg: 6px 6px 0 var(--border);
+  /* Legacy names, now soft elevation (kept so older call sites resolve) */
+  --shadow-brutal: var(--shadow-md);
+  --shadow-brutal-lg: var(--shadow-lg);
 
   /* Legacy aliases (kept for backward compat with existing components) */
-  --background: #f4eee5;
-  --bg-opaque: rgba(244, 238, 229, 0.25);
-  --background-light: #ebe3d6;
-  --background-dark: #e0d6c6;
-  --text: #2b2a33;
-  --brand: #7b46f2;
+  --background: #ffffff;
+  --bg-opaque: rgba(255, 255, 255, 0.72);
+  --background-light: #f5f5f7;
+  --background-dark: #e8e8ed;
+  --text: #1d1d1f;
+  --brand: #9a3fd1;
 
   /* ── Blog definition callouts ──────────────────────────────────────────
      The definition sidebar renders pastel callout cards. Those colours used
@@ -98,37 +181,58 @@
   --def-emerald-bg: #ecfdf5;  --def-emerald-border: #6ee7b7; --def-emerald-text: #047857;
 }
 
+@media (pointer: coarse) {
+  :root {
+    --hit: 44px;
+  }
+}
+
 /* ── Dark theme ──
-   Mirrors the light palette: bg/fg swap to plum near-black + paper,
-   the violet accent is shared. Overrides both the runtime vars and the
-   Tailwind @theme vars (utilities compile to var(--color-*)). */
+   True black base with elevated #1c1c1e surfaces, like iOS. The purple
+   fill is shared; its text form lightens to hold contrast. Overrides
+   both the runtime vars and the Tailwind @theme vars (utilities compile
+   to var(--color-*)). Contrast on #000: fg 19.3:1, muted 7.3:1,
+   accent-text 6.0:1. */
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #1c1b22;
-  --bg-secondary: #25242d;
-  --fg: #f1ebe2;
-  --accent: #7b46f2;
-  --border: #f1ebe2;
-  --border-light: #3a3843;
-  --muted: #b4acb3;
-  --danger: #ff7d66;
+  --bg: #000000;
+  --bg-secondary: #1c1c1e;
+  --bg-tertiary: #2c2c2e;
+  --fg: #f5f5f7;
+  --accent: #9a3fd1;
+  --accent-text: #bf5af2;
+  --accent-soft: color-mix(in srgb, #bf5af2 24%, transparent);
+  --border: #38383a;
+  --border-light: #2c2c2e;
+  --muted: #98989d;
+  --danger: #ff453a;
 
-  --color-bg: #1c1b22;
-  --color-bg-secondary: #25242d;
-  --color-fg: #f1ebe2;
-  --color-accent: #7b46f2;
-  --color-border: #f1ebe2;
-  --color-border-light: #3a3843;
-  --color-muted: #b4acb3;
-  --color-danger: #ff7d66;
+  --fill: rgba(120, 120, 128, 0.24);
+  --fill-strong: rgba(120, 120, 128, 0.36);
 
-  --background: #1c1b22;
-  --bg-opaque: rgba(28, 27, 34, 0.25);
-  --background-light: #25242d;
-  --background-dark: #2e2d37;
-  --text: #f1ebe2;
-  --brand: #7b46f2;
+  --material-bar: rgba(22, 22, 23, 0.72);
+  --material-thick: rgba(28, 28, 30, 0.86);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+  --color-bg: #000000;
+  --color-bg-secondary: #1c1c1e;
+  --color-fg: #f5f5f7;
+  --color-accent: #9a3fd1;
+  --color-border: #38383a;
+  --color-border-light: #2c2c2e;
+  --color-muted: #98989d;
+  --color-danger: #ff453a;
+
+  --background: #000000;
+  --bg-opaque: rgba(22, 22, 23, 0.72);
+  --background-light: #1c1c1e;
+  --background-dark: #2c2c2e;
+  --text: #f5f5f7;
+  --brand: #9a3fd1;
 
   /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
      tone that sits on --bg-secondary, borders take the old text colour and
@@ -148,40 +252,70 @@
   --def-emerald-bg: #06231a;  --def-emerald-border: #047857; --def-emerald-text: #6ee7b7;
 }
 
-/* ── Shared brutalist utility classes ── */
+/* ── Increased contrast ── (HIG › Color: every custom colour needs an
+   increased-contrast variant). Secondary text, separators and the purple
+   text step get noticeably stronger. */
+@media (prefers-contrast: more) {
+  :root {
+    --muted: #4a4a4f;
+    --border: #86868b;
+    --border-light: #c7c7cc;
+    --accent-text: #6e2f8f;
+    --fill: rgba(120, 120, 128, 0.22);
+  }
+  [data-theme="dark"] {
+    --muted: #c7c7cc;
+    --border: #8e8e93;
+    --border-light: #545458;
+    --accent-text: #da8fff;
+    --fill: rgba(120, 120, 128, 0.4);
+  }
+}
+
+/* ── Reduced transparency ── glass bars go opaque. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --material-bar: var(--bg);
+    --material-thick: var(--bg-secondary);
+    --material-blur: none;
+  }
+}
 
 /* Re-establishes the light palette inside a subtree regardless of the
    active theme — for "paper" surfaces whose content assumes a light
-   background (e.g. the blog sidebar's pastel definition cards). */
+   background. */
 .theme-light-scope {
   color-scheme: light;
   color: var(--fg);
 
-  --bg: #f4eee5;
-  --bg-secondary: #ebe3d6;
-  --fg: #2b2a33;
-  --accent: #7b46f2;
-  --border: #2b2a33;
-  --border-light: #ddd3c4;
-  --muted: #5f5a63;
-  --danger: #c2321b;
+  --bg: #ffffff;
+  --bg-secondary: #f5f5f7;
+  --bg-tertiary: #e8e8ed;
+  --fg: #1d1d1f;
+  --accent: #9a3fd1;
+  --accent-text: #8944ab;
+  --border: #d2d2d7;
+  --border-light: #e8e8ed;
+  --muted: #6e6e73;
+  --danger: #d70015;
+  --fill: rgba(120, 120, 128, 0.12);
+  --fill-strong: rgba(120, 120, 128, 0.2);
 
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f5f5f7;
+  --color-fg: #1d1d1f;
+  --color-accent: #9a3fd1;
+  --color-border: #d2d2d7;
+  --color-border-light: #e8e8ed;
+  --color-muted: #6e6e73;
+  --color-danger: #d70015;
 
-  --color-bg: #f4eee5;
-  --color-bg-secondary: #ebe3d6;
-  --color-fg: #2b2a33;
-  --color-accent: #7b46f2;
-  --color-border: #2b2a33;
-  --color-border-light: #ddd3c4;
-  --color-muted: #5f5a63;
-  --color-danger: #c2321b;
-
-  --background: #f4eee5;
-  --bg-opaque: rgba(244, 238, 229, 0.25);
-  --background-light: #ebe3d6;
-  --background-dark: #e0d6c6;
-  --text: #2b2a33;
-  --brand: #7b46f2;
+  --background: #ffffff;
+  --bg-opaque: rgba(255, 255, 255, 0.72);
+  --background-light: #f5f5f7;
+  --background-dark: #e8e8ed;
+  --text: #1d1d1f;
+  --brand: #9a3fd1;
 }
 
 /* ThemeToggle icons — visibility is pure CSS keyed off [data-theme],
@@ -202,48 +336,187 @@
   display: block;
 }
 
+/* ── Navigation (SlideTabs) ──
+   The glass bar is the only translucent surface (HIG › Materials); the
+   capsule slides between links via framer-motion's layoutId. */
+.ds-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1rem, 4vw, 3.5rem);
+  background: var(--material-bar);
+  -webkit-backdrop-filter: var(--material-blur);
+  backdrop-filter: var(--material-blur);
+  border-bottom: 1px solid var(--border-light);
+}
+.ds-nav-logo {
+  font-family: var(--font-heading);
+  font-stretch: var(--heading-stretch, 100%);
+  font-size: 1.125rem; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--fg); background: none; border: none; cursor: pointer;
+  padding: 0.25rem 0; min-height: var(--hit);
+}
+.ds-nav-links {
+  display: flex; gap: 0.125rem; list-style: none; margin: 0; padding: 0;
+}
+.ds-nav-pill {
+  position: absolute; inset: 0; border-radius: 9999px;
+  background: var(--fill);
+}
+.ds-nav-link {
+  position: relative; display: inline-flex; align-items: center;
+  height: 32px; padding: 0 0.85rem;
+  font-family: var(--font-sans); font-size: 0.875rem; font-weight: 400;
+  color: var(--muted); text-decoration: none; border-radius: 9999px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.ds-nav-link:hover, .ds-nav-link[aria-current="page"] { color: var(--fg); }
+.ds-nav-link[aria-current="page"] { font-weight: 600; }
+.ds-nav-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; margin-right: -10px;
+  background: none; border: none; border-radius: 9999px;
+  color: var(--fg); cursor: pointer;
+}
+.ds-nav-sheet {
+  position: absolute; top: calc(56px + 8px); left: 0.75rem; right: 0.75rem;
+  padding: 6px;
+  background: var(--material-thick);
+  -webkit-backdrop-filter: var(--material-blur);
+  backdrop-filter: var(--material-blur);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transform-origin: top right;
+}
+.ds-nav-sheet-row {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 48px; padding: 0 0.9rem;
+  font-family: var(--font-sans); font-size: 1.0625rem;
+  color: var(--fg); text-decoration: none;
+  border-radius: var(--radius-md);
+}
+.ds-nav-sheet-row[aria-current="page"] { color: var(--accent-text); font-weight: 600; }
+.ds-nav-sheet-row:active { background: var(--fill); }
+
+.ds-theme-toggle:hover {
+  background: var(--fill) !important;
+}
+
 /* Muted-to-foreground hover, the standard treatment for secondary links
    and icon buttons. Replaces per-element JS mouseenter/leave handlers. */
 .link-hover {
   color: var(--muted);
-  transition: color 0.15s;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
 .link-hover:hover {
   color: var(--fg);
 }
 
-/* Global chip / tag */
+/* Tinted text link — the purple means "this is tappable" and nothing else
+   (HIG › Color: one colour, one meaning). */
+.link-tint {
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.link-tint:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Global chip — a capsule on the system fill, sentence case */
 .chip {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border: 1px solid var(--border-light);
-  padding: 0.2rem 0.6rem;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg);
+  background: var(--fill);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.75rem;
 }
 
 /* Section wrapper — applied per home section */
 .section-wrapper {
-  padding: 6rem clamp(1.5rem, 5vw, 4rem);
-  border-top: 1px solid var(--border);
+  padding: clamp(4.5rem, 9vw, 7.5rem) clamp(1.25rem, 5vw, 4rem);
+  border-top: 1px solid var(--border-light);
   width: 100%;
 }
 
 .section-num {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-text);
 }
 
 .border-rule {
   width: 100%;
   height: 1px;
+  background: var(--border-light);
+}
+
+/* Grouped container — an inset-grouped list in the iOS sense: a rounded
+   surface whose rows are separated by inset hairlines. */
+.ds-group {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 6px;
+}
+
+.ds-group-row {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-md);
+  color: var(--fg);
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.ds-group-row + .ds-group-row::before,
+.ds-group > * + * > .ds-group-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 1px;
+  background: var(--border-light);
+}
+
+[data-theme="dark"] .ds-group-row + .ds-group-row::before,
+[data-theme="dark"] .ds-group > * + * > .ds-group-row::before {
   background: var(--border);
+}
+
+/* The purple selection fill — the site's signature hover. Re-points the
+   text tokens so children stay readable on the purple. */
+.ds-group-row:hover,
+.ds-group-row:focus-visible {
+  background: var(--accent);
+  --fg: var(--accent-fg);
+  --muted: var(--accent-fg-muted);
+  --accent-text: var(--accent-fg);
+  --border-light: transparent;
+  --fill: rgba(255, 255, 255, 0.2);
+}
+
+.ds-group-row:hover::before,
+.ds-group-row:hover + .ds-group-row::before,
+.ds-group > *:hover + * > .ds-group-row::before {
+  opacity: 0;
+}
+
+/* Keyboard focus — a purple halo on everything focusable */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 2px;
 }
 
 /* Custom scrollbar styles */
@@ -256,13 +529,12 @@
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-  border-radius: 3px;
+  background: transparent;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: var(--border-light);
-  border-radius: 3px;
+  background: var(--fill-strong);
+  border-radius: var(--radius-full);
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {

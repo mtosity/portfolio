@@ -43,13 +43,14 @@ export const ProjectModal = ({
 
   const content = (
     <div className={styles.modal} onClick={() => setIsOpen(false)}>
-      <button className={styles.closeModalBtn}>
+      <button className={styles.closeModalBtn} aria-label="Close">
         <MdClose />
       </button>
 
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: 60, opacity: 0, scale: 0.98 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 32 }}
         onClick={(e) => e.stopPropagation()}
         className={styles.modalCard}
       >
@@ -74,14 +75,14 @@ export const ProjectModal = ({
 
           <div className={styles.modalFooter}>
             <p className={styles.linksText}>
-              Project Links<span>.</span>
+              Project links<span>.</span>
             </p>
             <div className={styles.links}>
               <Link target="_blank" rel="nofollow" href={code}>
-                <AiFillGithub /> source code
+                <AiFillGithub /> Source Code
               </Link>
               <Link target="_blank" rel="nofollow" href={projectLink}>
-                <AiOutlineExport /> live project
+                <AiOutlineExport /> Live Project
               </Link>
             </div>
           </div>

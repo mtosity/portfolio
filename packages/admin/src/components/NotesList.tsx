@@ -53,9 +53,8 @@ function RevealRow({ note, index }: { note: NoteListItem; index: number }) {
     >
       <span
         style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.62rem",
-          letterSpacing: "0.1em",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           color: "var(--muted)",
           width: 100,
           flexShrink: 0,
@@ -78,13 +77,11 @@ function RevealRow({ note, index }: { note: NoteListItem; index: number }) {
       {!note.published && (
         <span
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6rem",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "var(--muted)",
             border: "1px solid var(--border-light)",
-            borderRadius: 2,
+            borderRadius: "var(--radius-sm)",
             padding: "0.15rem 0.4rem",
           }}
         >

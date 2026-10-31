@@ -1,36 +1,78 @@
 .contactWrapper {
-  max-width: 800px;
-  padding: 2rem 0 4rem;
+  max-width: 760px;
+  padding: 1rem 0 3rem;
 }
 
 .contactTitle {
   font-family: var(--font-heading);
+  font-stretch: var(--heading-stretch);
   font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   color: var(--fg);
-  margin-bottom: 3rem;
+  margin: 0 0 2.5rem;
+
+  em {
+    color: var(--accent-text);
+  }
 }
 
+/* An inset-grouped list of ways to reach me; each row fills purple on
+   hover like the project rows. */
 .contactLinks {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 6px;
 }
 
 .contactLink {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  letter-spacing: 0.05em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 52px;
+  padding: 0 1rem;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: 500;
   color: var(--fg);
   text-decoration: none;
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 1rem;
-  display: block;
-  transition: border-color 0.15s, color 0.15s;
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+
+  & + &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 1px;
+    background: var(--border);
+    opacity: 0.7;
+  }
 
   &:hover {
-    border-color: var(--fg);
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  &:hover::before,
+  &:hover + &::before {
+    opacity: 0;
+  }
+}
+
+.arrow {
+  color: var(--muted);
+  transition: transform var(--duration-fast) var(--ease-out);
+
+  .contactLink:hover & {
+    color: var(--accent-fg);
+    transform: translate(2px, -2px);
   }
 }

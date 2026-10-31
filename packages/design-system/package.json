@@ -1,7 +1,7 @@
 {
   "name": "@mtosity/design-system",
-  "version": "0.7.0",
-  "description": "MTosity design tokens and brutalist UI primitives (warm cream + black + lime).",
+  "version": "0.8.0",
+  "description": "MTosity design tokens and UI primitives — Apple HIG system palette, SF type and a violet tint.",
   "license": "MIT",
   "repository": {
     "type": "git",

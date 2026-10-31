@@ -7,7 +7,7 @@ export interface SelectOption {
   disabled?: boolean;
 }
 
-/* Brutalist select with a fully styled dropdown (the native <select> popup
+/* Pop-up select with a fully styled dropdown (the native <select> popup
    can't be themed, so this is a custom listbox). Accessible:
    button[role="combobox"] + ul[role="listbox"], arrow-key navigation,
    Home/End, Enter/Space to choose, Esc to close, click-outside, and a hidden

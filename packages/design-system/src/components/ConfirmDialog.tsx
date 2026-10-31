@@ -65,53 +65,57 @@ export function ConfirmDialog({
       </div>
 
       <style>{`
+        /* An alert in the HIG sense: centered, on the thick material, a
+           short title and message, and full-width buttons separated by
+           hairlines — Cancel leading, the action trailing. */
         .confirm-backdrop {
           position: fixed; inset: 0; z-index: 2000;
-          background: rgba(13,13,13,0.55);
-          backdrop-filter: blur(4px);
+          background: rgba(0, 0, 0, 0.35);
           display: flex; align-items: center; justify-content: center;
           padding: 1.5rem;
-          animation: confirm-fade 0.15s ease;
+          animation: confirm-fade 0.2s var(--ease-out, ease);
         }
         @keyframes confirm-fade { from { opacity: 0; } to { opacity: 1; } }
         .confirm-card {
-          width: 100%; max-width: 400px;
-          background: var(--bg);
-          border: 1px solid var(--border);
-          border-radius: 4px;
-          box-shadow: 8px 12px 40px rgba(0,0,0,0.3);
-          padding: 1.5rem 1.5rem 1.25rem;
-          animation: confirm-pop 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+          width: 100%; max-width: 320px;
+          background: var(--material-thick, var(--bg-secondary));
+          -webkit-backdrop-filter: var(--material-blur, none);
+          backdrop-filter: var(--material-blur, none);
+          border-radius: var(--radius-lg, 18px);
+          box-shadow: var(--shadow-lg);
+          overflow: hidden;
+          text-align: center;
+          animation: confirm-pop 0.32s cubic-bezier(0.32, 0.72, 0, 1);
         }
         @keyframes confirm-pop {
-          from { opacity: 0; transform: scale(0.94) translateY(8px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
+          from { opacity: 0; transform: scale(1.08); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .confirm-backdrop, .confirm-card { animation: none; }
         }
         .confirm-title {
-          font-family: var(--font-heading);
-          font-size: 1.3rem; font-weight: 600;
-          margin: 0 0 0.5rem; color: var(--fg);
+          font-family: var(--font-sans);
+          font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em;
+          margin: 1.25rem 1.25rem 0.35rem; color: var(--fg);
         }
         .confirm-message {
-          font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.6;
-          color: var(--muted); margin: 0 0 1.4rem;
+          font-family: var(--font-sans); font-size: 0.8125rem; line-height: 1.4;
+          color: var(--fg); margin: 0 1.25rem 1.25rem;
         }
         .confirm-actions {
-          display: flex; justify-content: flex-end; gap: 0.6rem;
+          display: grid; grid-template-columns: 1fr 1fr;
+          border-top: 1px solid var(--border);
         }
         .confirm-cancel, .confirm-ok {
-          font-family: var(--font-mono); font-size: 0.74rem;
-          border-radius: 2px; padding: 0.5rem 1rem; cursor: pointer;
+          font-family: var(--font-sans); font-size: 1.0625rem;
+          min-height: 44px; padding: 0 1rem; cursor: pointer;
+          background: transparent; border: none;
         }
-        .confirm-cancel {
-          background: transparent; color: var(--fg);
-          border: 1px solid var(--border-light);
-        }
-        .confirm-ok {
-          background: var(--danger); color: var(--bg); border: 1px solid var(--danger);
-          font-weight: 700;
-        }
-        .confirm-cancel:disabled, .confirm-ok:disabled { opacity: 0.6; cursor: default; }
+        .confirm-cancel:hover, .confirm-ok:hover { background: var(--fill); }
+        .confirm-cancel { color: var(--accent-text); border-right: 1px solid var(--border) !important; }
+        .confirm-ok { color: var(--danger); font-weight: 600; }
+        .confirm-cancel:disabled, .confirm-ok:disabled { opacity: 0.5; cursor: default; }
       `}</style>
     </div>
   );

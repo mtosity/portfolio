@@ -1,36 +1,57 @@
+/* An inset-grouped list: one rounded surface, rows separated by inset
+   hairlines. A row fills purple under the pointer — the site's signature
+   hover, kept from the brutalist version. */
 .projects {
   display: flex;
   flex-direction: column;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 6px;
+}
+
+.projects > div + div .projectRow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(1rem + 2.5rem + 1.25rem);
+  right: 1rem;
+  height: 1px;
+  background: var(--border);
+  opacity: 0.7;
+  transition: opacity var(--duration-fast);
+}
+
+.projects > div:hover + div .projectRow::before,
+.projects > div:hover .projectRow::before {
+  opacity: 0;
 }
 
 .projectRow {
+  position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 1.5rem;
-  padding: 1.25rem 0.5rem;
-  border-bottom: 1px solid var(--border-light);
-  transition: background 0.15s ease;
+  gap: 1.25rem;
+  padding: 1.1rem 1rem;
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-out);
 
-  &:first-child {
-    border-top: 1px solid var(--border-light);
-  }
-
-  /* The row turns violet on hover (inline style); re-point the text vars at
-     ink-on-violet so children stay high-contrast in both themes. */
+  /* The row turns purple on hover (inline style); re-point the text vars at
+     ink-on-purple so children stay high-contrast in both themes. */
   &:hover {
     --fg: var(--accent-fg);
     --muted: var(--accent-fg-muted);
+    --accent-text: var(--accent-fg);
     --border-light: var(--accent-fg-muted);
   }
 }
 
 .projectNum {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
-  letter-spacing: 0.05em;
   flex-shrink: 0;
-  padding-top: 0.15rem;
+  padding-top: 0.2rem;
   min-width: 2.5rem;
 }
 
@@ -43,29 +64,28 @@
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 0.4rem;
+  gap: 0.25rem 0.75rem;
+  margin-bottom: 0.3rem;
 }
 
 .projectTitle {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
   color: var(--fg);
 }
 
 .projectTech {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
   color: var(--muted);
 }
 
 .projectYear {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
   margin-left: auto;
 }
@@ -73,8 +93,8 @@
 .projectDesc {
   font-size: 0.9375rem;
   color: var(--muted);
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
+  margin-bottom: 0.55rem;
+  line-height: 1.45;
 }
 
 .projectLinks {
@@ -83,17 +103,14 @@
 }
 
 .projectLink {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent-text);
   text-decoration: none;
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 1px;
-  transition: border-color 0.15s;
 
   &:hover {
-    border-color: var(--fg);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
 }

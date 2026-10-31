@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { SlideTabs } from "@mtosity/design-system";
+import { SlideTabs, Tag, type TagTone } from "@mtosity/design-system";
 import { tools, type ToolIconName } from "@/data/tools";
 
 const STATUS_LABEL: Record<string, string> = {
-  live: "● LIVE",
-  beta: "◐ BETA",
-  wip: "○ WIP",
+  live: "Live",
+  beta: "Beta",
+  wip: "In progress",
+};
+
+const STATUS_TONE: Record<string, TagTone> = {
+  live: "positive",
+  beta: "warning",
+  wip: "neutral",
 };
 
 export default function ToolsPage() {
@@ -39,35 +45,30 @@ export default function ToolsPage() {
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.2em",
-              color: "var(--muted)",
+              fontSize: "0.8125rem",
+              color: "var(--accent-text)",
             }}
           >
             07 —
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono)",
+              fontFamily: "var(--font-sans)",
               fontSize: "0.75rem",
               fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
             }}
           >
-            TOOLS
+            Tools
           </span>
-          <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+          <div style={{ flex: 1 }} />
           <span
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.18em",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.75rem",
               color: "var(--muted)",
-              textTransform: "uppercase",
             }}
           >
-            {tools.length.toString().padStart(2, "0")} ITEM{tools.length === 1 ? "" : "S"}
+            {tools.length.toString().padStart(2, "0")} {tools.length === 1 ? "tool" : "tools"}
           </span>
         </motion.div>
 
@@ -110,7 +111,7 @@ export default function ToolsPage() {
         </motion.div>
 
         {/* Tools list */}
-        <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+        <ul className="ds-group" style={{ listStyle: "none", margin: 0 }}>
           {tools.map((tool, i) => (
             <ToolRow key={tool.slug} tool={tool} index={i} />
           ))}
@@ -136,140 +137,87 @@ function ToolRow({
         delay: 0.25 + index * 0.08,
         ease: [0.65, 0, 0.35, 1],
       }}
-      style={{ borderBottom: "1px solid var(--border-light)" }}
     >
-      <Link
-        href={`/tools/${tool.slug}`}
-        className="tool-row"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "auto auto 1fr auto",
-          alignItems: "start",
-          gap: "clamp(0.85rem, 2.5vw, 1.75rem)",
-          padding: "1.75rem 1rem",
-          color: "var(--fg)",
-          textDecoration: "none",
-          position: "relative",
-          transition: "background 0.3s ease, padding 0.3s ease",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.75rem",
-            letterSpacing: "0.18em",
-            color: "var(--muted)",
-            minWidth: "3ch",
-            paddingTop: "0.55rem",
-          }}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
+      <Link href={`/tools/${tool.slug}`} className="ds-group-row tool-row">
         <ToolThumbnail name={tool.icon} />
 
         <div style={{ minWidth: 0 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              gap: "0.75rem",
-              flexWrap: "wrap",
-              marginBottom: "0.5rem",
-            }}
-          >
-            <h2
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                margin: 0,
-                lineHeight: 1.1,
-              }}
-            >
-              {tool.title}
-            </h2>
-            <span
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                letterSpacing: "0.15em",
-                color: "var(--muted)",
-                textTransform: "uppercase",
-              }}
-            >
-              {STATUS_LABEL[tool.status]} · {tool.year}
-            </span>
+          <div className="tool-title-line">
+            <h2 className="tool-title">{tool.title}</h2>
+            <Tag tone={STATUS_TONE[tool.status] ?? "neutral"}>
+              {STATUS_LABEL[tool.status]}
+            </Tag>
+            <span className="tool-year">{tool.year}</span>
           </div>
-          <p
-            style={{
-              fontSize: "1rem",
-              color: "var(--muted)",
-              lineHeight: 1.6,
-              margin: "0 0 0.85rem",
-              maxWidth: "62ch",
-            }}
-          >
-            {tool.description}
-          </p>
+          <p className="tool-desc">{tool.description}</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
             {tool.tags.map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "var(--muted)",
-                  border: "1px solid var(--border-light)",
-                  padding: "0.18rem 0.55rem",
-                }}
-              >
+              <span key={tag} className="chip">
                 {tag}
               </span>
             ))}
           </div>
         </div>
 
-        <span
-          aria-hidden
-          className="tool-arrow"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.95rem",
-            color: "var(--fg)",
-            transform: "translateX(0)",
-            transition: "transform 0.3s ease",
-            display: "inline-block",
-          }}
-        >
-          →
-        </span>
+        <svg className="tool-chevron" width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden>
+          <path d="M1.5 1.5l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </Link>
 
       {/* jsx global: motion.li doesn't receive the styled-jsx scope class,
           so scoped selectors would never match the row. */}
       <style jsx global>{`
-        .tool-row:hover {
-          background: var(--accent);
-          padding-left: 1.5rem !important;
-          /* Ink-on-violet: children read their colors from these vars */
-          --fg: var(--accent-fg);
-          --muted: var(--accent-fg-muted);
-          --border-light: var(--accent-fg-muted);
+        .tool-row {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          align-items: center;
+          gap: clamp(0.9rem, 2.5vw, 1.5rem);
+          padding: 1.1rem 1rem;
         }
-        .tool-row:hover .tool-arrow {
-          transform: translateX(8px);
+        .tool-title-line {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          flex-wrap: wrap;
+          margin-bottom: 0.3rem;
+        }
+        .tool-title {
+          font-family: var(--font-heading);
+          font-stretch: var(--heading-stretch);
+          font-size: clamp(1.35rem, 3vw, 1.75rem);
+          font-weight: 700;
+          letter-spacing: -0.03em;
+          line-height: 1.15;
+          margin: 0;
+        }
+        .tool-year {
+          font-size: 0.8125rem;
+          color: var(--muted);
+          font-variant-numeric: tabular-nums;
+        }
+        .tool-desc {
+          font-size: 0.9375rem;
+          line-height: 1.45;
+          color: var(--muted);
+          margin: 0 0 0.75rem;
+          max-width: 62ch;
+        }
+        .tool-chevron {
+          color: var(--muted);
+          opacity: 0.6;
+          transition: transform var(--duration-fast) var(--ease-out);
+        }
+        .tool-row:hover .tool-chevron {
+          transform: translateX(3px);
+          opacity: 1;
+        }
+        /* The status capsule and chips go white on the purple row. */
+        .tool-row:hover .tag {
+          color: var(--accent);
+          background: var(--accent-fg);
         }
         .tool-row:hover .tool-thumb {
-          /* White chip, violet icon — constant across themes. The icon reads
-             --fg, which is white ink on this row, so re-point it here.
-             !important: the chip sets background/border inline. */
-          --fg: var(--accent);
-          background: var(--accent-fg) !important;
-          border-color: var(--accent-fg) !important;
+          box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.7);
         }
         .tool-row:hover .tool-thumb svg {
           transform: rotate(-4deg) scale(1.05);
@@ -279,33 +227,36 @@ function ToolRow({
   );
 }
 
+/* An app icon: a purple squircle tile with a white glyph — the same
+   corner ratio (≈22%) as an iOS icon. */
 function ToolThumbnail({ name }: { name: ToolIconName }) {
   return (
     <div
       className="tool-thumb"
       style={{
-        width: "clamp(56px, 8vw, 72px)",
-        height: "clamp(56px, 8vw, 72px)",
-        background: "var(--bg-secondary)",
-        border: "1px solid var(--border-light)",
+        width: "clamp(52px, 7vw, 64px)",
+        height: "clamp(52px, 7vw, 64px)",
+        borderRadius: "22.5%",
+        background:
+          "linear-gradient(160deg, color-mix(in srgb, var(--accent) 78%, #ffffff), var(--accent) 55%, color-mix(in srgb, var(--accent) 80%, #000000))",
+        boxShadow: "var(--shadow-sm)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexShrink: 0,
-        transition: "background 0.25s ease, border-color 0.25s ease",
-        position: "relative",
+        transition: "box-shadow 0.25s ease",
         overflow: "hidden",
       }}
       aria-hidden
     >
       <div
         style={{
-          width: "60%",
-          height: "60%",
+          width: "56%",
+          height: "56%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "var(--fg)",
+          color: "#ffffff",
           transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
@@ -317,7 +268,7 @@ function ToolThumbnail({ name }: { name: ToolIconName }) {
 
 function ToolIcon({ name }: { name: ToolIconName }) {
   const stroke = "currentColor";
-  const sw = 1.5;
+  const sw = 2;
 
   if (name === "mic") {
     return (

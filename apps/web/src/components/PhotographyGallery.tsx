@@ -221,25 +221,21 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--muted)",
+              fontSize: "0.8125rem",
+              color: "var(--accent-text)",
             }}
           >
             05 —
           </span>
           <span
             style={{
-              fontFamily: "var(--font-mono)",
+              fontFamily: "var(--font-sans)",
               fontSize: "0.75rem",
               fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
               color: "var(--fg)",
             }}
           >
-            PHOTOGRAPHY
+            Photography
           </span>
         </div>
 
@@ -376,7 +372,8 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
           style={{
             position: "fixed",
             inset: 0,
-            background: "color-mix(in srgb, var(--bg) 92%, transparent)",
+            // A photo is viewed on black, as in Photos — in both appearances.
+            background: "rgba(0, 0, 0, 0.88)",
             backdropFilter: "blur(8px)",
             display: "flex",
             alignItems: "center",
@@ -418,7 +415,7 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
                     height: "100%",
                     objectFit: "contain",
                     filter: "blur(6px)",
-                    border: "1px solid var(--border-light)",
+                    borderRadius: "var(--radius-md)",
                   }}
                 />
               )}
@@ -436,7 +433,7 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
                   height: "auto",
                   maxHeight: "85vh",
                   objectFit: "contain",
-                  border: "1px solid var(--border-light)",
+                  borderRadius: "var(--radius-md)",
                   position: "relative",
                 }}
               />
@@ -445,17 +442,19 @@ export default function PhotographyGallery({ photos }: { photos: Photo[] }) {
               onClick={() => setSelectedPhoto(null)}
               style={{
                 position: "absolute",
-                top: "-2.5rem",
+                top: "-3.25rem",
                 right: 0,
-                background: "none",
+                minHeight: 36,
+                background: "rgba(255, 255, 255, 0.16)",
+                backdropFilter: "var(--material-blur)",
                 border: "none",
+                borderRadius: 9999,
                 cursor: "pointer",
-                color: "var(--fg)",
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                padding: "0.25rem 0",
+                color: "#ffffff",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                padding: "0 0.95rem",
               }}
             >
               Close ✕

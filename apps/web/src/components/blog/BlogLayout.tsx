@@ -84,8 +84,8 @@ function Sidebar({
       <div
         style={{
           background: "var(--bg-secondary)",
-          border: "1px solid var(--border-light)",
-          padding: "1.25rem",
+          borderRadius: "var(--radius-lg)",
+          padding: "1.25rem 0.75rem 1.25rem 1.25rem",
           height: SIDEBAR_HEIGHT,
           display: "flex",
           flexDirection: "column",
@@ -440,15 +440,15 @@ export default function BlogLayout({
         .blog-article :not(pre) > code {
           font-family: var(--font-mono);
           font-size: 0.84em;
-          background: var(--bg-secondary);
-          border: 1px solid var(--border-light);
+          background: var(--fill);
+          border-radius: var(--radius-xs);
           padding: 0.12em 0.36em;
           color: var(--fg);
         }
         .blog-article pre {
           background: var(--bg-secondary) !important;
           color: var(--fg) !important;
-          border: 1px solid var(--border-light);
+          border-radius: var(--radius-md);
           padding: 1.15rem 1.35rem;
           overflow-x: auto;
           margin: 1.8em 0;
@@ -496,7 +496,7 @@ export default function BlogLayout({
         .blog-article img {
           max-width: 100%;
           height: auto;
-          border: 1px solid var(--border-light);
+          border-radius: var(--radius-md);
           display: block;
           margin: 2em 0;
         }
@@ -519,7 +519,7 @@ export default function BlogLayout({
           text-decoration: none;
           transition: color 0.15s ease;
         }
-        .rail-backlink:hover { color: var(--fg); }
+        .rail-backlink:hover { color: var(--accent-text); }
         .rail-toc-title,
         .rail-panel-title {
           font-family: var(--font-sans);
@@ -544,19 +544,20 @@ export default function BlogLayout({
           text-align: left;
           background: none;
           border: none;
-          border-left: 2px solid transparent;
-          padding: 0.38rem 0.5rem 0.38rem 0.9rem;
+          border-radius: var(--radius-sm);
+          padding: 0.38rem 0.6rem 0.38rem 0.75rem;
           font-family: var(--font-sans);
           font-size: 0.92rem;
           line-height: 1.35;
           color: var(--muted);
           cursor: pointer;
           overflow-wrap: anywhere;
-          transition: color 0.15s ease, border-color 0.15s ease;
+          transition: color 0.15s ease, background 0.15s ease;
         }
-        .rail-toc button[data-level="sub"] { padding-left: 1.8rem; }
-        .rail-toc button:hover { color: var(--fg); }
-        .rail-toc button[aria-current] { color: var(--fg); border-left-color: var(--accent); }
+        .rail-toc button[data-level="sub"] { padding-left: 1.6rem; }
+        .rail-toc button:hover { color: var(--fg); background: var(--fill); }
+        /* Current section: a tinted selection, like a sidebar row */
+        .rail-toc button[aria-current] { color: var(--accent-text); background: var(--accent-soft); font-weight: 600; }
 
         .rail-panel-head {
           display: flex;
@@ -580,7 +581,7 @@ export default function BlogLayout({
           transition: color 0.15s ease;
         }
         .rail-back::before { content: "← "; }
-        .rail-back:hover { color: var(--fg); }
+        .rail-back:hover { color: var(--accent-text); }
         .rail-panel-scroll { overflow-y: auto; flex: 1; min-height: 0; padding-top: 1rem; }
         .rail-panel-lede {
           font-family: var(--font-sans);
