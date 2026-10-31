@@ -349,7 +349,7 @@ All content sections sit inside a max-width `1400px` container.
 - **App-icon tile**: `clamp(52px, 7vw, 64px)` squircle (22.5% radius), purple gradient, white 2px-stroke glyph
 - **Row content**: title (Bricolage `clamp(1.35rem, 3vw, 1.75rem)`) + status `Tag` (Live = positive, Beta = warning, In progress = neutral) + year; description (subhead muted, 62ch); `.chip` capsules
 - **Row entrance**: clip-path wipe from left, 0.8s, staggered 0.08s per row
-- **Row hover**: purple fill; chevron nudges 3px; the status capsule goes white with purple text
+- **Row hover**: purple fill; the icon tile flips to white with a purple glyph; chevron nudges 3px; the status capsule goes white with purple text
 
 ### Tool — Image Grid (`/tools/img-grid`)
 

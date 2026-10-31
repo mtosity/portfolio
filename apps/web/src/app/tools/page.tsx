@@ -216,8 +216,13 @@ function ToolRow({
           color: var(--accent);
           background: var(--accent-fg);
         }
+        /* On the purple row the icon tile flips to white with a purple
+           glyph. !important: the tile sets background/colour inline. */
         .tool-row:hover .tool-thumb {
-          box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.7);
+          background: #ffffff !important;
+        }
+        .tool-row:hover .tool-thumb > div {
+          color: var(--accent) !important;
         }
         .tool-row:hover .tool-thumb svg {
           transform: rotate(-4deg) scale(1.05);
