@@ -45,7 +45,7 @@ export const SlideTabs = () => {
         particleCount: 120,
         spread: 80,
         origin: { y: 0.1 },
-        colors: ["#9a3fd1", "#bf5af2", "#ffffff", "#34c759", "#ff9500"],
+        colors: ["#0071e3", "#2997ff", "#ffffff", "#34c759", "#ff9500"],
       });
     }
   };

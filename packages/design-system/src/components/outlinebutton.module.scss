@@ -1,5 +1,5 @@
-/* Tinted capsule — the HIG "bordered" style: purple text on a soft
-   purple fill, for a secondary action next to a prominent one. */
+/* Tinted capsule — the HIG "bordered" style: blue text on a soft
+   blue fill, for a secondary action next to a prominent one. */
 .outlineButton {
   outline: none;
   border: none;
@@ -40,7 +40,7 @@
 
 .outlineButton:hover {
   background: var(--accent);
-  /* Purple fill — use ink-on-purple, not the theme fg */
+  /* Blue fill — use ink-on-blue, not the theme fg */
   color: var(--accent-fg);
 }
 

@@ -45,7 +45,7 @@ not go stale. The contract:
   shadcn bridge and also imports `system.css`. Shadcn apps import `shadcn.css`
   only (not `tokens.css`).
 - The look follows Apple's HIG (system palette, SF type, capsules, grouped
-  lists, glass nav, springs). The purple fill (#9a3fd1, Apple's system purple a step deeper) is identical in both
+  lists, glass nav, springs). The blue fill (#0071e3, apple.com's button blue) is identical in both
   themes; use `--accent-text` (not `--accent`) for violet text so it holds
   4.5:1 on black. bg/fg/separators swap via `[data-theme="dark"]`; every new
   colour also needs a `prefers-contrast: more` value.

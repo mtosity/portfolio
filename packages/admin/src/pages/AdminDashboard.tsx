@@ -177,12 +177,12 @@ export default async function Dashboard() {
         }
         .dash-action:hover {
           background: var(--accent);
-          /* Ink-on-purple so text/borders pop in both themes. */
+          /* Ink-on-blue so text/borders pop in both themes. */
           --fg: var(--accent-fg);
           --muted: var(--accent-fg-muted);
           --border: var(--accent-fg);
         }
-        /* The plus chip turns white with a purple plus. */
+        /* The plus chip turns white with a blue plus. */
         .dash-action:hover .dash-action-plus { background: var(--accent-fg); color: var(--accent); }
         .dash-action:active { transform: translateY(1px); }
         .dash-action-plus {

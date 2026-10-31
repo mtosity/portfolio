@@ -44,7 +44,7 @@ export const Hero = () => {
         overflow: "hidden",
       }}
     >
-      {/* A soft purple light behind the portrait — the only colour in
+      {/* A soft blue light behind the portrait — the only colour in
           the hero, so the name stays the loudest thing on screen. */}
       <div
         aria-hidden

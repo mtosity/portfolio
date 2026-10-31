@@ -17,17 +17,17 @@ What stays from the earlier site, on purpose (HIG › Branding: brand lives in
 colour, type, tone and a few defining moments, while familiar components carry
 navigation):
 
-- **The purple tint** — Apple's system purple, a step deeper (`#9a3fd1`) so
-  white text on it holds 5.2:1. It replaces the earlier `#7b46f2` violet and
+- **A single tint** — apple.com's blue (`#0071e3`; white on it 4.7:1). It
+  replaced the earlier `#7b46f2` violet and a short-lived system blue, and
   is used for what is tappable and for selection, never for decoration.
 - **Bricolage Grotesque** as the display face — hero name, page and section
   titles, set squeezed (`font-stretch: 88%`). Apple's own advice is a custom
   face for headlines and the system font for body copy and captions.
 - **Literata italic asides** inside headlines ("Small tools. *Built to be
   useful.*", "Let's work *together.*").
-- **The purple hover fill** on list rows (projects, tools, contact) — now a
+- **The blue hover fill** on list rows (projects, tools, contact) — now a
   rounded selection inside an inset-grouped list, like a macOS sidebar row.
-- **Index numerals** (`01`–`07`) in purple SF Mono.
+- **Index numerals** (`01`–`07`) in blue SF Mono.
 - The motion set pieces: the clip-reveal parallax name, the skills ticker,
   clip-path row wipes, and the confetti logo.
 
@@ -43,7 +43,7 @@ least 4.5:1 in both appearances (numbers in the palette tables);
 Tokens are defined once in `packages/design-system/src/tokens.css` — as a Tailwind v4
 `@theme static` block (exposing utilities like `bg-accent`, `text-muted`) plus plain
 `:root` CSS variables consumed by SCSS modules and inline styles. Values are
-Apple's system colours as used on apple.com / iOS. Chart 5 is the exact system purple (`#af52de` / `#bf5af2`).
+Apple's system colours as used on apple.com / iOS.
 
 | Token               | Light                        | Role (HIG name)                        | Contrast on `--bg` |
 |---------------------|------------------------------|----------------------------------------|---------|
@@ -52,11 +52,11 @@ Apple's system colours as used on apple.com / iOS. Chart 5 is the exact system p
 | `--bg-tertiary`     | `#e8e8ed`                    | raised surface                          | — |
 | `--fg`              | `#1d1d1f`                    | label                                   | 16.8:1 |
 | `--muted`           | `#6e6e73`                    | secondaryLabel — dates, captions, ledes | 5.1:1 (4.7:1 on `#f5f5f7`) |
-| `--accent`          | `#9a3fd1` (system purple, deepened) | tint as a fill — buttons, selection, hover rows | white on it 5.2:1 |
-| `--accent-text`     | `#8944ab` (Apple accessible purple) | tint as text — links, numerals, current item | 6.0:1 (5.5:1 on `#f5f5f7`) |
-| `--accent-soft`     | purple 12%                   | tinted fill — selected TOC row, tinted buttons, focus halo | — |
-| `--accent-fg`       | `#ffffff`                    | ink on purple (same in dark)            | — |
-| `--accent-fg-muted` | `#f7eefc`                    | secondary ink on purple (same in dark)  | 4.6:1 on the fill |
+| `--accent`          | `#0071e3` (apple.com blue)   | tint as a fill — buttons, selection, hover rows | white on it 4.7:1 |
+| `--accent-text`     | `#0066cc` (apple.com link blue) | tint as text — links, numerals, current item | 5.6:1 (5.1:1 on `#f5f5f7`) |
+| `--accent-soft`     | blue 12%                   | tinted fill — selected TOC row, tinted buttons, focus halo | — |
+| `--accent-fg`       | `#ffffff`                    | ink on blue (same in dark)            | — |
+| `--accent-fg-muted` | `#ffffff`                    | secondary ink on blue (same in dark; kept white so it holds 4.7:1) | 4.7:1 on the fill |
 | `--fill`            | `rgba(120,120,128,.12)`      | systemFill — chips, segmented track, secondary buttons | — |
 | `--fill-strong`     | `rgba(120,120,128,.20)`      | stronger fill — switch track, disabled button | — |
 | `--border`          | `#d2d2d7`                    | separator — field outlines, strong rules | — |
@@ -72,7 +72,7 @@ Apple's system colours as used on apple.com / iOS. Chart 5 is the exact system p
 ### Dark Theme
 
 Activated by `data-theme="dark"` on `<html>`. True black base with elevated
-`#1c1c1e` surfaces, like iOS. The purple fill is shared; its text form
+`#1c1c1e` surfaces, like iOS. The blue fill is shared; its text form
 lightens to hold contrast.
 
 | Token            | Dark value             | Contrast |
@@ -82,8 +82,8 @@ lightens to hold contrast.
 | `--bg-tertiary`  | `#2c2c2e`              | — |
 | `--fg`           | `#f5f5f7`              | 19.3:1 |
 | `--muted`        | `#98989d`              | 7.3:1 (5.9:1 on `#1c1c1e`) |
-| `--accent`       | `#9a3fd1` (unchanged)  | white on it 5.2:1 |
-| `--accent-text`  | `#bf5af2` (Apple dark purple) | 6.0:1 (4.8:1 on `#1c1c1e`) |
+| `--accent`       | `#0071e3` (unchanged)  | white on it 4.7:1 |
+| `--accent-text`  | `#2997ff` (apple.com dark blue) | 7.0:1 (5.6:1 on `#1c1c1e`) |
 | `--border`       | `#38383a`              | — |
 | `--border-light` | `#2c2c2e`              | — |
 | `--danger`       | `#ff453a`              | 6.2:1 |
@@ -108,8 +108,8 @@ Mechanics (all in `tokens.css` unless noted):
   button is hydration-safe. (HIG prefers no in-app appearance switch; on a
   website it stays as an override, with the OS as the default.)
 - `.theme-light-scope` re-establishes the light palette inside a subtree.
-- Anything sitting on a purple surface uses `--accent-fg` / `--accent-fg-muted`
-  ("ink on purple", white in both themes), never `--fg`. Hover rows
+- Anything sitting on a blue surface uses `--accent-fg` / `--accent-fg-muted`
+  ("ink on blue", white in both themes), never `--fg`. Hover rows
   (`.ds-group-row`, projects, tools, contact, admin dashboard actions) re-point
   `--fg`/`--muted`/`--accent-text`/`--border-light` inside the `:hover` rule so
   children pop without per-element overrides.
@@ -228,9 +228,9 @@ Display sizes on the site:
 
 ### Section Numbering
 
-Each home section opens with `SectionHeader`: a purple SF Mono numeral above a
+Each home section opens with `SectionHeader`: a blue SF Mono numeral above a
 large Bricolage title (no rule line). Page headers on other routes keep the
-`{num} — {Title}` row with the numeral in purple mono.
+`{num} — {Title}` row with the numeral in blue mono.
 
 | Section       | Number |
 |---------------|--------|
@@ -257,7 +257,7 @@ large Bricolage title (no rule line). Page headers on other routes keep the
 
 ### Hero Section
 
-- **Full viewport** height, no rules or texture — a soft purple radial light sits behind the portrait.
+- **Full viewport** height, no rules or texture — a soft blue radial light sits behind the portrait.
 - **Meta captions**: "Software Engineer" / "United States" and "mtosity.com · 2026" / "Scroll ↓" — SF footnote, muted.
 - **Name**: "Minh Tam" / "Nguyen", Bricolage 700, clip-reveal from below (1.1s), parallax drift left/right on scroll via `useSpring`.
 - **Ticker**: skills in title case, SF `0.9375rem` 500 muted, 28s loop, edges faded with a mask gradient, between two hairlines that draw in.
@@ -274,22 +274,22 @@ large Bricolage title (no rule line). Page headers on other routes keep the
 ### Experience Section
 
 - **One card per role** on the grouped surface (18px radius, no border).
-- **Heading row**: company in SF 700 `clamp(1.25rem, …, 1.5rem)` (linked ones get a muted ↗ and turn purple on hover) | dates, footnote tabular, muted.
+- **Heading row**: company in SF 700 `clamp(1.25rem, …, 1.5rem)` (linked ones get a muted ↗ and turn blue on hover) | dates, footnote tabular, muted.
 - **Position**: Literata italic, muted.
 - **Description**: SF 1rem / 1.6, max 46rem; tech chips as capsules on the base surface.
 
 ### Projects Section
 
 - **Inset-grouped list**: one `--bg-secondary` surface (18px radius, 6px padding), rows 12px radius separated by inset hairlines.
-- **Row**: numeral (SF Mono, muted) | title (SF 17px 600) · tech (footnote) · year (right) / description (subhead muted) / "GitHub ↗" "Live ↗" as purple text links.
-- **Hover**: the row fills purple (kept from the brutalist site), text re-points to ink-on-purple, neighbouring separators hide.
+- **Row**: numeral (SF Mono, muted) | title (SF 17px 600) · tech (footnote) · year (right) / description (subhead muted) / "GitHub ↗" "Live ↗" as blue text links.
+- **Hover**: the row fills blue (kept from the brutalist site), text re-points to ink-on-purple, neighbouring separators hide.
 - **Entrance**: alternating clip-path wipe + staggered inner fades (unchanged).
 - **Sheet** (`ProjectModal`): dim `rgba(0,0,0,.4)` backdrop, 720px card with `--radius-xl` and `--shadow-lg`, spring entrance; title in Bricolage; links are capsules — "Source Code" tinted, "Live Project" filled; a 44px glass close button.
 
 ### Contact Section
 
-- **CTA**: "Let's work *together.*" — Bricolage with a purple Literata italic.
-- **Links**: an inset-grouped list (email, LinkedIn, GitHub), 52px rows with ↗, purple fill on hover.
+- **CTA**: "Let's work *together.*" — Bricolage with a blue Literata italic.
+- **Links**: an inset-grouped list (email, LinkedIn, GitHub), 52px rows with ↗, blue fill on hover.
 
 ---
 
@@ -306,10 +306,10 @@ All content sections sit inside a max-width `1400px` container.
 - **Two-column layout**: `2fr 3fr` grid above `1024px`, stacked on mobile
 - **Left column**: Section header, "Personal notes →" link, Lottie animation (hidden on mobile)
 - **Right column**: Category filter tabs + post list
-- **Header**: `06 — Writing` row, then "Leave some notes for the world." as a Bricolage h1; "Personal notes →" as a purple text link
+- **Header**: `06 — Writing` row, then "Leave some notes for the world." as a Bricolage h1; "Personal notes →" as a blue text link
 - **Category filter**: `SegmentedControl` (design system) — capsule track with a sliding white thumb
 - **Post cards**: Staggered fade-up (0.06s per card), category swap uses AnimatePresence exit/enter
-- **Post card structure**: Category capsule (`.tag-neutral`) | Date (footnote) → Title (Bricolage `clamp(1.375rem, …, 1.625rem)`, purple on hover) → Excerpt (0.9375rem muted)
+- **Post card structure**: Category capsule (`.tag-neutral`) | Date (footnote) → Title (Bricolage `clamp(1.375rem, …, 1.625rem)`, blue on hover) → Excerpt (0.9375rem muted)
 - **Categories**: Building, Living, Money, Tiếng Việt
 
 ### Blog Post (`/blog/[slug]`)
@@ -342,33 +342,33 @@ All content sections sit inside a max-width `1400px` container.
 
 ### Tools (`/tools`)
 
-- **Header**: `07 — Tools` row (purple mono numeral) with an `03 tools` count on the right
+- **Header**: `07 — Tools` row (blue mono numeral) with an `03 tools` count on the right
 - **Headline**: Bricolage `clamp(2.5rem, 6vw, 4.75rem)` with a Literata italic muted "Built to be useful."; SF 1.0625rem muted lede (max 52ch)
 - **Tool list**: an inset-grouped list (`.ds-group` / `.ds-group-row`), each row a `Link` to `/tools/<slug>`
 - **Row layout**: `auto 1fr auto` → app-icon tile | content | chevron
-- **App-icon tile**: `clamp(52px, 7vw, 64px)` squircle (22.5% radius), purple gradient, white 2px-stroke glyph
+- **App-icon tile**: `clamp(52px, 7vw, 64px)` squircle (22.5% radius), blue gradient, white 2px-stroke glyph
 - **Row content**: title (Bricolage `clamp(1.35rem, 3vw, 1.75rem)`) + status `Tag` (Live = positive, Beta = warning, In progress = neutral) + year; description (subhead muted, 62ch); `.chip` capsules
 - **Row entrance**: clip-path wipe from left, 0.8s, staggered 0.08s per row
-- **Row hover**: purple fill; the icon tile flips to white with a purple glyph; chevron nudges 3px; the status capsule goes white with purple text
+- **Row hover**: blue fill; the icon tile flips to white with a blue glyph; chevron nudges 3px; the status capsule goes white with blue text
 
 ### Tool — Image Grid (`/tools/img-grid`)
 
-- **Layout**: Full-bleed two-column workspace (288px sidebar + flex canvas), with a thin top header strip carrying the crumbs (`← All tools`, `07.03 — Tool` in purple mono, `Canvas · 100% client-side`) and the title row
+- **Layout**: Full-bleed two-column workspace (288px sidebar + flex canvas), with a thin top header strip carrying the crumbs (`← All tools`, `07.03 — Tool` in blue mono, `Canvas · 100% client-side`) and the title row
 - **Title row**: "Image *grid.*" (Bricolage Grotesque `clamp(1.85rem, 4.5vw, 2.75rem)` 700, Literata italic muted accent) + an SF tagline on the right ("Drop images → choose a layout → pan / zoom each tile → export PNG.")
 - **Sidebar (`288px`)**: Each control wrapped in a `Section` with an SF footnote 600 label
   - **Layout (mode)**: Segmented control — `Grid` / `Row` / `Column`. `Row` stacks images as equal horizontal rows (top→bottom), `Column` places them as equal vertical columns (left→right); both divide the fixed-aspect canvas among an unbounded number of images. `Grid` is the original fixed preset layouts. Switching modes clears loaded images.
   - **Image count / Aspect ratio / Gap / Export size**: Segmented control: capsule track on `--fill`, the active segment on a raised white capsule with a soft shadow. Image count and the Grid presets are hidden in stack modes
   - **Aspect ratio**: The same 5 fixed ratios in every mode (shared `aspectRatio` state) — it bounds the whole canvas/container, and grid presets or stack divisions lay images out inside it
-  - **Grid presets**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/purple rectangles inside; active card border + bg flip to purple (grid mode only)
+  - **Grid presets**: Wrap-grid of mini layout previews — 52px wide thumbnails with the layout's blocks rendered as muted/blue rectangles inside; active card border + bg flip to blue (grid mode only)
   - **Radius**: Native range slider, accent `var(--accent)`, label shows live px
   - **Background**: Inline color picker chip + hex readout on a `--fill` strip (8px radius)
-  - **Export button** (sticks to bottom via `margin-top: auto`): `AccentButton` capsule with `shadow` — purple with `--shadow-md` when ready, gray fill when blocked. Disabled label shows remaining count: `Fill 2 more`
+  - **Export button** (sticks to bottom via `margin-top: auto`): `AccentButton` capsule with `shadow` — blue with `--shadow-md` when ready, gray fill when blocked. Disabled label shows remaining count: `Fill 2 more`
 - **Canvas pane**: `var(--bg-secondary)` background with a left 1px black rule. Centers a fixed-aspect canvas with `8px 8px 0 var(--border)` hard-offset shadow. Canvas dimensions recompute via `ResizeObserver` whenever the aspect ratio changes (200ms transition on width/height)
 - **Stack modes (`Row` / `Column`)**: Reuse the same grid canvas and export path — they just generate the layout `blocks` dynamically (`stackBlocks` in `useImageCombiner`): N filled images plus one trailing empty "add" tile divide the fixed-aspect canvas into `N+1` equal columns (Row) / rows (Column). Dropping into the trailing tile fills it and spawns a fresh one (infinite stacking, slots stay dense); Remove compacts the strip. Each tile cover-crops its image with the same drag-to-pan / scroll-to-zoom as grid blocks. Export divides the canvas into `N` equal cells (the add-tile is preview-only) and bakes in each tile's scale/offset
 - **Image block**:
   - Empty state: `--bg-secondary` fill with a 1px dashed border-light outline; centered `+` icon and "Click or drop" label
   - Hover (empty): outline upgrades to dashed black
-  - Hover (filled): outline upgrades to 2px solid purple
+  - Hover (filled): outline upgrades to 2px solid blue
   - Drag-over: outline becomes 2px dashed black
   - Filled: image positioned via `cover` math identical to `useImageCombiner.exportImage` so preview matches export pixel-for-pixel
   - Hover overlay (filled): semi-opaque dark veil (`rgba(13,13,13,0.35)`) with two button rows — `Replace` / `Remove` (glass capsules on `--material-thick`; Remove in `--danger`) and zoom controls `[−] NNN% [+]` (28px round glass buttons)
@@ -383,11 +383,11 @@ All content sections sit inside a max-width `1400px` container.
 
 ### Tool — Instagram Reel Extractor (`/tools/instagram`)
 
-- **Crumbs**: `← All tools` link, then sub-section header `07.02 — Tool` left (purple mono), `yt-dlp · Whisper · WASM` right
+- **Crumbs**: `← All tools` link, then sub-section header `07.02 — Tool` left (blue mono), `yt-dlp · Whisper · WASM` right
 - **Title**: "Instagram reels, *extracted.*" — Bricolage Grotesque `clamp(2.5rem, 6vw, 4.5rem)` with italic muted accent
 - **URL form**: SF label "Video URL", then a rounded field (`--bg`, separator border, 18px radius, `--shadow-sm`):
   - Mono input (transparent, no border, 0.9rem)
-  - Purple "→ Fetch" `AccentButton` capsule inside the field — disables to the gray fill while loading and shows a spinner
+  - Blue "→ Fetch" `AccentButton` capsule inside the field — disables to the gray fill while loading and shows a spinner
   - Footnote line beneath: "Supports /reel/, /reels/, /p/ and /tv/ links · public posts only"
 - **Error banner**: rounded (12px) box carrying the server message
 - **Info card**: Two-column grid (`160px 1fr`, collapses below 600px). Left: 9:16 thumbnail, 12px radius. Right:
@@ -398,7 +398,7 @@ All content sections sit inside a max-width `1400px` container.
   - Card is a grouped surface (`--bg-secondary`, 28px radius), no border
 - **Stage progress**: While transcribing, four-step ordered list with `StageDot` glyphs:
   - Pending: hollow square (light border)
-  - Active: purple square with pulsing opacity (1 ↔ 0.3, 1.2s)
+  - Active: blue square with pulsing opacity (1 ↔ 0.3, 1.2s)
   - Done: solid muted square
   - Steps: `Downloading audio`, `Decoding audio`, `Loading Whisper model` (with `— NN%` while shards download), `Transcribing`
 - **Transcript section**: Header strip `Transcript — [Copy] [.txt] [.srt]` (small rounded buttons), then a Bricolage Grotesque 1.0625rem block on `var(--bg-secondary)` 12px radius, line-height 1.75, whitespace preserved
@@ -408,14 +408,14 @@ All content sections sit inside a max-width `1400px` container.
 
 ### Tool — Speech to Text (`/tools/speech-to-text`)
 
-- **Crumbs**: `← All tools` purple text link
-- **Sub-section header**: `07.01 — Tool` left (purple mono), `On-device · whisper-base.en` right, with horizontal rule between
+- **Crumbs**: `← All tools` blue text link
+- **Sub-section header**: `07.01 — Tool` left (blue mono), `On-device · whisper-base.en` right, with horizontal rule between
 - **Title**: "Speech *to* text." — Bricolage Grotesque `clamp(2.5rem, 6vw, 4.5rem)` with italic muted "to"
 - **Recorder card**:
   - Grouped surface: `var(--bg-secondary)`, 28px radius, no border or shadow
   - Top meta strip: animated status dot + phase label (left), `MM:SS` elapsed timer (right) — both SF footnote, muted
   - **Mic button** (150×150 wrapper, 88px circular button visually):
-    - Idle: purple circle, mic SVG icon, `--shadow-lg`
+    - Idle: blue circle, mic SVG icon, `--shadow-lg`
     - Recording: `--danger` red with a stop square, gentle scale pulse (1 ↔ 1.04, 1.4s loop), three concentric ring waves expanding outward (1.6s, 0.45s stagger)
     - Hover/tap: scale 1.04 / 0.96 spring
   - **Waveform**: 28-bar live FFT visualizer (3px wide bars, 56px tall) — driven by `AnalyserNode.getByteFrequencyData`, animates each bar's `height` per frame; idle bars are static gray
@@ -539,15 +539,15 @@ All modals share these traits:
 
 ### AccentButton (design system)
 
-The HIG "prominent" button: a filled purple capsule, SF `0.9375rem` 600,
+The HIG "prominent" button: a filled blue capsule, SF `0.9375rem` 600,
 min-height `--hit`, brightness lift on hover and `scale(0.96)` spring on tap.
 `href` renders a Next Link, `disabled` drops to `--fill-strong` with muted
 text, `shadow` adds `--shadow-md` (for buttons floating over content). Size
 tweaks go through `style`; call sites no longer override its shape.
 
 `StandardButton` is the same filled capsule as a plain button.
-`OutlineButton` is the **tinted** style — purple text on `--accent-soft`,
-filling purple on hover — for a secondary action.
+`OutlineButton` is the **tinted** style — blue text on `--accent-soft`,
+filling blue on hover — for a secondary action.
 
 ### SegmentedControl (design system)
 
@@ -559,18 +559,18 @@ option groups use the same look inline.
 ### Toggle, Select, AudioPlayer (design system)
 
 - **Toggle** — the iOS switch: 51×31 capsule, white 27px knob with a soft
-  shadow, purple when on.
+  shadow, blue when on.
 - **Select** — a pop-up button: rounded field with chevron, focus halo in
   `--accent-soft`; the menu sits on `--material-thick` with 12px radius,
-  `--shadow-lg`, and a purple highlight on the active row.
-- **AudioPlayer** — a now-playing capsule: round purple play button, 4px
+  `--shadow-lg`, and a blue highlight on the active row.
+- **AudioPlayer** — a now-playing capsule: round blue play button, 4px
   scrubber with a white thumb, tabular time.
 
 ### ConfirmDialog (design system)
 
 An alert in the HIG sense: centered 320px card on `--material-thick`, 18px
 radius, title 17px 600, message 13px, full-width 44px buttons split by
-hairlines — Cancel (purple) leading, the action (red, 600) trailing.
+hairlines — Cancel (blue) leading, the action (red, 600) trailing.
 Esc cancels, Enter confirms (a deliberate destructive choice, per
 HIG › Alerts). Respects reduced motion.
 
@@ -583,8 +583,8 @@ site-wide and keeps fades.
 
 ### Muted link hover (`.link-hover`) and tinted links (`.link-tint`)
 
-`.link-hover`: `--muted` → `--fg` on hover. `.link-tint`: purple text
-(`--accent-text`), underline on hover — purple means "tappable" and nothing
+`.link-hover`: `--muted` → `--fg` on hover. `.link-tint`: blue text
+(`--accent-text`), underline on hover — blue means "tappable" and nothing
 else.
 
 ### useIsMobile / useMediaQuery (design system)
@@ -605,7 +605,7 @@ padding: 0.3rem 0.75rem;
 
 ### Grouped list (`.ds-group` / `.ds-group-row`)
 A `--bg-secondary` surface (18px radius, 6px padding) whose rows (12px radius)
-are split by inset hairlines; a row fills purple on hover or keyboard focus and
+are split by inset hairlines; a row fills blue on hover or keyboard focus and
 the hairlines around it hide.
 
 ### Section Header
@@ -615,7 +615,7 @@ About                   ← Bricolage 700, clamp(2.25rem, 5vw, 3.5rem)
 ```
 
 ### Focus
-Every focusable element gets a 3px purple halo (`--accent` at 55%) offset 2px
+Every focusable element gets a 3px blue halo (`--accent` at 55%) offset 2px
 on `:focus-visible`.
 
 ### Scrollbar (`.scrollbar-thin`)
@@ -666,8 +666,7 @@ Also a React component: `<Tag tone="positive">Buy</Tag>`.
 
 ### Chart palette
 
-Apple's system hues as `--chart-1..8` (green, blue, orange, pink, **purple =
-brand**, teal, red, gray), switching to their dark-appearance steps under
+Apple's system hues as `--chart-1..8` (green, blue, orange, pink, purple, teal, red, gray), switching to their dark-appearance steps under
 `[data-theme="dark"]`. Use `text-chart-3`, `fill-chart-2`, or `var(--chart-2)`.
 
 ---

@@ -44,7 +44,7 @@ const STICKY_COLORS = [
   { bg: "#e1bee7", border: "#ba8ec4" }, // lavender
   { bg: "#ffe0b2", border: "#e6a95c" }, // peach
   { bg: "#b2ebf2", border: "#6cc9d6" }, // cyan
-  { bg: "#d1c4e9", border: "#9e8ec4" }, // purple
+  { bg: "#d1c4e9", border: "#9e8ec4" }, // blue
 ];
 
 // Deterministic pseudo-random rotation per index
@@ -477,7 +477,7 @@ export default function Notes() {
         .notes-page {
           min-height: 100vh;
           background:
-            radial-gradient(circle at 20% 35%, rgba(154, 63, 209, 0.07) 0%, transparent 50%),
+            radial-gradient(circle at 20% 35%, rgba(0, 113, 227, 0.06) 0%, transparent 50%),
             radial-gradient(circle at 80% 70%, rgba(190, 170, 255, 0.06) 0%, transparent 50%),
             var(--bg);
           color: var(--fg);

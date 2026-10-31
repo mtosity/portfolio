@@ -2,13 +2,13 @@
    @mtosity/design-system — shadcn/ui bridge
 
    Drop-in theme for shadcn/ui (Tailwind v4) apps that want the
-   MTosity look (Apple system palette + purple tint).
+   MTosity look (Apple system palette + blue tint).
 
    Usage (after `@import "tailwindcss"`):
      @import "@mtosity/design-system/shadcn.css";
 
    This is SELF-CONTAINED — do NOT also import tokens.css in a shadcn
-   app, or the brand color utilities (bg-accent = purple) will collide
+   app, or the brand color utilities (bg-accent = blue) will collide
    with shadcn's accent (a hover surface). This file maps shadcn's
    semantic tokens onto the palette and ships the heading typography.
 
@@ -31,11 +31,11 @@
   --bg-secondary: #f5f5f7;
   --bg-tertiary: #e8e8ed;
   --fg: #1d1d1f;
-  --accent: #9a3fd1;
-  --accent-text: #8944ab;
-  --accent-soft: color-mix(in srgb, #9a3fd1 12%, transparent);
+  --accent: #0071e3;
+  --accent-text: #0066cc;
+  --accent-soft: color-mix(in srgb, #0071e3 12%, transparent);
   --accent-fg: #ffffff;
-  --accent-fg-muted: #f7eefc;
+  --accent-fg-muted: #ffffff;
   --border: #d2d2d7;
   --border-light: #e8e8ed;
   --muted: #6e6e73;
@@ -62,11 +62,11 @@
   --bg-secondary: #1c1c1e;
   --bg-tertiary: #2c2c2e;
   --fg: #f5f5f7;
-  --accent: #9a3fd1;
-  --accent-text: #bf5af2;
-  --accent-soft: color-mix(in srgb, #bf5af2 24%, transparent);
+  --accent: #0071e3;
+  --accent-text: #2997ff;
+  --accent-soft: color-mix(in srgb, #2997ff 24%, transparent);
   --accent-fg: #ffffff;
-  --accent-fg-muted: #f7eefc;
+  --accent-fg-muted: #ffffff;
   --border: #38383a;
   --border-light: #2c2c2e;
   --muted: #98989d;
@@ -93,7 +93,7 @@
   --color-popover: var(--bg-secondary);
   --color-popover-foreground: var(--fg);
 
-  /* Purple is the primary CTA — white ink-on-purple text in both themes */
+  /* Blue is the primary CTA — white ink-on-blue text in both themes */
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-fg);
 
@@ -103,7 +103,7 @@
   --color-muted: var(--bg-secondary);
   --color-muted-foreground: var(--muted);
 
-  /* shadcn "accent" = hover/active surface → subtle purple tint */
+  /* shadcn "accent" = hover/active surface → subtle blue tint */
   --color-accent: color-mix(in srgb, var(--accent) 16%, transparent);
   --color-accent-foreground: var(--fg);
 

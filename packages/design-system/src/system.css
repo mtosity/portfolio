@@ -37,7 +37,7 @@
   --chart-2: #007aff; /* blue   */
   --chart-3: #ff9500; /* orange */
   --chart-4: #ff2d55; /* pink   */
-  --chart-5: #af52de; /* purple — the brand tint */
+  --chart-5: #af52de; /* purple */
   --chart-6: #30b0c7; /* teal   */
   --chart-7: #ff3b30; /* red    */
   --chart-8: #8e8e93; /* gray   */
@@ -191,7 +191,7 @@
 /* ── Select ──
    A pop-up button in the macOS sense (the native <select> popup can't be
    themed): a rounded field with an up/down chevron, and a menu on the
-   thick material with a purple highlight on the active row. */
+   thick material with a blue highlight on the active row. */
 .ds-select {
   position: relative;
   display: inline-flex;
@@ -222,7 +222,7 @@
 .ds-select-trigger[aria-expanded="true"] {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft, rgba(154, 63, 209, 0.12));
+  box-shadow: 0 0 0 3px var(--accent-soft, rgba(0, 113, 227, 0.12));
 }
 .ds-select-trigger:disabled {
   opacity: 0.5;
@@ -289,7 +289,7 @@
 
 /* ── Toggle / switch ──
    The iOS switch: a 51×31 capsule track, white knob with a soft shadow,
-   purple when on. */
+   blue when on. */
 .ds-toggle {
   position: relative;
   display: inline-block;
@@ -328,7 +328,7 @@
 }
 
 /* ── Audio player ──
-   A compact now-playing capsule: round purple play button, a thin
+   A compact now-playing capsule: round blue play button, a thin
    scrubber and tabular time. */
 .ds-audio {
   display: inline-flex;
@@ -418,7 +418,7 @@
   cursor: pointer;
 }
 .ds-audio-seek:focus-visible {
-  outline: 3px solid var(--accent-soft, rgba(154, 63, 209, 0.3));
+  outline: 3px solid var(--accent-soft, rgba(0, 113, 227, 0.3));
   outline-offset: 3px;
 }
 

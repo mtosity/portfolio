@@ -1,5 +1,5 @@
 /* An inset-grouped list: one rounded surface, rows separated by inset
-   hairlines. A row fills purple under the pointer — the site's signature
+   hairlines. A row fills blue under the pointer — the site's signature
    hover, kept from the brutalist version. */
 .projects {
   display: flex;
@@ -35,8 +35,8 @@
   border-radius: var(--radius-md);
   transition: background var(--duration-fast) var(--ease-out);
 
-  /* The row turns purple on hover (inline style); re-point the text vars at
-     ink-on-purple so children stay high-contrast in both themes. */
+  /* The row turns blue on hover (inline style); re-point the text vars at
+     ink-on-blue so children stay high-contrast in both themes. */
   &:hover {
     --fg: var(--accent-fg);
     --muted: var(--accent-fg-muted);

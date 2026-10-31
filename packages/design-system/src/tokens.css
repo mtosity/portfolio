@@ -1,5 +1,5 @@
 /* ──────────────────────────────────────────────────────────────
-   MTosity design tokens — Apple HIG system palette + purple tint
+   MTosity design tokens — Apple HIG system palette + blue tint
    Light: white / #f5f5f7 grouped surfaces, #1d1d1f label.
    Dark: true black / #1c1c1e elevated surfaces, #f5f5f7 label.
    The theme follows the OS until someone picks one with the toggle;
@@ -21,7 +21,7 @@
   --color-bg: #ffffff;
   --color-bg-secondary: #f5f5f7;
   --color-fg: #1d1d1f;
-  --color-accent: #9a3fd1;
+  --color-accent: #0071e3;
   --color-accent-fg: #ffffff;
   --color-border: #d2d2d7;
   --color-border-light: #e8e8ed;
@@ -81,29 +81,28 @@
   color-scheme: light;
 
   /* Core palette — Apple's system values, sampled from apple.com / iOS.
-     The tint is Apple's system purple, a step deeper so white text on
-     it holds 5.2:1. Contrast on --bg: fg 16.8:1, muted 5.1:1,
-     accent-text 6.0:1. */
+     The tint is apple.com's blue: white text on it holds 4.7:1.
+     Contrast on --bg: fg 16.8:1, muted 5.1:1, accent-text 5.6:1. */
   --bg: #ffffff;
   --bg-secondary: #f5f5f7;
   --bg-tertiary: #e8e8ed;
   --fg: #1d1d1f;
-  --accent: #9a3fd1;
+  --accent: #0071e3;
   --border: #d2d2d7;
   --border-light: #e8e8ed;
   --muted: #6e6e73;
 
-  /* Purple as text (links, tinted labels): Apple's accessible purple in
-     light, its dark-appearance purple in dark. */
-  --accent-text: #8944ab;
+  /* Blue as text (links, tinted labels): apple.com's link blue in light,
+     its dark-appearance blue in dark. */
+  --accent-text: #0066cc;
   /* Tinted surface — selected rows, focus halos, tinted buttons. */
-  --accent-soft: color-mix(in srgb, #9a3fd1 12%, transparent);
+  --accent-soft: color-mix(in srgb, #0071e3 12%, transparent);
 
-  /* Ink on purple — text/borders sitting on an accent surface. The purple
-     fill is identical in both themes (white on it is 5.2:1), so these
+  /* Ink on blue — text/borders sitting on an accent surface. The blue
+     fill is identical in both themes (white on it is 4.7:1), so these
      stay white everywhere. */
   --accent-fg: #ffffff;
-  --accent-fg-muted: #f7eefc;
+  --accent-fg-muted: #ffffff;
 
   /* System fills: translucent grays for chips, tracks and secondary
      buttons, so they read on any surface (systemFill family). */
@@ -158,7 +157,7 @@
   --background-light: #f5f5f7;
   --background-dark: #e8e8ed;
   --text: #1d1d1f;
-  --brand: #9a3fd1;
+  --brand: #0071e3;
 
   /* ── Blog definition callouts ──────────────────────────────────────────
      The definition sidebar renders pastel callout cards. Those colours used
@@ -188,11 +187,11 @@
 }
 
 /* ── Dark theme ──
-   True black base with elevated #1c1c1e surfaces, like iOS. The purple
+   True black base with elevated #1c1c1e surfaces, like iOS. The blue
    fill is shared; its text form lightens to hold contrast. Overrides
    both the runtime vars and the Tailwind @theme vars (utilities compile
    to var(--color-*)). Contrast on #000: fg 19.3:1, muted 7.3:1,
-   accent-text 6.0:1. */
+   accent-text 7.0:1. */
 [data-theme="dark"] {
   color-scheme: dark;
 
@@ -200,9 +199,9 @@
   --bg-secondary: #1c1c1e;
   --bg-tertiary: #2c2c2e;
   --fg: #f5f5f7;
-  --accent: #9a3fd1;
-  --accent-text: #bf5af2;
-  --accent-soft: color-mix(in srgb, #bf5af2 24%, transparent);
+  --accent: #0071e3;
+  --accent-text: #2997ff;
+  --accent-soft: color-mix(in srgb, #2997ff 24%, transparent);
   --border: #38383a;
   --border-light: #2c2c2e;
   --muted: #98989d;
@@ -221,7 +220,7 @@
   --color-bg: #000000;
   --color-bg-secondary: #1c1c1e;
   --color-fg: #f5f5f7;
-  --color-accent: #9a3fd1;
+  --color-accent: #0071e3;
   --color-border: #38383a;
   --color-border-light: #2c2c2e;
   --color-muted: #98989d;
@@ -232,7 +231,7 @@
   --background-light: #1c1c1e;
   --background-dark: #2c2c2e;
   --text: #f5f5f7;
-  --brand: #9a3fd1;
+  --brand: #0071e3;
 
   /* Blog definition callouts — dark. Backgrounds drop to a deep hue-tinted
      tone that sits on --bg-secondary, borders take the old text colour and
@@ -253,21 +252,21 @@
 }
 
 /* ── Increased contrast ── (HIG › Color: every custom colour needs an
-   increased-contrast variant). Secondary text, separators and the purple
+   increased-contrast variant). Secondary text, separators and the blue
    text step get noticeably stronger. */
 @media (prefers-contrast: more) {
   :root {
     --muted: #4a4a4f;
     --border: #86868b;
     --border-light: #c7c7cc;
-    --accent-text: #6e2f8f;
+    --accent-text: #004f9e;
     --fill: rgba(120, 120, 128, 0.22);
   }
   [data-theme="dark"] {
     --muted: #c7c7cc;
     --border: #8e8e93;
     --border-light: #545458;
-    --accent-text: #da8fff;
+    --accent-text: #6cb4ff;
     --fill: rgba(120, 120, 128, 0.4);
   }
 }
@@ -292,8 +291,8 @@
   --bg-secondary: #f5f5f7;
   --bg-tertiary: #e8e8ed;
   --fg: #1d1d1f;
-  --accent: #9a3fd1;
-  --accent-text: #8944ab;
+  --accent: #0071e3;
+  --accent-text: #0066cc;
   --border: #d2d2d7;
   --border-light: #e8e8ed;
   --muted: #6e6e73;
@@ -304,7 +303,7 @@
   --color-bg: #ffffff;
   --color-bg-secondary: #f5f5f7;
   --color-fg: #1d1d1f;
-  --color-accent: #9a3fd1;
+  --color-accent: #0071e3;
   --color-border: #d2d2d7;
   --color-border-light: #e8e8ed;
   --color-muted: #6e6e73;
@@ -315,7 +314,7 @@
   --background-light: #f5f5f7;
   --background-dark: #e8e8ed;
   --text: #1d1d1f;
-  --brand: #9a3fd1;
+  --brand: #0071e3;
 }
 
 /* ThemeToggle icons — visibility is pure CSS keyed off [data-theme],
@@ -414,7 +413,7 @@
   color: var(--fg);
 }
 
-/* Tinted text link — the purple means "this is tappable" and nothing else
+/* Tinted text link — the blue means "this is tappable" and nothing else
    (HIG › Color: one colour, one meaning). */
 .link-tint {
   color: var(--accent-text);
@@ -495,8 +494,8 @@
   background: var(--border);
 }
 
-/* The purple selection fill — the site's signature hover. Re-points the
-   text tokens so children stay readable on the purple. */
+/* The blue selection fill — the site's signature hover. Re-points the
+   text tokens so children stay readable on the blue. */
 .ds-group-row:hover,
 .ds-group-row:focus-visible {
   background: var(--accent);
@@ -513,7 +512,7 @@
   opacity: 0;
 }
 
-/* Keyboard focus — a purple halo on everything focusable */
+/* Keyboard focus — a blue halo on everything focusable */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
   outline-offset: 2px;

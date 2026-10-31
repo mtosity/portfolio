@@ -8,7 +8,7 @@ function fmtTime(s: number): string {
   return `${m}:${sec.toString().padStart(2, "0")}`;
 }
 
-/* MP3 / audio player. A compact now-playing capsule: round purple play/pause,
+/* MP3 / audio player. A compact now-playing capsule: round blue play/pause,
    optional title, an accent-colored seek bar (keyboard-operable native range),
    and a current/duration time read-out. Wraps a single hidden <audio>.
    Controlled-free: pass `src`; optionally `title`, `autoLoad`, and `onPlay`. */

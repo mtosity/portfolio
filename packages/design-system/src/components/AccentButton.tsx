@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const MotionLink = motion.create(Link);
 
-/* The purple CTA — a filled capsule in the HIG "prominent" style, for the
+/* The blue CTA — a filled capsule in the HIG "prominent" style, for the
    one most likely action in a view. Renders a button, or a Next.js Link
    when `href` is given. While disabled/busy it drops to the gray fill.
    `shadow` adds a soft lift for buttons floating over busy content.

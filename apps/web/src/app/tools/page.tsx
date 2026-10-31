@@ -211,12 +211,12 @@ function ToolRow({
           transform: translateX(3px);
           opacity: 1;
         }
-        /* The status capsule and chips go white on the purple row. */
+        /* The status capsule and chips go white on the blue row. */
         .tool-row:hover .tag {
           color: var(--accent);
           background: var(--accent-fg);
         }
-        /* On the purple row the icon tile flips to white with a purple
+        /* On the blue row the icon tile flips to white with a blue
            glyph. !important: the tile sets background/colour inline. */
         .tool-row:hover .tool-thumb {
           background: #ffffff !important;
@@ -232,7 +232,7 @@ function ToolRow({
   );
 }
 
-/* An app icon: a purple squircle tile with a white glyph — the same
+/* An app icon: a blue squircle tile with a white glyph — the same
    corner ratio (≈22%) as an iOS icon. */
 function ToolThumbnail({ name }: { name: ToolIconName }) {
   return (

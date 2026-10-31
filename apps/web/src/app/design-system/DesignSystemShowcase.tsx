@@ -28,7 +28,7 @@ const CORE: { v: string; label: string }[] = [
   { v: "--bg-tertiary", label: "Raised surface" },
   { v: "--fg", label: "Label" },
   { v: "--muted", label: "Secondary label" },
-  { v: "--accent", label: "Tint / purple" },
+  { v: "--accent", label: "Tint / blue" },
   { v: "--accent-text", label: "Tint as text" },
   { v: "--accent-soft", label: "Tinted fill" },
   { v: "--accent-fg", label: "Ink on tint" },
@@ -152,7 +152,7 @@ export function DesignSystemShowcase({
             A living reference for{" "}
             <code style={{ fontFamily: mono, fontSize: "0.9em", color: "var(--fg)" }}>{name}</code>{" "}
             — Apple&apos;s system palette, SF type and soft materials, tinted
-            purple and set off by a Bricolage display face. It follows your
+            blue and set off by a Bricolage display face. It follows your
             device&apos;s appearance; flip the theme (top right) to see every
             token adapt.
           </p>
@@ -169,7 +169,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Colors ── */}
-        <Section num="02" title="Core palette" subtitle="Apple's semantic roles — label, secondary label, grouped surfaces, separators, fills. The purple fill is constant; its text form lightens in dark to hold 4.5:1.">
+        <Section num="02" title="Core palette" subtitle="Apple's semantic roles — label, secondary label, grouped surfaces, separators, fills. The blue fill is constant; its text form lightens in dark to hold 4.5:1.">
           <Grid min={150}>
             {CORE.map((t) => (
               <Swatch key={t.v} {...t} value={resolved[t.v]} />
@@ -193,7 +193,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Chart palette ── */}
-        <Section num="04" title="Chart palette" subtitle="Apple's system hues (chart 5 is the brand purple), with their dark-appearance steps.">
+        <Section num="04" title="Chart palette" subtitle="Apple's system hues (chart 5 is the brand blue), with their dark-appearance steps.">
           <Grid min={110}>
             {CHART.map((v, i) => (
               <Swatch key={v} v={v} label={`Chart ${i + 1}`} value={resolved[v]} />
@@ -283,7 +283,7 @@ export function DesignSystemShowcase({
         </Section>
 
         {/* ── Cards ── */}
-        <Section num="09" title="Cards & lists" subtitle=".ds-card is a rounded grouped surface; .ds-card-interactive lifts on hover. .ds-group + .ds-group-row make an inset-grouped list whose rows fill purple under the pointer.">
+        <Section num="09" title="Cards & lists" subtitle=".ds-card is a rounded grouped surface; .ds-card-interactive lifts on hover. .ds-group + .ds-group-row make an inset-grouped list whose rows fill blue under the pointer.">
           <Grid min={240}>
             <div className="ds-card">
               <div style={{ fontFamily: heading, fontSize: "1.25rem", marginBottom: "0.35rem" }}>
@@ -304,7 +304,7 @@ export function DesignSystemShowcase({
           </Grid>
           <div style={{ height: "1.5rem" }} />
           <div className="ds-group" style={{ maxWidth: 420 }}>
-            {["Inset-grouped row", "Hover fills purple", "Separators hide around it"].map((t) => (
+            {["Inset-grouped row", "Hover fills blue", "Separators hide around it"].map((t) => (
               <a key={t} href="#top" className="ds-group-row" style={{ display: "flex", justifyContent: "space-between", padding: "0.85rem 1rem" }}>
                 <span>{t}</span>
                 <span aria-hidden style={{ color: "var(--muted)" }}>›</span>
@@ -365,7 +365,7 @@ export function DesignSystemShowcase({
         {/* ── Components ── */}
         <Section num="12" title="Components">
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            <ComponentRow label="<Select />" note="Pop-up button with a menu on the thick material — accessible listbox, purple-highlighted rows.">
+            <ComponentRow label="<Select />" note="Pop-up button with a menu on the thick material — accessible listbox, blue-highlighted rows.">
               <Select
                 defaultValue="medium"
                 aria-label="Demo select"
@@ -377,7 +377,7 @@ export function DesignSystemShowcase({
               />
             </ComponentRow>
 
-            <ComponentRow label="<Toggle />" note="The iOS switch (button[role=switch]) — purple when on, keyboard-operable.">
+            <ComponentRow label="<Toggle />" note="The iOS switch (button[role=switch]) — blue when on, keyboard-operable.">
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <Toggle defaultChecked aria-label="Demo toggle on" />
                 <Toggle aria-label="Demo toggle off" />
@@ -386,7 +386,7 @@ export function DesignSystemShowcase({
               </div>
             </ComponentRow>
 
-            <ComponentRow label="<AudioPlayer />" note="Now-playing capsule — round purple play/pause, thin scrubber (keyboard-operable), tabular time. For voice/audio samples.">
+            <ComponentRow label="<AudioPlayer />" note="Now-playing capsule — round blue play/pause, thin scrubber (keyboard-operable), tabular time. For voice/audio samples.">
               <AudioPlayer
                 src="/samples/demo-voice.mp3"
                 title="Aria — sample voice"
@@ -409,7 +409,7 @@ export function DesignSystemShowcase({
                 &lt;SectionHeader /&gt;
               </div>
               <div style={{ color: "var(--muted)", fontSize: "0.85rem", marginTop: "0.3rem", marginBottom: "1.5rem" }}>
-                Section title — a purple index numeral over a large display title.
+                Section title — a blue index numeral over a large display title.
               </div>
               <div style={{ marginBottom: "-3rem" }}>
                 <SectionHeader num="04" title="Example" />
