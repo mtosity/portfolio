@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
 
 import DbPostArticle from "@/components/blog/DbPostArticle";
+import MemoryAndBrainFogPost from "@/components/blog/posts/MemoryAndBrainFogPost";
 import {
   dbPostDate,
   formatBlogDate,
@@ -41,7 +42,9 @@ import { blogPosts } from "@/data/blogPosts";
  * over everything below — including the JSON-LD this file emits. Prefer
  * registering the component in LEGACY_POSTS over creating a folder route.
  */
-const LEGACY_POSTS: Record<string, ComponentType> = {};
+const LEGACY_POSTS: Record<string, ComponentType> = {
+  "memory-and-brain-fog": MemoryAndBrainFogPost,
+};
 
 // ISR, so a newly published database post becomes reachable without a redeploy.
 export const revalidate = 300;
@@ -97,6 +100,7 @@ function socialMetadata(input: {
   return {
     title: input.title,
     description: input.excerpt,
+    alternates: { canonical: postUrl },
     authors: [{ name: "Minh Tam Nguyen", url: SITE_URL }],
     openGraph: {
       title: input.title,
