@@ -3,10 +3,11 @@
  *
  * These are the ONLY posts that live in source. Editor-authored posts live in
  * Postgres and are merged into the /blog index at request time — see
- * `components/blog/postSource.ts`. Adding a post here still means: create
- * `app/blog/<slug>/page.tsx`, register it below, AND add a `case` to the switch
- * in `app/blog/[slug]/page.tsx` (that switch is the documented fallback; the
- * folder route is what Next actually serves).
+ * `components/blog/postSource.ts`. Adding a post here means: register it in
+ * LEGACY_POSTS in `app/blog/[slug]/page.tsx` (the component), and add its
+ * metadata below. Do NOT create `app/blog/<slug>/page.tsx` — Next prefers
+ * the static segment and it silently shadows the dynamic route, losing the
+ * JSON-LD only `[slug]` emits.
  */
 export interface BlogPost {
   slug: string;
@@ -51,7 +52,16 @@ export function parseBlogDate(date: string): number {
  * it back here plus an entry in LEGACY_POSTS restores the legacy path, and it
  * will take precedence over any database row with the same slug.
  */
-export const blogPosts: BlogPost[] = [];
+export const blogPosts: BlogPost[] = [
+  {
+    slug: "memory-and-brain-fog",
+    title: "Memory and Brain Fog: What the Evidence Says",
+    date: "November 1, 2026",
+    excerpt:
+      "I dug through forty-plus meta-analyses on memory and brain fog. Exercise, sleep, omega-3, creatine, and the interventions that do not work, with the effect sizes attached.",
+    category: "Living",
+  },
+];
 
 export const categories = [
   "Building",
