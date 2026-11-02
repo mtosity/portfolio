@@ -100,6 +100,7 @@ function socialMetadata(input: {
   return {
     title: input.title,
     description: input.excerpt,
+    alternates: { canonical: postUrl },
     authors: [{ name: "Minh Tam Nguyen", url: SITE_URL }],
     openGraph: {
       title: input.title,
