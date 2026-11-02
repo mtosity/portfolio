@@ -15,6 +15,17 @@ export interface BlogPost {
   date: string;
   excerpt: string;
   category: "Building" | "Living" | "Money" | "Tiếng Việt";
+  /**
+   * Optional chart data for the OG image (app/blog/[slug]/opengraph-image.tsx).
+   * Present → the social card renders a labeled bar chart (values are the
+   * bar magnitudes). Absent → the card is title-only. Database posts always
+   * render title-only for now.
+   */
+  ogStack?: {
+    label: string;
+    detail: string;
+    value: number;
+  }[];
 }
 
 /**
@@ -60,6 +71,13 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "I dug through forty-plus meta-analyses on memory and brain fog. Exercise, sleep, omega-3, creatine, and the interventions that do not work, with the effect sizes attached.",
     category: "Living",
+    ogStack: [
+      { label: "Aerobic exercise", detail: "global cognition", value: 1.11 },
+      { label: "Omega-3", detail: "attention", value: 0.98 },
+      { label: "HIIT", detail: "memory", value: 0.58 },
+      { label: "Creatine", detail: "memory", value: 0.31 },
+      { label: "Brain apps", detail: "far transfer", value: 0.18 },
+    ],
   },
 ];
 
