@@ -227,6 +227,87 @@ function MemoryAndBrainFogContent() {
         strongest exactly in the states that produce fog in the first place.
       </p>
 
+      <h3 className="text-xl font-semibold mt-6 mb-3">
+        How to take them: dose, timing, and brands
+      </h3>
+      <p>
+        The studies tell you whether. Here is the how, because the
+        difference between a supplement that works and one that does nothing
+        is mostly buying and taking it right. Standard caveat first: I am a
+        developer who reads papers, not your doctor. If you are on blood
+        thinners, have kidney disease, or manage a heart rhythm issue, run
+        this section past a professional before buying anything.
+      </p>
+      <p>
+        <strong>Buying omega-3.</strong> Two things on the label matter. The
+        oil should be{" "}
+        <InteractiveAnchor text="triglyceride form" definitionKey="suppTgForm" />,
+        and it should carry a third-party purity mark, ideally{" "}
+        <InteractiveAnchor
+          text="IFOS certification"
+          definitionKey="suppIfos"
+        />
+        . Brands that clear both bars: Nordic Naturals Ultimate Omega,
+        Carlson Elite Omega-3 Gems, Sports Research Triple Strength, Thorne
+        Super EPA. They are picks because of the certifications, not the
+        marketing. Cheap drugstore oils usually fail on oxidation, not
+        mercury, and oxidized omega-3 is worse than none.
+      </p>
+      <p>
+        <strong>Taking it.</strong> 1 to 2 g of combined EPA + DHA a day,
+        the range the cognition trials live in. Take it with the largest,
+        fattiest meal of the day, because absorption climbs with the fat in
+        the meal. A capsule on an empty stomach is partly wasted money. If
+        it repeats on you, split the dose across two meals or freeze the
+        capsules.
+      </p>
+      <p>
+        <strong>The ceiling.</strong> More is not better. A meta-analysis
+        of 35 trials and 114,592 people found{" "}
+        <InteractiveAnchor
+          text="an atrial fibrillation ceiling"
+          definitionKey="afCeiling"
+        />
+        . Below 1,500 mg a day, no significant risk in any group. Above it,
+        in people already at high cardiovascular risk, atrial fibrillation
+        odds rose 1.43-fold. Stay in the 1 to 2 g lane unless a cardiologist
+        is steering. On warfarin or another blood thinner, ask first:
+        high-dose fish oil plus anticoagulants has produced subdural
+        hematomas in case reports.
+      </p>
+      <p>
+        <strong>Buying creatine.</strong> Creatine monohydrate, micronized,
+        nothing else in the tub. Every cognitive trial used monohydrate, and
+        the fancier forms, hydrochloride, ethyl ester, buffered, cost more
+        without beating it. Look for{" "}
+        <InteractiveAnchor text="Creapure" definitionKey="suppCreapure" />{" "}
+        sourcing or an NSF Certified for Sport or USP Verified mark. Brands
+        that qualify: Thorne Creatine, Nutricost Creapure monohydrate, NOW
+        Sports, Klean Athlete.
+      </p>
+      <p>
+        <strong>Taking it.</strong> 3 to 5 g a day, any time of day, every
+        day. Timing around workouts is gym folklore; for the brain effect,
+        consistency is the whole game. A{" "}
+        <InteractiveAnchor text="loading phase" definitionKey="suppLoading" />{" "}
+        is optional: it saturates stores in about a week instead of four.
+        With a meal is fine, plain water is fine.
+      </p>
+      <p>
+        <strong>Safety.</strong> The kidney question now has a clean
+        answer: across the meta-analyses, in healthy adults,{" "}
+        <InteractiveAnchor
+          text="kidney function is preserved"
+          definitionKey="suppKidney"
+        />
+        . One practical note: creatine slightly raises serum creatinine,
+        and that shows up on a metabolic panel. It is the metabolite, not
+        damage, but mention you supplement before the blood draw so nobody
+        chases a ghost. Real reasons to pause: existing kidney disease, or
+        being under 18 or pregnant, where the data is thin and a doctor
+        should decide.
+      </p>
+
       <h2 className="text-2xl font-semibold mt-8 mb-4">
         What mostly does not work
       </h2>
@@ -610,6 +691,42 @@ function MemoryAndBrainFogContent() {
           </a>{" "}
           (Journal of Bodywork and Movement Therapies, 2024)
         </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1161/circep.125.014785"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Effects of Omega-3 Fatty Acid Treatment on Risk for Atrial
+            Fibrillation: An Updated Meta-Analysis of 35 Trials
+          </a>{" "}
+          (Circulation: Arrhythmia and Electrophysiology, 2026)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1186/s12882-025-04558-6"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Effect of creatine supplementation on kidney function: a
+            systematic review and meta-analysis
+          </a>{" "}
+          (BMC Nephrology, 2025)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1592/phco.27.1.152"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Subdural hematoma after a fall in an elderly patient taking
+            high-dose omega-3 fatty acids with warfarin
+          </a>{" "}
+          (Pharmacotherapy, 2007)
+        </li>
       </ul>
     </>
   );
@@ -653,9 +770,10 @@ function sourceLink(href: string, label: string) {
 }
 
 /**
- * Definitions for the "simple moves" drill-down, passed to BlogLayout as
- * extraDefinitions so the side rail can render them. Keys are namespaced to
- * avoid colliding with the static definitions.tsx entries.
+ * Definitions for the "simple moves" and "how to take them" drill-downs,
+ * passed to BlogLayout as extraDefinitions so the side rail can render
+ * them. Keys are namespaced to avoid colliding with the static
+ * definitions.tsx entries.
  */
 const memoryMoveDefinitions: Record<string, Definition> = {
   aerobicTiming: {
@@ -846,6 +964,143 @@ const memoryMoveDefinitions: Record<string, Definition> = {
           {sourceLink(
             "https://doi.org/10.1016/j.jbmt.2024.10.058",
             "Journal of Bodywork and Movement Therapies, 2024"
+          )}
+        </p>
+      </div>
+    ),
+  },
+  suppTgForm: {
+    title: "Triglyceride form",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          Fish oil comes in two molecular forms. Triglyceride (TG or rTG) is
+          the form found in actual fish. Ethyl ester (EE) is the cheaper,
+          processed form most budget oils use.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>Why it matters</h4>
+          <p style={cardText}>
+            TG-form oils absorb better, especially when the meal is not
+            fat-heavy. If the label does not say triglyceride, rTG, or
+            re-esterified, assume ethyl ester.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+  suppIfos: {
+    title: "IFOS certification",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          The International Fish Oil Standards program runs independent
+          batch testing for purity, heavy metals, PCBs, dioxins, and
+          oxidation (the TOTOX score). A 5-star IFOS mark means that
+          specific lot passed everything.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>Equivalent marks</h4>
+          <p style={cardText}>
+            NSF Certified for Sport, USP Verified, and Informed Choice.
+            Any third-party mark beats none. Label claims without a
+            certification are marketing.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+  afCeiling: {
+    title: "The atrial fibrillation ceiling",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          The 2026 update meta-analysis: 35 randomized trials, 114,592
+          participants, daily EPA + DHA of at least 500 mg for a year or
+          more, participants 50 and older.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>What it found</h4>
+          <p style={cardText}>
+            Only one group showed significant atrial fibrillation risk:
+            doses above 1,500 mg a day in people already at high
+            cardiovascular risk, odds ratio 1.43, absolute increase 0.8
+            percent. Low-dose groups showed no significant risk anywhere,
+            including in high-risk patients.
+          </p>
+        </div>
+        <p style={cardText}>
+          {sourceLink(
+            "https://doi.org/10.1161/circep.125.014785",
+            "Circulation: Arrhythmia and Electrophysiology, 2026"
+          )}
+        </p>
+      </div>
+    ),
+  },
+  suppCreapure: {
+    title: "Creapure",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          The raw-material gold standard: creatine monohydrate produced by
+          AlzChem in Germany, batch-tested for contaminants with a
+          traceable supply chain. Products using it print the Creapure
+          logo, and it barely costs more than generic monohydrate.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>If it is not on the label</h4>
+          <p style={cardText}>
+            An NSF Certified for Sport or USP Verified mark does the same
+            job: someone outside the manufacturer checked what is in the
+            tub.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+  suppLoading: {
+    title: "Loading phase",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          20 g per day split into four 5 g doses for 5 to 7 days, then 3 to
+          5 g as maintenance. Loading saturates muscle creatine stores in
+          about a week instead of the roughly four weeks that plain 3 g a
+          day takes.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>Worth it?</h4>
+          <p style={cardText}>
+            Entirely optional. Same end state either way. Loading just gets
+            you there faster, with a little extra water weight on the scale.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+  suppKidney: {
+    title: "Kidney function on creatine",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          The 2025 meta-analysis in BMC Nephrology, 21 studies: serum
+          creatinine rose slightly, but glomerular filtration rate, the
+          actual measure of kidney function, did not change. The
+          creatinine bump is metabolic turnover, not organ damage.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>The narrow caveats</h4>
+          <p style={cardText}>
+            Existing kidney disease, and populations the trials
+            underrepresent: adolescents and pregnancy. Those are doctor
+            conversations, not label-reading ones.
+          </p>
+        </div>
+        <p style={cardText}>
+          {sourceLink(
+            "https://doi.org/10.1186/s12882-025-04558-6",
+            "BMC Nephrology, 2025"
           )}
         </p>
       </div>
