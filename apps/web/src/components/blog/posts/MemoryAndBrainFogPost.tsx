@@ -1,4 +1,7 @@
+import React from "react";
 import BlogLayout from "@/components/blog/BlogLayout";
+import InteractiveAnchor from "@/components/blog/InteractiveAnchor";
+import type { Definition } from "@/components/blog/definitions";
 
 /**
  * Hand-written post, served through LEGACY_POSTS in app/blog/[slug]/page.tsx.
@@ -88,6 +91,76 @@ function MemoryAndBrainFogContent() {
         In plain terms, 150 minutes of moderate cardio plus a couple of
         strength sessions. Nothing exotic. Just the thing everyone already
         knows they should do, now with 110 trials behind it.
+      </p>
+
+      <h3 className="text-xl font-semibold mt-6 mb-3">
+        The simple moves, with receipts
+      </h3>
+      <p>
+        A drill-down people ask for: which specific aerobic moves does the
+        research actually back, for anyone, no equipment? Ranked by strength
+        of evidence. The dotted terms open the receipts.
+      </p>
+      <ol className="list-decimal pl-6 my-4 space-y-3">
+        <li>
+          <InteractiveAnchor
+            text="Timing cardio around learning"
+            definitionKey="aerobicTiming"
+          />
+          . The single best-supported memory trick in this whole literature:
+          a 20 to 30 minute moderate session, brisk walking or easy cycling,
+          placed on either side of the thing you are trying to remember. A
+          meta-analysis of 42 experiments put exercise before encoding at d
+          = 0.23, with free recall at 0.40, and exercise right after
+          encoding at d = 0.33, with recognition at 0.62. Exercising during
+          learning does nothing. The walk goes before or after the study
+          session, never in the middle.
+        </li>
+        <li>
+          <InteractiveAnchor
+            text="Movement breaks"
+            definitionKey="movementBreaks"
+          />
+          . Standing up or a short walk every 30 to 60 minutes. Two 2026
+          meta-analyses of randomized crossover trials pooled the sitting
+          literature and found brief interruptions improve memory function
+          at g = 0.37 and executive function at g = 0.13 to 0.18. Free, and
+          the only equipment is a timer.
+        </li>
+        <li>
+          <InteractiveAnchor text="Brisk walking" definitionKey="briskWalking" />{" "}
+          as a program, not a stroll. The famous one-year trial had 120 older
+          adults walk 40 minutes a day, three days a week, and grew their
+          hippocampi by 2 percent with better spatial memory. The pooled
+          picture is humbler, and worth reading in the receipts, but walking
+          is the delivery vehicle that makes the weekly aerobic volume
+          happen, and the volume is where the 110-trial effect lives.
+        </li>
+        <li>
+          <InteractiveAnchor
+            text="Exercise snacks"
+            definitionKey="exerciseSnacks"
+          />
+          . One-minute vigorous bursts, running in place or a few flights of
+          stairs. Acute and sustained executive function gains in the trials
+          that exist, but they are small pilots. Promising, not settled.
+        </li>
+        <li>
+          <InteractiveAnchor text="Dance" definitionKey="danceMoves" />. The
+          fun one. Three months of aerobic dance changed white-matter
+          integrity in the brain&apos;s default mode network in adults with
+          mild cognitive impairment, and a meta-analysis in Parkinson&apos;s
+          found
+          dance beats no exercise for global cognition. Unisex, social, and
+          the effect nobody meta-analyzes is the one that matters most: you
+          actually keep doing it.
+        </li>
+      </ol>
+      <p>
+        None of these trials carve the prescription by sex. The effects hold
+        for men and women, and if anything the largest creatine-style
+        modifiers show up in subgroup analyses, not in the aerobic
+        literature. The moves are for everyone.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">
@@ -415,10 +488,370 @@ function MemoryAndBrainFogContent() {
           </a>{" "}
           (Stress and Health, 2026)
         </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.3389/fcogn.2024.1367569"
+            target="_blank"
+            rel="noreferrer"
+          >
+            The effects of acute exercise on long-term episodic memory: a
+            systematic review and meta-analysis
+          </a>{" "}
+          (Frontiers in Cognition, 2024)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1073/pnas.1015950108"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Exercise training increases size of hippocampus and improves
+            memory
+          </a>{" "}
+          (PNAS, 2011)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1007/s11357-023-00971-7"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Aerobic exercise training effects on hippocampal volume in
+            healthy older individuals: a meta-analysis of RCTs
+          </a>{" "}
+          (GeroScience, 2024)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.3389/fpsyg.2026.1720121"
+            target="_blank"
+            rel="noreferrer"
+          >
+            The impact of walking training on cognitive function in older
+            adults: a meta-analysis
+          </a>{" "}
+          (Frontiers in Psychology, 2026)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1186/s12966-026-01953-6"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Acute cognitive effects of interruptions to prolonged sitting
+            with brief standing or physical activity
+          </a>{" "}
+          (International Journal of Behavioral Nutrition and Physical
+          Activity, 2026)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1186/s12966-026-01942-9"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Effect of breaking up prolonged sitting with physical activity on
+            executive function: a three-level meta-analysis
+          </a>{" "}
+          (International Journal of Behavioral Nutrition and Physical
+          Activity, 2026)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.3390/sports13060186"
+            target="_blank"
+            rel="noreferrer"
+          >
+            The Influence of Workplace-Integrated Exercise Snacks on
+            Cognitive Performance in Sedentary Middle-Aged Adults
+          </a>{" "}
+          (Sports, 2025)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1123/japa.2021-0125"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Effects of a Brief Stair-Climbing Intervention on Cognitive
+            Functioning and Mood States in Older Adults
+          </a>{" "}
+          (Journal of Aging and Physical Activity, 2022)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.21037/qims-24-1212"
+            target="_blank"
+            rel="noreferrer"
+          >
+            White matter integrity of default mode network after a 3-month
+            aerobic dance program in patients with mild cognitive impairment
+          </a>{" "}
+          (Quantitative Imaging in Medicine and Surgery, 2025)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1016/j.jbmt.2024.10.058"
+            target="_blank"
+            rel="noreferrer"
+          >
+            The importance of dance for the cognitive function of people
+            with Parkinson&apos;s: A systematic review with meta-analysis
+          </a>{" "}
+          (Journal of Bodywork and Movement Therapies, 2024)
+        </li>
       </ul>
     </>
   );
 }
+
+const card = {
+  background: "var(--def-gray-bg)",
+  border: "1px solid var(--def-gray-border)",
+  padding: "0.75rem 1rem",
+  margin: "0.25rem 0",
+};
+
+const cardText: React.CSSProperties = {
+  fontSize: "0.9rem",
+  lineHeight: 1.7,
+  color: "var(--muted)",
+  margin: 0,
+};
+
+const cardLabel: React.CSSProperties = {
+  fontFamily: "var(--font-mono)",
+  fontSize: "0.68rem",
+  fontWeight: 700,
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  color: "var(--fg)",
+  marginBottom: "0.4em",
+};
+
+function sourceLink(href: string, label: string) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={{ color: "var(--def-blue-text)", textDecoration: "underline" }}
+    >
+      {label}
+    </a>
+  );
+}
+
+/**
+ * Definitions for the "simple moves" drill-down, passed to BlogLayout as
+ * extraDefinitions so the side rail can render them. Keys are namespaced to
+ * avoid colliding with the static definitions.tsx entries.
+ */
+const memoryMoveDefinitions: Record<string, Definition> = {
+  aerobicTiming: {
+    title: "Timing cardio around learning",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          A meta-analysis of 42 experiments on acute exercise and episodic
+          memory. Timing, not duration, is the trick.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>Before encoding</h4>
+          <p style={cardText}>
+            d = 0.23 overall, and free recall at d = 0.40. A 20 to 30 minute
+            moderate walk or bike ride before a study session primes the
+            hippocampus for what comes next.
+          </p>
+        </div>
+        <div style={card}>
+          <h4 style={cardLabel}>Right after encoding</h4>
+          <p style={cardText}>
+            d = 0.33 overall, with recognition at d = 0.62. Exercising
+            shortly after learning helps the memory settle. During learning,
+            d = -0.04, nothing. Walk before or after, not in the middle.
+          </p>
+        </div>
+        <p style={cardText}>
+          {sourceLink(
+            "https://doi.org/10.3389/fcogn.2024.1367569",
+            "Frontiers in Cognition, 2024"
+          )}
+        </p>
+      </div>
+    ),
+  },
+  movementBreaks: {
+    title: "Movement breaks",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          Breaking up prolonged sitting with brief standing or light movement.
+          Two three-level meta-analyses of randomized crossover trials,
+          published in 2026, pooled the field.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>Memory</h4>
+          <p style={cardText}>
+            21 trials, 433 participants: sitting interruptions improved memory
+            function at Hedges&apos; g = 0.37. For a free intervention, that
+            is a serious effect size.
+          </p>
+        </div>
+        <div style={card}>
+          <h4 style={cardLabel}>Executive function</h4>
+          <p style={cardText}>
+            22 trials, 418 participants: g = 0.13 overall, working memory g =
+            0.17. GRADE certainty is low, small samples, but the cost is
+            also zero.
+          </p>
+        </div>
+        <p style={cardText}>
+          Protocol: stand or walk 2 to 3 minutes every 30 to 60 minutes of
+          sitting.{" "}
+          {sourceLink(
+            "https://doi.org/10.1186/s12966-026-01953-6",
+            "IJBNPA, 2026"
+          )}{" "}
+          and{" "}
+          {sourceLink(
+            "https://doi.org/10.1186/s12966-026-01942-9",
+            "IJBNPA, 2026"
+          )}
+        </p>
+      </div>
+    ),
+  },
+  briskWalking: {
+    title: "Brisk walking",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          The classic trial: 120 older adults, one year of moderate walking,
+          40 minutes a day, three days a week. The walking group&apos;s
+          anterior hippocampus grew about 2 percent, reversing one to two
+          years of age-related shrinkage, with better spatial memory.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>The honest counterweights</h4>
+          <p style={cardText}>
+            Pooled across 8 trials, aerobic training did not significantly
+            move hippocampal volume in healthy older adults (SMD 0.10, p =
+            0.073). A walking-only meta-analysis of 8 RCTs, 772 older
+            adults, found no significant cognitive gains on its own (memory
+            SMD 0.04). Walking works as the delivery vehicle for weekly
+            aerobic volume, which is where the 110-trial effect lives. A
+            stroll is not a program.
+          </p>
+        </div>
+        <p style={cardText}>
+          {sourceLink(
+            "https://doi.org/10.1073/pnas.1015950108",
+            "PNAS, 2011"
+          )}{" "}
+          {sourceLink(
+            "https://doi.org/10.1007/s11357-023-00971-7",
+            "GeroScience, 2024"
+          )}{" "}
+          {sourceLink(
+            "https://doi.org/10.3389/fpsyg.2026.1720121",
+            "Frontiers in Psychology, 2026"
+          )}
+        </p>
+      </div>
+    ),
+  },
+  exerciseSnacks: {
+    title: "Exercise snacks",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          Very short vigorous bursts, running in place, a few flights of
+          stairs, chair stands. The idea: get the intensity without the time.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>What the trials show</h4>
+          <p style={cardText}>
+            Twenty-five sedentary office workers did three 1-minute bouts of
+            running in place daily for four weeks: significant acute gains
+            on Trail Making and Stroop after a single bout, and sustained
+            gains after four weeks. A stair-interval pilot in 28 older adults
+            showed marginal cognitive gains, but left them more tired.
+          </p>
+        </div>
+        <div style={card}>
+          <h4 style={cardLabel}>The catch</h4>
+          <p style={cardText}>
+            These are pilots, n = 25 and n = 28. Promising, directionally
+            consistent with the sitting-break metas, but not settled
+            evidence. Treat them as the minimum viable dose for busy days,
+            not a replacement for the 150 minutes.
+          </p>
+        </div>
+        <p style={cardText}>
+          {sourceLink(
+            "https://doi.org/10.3390/sports13060186",
+            "Sports, 2025"
+          )}{" "}
+          {sourceLink(
+            "https://doi.org/10.1123/japa.2021-0125",
+            "Journal of Aging and Physical Activity, 2022"
+          )}
+        </p>
+      </div>
+    ),
+  },
+  danceMoves: {
+    title: "Dance",
+    content: (
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <p style={cardText}>
+          Dance is aerobic exercise plus choreography, and the choreography
+          is the point: remembering sequences is a built-in memory workout.
+        </p>
+        <div style={card}>
+          <h4 style={cardLabel}>What the trials show</h4>
+          <p style={cardText}>
+            A three-month aerobic dance program improved white-matter
+            integrity in the default mode network of adults with mild
+            cognitive impairment, in a randomized trial&apos;s imaging
+            analysis. A meta-analysis in Parkinson&apos;s disease found dance
+            superior to no exercise for global cognition, with some
+            comparisons favoring it over repetitive exercise.
+          </p>
+        </div>
+        <div style={card}>
+          <h4 style={cardLabel}>Why it earns the slot</h4>
+          <p style={cardText}>
+            Unisex, social, and adherence is the real advantage. The best
+            program on paper loses to the one you actually keep doing, and
+            people keep dancing.
+          </p>
+        </div>
+        <p style={cardText}>
+          {sourceLink(
+            "https://doi.org/10.21037/qims-24-1212",
+            "Quantitative Imaging in Medicine and Surgery, 2025"
+          )}{" "}
+          {sourceLink(
+            "https://doi.org/10.1016/j.jbmt.2024.10.058",
+            "Journal of Bodywork and Movement Therapies, 2024"
+          )}
+        </p>
+      </div>
+    ),
+  },
+};
 
 export default function MemoryAndBrainFogPost() {
   return (
@@ -426,6 +859,7 @@ export default function MemoryAndBrainFogPost() {
       title="Memory and Brain Fog: What the Evidence Says"
       date="November 1, 2026"
       category="Living"
+      extraDefinitions={memoryMoveDefinitions}
     >
       <MemoryAndBrainFogContent />
     </BlogLayout>
