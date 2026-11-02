@@ -20,13 +20,21 @@ function MemoryAndBrainFogContent() {
         Brain fog is an attention problem first
       </h2>
       <p>
-        The word fog sounds vague, but the recent research is not. A study of
-        24,095 people in <em>Brain Communications</em> dissected long COVID
-        brain fog with structural equation modeling and found that the memory
-        complaints ride on top of a foundational breakdown in sustained
-        attention and on-task fatigue. The memory circuits are mostly fine.
-        The gatekeeper deciding what gets in is not. Fix attention and
-        energy, and most of what people call memory problems go with it.
+        The word fog sounds vague, but the recent research is not.{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1093/braincomms/fcag361"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A study of 24,095 people in <em>Brain Communications</em>
+        </a>{" "}
+        dissected long COVID brain fog with structural equation modeling and
+        found that the memory complaints ride on top of a foundational
+        breakdown in sustained attention and on-task fatigue. The memory
+        circuits are mostly fine. The gatekeeper deciding what gets in is not.
+        Fix attention and energy, and most of what people call memory problems
+        go with it.
       </p>
       <p>
         The known drivers are consistent across papers: sleep loss,
@@ -41,32 +49,73 @@ function MemoryAndBrainFogContent() {
         Exercise is the strongest lever in the literature
       </h2>
       <p>
-        A 2026 network meta-analysis in <em>Maturitas</em> pooled 110
-        randomized controlled trials with 8,130 participants and broke the
-        effects down by type. Aerobic work was best for global cognition with
-        a large effect size of 1.11. Mind-body work, tai chi and yoga, topped
-        executive function, processing speed, and attention. High intensity
-        interval training ranked highest for memory specifically, at 0.58. A
-        separate analysis of sedentary adults found the same ordering and,
-        importantly, no minimum threshold. Even low volume helps.
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1016/j.maturitas.2026.109109"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A 2026 network meta-analysis in <em>Maturitas</em>
+        </a>{" "}
+        pooled 110 randomized controlled trials with 8,130 participants and
+        broke the effects down by type. Aerobic work was best for global
+        cognition with a large effect size of 1.11. Mind-body work, tai chi
+        and yoga, topped executive function, processing speed, and attention.
+        High intensity interval training ranked highest for memory
+        specifically, at 0.58.{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.3389/fpubh.2026.1794345"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A separate analysis of sedentary adults
+        </a>{" "}
+        found the same ordering and, importantly, no minimum threshold. Even
+        low volume helps.
       </p>
       <p>
-        The dose analysis lands near the standard guideline of 600 to 1,200
-        MET-minutes a week. In plain terms, 150 minutes of moderate cardio
-        plus a couple of strength sessions. Nothing exotic. Just the thing
-        everyone already knows they should do, now with 110 trials behind it.
+        The{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1186/s12877-026-07746-7"
+          target="_blank"
+          rel="noreferrer"
+        >
+          dose analysis
+        </a>{" "}
+        lands near the standard guideline of 600 to 1,200 MET-minutes a week.
+        In plain terms, 150 minutes of moderate cardio plus a couple of
+        strength sessions. Nothing exotic. Just the thing everyone already
+        knows they should do, now with 110 trials behind it.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">
         Sleep is where memory consolidation happens
       </h2>
       <p>
-        A 2025 Bayesian meta-analysis confirmed the mechanism: the timing
-        between slow oscillations and sleep spindles during deep sleep
-        predicts how well new memories stick. You can optimize every
-        supplement on the market and it will not compensate for a 1am
-        bedtime. If insomnia is the problem, cognitive behavioral therapy
-        works, and the digital versions now have twenty years of trials
+        <a
+          className="link-hover"
+          href="https://doi.org/10.7554/elife.101992"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A 2025 Bayesian meta-analysis
+        </a>{" "}
+        confirmed the mechanism: the timing between slow oscillations and
+        sleep spindles during deep sleep predicts how well new memories
+        stick. You can optimize every supplement on the market and it will
+        not compensate for a 1am bedtime. If insomnia is the problem,
+        cognitive behavioral therapy works, and the digital versions now
+        have{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1093/sleep/zsag264"
+          target="_blank"
+          rel="noreferrer"
+        >
+          twenty years of trials
+        </a>{" "}
         behind them, roughly matching in-person outcomes.
       </p>
 
@@ -74,20 +123,35 @@ function MemoryAndBrainFogContent() {
         Two supplements earned their spot
       </h2>
       <p>
-        <strong>Omega-3.</strong> A 2025 dose-response meta-analysis of 58
-        randomized trials found that each 2,000 mg per day increment improved
-        attention with an effect size of 0.98 and primary memory at 0.87. The
-        curves are nonlinear, so past a point more does nothing. The certainty
-        ratings are low to moderate. Promising, not magic.
+        <strong>Omega-3.</strong>{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1038/s41598-025-16129-8"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A 2025 dose-response meta-analysis of 58 randomized trials
+        </a>{" "}
+        found that each 2,000 mg per day increment improved attention with an
+        effect size of 0.98 and primary memory at 0.87. The curves are
+        nonlinear, so past a point more does nothing. The certainty ratings
+        are low to moderate. Promising, not magic.
       </p>
       <p>
-        <strong>Creatine.</strong> The quiet overperformer. A 2024
-        meta-analysis of 16 trials found creatine monohydrate improved memory
-        at 0.31 and sped up both attention and processing speed, with the
-        largest effects in stressed and sleep-deprived adults aged 18 to 60,
-        and in women. Moderate certainty on the memory number. Cheap,
-        studied for decades, and strongest exactly in the states that
-        produce fog in the first place.
+        <strong>Creatine.</strong> The quiet overperformer.{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.3389/fnut.2024.1424972"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A 2024 meta-analysis of 16 trials
+        </a>{" "}
+        found creatine monohydrate improved memory at 0.31 and sped up both
+        attention and processing speed, with the largest effects in stressed
+        and sleep-deprived adults aged 18 to 60, and in women. Moderate
+        certainty on the memory number. Cheap, studied for decades, and
+        strongest exactly in the states that produce fog in the first place.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">
@@ -96,11 +160,27 @@ function MemoryAndBrainFogContent() {
       <p>
         Brain training apps deserve their asterisk. Computerized working
         memory training does improve the trained tasks, with an effect size
-        of 0.50 in the 2026 meta-analysis, but the transfer barely survives
-        the journey. A separate meta-analysis found training gains leak into
-        similar tasks at 0.18 and essentially vanish at distance. You get
-        better at the game. The same hours in the gym improve memory through
-        half a dozen domains instead.
+        of 0.50 in{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1038/s41746-026-02478-9"
+          target="_blank"
+          rel="noreferrer"
+        >
+          the 2026 meta-analysis
+        </a>
+        , but the transfer barely survives the journey.{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.3758/s13423-026-02994-5"
+          target="_blank"
+          rel="noreferrer"
+        >
+          A separate meta-analysis
+        </a>{" "}
+        found training gains leak into similar tasks at 0.18 and essentially
+        vanish at distance. You get better at the game. The same hours in the
+        gym improve memory through half a dozen domains instead.
       </p>
       <p>
         And the nootropic shelf, mushrooms, Racetams, mystery blends, has
@@ -110,13 +190,44 @@ function MemoryAndBrainFogContent() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">The small stuff</h2>
       <p>
-        A handful of unglamorous levers keep showing up. Dehydration impairs
-        every cognitive domain once body mass loss exceeds 2 percent, which
-        describes most afternoons. Alcohol is dose-linked to cognitive
-        decline with no safe floor. Probiotics and fiber moved global
-        cognition in a 2026 meta-analysis, low risk, modest evidence.
-        Mindfulness practice tracks with lower perceived stress at a
-        correlation of 0.40 across 24,000 people, and stress directly
+        A handful of unglamorous levers keep showing up.{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1249/mss.0000000000001682"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Dehydration impairs every cognitive domain
+        </a>{" "}
+        once body mass loss exceeds 2 percent, which describes most
+        afternoons.{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1016/j.arr.2024.102419"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Alcohol is dose-linked to cognitive decline
+        </a>{" "}
+        with no safe floor. Probiotics and fiber moved global cognition in{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1093/ageing/afag287"
+          target="_blank"
+          rel="noreferrer"
+        >
+          a 2026 meta-analysis
+        </a>
+        , low risk, modest evidence. Mindfulness practice{" "}
+        <a
+          className="link-hover"
+          href="https://doi.org/10.1002/smi.70209"
+          target="_blank"
+          rel="noreferrer"
+        >
+          tracks with lower perceived stress
+        </a>{" "}
+        at a correlation of 0.40 across 24,000 people, and stress directly
         impairs the hippocampus, so anything that lowers it is a memory
         intervention in disguise.
       </p>
@@ -179,6 +290,42 @@ function MemoryAndBrainFogContent() {
         <li>
           <a
             className="link-hover"
+            href="https://doi.org/10.1186/s12877-026-07746-7"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Optimal type and dose of exercise for improving executive
+            functions in older adults
+          </a>{" "}
+          (BMC Geriatrics, 2026)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.7554/elife.101992"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Bayesian meta-analysis of slow oscillation-spindle coupling in
+            sleep-dependent memory consolidation
+          </a>{" "}
+          (eLife, 2025)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1093/sleep/zsag264"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Sleep Healthy Using the Internet: twenty years of research on a
+            digital CBT-I program
+          </a>{" "}
+          (Sleep, 2026)
+        </li>
+        <li>
+          <a
+            className="link-hover"
             href="https://doi.org/10.1038/s41598-025-16129-8"
             target="_blank"
             rel="noreferrer"
@@ -232,6 +379,18 @@ function MemoryAndBrainFogContent() {
             Dehydration Impairs Cognitive Performance: A Meta-analysis
           </a>{" "}
           (Medicine &amp; Science in Sports &amp; Exercise, 2018)
+        </li>
+        <li>
+          <a
+            className="link-hover"
+            href="https://doi.org/10.1016/j.arr.2024.102419"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Alcohol consumption in relation to cognitive dysfunction and
+            dementia: A dose-response meta-analysis
+          </a>{" "}
+          (Ageing Research Reviews, 2024)
         </li>
         <li>
           <a
