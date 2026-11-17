@@ -47,7 +47,11 @@ export async function register() {
         new RedactingSpanExporter(new OTLPHttpProtoTraceExporter({ url: `${endpoint}/v1/traces`, headers })),
       ),
     ],
-    logRecordProcessors,
+    // Only when there is one: @vercel/otel sets up a LoggerProvider for any array,
+    // even an empty one, and on the edge runtime (middleware) that provider throws
+    // "Cannot read properties of undefined (reading 'attributeCountLimit')",
+    // which failed every /admin request with MIDDLEWARE_INVOCATION_FAILED.
+    ...(logRecordProcessors.length > 0 ? { logRecordProcessors } : {}),
   });
 }
 
