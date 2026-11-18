@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Bricolage_Grotesque, Inter, Literata } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { safeJsonLd } from "@mtosity/lib/jsonld";
 import { MotionProvider } from "@/components/MotionProvider";
 
@@ -130,6 +131,7 @@ export default function RootLayout({
       <body className="antialiased" id="root">
         <MotionProvider>{children}</MotionProvider>
         <Analytics />
+        <SpeedInsights />
         {/* Legacy Gatsby-era cleanup: unregister old service workers + caches. */}
         <Script src="/sw.js" strategy="afterInteractive" />
         <Script src="/gatsby.js" strategy="afterInteractive" />
