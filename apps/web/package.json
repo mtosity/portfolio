@@ -55,7 +55,6 @@
   "devDependencies": {
     "@mtosity/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.0",
-    "@types/animejs": "^3.1.12",
     "@types/node": "^24.0.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

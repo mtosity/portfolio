@@ -178,9 +178,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.0
         version: 4.3.5
-      '@types/animejs':
-        specifier: ^3.1.12
-        version: 3.1.13
       '@types/node':
         specifier: ^24.0.0
         version: 24.19.2
@@ -1350,9 +1347,6 @@ packages:
     resolution: {integrity: sha512-xOkEjF3ws/b/YNlc+bvJHMYBn+vL+QbEISZFVi0qS+ImmhA1X3/gmNmBrjjIG3dg6aeN+n6gQitzSkXQ286qJQ==}
     cpu: [arm64]
     os: [win32]
-
-  '@types/animejs@3.1.13':
-    resolution: {integrity: sha512-yWg9l1z7CAv/TKpty4/vupEh24jDGUZXv4r26StRkpUPQm04ztJaftgpto8vwdFs8SiTq6XfaPKCSI+wjzNMvQ==}
 
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
@@ -3952,8 +3946,6 @@ snapshots:
 
   '@turbo/windows-arm64@2.11.10':
     optional: true
-
-  '@types/animejs@3.1.13': {}
 
   '@types/esrecurse@4.3.1': {}
 
