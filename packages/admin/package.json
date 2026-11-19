@@ -21,12 +21,12 @@
   "dependencies": {
     "@mtosity/design-system": "workspace:*",
     "@mtosity/lib": "workspace:*",
-    "@tiptap/extension-image": "^3.30.5",
-    "@tiptap/extension-link": "^3.30.5",
-    "@tiptap/pm": "^3.30.5",
-    "@tiptap/react": "^3.30.5",
-    "@tiptap/starter-kit": "^3.30.5",
-    "@vercel/blob": "^2.0.0",
+    "@tiptap/extension-image": "^3.34.0",
+    "@tiptap/extension-link": "^3.34.0",
+    "@tiptap/pm": "^3.34.0",
+    "@tiptap/react": "^3.34.0",
+    "@tiptap/starter-kit": "^3.34.0",
+    "@vercel/blob": "^2.9.0",
     "next-auth": "5.0.0-beta.32"
   },
   "peerDependencies": {

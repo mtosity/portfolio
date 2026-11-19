@@ -17,10 +17,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.1.0",
-    "@upstash/ratelimit": "^2.0.8",
-    "@vercel/blob": "^2.0.0",
-    "@upstash/redis": "^1.37.0"
+    "@neondatabase/serverless": "^1.2.1",
+    "@upstash/ratelimit": "^2.2.1",
+    "@vercel/blob": "^2.9.0",
+    "@upstash/redis": "^1.41.0"
   },
   "peerDependencies": {
     "next": ">=16"
