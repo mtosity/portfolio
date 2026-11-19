@@ -22,6 +22,14 @@ updates:
         versions: [">=1.10.0"]
       - dependency-name: "@opentelemetry/*"
         versions: [">=3.0.0", ">=0.300.0 <1.0.0"]
+      # TypeScript 7 ships only the native compiler, without the JS API that
+      # typescript-eslint / eslint-config-next load, so `eslint` crashes.
+      # Drop once typescript-eslint supports TS 7.
+      - dependency-name: "typescript"
+        versions: [">=7.0.0"]
+      # Keep Node types on the runtime's major (Vercel: Node 24.x, see engines).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     commit-message:
       prefix: "chore(deps)"
     labels:
