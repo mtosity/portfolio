@@ -43,7 +43,7 @@
     "animejs": "^4.0.0",
     "exif-reader": "^2.0.2",
     "framer-motion": "catalog:",
-    "lottie-react": "^2.4.1",
+    "lottie-react": "^3.1.2",
     "next": "catalog:",
     "prismjs": "^1.30.0",
     "react": "catalog:",
