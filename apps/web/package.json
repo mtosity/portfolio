@@ -30,7 +30,7 @@
     "@opentelemetry/instrumentation": "0.223.2",
     "@opentelemetry/resources": "2.12.1",
     "@opentelemetry/sdk-logs": "0.223.2",
-    "@opentelemetry/sdk-metrics": "2.12.1",
+    "@opentelemetry/sdk-metrics": "3.1.1",
     "@opentelemetry/sdk-trace-base": "2.12.1",
     "@types/prismjs": "^1.26.5",
     "@upstash/ratelimit": "^2.2.1",
